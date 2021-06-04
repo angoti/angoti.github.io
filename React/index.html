@@ -1,0 +1,1101 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>React - Conceitos</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="React - Conceitos"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="10">
+        <p class="image-container"><img style="width: 642.52px" src="img\9cc8bffdd05c4440.png"></p>
+<p><strong>Last Updated:</strong> 2021-03-31</p>
+<p>(<a href="https://pt-br.reactjs.org/docs/hello-world.html" target="_blank">Referência</a>)</p>
+<p>O React é uma biblioteca JavaScript. Não é Framework, embora muitos se referem a ele assim. É importante ter um conhecimento básico da linguagem JavaScript.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configuração inicial" duration="10">
+        <p> Você tem basicamente dois caminhos para construir suas aplicações React:</p>
+<h2 is-upgraded>Desenvolvimento online</h2>
+<p>Usa as bibliotecas online e um editor baseado em navegador. Vamos usar aqui o codepen.io com este <a href="https://codepen.io/angoti/pen/vYgggOj" target="_blank">código inicial</a> </p>
+<p class="image-container"><img style="width: 642.52px" src="img\c343ddaf528a036a.png"></p>
+<p>Veja as configurações necessárias para usar React no codepen.io</p>
+<ol type="1" start="1">
+<li>Clique me Settings</li>
+</ol>
+<p class="image-container"><img style="width: 642.52px" src="img\90942c060abd92b7.png"></p>
+<ol type="1" start="2">
+<li>Selecione JS e Babel com JavaScript Preprocessor</li>
+</ol>
+<p class="image-container"><img style="width: 642.52px" src="img\51d49d578e71c980.png"></p>
+<ol type="1" start="3">
+<li>Na seção <em>Add External Scripts/Pens</em> adicione os seguintes links para as bibliotecas</li>
+</ol>
+<p><a href="https://unpkg.com/react/umd/react.development.js" target="_blank">https://unpkg.com/react/umd/react.development.js</a></p>
+<p><a href="https://unpkg.com/react-dom/umd/react-dom.development.js" target="_blank">https://unpkg.com/react-dom/umd/react-dom.development.js</a></p>
+<p class="image-container"><img style="width: 642.52px" src="img\e7d2e609abff351.png"></p>
+<h2 is-upgraded>Desenvolvimento local</h2>
+<p>Vamos usar o VSCODE, mas é possível usar qualquer ide moderna tal como: Eclipse, Intellij IDEA, etc.</p>
+<ol type="1" start="1">
+<li>Instale o <a href="https://nodejs.org/pt-br/" target="_blank">Node.js</a></li>
+<li>Vamos criar uma aplicação SPA (single-page application) usando npx. Abra o seu cmd (Windows 10) e navegue para a pasta onde será criado o projeto e digite</li>
+</ol>
+<pre><code>npx create-react-app aula
+</code></pre>
+<p>Depois de algum tempo você verá:</p>
+<p class="image-container"><img style="width: 642.52px" src="img\75941b3586b40581.png"></p>
+<ol type="1" start="3">
+<li>Depois digite </li>
+</ol>
+<pre><code>c:\React&gt;cd aula
+c:\React&gt;code .</code></pre>
+<p>Para abrir o vscode. Você deverá ver o seguinte</p>
+<p class="image-container"><img style="width: 267.00px" src="img\84c12fa620045867.png"></p>
+<ol type="1" start="4">
+<li>Vamos testar o app. Use o atalho do teclado <img style="width: 71.00px" src="img\338e3d63e7b6322c.png"> para abrir o terminal. No terminal digite o seguinte comando:</li>
+</ol>
+<p class="image-container"><img style="width: 496.00px" src="img\ad53a9e2f9d9c605.png"></p>
+<p>O Chrome irá abrir uma página usando a URL <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a> e a app estará rodando assim:</p>
+<p class="image-container"><img style="width: 642.52px" src="img\6703f35aceddaa3.png"></p>
+<ol type="1" start="5">
+<li>Instale o plugin do Chrome <a href="https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi" target="_blank">React Developer Tools</a> para visualizar os componentes React na página. Pressione F12.</li>
+</ol>
+<p class="image-container"><img style="width: 642.52px" src="img\8327f35986b8e7e5.png"></p>
+<p>A guia <img style="width: 96.75px" src="img\8cac0b75de4504f9.png"> mostra os componentes raiz do React que foram renderizados na página, bem como os subcomponentes que eles acabaram renderizando. Ao selecionar um dos componentes na árvore, você pode inspecionar e editar seus adereços e estado atuais no painel à direita. Na localização atual, você pode inspecionar o componente selecionado, o componente que o criou, o componente que o criou e assim por diante.</p>
+<ol type="1" start="6">
+<li>No vscode instale as extensões Babel Script (syntax highlighting) e VS Code ES7 React/Redux/React-Native/JS snippets (JavaScript and React/Redux snippets in ES7+ with Babel plugin features for VS Code).</li>
+</ol>
+<p class="image-container"><img style="width: 494.00px" src="img\47abf9b5a3d42ea9.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Alô Mundo" duration="10">
+        <p>Abra outro terminal no vscode e delete todos os arquivos da pasta src.</p>
+<pre><code>c) 2020 Microsoft Corporation. Todos os direitos reservados.
+
+C:\React&gt;cd aula
+
+C:\React\aula&gt;cd src
+
+C:\React\aula\src&gt;del *
+C:\React\aula\src\*, Tem certeza (S/N)? s
+
+C:\React\aula\src&gt;</code></pre>
+<p>Crie um arquivo novo chamado index.js na pasta src e insira o código:</p>
+<pre><code>import ReactDOM from &#39;react-dom&#39;
+
+ReactDOM.render(
+    &lt;h1&gt;Alô mundo!&lt;/h1&gt;,
+    document.getElementById(&#39;root&#39;)
+  );</code></pre>
+<p>Você verá no browser</p>
+<p class="image-container"><img style="width: 299.00px" src="img\c5db8f7259ed0ee7.png"></p>
+<p>Vamos aprender agora os fundamentos das aplicações React: elementos e componentes. Mas antes, como React é uma biblioteca JavaScript, vamos fazer uma breve revisão da linguagem JavaScript.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Breve introdução ao JavaScript" duration="20">
+        <p>(<a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/A_re-introduction_to_JavaScript" target="_blank">referência</a>)</p>
+<ul>
+<li>Criada em 1995 por Brendan Eich, um engenheiro da Netscape</li>
+<li>A Netscape apresentou a linguagem a Ecma International, uma organização européia de normalização, o que resultou na primeira edição do padrão ECMAScript em 1997</li>
+<li>ECMAScript Edição 3 foi lançado em 1999 e manteve-se praticamente estável desde então.</li>
+</ul>
+<p>A principal característica da JavaScript é que as funções são objetos, permitindo às funções a capacidade para armazenar código executável e serem passadas como parâmetro para qualquer outro objeto.</p>
+<p>Vamos usar o <a href="https://codepen.io/angoti/pen/LYxxOJr?editors=0011" target="_blank">codepen.io</a> para executar nossos exemplos.</p>
+<p class="image-container"><img style="width: 642.52px" src="img\91cec5619029eb9a.png"></p>
+<h2 is-upgraded>Strings</h2>
+<p>São objetos e representam sequências de caracteres. Exemplos:</p>
+<pre><code>console.log(&#34;alo2&#34;.length);
+console.log(&#34;alo2&#34;.indexOf(&#39;l&#39;));
+console.log(&#34;alo2&#34;.toUpperCase());</code></pre>
+<p>Estes exemplos mostram como acessar as propriedades e funções de objetos do tipo String. Observe o uso do <code>.</code> assim como em Java.</p>
+<h2 is-upgraded>Variáveis</h2>
+<p>Podemos usar as palavras reservadas <code>var, let e const</code> para declarar variáveis. Se uma variável é definida usando <code>var</code> dentro de uma estrutura (por exemplo dentro de uma estrutura de controle if), ela será visível por toda a função fora da estrutura. A definição de variáveis usando o let foi introduzida no ECMAScript 6. O <code>let</code> permite escopo de bloco, ou seja, é possível definir uma variável em um bloco if, e esta variável ter escopo limitado ao bloco if- por exemplo. <code>const</code> funciona como <code>let</code> porém seu valor não pode ser alterado. </p>
+<h2 is-upgraded>Estruturas de Controle</h2>
+<pre><code>var name = &#34;kittens&#34;;
+if (name == &#34;puppies&#34;) {
+  name += &#34;!&#34;;
+} else if (name == &#34;kittens&#34;) {
+  name += &#34;!!&#34;;
+} else {
+  name = &#34;!&#34; + name;
+}
+name == &#34;kittens!!&#34;
+
+while (true) {
+  // an infinite loop!
+}
+
+
+var input;
+do {
+  input = get_input();
+} while (inputIsNotValid(input))
+
+for (var i = 0; i &lt; 5; i++) {
+  // Will execute 5 times
+}
+var allowed = (age &gt; 18) ? &#34;yes&#34; : &#34;no&#34;;
+switch(action) {
+    case &#39;draw&#39;:
+        drawit();
+        break;
+    case &#39;eat&#39;:
+        eatit();
+        break;
+    default:
+        donothing();
+}</code></pre>
+<h2 is-upgraded>Objetos</h2>
+<p>Objetos JavaScript são simplesmente <strong>coleções de pares nome-valor</strong>. Como tal, eles são similares à:</p>
+<ul>
+<li>Dicionários em Python</li>
+<li>Hashes em Perl e Ruby</li>
+<li>Hash tables em C e C++</li>
+<li>HashMaps em Java</li>
+<li>Vetores associativos em PHP</li>
+</ul>
+<p>As propriedades dos objetos são pares nome-valor. A parte &#34;nome&#34; é uma string JavaScript, enquanto a parte &#34;valor&#34; pode ser qualquer valor JavaScript — incluindo mais objetos. Isso permite que você construa estruturas de dados de qualquer complexidade.</p>
+<h3 is-upgraded>Criação de objetos</h3>
+<p>Podemos criar objetos de duas maneiras:</p>
+<p><code>var obj = new Object();</code></p>
+<p><code>var obj = {};</code></p>
+<p>As duas maneiras são equivalentes; a segunda forma é chamada de <strong>sintaxe de objeto literal</strong> e é mais conveniente. Essa sintaxe é também o coração do formato <strong>JSON</strong>.</p>
+<p>Exemplos:</p>
+<pre><code>var pessoa = {};
+
+//usando a notação .
+pessoa.nome = &#34;Edson&#34;;
+console.log(pessoa.nome);
+
+//usando notação de mapa associativo
+pessoa[&#34;sobrenome&#34;] = &#34;Angoti&#34;;
+console.log(pessoa[&#34;sobrenome&#34;]);</code></pre>
+<p>A sintaxe de objeto literal pode ser usada para inicializar completamente um objeto:</p>
+<pre><code>var conta = {
+    numero: 123,
+    agencia: &#34;centro&#34;,
+    detalhes: {
+        protegida: true,
+        remunerada: false
+    }
+}
+
+console.log(conta.numero)
+console.log(conta[&#34;detalhes&#34;][&#34;protegida&#34;])</code></pre>
+<h3 is-upgraded>Vetores</h3>
+<p>São objetos em JavaScript. Eles funcionam de forma muito similar à objetos regulares (propriedades numéricas podem naturalmente ser acessadas somente usando a sintaxe [], colchetes ).</p>
+<p>Exemplos:</p>
+<pre><code>var a = new Array();
+ a[0] = &#34;dog&#34;;
+ a[1] = &#34;cat&#34;;
+ a[2] = &#34;hen&#34;;
+console.log(a.length)
+
+var b = [&#34;dog&#34;, &#34;cat&#34;, &#34;hen&#34;];
+console.log(a.length)</code></pre>
+<h3 is-upgraded>Funções</h3>
+<p>Junto com objetos, funções são os componentes principais para o entendimento do JavaScript. A função mais básica não poderia ser mais simples:</p>
+<pre><code>function add(x, y) {
+    var total = x + y;
+    return total;
+}</code></pre>
+<p>Os parâmetros podem ser acessados através de uma propriedade chamada <code>arguments</code> dentro da função. Esta propriedade é um vetor que contém todos os valores passados para a função.</p>
+<pre><code>function add() {
+    var sum = 0;
+    for (var i = 0, j = arguments.length; i &lt; j; i++) {
+        sum += arguments[i];
+    }
+    return sum;
+}
+
+console.log(add(1,2,3,4))</code></pre>
+<h3 is-upgraded>Classes em JavaScript</h3>
+<p>Na POO clássica, objetos encapsulam dados e métodos que operam sobre esses dados. JavaScript é uma linguagem baseada em protótipos que não contém a estrutura de classe, como tem em C++ e Java. Em vez disso, JavaScript usa funções como classes. </p>
+<p>Exemplo</p>
+<pre><code>function PessoaFisica(nome, sobrenome) {
+    return {
+        nome: nome,
+        sobrenome: sobrenome,
+        nomeCompleto: function() {
+            return this.nome + &#39; &#39; + this.sobrenome;
+        }
+    }
+}
+
+var pessoa1 = PessoaFisica(&#34;Edson&#34;, &#34;Angoti&#34;)
+console.log(pessoa1.nomeCompleto())</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="JSX - JavaScript XML" duration="20">
+        <p>JSX é uma extensão que facilita escrever código HTML no React através da conversão de tags HTML em elementos React.</p>
+<p>O exemplo a seguir cria um <strong>elemento </strong>React:</p>
+<pre><code>const elementoReact = &lt;h1&gt;Alô mundo!&lt;/h1&gt;;
+
+ReactDOM.render(elementoReact, document.getElementById(&#34;root&#34;));
+</code></pre>
+<p>Elementos React são imutáveis, por isso declaramos uma variável usando a palavra reservada <code>const.</code></p>
+<p><a href="https://codepen.io/angoti/pen/KKavYEd#code-area" target="_blank">Execute o código acima</a></p>
+<p>Código javascript pode ser inserido em expressões JSX entre chaves. Veja exemplos abaixo:</p>
+<pre><code>function PessoaFisica(nome, sobrenome) {
+  return {
+    nome: nome,
+    sobrenome: sobrenome,
+    nomeCompleto: function () {
+      return this.nome + &#34; &#34; + this.sobrenome;
+    }
+  };
+}
+const user = PessoaFisica(&#34;Edson&#34;, &#34;Angoti&#34;);
+const element = &lt;h1&gt;Hello, {user.nomeCompleto()}&lt;/h1&gt;;
+ReactDOM.render(element, document.getElementById(&#34;root&#34;));</code></pre>
+<h2 is-upgraded>Atributos de elementos HTML</h2>
+<p>O React DOM usa camelCase como convenção para nomes de propriedades ao invés dos nomes de atributos do HTML. Então o atributo classname para aplicação de CSS é escrito className.</p>
+<ol type="1" start="1">
+<li>Para valores literais use aspas. </li>
+<li>Para valores armazenados em objetos JavaScript use {}. </li>
+<li>Para declaração de estilo inline deve-se usar dois conjuntos de chaves &#123;&#123;}}.</li>
+</ol>
+<p>Observe o uso de comentários dentro de um elemento JSX usando {/* comentários */}. Nomes de atributos devem seguir </p>
+<p><a href="https://codepen.io/angoti/pen/RwKLKbN" target="_blank">Veja exemplo</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Componentes React" duration="0">
+        <aside class="special"><p>React tem uma ‘filosofia&#39; de separação de conceitos baseado em componentes, que contém HTML e código Javascript. Tradicionalmente a separação se dá com arquivos HTML e JavaScript em arquivos separados. Esta abordagem do React separa conceitos com unidades pouco acopladas chamadas &#34;componentes&#34; que contém ambos.</p>
+</aside>
+<p>Entenda um componente React como funções JavaScript que recebem um argumento chamado <code>props</code> e retornam elementos React que descrevem o que deve aparecer na tela. Podemos criar componentes de duas formas:</p>
+<ul>
+<li>declaração de função</li>
+</ul>
+<pre><code>function ComponenteSaudacao(props) {
+  return (
+    &lt;h1 style=&#123;&#123; background: &#34;red&#34; }}&gt;
+      Hello, {props.user.nomeCompleto()}
+      &lt;img
+        src={props.imgUrl}
+        width=&#34;60&#34;
+        style=&#123;&#123; margin: &#34;10px 0px 0px 10px&#34; }}
+      /&gt;
+    &lt;/h1&gt;
+  );
+}</code></pre>
+<ul>
+<li>declaração de classe</li>
+</ul>
+<pre><code>class ComponenteSaudacaoClass extends React.Component {
+   render() {
+      return (
+         &lt;h1 style=&#123;&#123; background: &#34;red&#34; }}&gt;
+            Hello, {this.props.user.nomeCompleto()}
+            &lt;img
+               src={this.props.imgUrl}
+               width=&#34;60&#34;
+               style=&#123;&#123; margin: &#34;10px 0px 0px 10px&#34; }}
+            /&gt;
+         &lt;/h1&gt;
+      );
+   }
+}</code></pre>
+<p>Depois que um componente é declarado, você pode chama-lo assim:</p>
+<pre><code>ReactDOM.render(
+   &lt;ComponenteSaudacaoClass user={user} imgUrl={imgUrl} /&gt;,
+   document.getElementById(&#34;root&#34;)
+);</code></pre>
+<p>Não importa como você declarou o componente, como função ou classe, a chamada é da mesma forma.</p>
+<p>A propriedade <code>props</code> passada para o componente é um objeto JavaScript, e usando notação JSON pode ser representado assim:</p>
+<pre><code>const usuario = PessoaFisica(&#34;Edson&#34;, &#34;Angoti&#34;);
+const imagem = &#34;https://miro.medium.com/max/3840/1*vHHBwcUFUaHWXntSnqKdCA.png&#34;;
+
+props = { user : usuario, imgUrl : imagem }</code></pre>
+<aside class="special"><p>Para diferenciar os componentes DOM e seus componentes React exige que os nomes de componentes declarados comece com letra maiúsculas. Veja no exemplo o uso de um componente DOM &lt;h1&gt; e o componente React &lt;ComponenteSaudacaoClass&gt;</p>
+</aside>
+<p><a href="https://codepen.io/angoti/pen/RwKLVov" target="_blank">Veja exemplo</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ciclo de vida de um componente React" duration="0">
+        <p class="image-container"><img style="width: 642.52px" src="img\cb23a6af4ae2a699.png"></p>
+<p>Fonte: <a href="http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank">React documentation</a></p>
+<p>O ciclo de vida de um componente React tem três categorias - Montagem, Atualização e Desmontagem. </p>
+<ul>
+<li><code>render()</code> é o método de ciclo de vida mais usado. É uma função pura. Você não pode definir/alterar o estado em render(). </li>
+<li><code>componentDidMount()</code> chamado assim que o componente é montado. Você pode definir/alterar o estado aqui.</li>
+<li> <code>componentDidUpdate()</code> Este método de ciclo de vida é chamado assim que ocorre atualização. O caso de uso mais comum para o método componentDidUpdate() é atualizar o DOM em resposta a alterações de propriedade ou estado.</li>
+<li><code>componenteWillUnmount()</code> Chamado pouco antes de o componente ser desmontado e destruído. Este é um bom lugar para limpar todos os dados. Você não pode definir o estado aqui. </li>
+<li>Outros métodos do ciclo de vida são pouco ou nunca usados: <code>shouldComponentUpdate()</code>, <code>getDerivedStateFromProps()</code> e <code>getSnapshotBeforeUpdate()</code></li>
+</ul>
+<p>Para o estudo do ciclo de vida vamos trabalhar com componentes definidos como classe. As propriedades da classe são imutáveis, portanto todos os valores passados para o componente através de props não podem ser alterados. Podemos usar a propriedade state que permite manter o estado do componente e sofrer alterações. Aqui mostramos o construtor do componente onde declaramos o estado do componente.</p>
+<pre><code>HTML
+&lt;div id=&#34;teste&#34;&gt;&lt;/div&gt;
+
+Javascript
+class Contador extends React.Component {
+   constructor(props) {
+      console.log(&#34;constructor&#34;);
+      super(props);
+      this.state = { contador: 1 };
+   }
+
+   componentDidMount() {
+      console.log(&#34;ComponentDidMount&#34;);
+   }
+
+   componentDidUpdate() {
+      console.log(&#34;componentDidUpdate&#34;);
+   }
+   componentWillUnmount() {}
+
+   incrementa() {
+      this.setState({ contador: ++this.state.contador });
+   }
+
+   render() {
+      return (
+         &lt;div&gt;
+            &lt;h1&gt; teste de eventos &lt;/h1&gt;
+            &lt;button onClick={() =&gt; this.incrementa()}&gt;
+               {this.state.contador}
+            &lt;/button&gt;
+         &lt;/div&gt;
+      );
+   }
+}
+
+ReactDOM.render(&lt;Contador /&gt;, document.getElementById(&#34;teste&#34;));</code></pre>
+<p>O método <code>componentDidMount()</code> é executado depois que o componente é renderizado no DOM.</p>
+<p>O método <code>componentWillUnmount()</code> é executado sempre que o componente for removido. </p>
+<p><a href="https://codepen.io/angoti/pen/RwKLejd" target="_blank">Veja exemplo</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Manipulando eventos" duration="0">
+        <p>Manipular eventos em elementos React é muito semelhante a manipular eventos em elementos do DOM. Existem algumas diferenças de sintaxe:</p>
+<ul>
+<li>Eventos em React são nomeados usando camelCase ao invés de letras minúsculas.</li>
+<li>Com o JSX você passa uma função como manipulador de eventos ao invés de um texto.</li>
+</ul>
+<p>Então na função render() programamos o evento assim:</p>
+<pre><code>render() {
+      return (
+         &lt;button onClick={()=&gt;this.incrementaContador()}&gt;
+            {this.state.contador}
+         &lt;/button&gt;
+      );
+}</code></pre>
+<p>a função de callback que será chamada quando o evento ocorrer será <code>incrementaContador()</code>:</p>
+<pre><code>incrementaContador() {
+      this.setState({ contador: ++this.state.contador })
+}</code></pre>
+<p>Observe como alteramos o valor de contador através da chamada da função <code>setState()</code>.</p>
+<p>O código final fica assim:</p>
+<pre><code>class Contador extends React.Component {
+   constructor(props) {
+      super(props);
+      this.state = { contador: 1 };
+   }
+
+   incrementaContador() {
+      this.setState({ contador: ++this.state.contador })
+   }
+
+   render() {
+      return (
+         &lt;button onClick={()=&gt;this.incrementaContador()}&gt;
+            {this.state.contador}
+         &lt;/button&gt;
+      );
+   }
+}
+
+ReactDOM.render(&lt;Contador /&gt;, document.getElementById(&#34;root&#34;));
+</code></pre>
+<p><a href="https://codepen.io/angoti/pen/poRWpXJ" target="_blank">Execute o código</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Formulários" duration="0">
+        <p>Em HTML, elementos de formulário como &lt;input&gt;, &lt;textarea&gt; e &lt;select&gt; normalmente mantêm seu próprio estado e o atualiza baseado na entrada do usuário. Em React, o estado mutável é normalmente mantido na propriedade state dos componentes e atualizado apenas com setState().</p>
+<pre><code>class NameForm extends React.Component {
+   constructor(props) {
+      super(props);
+      this.state = { value: &#34;&#34; };
+   }
+
+   handleChange(event) {
+      this.setState({ value: event.target.value });
+   }
+
+   handleSubmit(event) {
+      alert(&#34;Um nome foi enviado: &#34; + this.state.value);
+      event.preventDefault();
+   }
+
+   render() {
+      return (
+         &lt;form onSubmit={(e) =&gt; this.handleSubmit(e)}&gt;
+            &lt;label&gt;
+               Nome:
+               &lt;input
+                  type=&#34;text&#34;
+                  value={this.state.value}
+                  onChange={(e) =&gt; this.handleChange(e)}
+               /&gt;
+            &lt;/label&gt;
+            &lt;input type=&#34;submit&#34; value=&#34;Enviar&#34; /&gt;
+         &lt;/form&gt;
+      );
+   }
+}
+
+ReactDOM.render(&lt;NameForm /&gt;, document.getElementById(&#34;root&#34;));</code></pre>
+<p><a href="https://codepen.io/angoti/pen/YzNrLmv" target="_blank">Execute</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Hooks" duration="0">
+        <p>Hooks foram introduzidos em 2018 no React 16.8. Eles permitem que você use o state e outros recursos sem escrever uma classe. </p>
+<p>Hooks são funções que permitem acesso aos recursos de state e ciclo de vida do React a partir de componentes funcionais, ou seja, escritos como funções e não como classes. Hooks não funcionam dentro de classes — eles permitem que você use React sem classes.</p>
+<p>Para usar hooks você deve importar assim:</p>
+<p><code>import React, { useEffect, useState } from &#39;react&#39;;</code></p>
+<p>Exemplo de utilização de efeitos colaterais</p>
+<pre><code>import React, { useState, useEffect } from &#39;react&#39;;
+
+function Exemplo() {
+  const [count, setCount] = useState(0);
+
+  // Similar ao componentDidMount e componentDidUpdate:
+  useEffect(() =&gt; {
+    // Atualiza o titulo do documento usando a API do browser
+    document.title = `Você clicou ${count} vezes`;
+  });
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Você clicou {count} vezes&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Clique aqui
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+<h2 is-upgraded><a href="https://codepen.io/angoti/pen/WNRBQxP" target="_blank">Execute</a></h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Desenvolvendo uma aplicação cliente CRUD" duration="0">
+        <p>Para criar a aplicação:</p>
+<p><code>npx create-react-app crud</code></p>
+<p>Para importar o Boostrap: </p>
+<p><code>C:\React\crud&gt;npm install react-bootstrap bootstrap</code></p>
+<p>Adicione a seguinte linha no topo de seu arquivo index.js</p>
+<p><code>import &#39;bootstrap/dist/css/bootstrap.min.css&#39;;</code></p>
+<p>Em sua pasta src, crie uma nova pasta chamada <code>componentes</code>. Esta pasta conterá todos os nossos componentes React. Na nova pasta, crie dois arquivos intitulados <code>hoct.js</code> e <code>ListaProdutos.js</code>. </p>
+<p class="image-container"><img style="width: 197.00px" src="img\468846b8118b6cd5.png"></p>
+<p>Esses dois arquivos conterão os componentes que serão necessários em nosso aplicativo. O arquivo <code>ListaProdutos.js</code> tratará da exibição do resultado da consulta à API, e o arquivo <code>hoc.js</code> conterá um componente de ordem superior que exibirá uma mensagem enquanto a requisição HTTP que faremos ainda estiver em andamento. No arquivo <code>ListaProdutos.js</code> que criamos dentro da pasta de componentes, vamos colar o seguinte código:</p>
+<pre><code>import React from &#39;react&#39;;
+
+
+const ListaProdutos = (props) =&gt; {
+    const { produtos } = props;
+    if (!produtos || produtos.length === 0) return &lt;p&gt;Carregando ...&lt;/p&gt;;
+    return (
+        &lt;TabelaDeProdutos listaDeProdutos={produtos}/&gt;
+    );
+};
+
+class Linha extends React.Component {
+    render() {
+        const produto = this.props.produto;
+
+        return (
+            &lt;tr&gt;
+                &lt;td&gt;{produto.id}&lt;/td&gt;
+                &lt;td&gt;{produto.name}&lt;/td&gt;
+                &lt;td&gt;{produto.description}&lt;/td&gt;
+                &lt;td&gt;{produto.price}&lt;/td&gt;
+                &lt;td&gt;{produto.imgUrl}&lt;/td&gt;
+            &lt;/tr&gt;
+        );
+    }
+}
+
+class TabelaDeProdutos extends React.Component {
+    render() {
+        const linhas = [];
+
+        this.props.listaDeProdutos.forEach(
+            (produto) =&gt; {
+                linhas.push(
+                    &lt;Linha produto={produto} /&gt;
+                );
+            }
+        );
+
+        return (
+            &lt;table className=&#34;table&#34;&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;ID&lt;/th&gt;
+                        &lt;th&gt;Nome&lt;/th&gt;
+                        &lt;th&gt;Descrição&lt;/th&gt;
+                        &lt;th&gt;Preço&lt;/th&gt;
+                        &lt;th&gt;Imagem&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;{linhas}&lt;/tbody&gt;
+            &lt;/table&gt;
+        );
+    }
+}
+
+
+export default ListaProdutos;</code></pre>
+<p>No arquivo <code>hoc.js</code> que criamos dentro da pasta de componentes, vamos colar o seguinte código:</p>
+<pre><code>import React from &#39;react&#39;;
+
+function hoc(Component) {
+  return function CarregandoProdutos({ isLoading, ...props }) {
+    if (!isLoading) return &lt;Component {...props} /&gt;;
+    return (
+      &lt;p style=&#123;&#123; textAlign: &#39;center&#39;, fontSize: &#39;30px&#39; }}&gt;
+        Carregando dados
+      &lt;/p&gt;
+    );
+  };
+}
+export default hoc;</code></pre>
+<p>No seu arquivo App.js dentro da pasta src, vamos colar o seguinte código:</p>
+<pre><code>import React, { useEffect, useState } from &#39;react&#39;;
+import &#39;./App.css&#39;;
+import ListaProdutos from &#39;./componentes/ListaProdutos&#39;;
+import hoc from &#39;./componentes/hoc&#39;;
+
+function App() {
+  const CarregandoProdutos = hoc(ListaProdutos);
+  const [estadoDaAplicacao, setEstadoDaAplicacao] = useState({
+    consultando: false,
+    produtos: null,
+  });
+
+  useEffect(() =&gt; {
+    setEstadoDaAplicacao({ consultando: true });
+    const apiUrl = `https://projeto-integrador-4.herokuapp.com/products`;
+    fetch(apiUrl)
+      .then((res) =&gt; res.json())
+      .then((repos) =&gt; {
+        setEstadoDaAplicacao({ consultando: false, produtos: repos.content });
+      });
+  }, [setEstadoDaAplicacao]);
+  
+  return (
+    &lt;div className=&#39;App&#39;&gt;
+        &lt;CarregandoProdutos isLoading={estadoDaAplicacao.consultando} produtos={estadoDaAplicacao.produtos} /&gt;
+    &lt;/div&gt;
+  );
+}
+export default App;</code></pre>
+<p>Nosso App.js é um componente funcional que usa React Hooks para lidar com o estado e também os efeitos colaterais.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Debugando com VSCode" duration="0">
+        <ol type="1" start="1">
+<li>Instalar o <a href="https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome" target="_blank">Debugger for Chrome</a></li>
+</ol>
+<p class="image-container"><img style="width: 642.52px" src="img\3c6342e1c2719358.png"></p>
+<ol type="1" start="2">
+<li>Configurar o projeto</li>
+</ol>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 46.00px" src="img\387a79d294a271c.png"></p>
+</td><td colspan="1" rowspan="1"><p>Clique no ícone de debug. Uma pasta .vscode será criada na raiz do seu projeto</p>
+</td></tr>
+</table>
+<ol type="1" start="3">
+<li>Edite o arquivo launch.json e modifique a propriedade &#34;url&#34; para apontar para o seu servidor de desenvolvimento. Se estiver usando o create-react-app, será o <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.</li>
+<li>Executar o debugger</li>
+</ol>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 421.00px" src="img\f5b7d706313637f9.png"></p>
+</td><td colspan="1" rowspan="1"><p>Aperte o botão verde no painel de debug.</p>
+<p>Launch Chrome against localhost</p>
+</td></tr>
+</table>
+<ol type="1" start="5">
+<li>Será aberta uma nova janela do Chrome e no vscode aparecerá no alto da tela a barra de controle </li>
+</ol>
+<p class="image-container"><img style="width: 183.00px" src="img\1043e65566b31561.png"></p>
+<ol type="1" start="6">
+<li>Você pode adicionar breakpoints em alguma linha do seu código. O breakpoint é marcado com uma bola vermelha no VSCode.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Renderização condicional" duration="0">
+        <p>Renderização condicional em React funciona da mesma forma que condicionais funcionam em JavaScript. </p>
+<p>Operadores JavaScript como <code>if</code> ou o operador condicional ternário (expressão condicional ? expr1 : expr2 ) podem ser usados para criar elementos representando estados.</p>
+<p><a href="https://codepen.io/angoti/pen/MWpbzdx" target="_blank">Exemplo</a></p>
+<h2 is-upgraded>Atribuição de Elementos React a variáveis </h2>
+<p>Elementos React podem ser armazenados em variáveis, pois naturalmente Javascript permite armazenar tanto valores quanto funções. </p>
+<pre><code>var ola = &lt;H1&gt;Olá Mundo!&lt;/H1&gt;;</code></pre>
+<p><a href="https://codepen.io/angoti/pen/Vwpmqep" target="_blank">Exemplo</a></p>
+<h2 is-upgraded>If inline com o Operador Lógico &amp;&amp;</h2>
+<p>Em JavaScript, expressões como (true &amp;&amp; expressão) são sempre avaliadas como verdade e (false &amp;&amp; expressão) são sempre avaliadas como false.</p>
+<p>Portanto, se a condição é true, o elemento logo depois do &amp;&amp; irá aparecer no resultado. Se o elemento é false, React irá ignora-lo.</p>
+<p><a href="https://codepen.io/gaearon/pen/ozJddz?editors=0010" target="_blank">Exemplo</a></p>
+<h2 is-upgraded>If-Else inline com Operador Condicional</h2>
+<p>Outro método para renderizar elementos inline é utilizar o operador condicional em JavaScript <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Operador_Condicional" target="_blank">condição ? true : false</a>.</p>
+<p><a href="https://codepen.io/angoti/pen/wvJoRQO" target="_blank">Exemplo</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Listas e chaves" duration="0">
+        <pre><code>const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map(
+  (number) =&gt;&lt;li&gt;{number}&lt;/li&gt;
+);
+
+  ReactDOM.render(
+  &lt;ul&gt;{listItems}&lt;/ul&gt;,
+  document.getElementById(&#39;root&#39;)
+);</code></pre>
+<p>O código acima mostra uma lista não ordenada na tela</p>
+<p class="image-container"><img style="width: 464.00px" src="img\c41e466f349e5462.png"></p>
+<p>Porém o console mostra um erro: </p>
+<aside class="warning"><p>Each child in a list should have a unique &#39;key&#39; prop</p>
+</aside>
+<p>‘key&#39; é um atributo especial que você precisa definir ao criar listas de elementos. Iremos analisar os motivos pelos quais isso é importante na próxima seção.</p>
+<p>Este atributo deve ser um valor do string único para cada elemento da lista. Assim, o código pode se corrigido:</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map(
+  (number) =&gt;&lt;li key={number.toString()}&gt;{number}&lt;/li&gt;
+);
+
+  ReactDOM.render(
+  &lt;ul&gt;{listItems}&lt;/ul&gt;,
+  document.getElementById(&#39;root&#39;)
+);</code></pre>
+<p>Quando não temos nenhum valor único para os itens renderizados, podemos usar o índice do item como chave em último recurso. Observer que foi adicionado um segundo parâmetro aos parâmetros da função chamada dentro de map:</p>
+<pre><code>const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map(
+  (number,index) =&gt;&lt;li key={index}&gt;{number}&lt;/li&gt;
+);
+
+  ReactDOM.render(
+  &lt;ul&gt;{listItems}&lt;/ul&gt;,
+  document.getElementById(&#39;root&#39;)
+);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Desenvolvendo uma aplicação CRUD" duration="0">
+        <h2 is-upgraded>Criando a app usando script padrão</h2>
+<p><code>npx create-react-app aula-react-crud</code></p>
+<h2 is-upgraded>Instalação de pacotes</h2>
+<p><code>yarn add bootstrap</code></p>
+<p><code>yarn add react-router-dom</code></p>
+<aside class="special"><p><a href="https://reactrouter.com/web/guides/quick-start" target="_blank">Para saber mais sobre react-router-dom</a></p>
+</aside>
+<p><code>yarn add axios</code></p>
+<h2 is-upgraded>Criação da estrutura de diretórios e arquivos</h2>
+<p class="image-container"><img style="width: 247.00px" src="img\40a4e53c244d1417.png"></p>
+<h3 is-upgraded>Arquivo src/index.js</h3>
+<pre><code>import React from &#34;react&#34;;
+import ReactDOM from &#34;react-dom&#34;;
+import { BrowserRouter } from &#34;react-router-dom&#34;;
+import App from &#34;./App&#34;;
+
+ReactDOM.render(
+  &lt;BrowserRouter&gt;
+    &lt;App /&gt;
+  &lt;/BrowserRouter&gt;,
+  document.getElementById(&#34;root&#34;)
+);</code></pre>
+<h3 is-upgraded>Arquivo src/App.js</h3>
+<pre><code>import React from &#34;react&#34;;
+import { Switch, Route, Link } from &#34;react-router-dom&#34;;
+import &#34;bootstrap/dist/css/bootstrap.min.css&#34;;
+import &#34;./App.css&#34;;
+
+import ListagemLivros from &#34;./components/ListagemLivros.js&#34;;
+import NovoLivro from &#34;./components/NovoLivro.js&#34;;
+import DetalheLivro from &#34;./components/DetalheLivro.js&#34;;
+
+function App() {
+  return (
+    &lt;div className=&#34;container&#34;&gt;
+      &lt;nav className=&#34;navbar navbar-expand navbar-dark bg-dark&#34;&gt;
+       
+        &lt;div className=&#34;navbar-nav mr-auto&#34;&gt;
+          &lt;li className=&#34;nav-item&#34;&gt;
+            &lt;Link to={&#34;/livros&#34;} className=&#34;nav-link&#34;&gt;Biblioteca&lt;/Link&gt;
+          &lt;/li&gt;
+          &lt;li className=&#34;nav-item&#34;&gt;
+            &lt;Link to={&#34;/novo&#34;} className=&#34;nav-link&#34;&gt;Novo&lt;/Link&gt;
+          &lt;/li&gt;
+          &lt;li className=&#34;nav-item&#34;&gt;
+            &lt;Link to={&#34;/livros/1&#34;} className=&#34;nav-link&#34;&gt;Detalhe&lt;/Link&gt;
+          &lt;/li&gt;
+        &lt;/div&gt;
+      &lt;/nav&gt;
+
+      &lt;div className=&#34;container mt-3&#34;&gt;
+        &lt;Switch&gt;
+          &lt;Route exact path={[&#34;/&#34;, &#34;/livros&#34;]} component={ListagemLivros} /&gt;
+          &lt;Route exact path=&#34;/novo&#34; component={NovoLivro} /&gt;
+          &lt;Route path=&#34;/livros/:id&#34; component={DetalheLivro} /&gt;
+        &lt;/Switch&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
+<h3 is-upgraded>Arquivo src/http-common.js</h3>
+<pre><code>import axios from &#34;axios&#34;;
+
+export default axios.create({
+  baseURL: &#34;http://localhost:8080/api&#34;,
+  headers: {
+    &#34;Content-type&#34;: &#34;application/json&#34;
+  }
+});</code></pre>
+<h3 is-upgraded>Arquivo services/Endpoints.js</h3>
+<pre><code>import http from &#34;../http-common&#34;;
+
+export const getAll = () =&gt; {
+  return http.get(&#34;/livro&#34;);
+};
+
+export const get = id =&gt; {
+  return http.get(`/livro/${id}`);
+};
+
+export const create = data =&gt; {
+  return http.post(&#34;/livro&#34;, data);
+};
+
+export const update = (id, data) =&gt; {
+  return http.put(`/livro/${id}`, data);
+};
+
+export const remove = id =&gt; {
+  return http.delete(`/livro/${id}`);
+};</code></pre>
+<h2 is-upgraded>Construindo os componentes</h2>
+<h3 is-upgraded>Listando todos os livros</h3>
+<h4 is-upgraded>Arquivo components/ListagemLivros.js</h4>
+<pre><code>import React, { useState, useEffect } from &#34;react&#34;;
+import * as api from &#34;../services/Endpoints&#34;
+import { Link } from &#34;react-router-dom&#34;;
+
+const ListagemLivros = () =&gt; {
+    const [livros, setLivros] = useState([]);
+    const [livroSelecionado, setLivroSelecionado] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(-1);
+
+    useEffect(() =&gt; {
+        buscaLivros();
+    }, []);
+
+    const buscaLivros = () =&gt; {
+        api.getAll()
+            .then(response =&gt; {
+                setLivros(response.data);
+                console.log(response.data);
+            })
+            .catch(e =&gt; {
+                console.log(e);
+            });
+    };
+
+    const setLivroAtivo = (livro, index) =&gt; {
+        setLivroSelecionado(livro);
+        setCurrentIndex(index);
+    };
+
+    return (
+        &lt;div className=&#34;container list row&#34;&gt;
+            &lt;div className=&#34;col-md-6&#34;&gt;
+                &lt;h4&gt;Livros&lt;/h4&gt;
+                &lt;ul className=&#34;list-group py-1&#34;&gt;
+                    {livros &amp;&amp;
+                        livros.map((livro, index) =&gt; (
+                            &lt;li  className={&#34;list-group-item &#34; + (index === currentIndex ? &#34;active&#34; : &#34;&#34;)}
+                                 onClick={() =&gt; setLivroAtivo(livro, index)}
+                                 key={index}
+                            &gt;{livro.titulo}&lt;/li&gt;
+                        ))}
+                &lt;/ul&gt;
+            &lt;/div&gt;
+
+
+            &lt;div className=&#34;col-md-6&#34;&gt;
+                {livroSelecionado ? (
+                    &lt;div&gt;
+                        &lt;h4&gt;Detalhe&lt;/h4&gt;
+                        &lt;div&gt;
+                            &lt;label&gt;
+                                &lt;strong&gt;Titulo:&lt;/strong&gt;
+                            &lt;/label&gt;{&#34; &#34;}
+                            {livroSelecionado.titulo}
+                        &lt;/div&gt;
+                        &lt;div&gt;
+                            &lt;label&gt;
+                                &lt;strong&gt;Autor:&lt;/strong&gt;
+                            &lt;/label&gt;{&#34; &#34;}
+                            {livroSelecionado.autor}
+                        &lt;/div&gt;
+
+                        &lt;Link to={&#34;/livros/&#34; + livroSelecionado.id} className=&#34;btn btn-warning&#34;&gt;Editar&lt;/Link&gt;
+                    &lt;/div&gt;
+                ) : (
+                    &lt;div&gt;
+                        &lt;br /&gt;
+                        &lt;p&gt;Escolha um livro ...&lt;/p&gt;
+                    &lt;/div&gt;
+                )}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default ListagemLivros;</code></pre>
+<h3 is-upgraded>Criando um livro</h3>
+<h4 is-upgraded>Arquivo components/NovoLivro.js</h4>
+<pre><code>import React, { useState } from &#34;react&#34;;
+import * as api from &#34;../services/Endpoints&#34;
+
+const NovoLivro = () =&gt; {
+    const estadoInicialLivro = {
+        id: null,
+        titulo: &#34;&#34;,
+        autor: &#34;&#34;,
+    };
+    const [livro, setLivro] = useState(estadoInicialLivro);
+    const [submitted, setSubmitted] = useState(false);
+
+    const trataCampo = (event) =&gt; {
+        const { name, value } = event.target;
+        setLivro({ ...livro, [name]: value });
+    };
+
+    const novo = () =&gt; {
+        setLivro(estadoInicialLivro);
+        setSubmitted(false);
+    };
+
+    const enviarLivro = () =&gt; {
+        var data = {
+            titulo: livro.titulo,
+            autor: livro.autor
+        };
+        console.log(data)
+        api.create(data)
+            .then(response =&gt; {
+                setLivro({
+                    id: response.data.id,
+                    titulo: response.data.titulo,
+                    autor: response.data.autor,
+                });
+                setSubmitted(true);
+                console.log(response.data);
+            })
+            .catch(e =&gt; { console.log(e); });
+    };
+
+    return (
+        &lt;div className=&#34;submit-form&#34;&gt;
+            {submitted ? (
+                &lt;div&gt;
+                    &lt;h4&gt;Livro cadastrado com sucesso!&lt;/h4&gt;
+                    &lt;button className=&#34;btn btn-success&#34; onClick={novo}&gt;Novo&lt;/button&gt;
+                &lt;/div&gt;
+            ) : (
+                &lt;div&gt;
+                    &lt;div className=&#34;form-group&#34;&gt;
+                        &lt;label htmlFor=&#34;titulo&#34;&gt;Titulo&lt;/label&gt;
+                        &lt;input
+                            type=&#34;text&#34;
+                            className=&#34;form-control&#34;
+                            id=&#34;titulo&#34;
+                            required
+                            value={livro.titulo}
+                            onChange={trataCampo}
+                            name=&#34;titulo&#34;
+                        /&gt;
+                    &lt;/div&gt;
+
+                    &lt;div className=&#34;form-group mt-4&#34;&gt;
+                        &lt;label htmlFor=&#34;description&#34;&gt;Autor&lt;/label&gt;
+                        &lt;input
+                            type=&#34;text&#34;
+                            className=&#34;form-control&#34;
+                            id=&#34;autor&#34;
+                            required
+                            value={livro.autor}
+                            onChange={trataCampo}
+                            name=&#34;autor&#34;
+                        /&gt;
+                    &lt;/div&gt;
+
+                    &lt;button onClick={enviarLivro} className=&#34;btn btn-success mt-4&#34;&gt;Cadastrar&lt;/button&gt;
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    );
+}
+
+export default NovoLivro;</code></pre>
+<h3 is-upgraded>Editando um livro</h3>
+<h4 is-upgraded>Arquivo components/DetalheLivro.js</h4>
+<pre><code>import React, { useState, useEffect } from &#34;react&#34;;
+import * as api from &#34;../services/Endpoints&#34;
+
+const EditaLivro = props =&gt; {
+    const estadoInicial = {
+        id: null,
+        titulo: &#34;&#34;,
+        autor: &#34;&#34;,
+    };
+
+    const [livro, setLivro] = useState(estadoInicial);
+    const [message, setMessage] = useState(&#34;&#34;);
+
+    const getLivro = (id) =&gt; {
+        api.get(id)
+            .then(response =&gt; {
+                setLivro(response.data);
+                console.log(response.data);
+            })
+            .catch(e =&gt; {
+                console.log(e);
+            });
+    };
+
+    useEffect(() =&gt; {
+        getLivro(props.match.params.id);
+    }, [props.match.params.id]);
+
+    const trataCampo = event =&gt; {
+        const { name, value } = event.target;
+        setLivro({ ...livro, [name]: value });
+    };
+
+    const atualizarLivro = () =&gt; {
+        api.update(livro.id, livro)
+            .then(response =&gt; {
+                console.log(response.data);
+                setMessage(&#34;Livro atualizado!&#34;);
+            })
+            .catch(e =&gt; { console.log(e); });
+    };
+
+    const excluirLivro = () =&gt; {
+        api.remove(livro.id)
+            .then(response =&gt; {
+                console.log(response.data);
+                props.history.push(&#34;/livros&#34;);
+            })
+            .catch(e =&gt; { console.log(e); });
+    };
+
+    return (
+        &lt;div&gt;
+            {livro ? (
+                &lt;div className=&#34;edit-form&#34;&gt;
+                    &lt;h4&gt;Livro&lt;/h4&gt;
+                    &lt;form&gt;
+                        &lt;div className=&#34;form-group&#34;&gt;
+                            &lt;label htmlFor=&#34;titulo&#34;&gt;Titulo&lt;/label&gt;
+                            &lt;input
+                                type=&#34;text&#34;
+                                className=&#34;form-control&#34;
+                                id=&#34;titulo&#34;
+                                name=&#34;titulo&#34;
+                                value={livro.titulo}
+                                onChange={trataCampo}
+                            /&gt;
+                        &lt;/div&gt;
+                        &lt;div className=&#34;form-group mt-3&#34;&gt;
+                            &lt;label htmlFor=&#34;description&#34;&gt;Autor&lt;/label&gt;
+                            &lt;input
+                                type=&#34;text&#34;
+                                className=&#34;form-control&#34;
+                                id=&#34;autor&#34;
+                                name=&#34;autor&#34;
+                                value={livro.autor}
+                                onChange={trataCampo}
+                            /&gt;
+                        &lt;/div&gt;
+                    &lt;/form&gt;
+
+                    &lt;button className=&#34;btn btn-warning danger mt-3&#34; onClick={excluirLivro}&gt;Excluir&lt;/button&gt;
+                    &lt;button type=&#34;submit&#34; className=&#34;btn btn-success mt-3 mx-3&#34; onClick={atualizarLivro}&gt;
+                        Atualizar
+                    &lt;/button&gt;
+                    &lt;p&gt;{message}&lt;/p&gt;
+                &lt;/div&gt;
+            ) : (
+                &lt;div&gt;
+                    &lt;br /&gt;
+                    &lt;p&gt;Selecione um livro ...&lt;/p&gt;
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    );
+};
+
+export default EditaLivro;</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
