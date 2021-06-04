@@ -1,0 +1,173 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Construindo um serviço da Web RESTful</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="construindo-um-servi-o-da-web-restful"
+                  title="Construindo um serviço da Web RESTful"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="O que você construirá" duration="0">
+        <p>Você criará um webservice que aceitará solicitações HTTP GET em <a href="http://localhost:8080/alo" target="_blank">http://localhost:8080/alo</a>.</p>
+<p>A resposta será uma representação JSON de um objeto, como mostrado a seguir:</p>
+<pre>{&#34;id&#34;:1,&#34;content&#34;:&#34;alô mundo&#34;}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="O que você precisa" duration="0">
+        <ul>
+<li>JDK 1.8 ou posterior</li>
+<li><a href="https://spring.io/tools" target="_blank">Spring Tools 4</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Começando com Spring Initializr" duration="0">
+        <p>Para todos os aplicativos Spring, você deve começar com o <a href="https://start.spring.io/" target="_blank">Spring Initializr</a> . O Initializr oferece uma maneira rápida de obter todas as dependências de que você precisa para um aplicativo e faz grande parte da configuração para você. Vamos precisar neste exemplo apenas da dependência <strong>Spring Web</strong>.</p>
+<p>A seguir é mostrado o arquivo pom.xml criado:</p>
+<pre>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+        xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&gt;
+        &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+        &lt;parent&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+                &lt;version&gt;2.4.3&lt;/version&gt;
+                &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+        &lt;/parent&gt;
+        &lt;groupId&gt;com.professorangoti&lt;/groupId&gt;
+        &lt;artifactId&gt;teste&lt;/artifactId&gt;
+        &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+        &lt;name&gt;teste&lt;/name&gt;
+        &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+        &lt;properties&gt;
+                &lt;java.version&gt;1.8&lt;/java.version&gt;
+        &lt;/properties&gt;
+        &lt;dependencies&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+                        &lt;scope&gt;test&lt;/scope&gt;
+                &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+
+        &lt;build&gt;
+                &lt;plugins&gt;
+                        &lt;plugin&gt;
+                                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                        &lt;/plugin&gt;
+                &lt;/plugins&gt;
+        &lt;/build&gt;
+
+&lt;/project&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criar uma classe de domínio" duration="0">
+        <p>Agora que configurou o projeto, você pode criar seu serviço da web. Comece o processo pensando nas interações de serviço.</p>
+<p>O serviço tratará as requisições GET <strong><code>/alo</code></strong>, e retornará uma resposta HTTP com código 200 OK e corpo no formato JSON que representa um objeto do domínio. Deve ser semelhante à seguinte saída:</p>
+<p class="image-container"><img style="width: 314.00px" src="img\520edccd092854fe.png"></p>
+<p>A classe Java simples que representa a resposta deverá conter campos, construtores e getters/setters os dados id e conteúdo como na listagem seguinte:</p>
+<pre>package com.professorangoti.restservice;
+
+public class Dominio {
+
+        private static long id;
+        private final String conteudo;
+
+        public Dominio(String conteudo) {
+                ++id;
+                this.conteudo = conteudo;
+        }
+
+        public long getId() {
+                return id;
+        }
+
+        public String getConteudo() {
+                return conteudo;
+        }
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crie um Controlador" duration="0">
+        <p>Na abordagem do Spring para construir webservices RESTful, as requisições HTTP são tratadas por um controlador. Esses componentes são identificados pela anotação <strong><code>@RestController</code></strong>, e a classe mostrada na seguinte listagem lida com as requisições GET /alo retornando uma nova instância da classe <code>Dominio</code>:</p>
+<pre>package com.professorangoti.restservice;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class Controlador {
+
+        @GetMapping(&#34;/alo&#34;)
+        public Dominio greeting() {
+                return new Dominio(&#34;alô mundo&#34;);
+        }
+}</pre>
+<p>Uma diferença importante entre um controlador MVC tradicional e o controlador RESTful é a maneira como o corpo de resposta HTTP é criado. Em vez de depender de uma tecnologia de visualização para realizar a renderização do lado do servidor para HTML, este controlador cria um objeto e os dados do objeto serão usados diretamente no <strong>corpo </strong>da resposta HTTP no formato JSON.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Testando o serviço" duration="0">
+        <p>Execute a classe criado pelo Initializr para iniciar o serviço. O código da aplicação é mostrado a seguir:</p>
+<pre>package com.professorangoti;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TesteApplication {
+
+        public static void main(String[] args) {
+                SpringApplication.run(TesteApplication.class, args);
+        }
+}</pre>
+<p>Agora que o serviço está ativo, visite <code>http://localhost:8080/alo</code>, onde você verá:</p>
+<p class="image-container"><img style="width: 314.00px" src="img\520edccd092854fe.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
