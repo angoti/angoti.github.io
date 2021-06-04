@@ -1,0 +1,479 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - RESTful API com Spring Boot</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - RESTful API com Spring Boot"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <p class="image-container"><img style="width: 624.00px" src="img\be238c2a4037a3e1.png"></p>
+<h2 is-upgraded><strong>Definições</strong></h2>
+<h3 is-upgraded><strong>REST</strong></h3>
+<p>O termo <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">REST</a> é um acrônimo e significa <strong>Representational State Transfer</strong>. Rest é um paradigma arquitetônico usado no desenvolvimento de <em>web services</em>. Criado por Roy Fielding em 2000 em sua tese de <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank">doutorado</a> defendida no ano de 2000 na Universidade da Califórnia, Irvine. </p>
+<h3 is-upgraded><strong>RESTful API </strong></h3>
+<p>Também conhecido como um web service RESTful. Web service construído em conformidade com o estilo de arquitetura REST e usa métodos HTTP.</p>
+<h3 is-upgraded><strong>API</strong></h3>
+<p>API é um conjunto de definições e protocolos usado no desenvolvimento e na integração de software de aplicações. API é um acrônimo em inglês que significa interface de programação de aplicações. As APIs costumam ser vistas como contratos, com documentações que representam um acordo entre as partes interessadas (<a href="https://www.redhat.com/pt-br/topics/api/what-are-application-programming-interfaces" target="_blank">referência</a>). Como exemplo podemos citar a API java (<a href="https://docs.oracle.com/en/java/javase/16/" target="_blank">referência</a>).</p>
+<h3 is-upgraded><strong>Endpoint</strong></h3>
+<p>Um endpoint de um web service é a URL onde seu serviço pode ser acessado por uma aplicação cliente (<a href="https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api" target="_blank">referência</a>).<img style="width: 296.00px" src="img\443be63a046d02eb.png"></p>
+<h3 is-upgraded><a href="https://documenter.getpostman.com/view/1277871/TzJsheff" target="_blank">Exemplo de uso de API usando Postman</a></h3>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Métodos HTTP" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\174c4c1c95003548.png"></p>
+<h2 is-upgraded><strong>Idempotente </strong></h2>
+<p>Um método HTTP é idempotente se uma requisição idêntica pode ser feita uma ou mais vezes em sequência com o mesmo efeito enquanto deixa o servidor no mesmo estado. Em outras palavras, um método idempotente não deveria possuir nenhum efeito colateral (exceto para manter estatísticas). Implementados corretamente, o GET, HEAD, PUT, e DELETE são métodos idempotentes, mas não o método POST. </p>
+<h2 is-upgraded><strong>Códigos de status de resposta HTTP</strong></h2>
+<p>Servem para informar ao cliente o status de suas requisições. O servidor retorna códigos de status genéricos. As categorias de código são:</p>
+<ul>
+<li>2xx - Sucesso - a requisição foi aceita com sucesso e executou a ação solicitada pelo cliente. </li>
+<li>3xx - Redirecionamento - informa que o recurso solicitado não está mais disponível no local esperado. Isso pode ter vários motivos, sejam temporários ou permanentes, mas o cliente deve fazer uma requisição para o novo local.</li>
+<li>4xx - Erro do cliente. O servidor não conseguiu entender a requisição, ou a requisição está incorreta. Existem várias causas para isso: timeout, URI errado, autenticação ausente, etc. </li>
+<li>5xx - Erro do servidor.  O servidor falhou em atender a uma requisição devido à condição inesperada, armazenamento insuficiente, o código gera uma exceção.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Boas práticas para projetar RESTful API" duration="0">
+        <ul>
+<li>Não use verbos ou ações para descrever as APIs.</li>
+<li>Use substantivos no plural ou no singular, mas deve ser consistente em todas as APIs.</li>
+<li>O URL do endpoint deve conter métodos HTTP para descrever a funcionalidade da API. </li>
+<li>Métodos HTTP </li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p>POST</p>
+</td><td colspan="1" rowspan="1"><p> Criar dados</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>GET</p>
+</td><td colspan="1" rowspan="1"><p>Buscar dados</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>PUT</p>
+</td><td colspan="1" rowspan="1"><p>Atualizar dados</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>DELETE</p>
+</td><td colspan="1" rowspan="1"><p>Excluir dados</p>
+</td></tr>
+</table>
+<h2 is-upgraded>Buscar dados</h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>GET /buscaItem</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar todos os registros</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>GET /getTodosItens/12</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar registros específicos </p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>GET /itens</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar todos os registros</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>GET /itens/101</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar registros específicos </p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Criar dados</strong></h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>POST /criaritem </code></p>
+</td><td colspan="1" rowspan="1"><p>Para criar um novo registro</p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>POST /itens</code></p>
+</td><td colspan="1" rowspan="1"><p>Para criar um novo registro</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Atualizar dados</strong></h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>PUT /atualizaritem/id </code></p>
+</td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>POST /id/atualizaritem</code></p>
+</td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>PUT /itens/:id</code></p>
+</td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Excluir dados</strong></h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE /excluiritem/id </code></p>
+</td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>POST /id/removeitem</code></p>
+</td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE /itens/:id</code></p>
+</td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Construindo serviços REST com Spring" duration="0">
+        <h2 is-upgraded><strong>Usando o modelo de camadas</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\22dd73a4dbb9a041.png"></p>
+<h2 is-upgraded><strong>Projeto Spring REST services</strong></h2>
+<ol type="1" start="1">
+<li>Para criar novo projeto usando o IDE STS, escolha menu File / New / Spring Starter Project</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\bf609b0d5ed26407.png"></p>
+<ol type="1" start="2">
+<li>Escolher as dependências MySQL Driver, Spring Data JPA e Spring Web</li>
+</ol>
+<p class="image-container"><img style="width: 530.00px" src="img\7109ad0dd0d078a6.png"></p>
+<ol type="1" start="3">
+<li>Criar os pacotes ‘controller&#39;, ‘domain&#39;, ‘repository&#39;,  ‘service&#39;</li>
+</ol>
+<p class="image-container"><img style="width: 343.00px" src="img\62fb43104695bfab.png"></p>
+<ol type="1" start="4">
+<li>Entidade Pessoa</li>
+</ol>
+<p><code>com.professorangoti.domain.Pessoa</code></p>
+<pre><code>package com.professorangoti.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Pessoa implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
+        private String nome;
+
+        Pessoa() {
+        }
+
+        Pessoa(String nome) {
+                this.name = name;
+        }
+
+        public Integer getId() {
+                return this.id;
+        }
+
+        public void setId(Integer id) {
+                this.id = id;
+        }
+
+        public String getNome() {
+                return this.nome;
+        }
+
+        public void setNome(String nome) {
+                this.nome = nome;
+        }
+
+        
+        @Override
+        public int hashCode() {
+                final int prime = 31;
+                int result = 1;
+                result = prime * result + ((id == null) ? 0 : id.hashCode());
+                return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+                if (this == obj)
+                        return true;
+                if (obj == null)
+                        return false;
+                if (getClass() != obj.getClass())
+                        return false;
+                Pessoa other = (Pessoa) obj;
+                if (id == null) {
+                        if (other.id != null)
+                                return false;
+                } else if (!id.equals(other.id))
+                        return false;
+                return true;
+        }
+
+}</code></pre>
+<ol type="1" start="5">
+<li>Repositório para entidades do tipo Pessoa</li>
+</ol>
+<p><code>com.professorangoti.repository.PessoaRepository</code></p>
+<pre><code>package com.professorangoti.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.professorangoti.domain.Pessoa;
+
+public interface PessoaRepository extends JpaRepository&lt;Pessoa, Integer&gt; {
+
+}</code></pre>
+<ol type="1" start="6">
+<li>Service</li>
+</ol>
+<p><code>com.professorangoti.service.PessoaService</code></p>
+<pre><code>package com.professorangoti.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.professorangoti.domain.Pessoa;
+import com.professorangoti.repository.PessoaRepository;
+
+@Service
+public class PessoaService {
+
+        @Autowired
+        PessoaRepository repository;
+
+        public List&lt;Pessoa&gt; todos() {
+                return repository.findAll();
+        }
+
+        public Pessoa novo(Pessoa pessoa) {
+                return repository.save(pessoa);
+        }
+
+        public Pessoa busca(Integer id) {
+                return repository.findById(id).orElseThrow(() -&gt; new PessoaNaoEncontradaException(id));
+        }
+
+        public Pessoa atualiza(Pessoa pessoa, Integer id) {
+                pessoa.setId(id);
+                return repository.save(pessoa);
+        }
+
+        public void exclui(@PathVariable Integer id) {
+                repository.deleteById(id);
+        }
+
+}</code></pre>
+<ol type="1" start="7">
+<li>Controlador REST</li>
+</ol>
+<p><code>com.professorangoti.controller.PessoaController</code></p>
+<pre><code>package com.professorangoti.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.professorangoti.domain.Pessoa;
+import com.professorangoti.service.PessoaService;
+
+@RestController
+@RequestMapping(&#34;/pessoa&#34;)
+class PessoaController {
+
+        @Autowired
+        private PessoaService service;
+
+        @GetMapping
+        public List&lt;Pessoa&gt; recuperaTodosRegistros() {
+                return service.todos();
+        }
+        
+        @PostMapping
+        public Pessoa criaNovoRegistro(@RequestBody Pessoa pessoa) {
+                return service.novo(pessoa);
+        }
+
+        @GetMapping(&#34;/{id}&#34;)
+        public Pessoa buscaUmRegistro(@PathVariable Integer id) {
+                return service.busca(id);
+        }
+
+        @PutMapping(&#34;/{id}&#34;)
+        public Pessoa atualizaRegistro(@RequestBody Pessoa pessoa, @PathVariable Integer id) {
+                return service.atualiza(pessoa, id);
+        }
+
+        @DeleteMapping(&#34;/{id}&#34;)
+        void excluiRegistro(@PathVariable Integer id) {
+                service.exclui(id);
+        }
+}</code></pre>
+<ol type="1" start="8">
+<li>Classe RuntimeException quando não encontrar uma pessoa no BD</li>
+</ol>
+<p><code>com.professorangoti.service.PessoaNaoEncontradaException</code></p>
+<pre><code>package com.professorangoti.service;
+
+public class PessoaNaoEncontradaException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        PessoaNaoEncontradaException(Integer id) {
+            super(&#34;Não encontrei pessoa &#34; + id);
+          }
+
+}</code></pre>
+<ol type="1" start="9">
+<li>Classe @ControllerAdvice</li>
+</ol>
+<p><code>com.professorangoti.controller.PessoaNaoEncontradaAdvice</code></p>
+<pre><code>package com.professorangoti.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.professorangoti.service.PessoaNaoEncontradaException;
+
+@ControllerAdvice
+public class PessoaNaoEncontradaAdvice {
+        @ResponseBody
+        @ExceptionHandler(PessoaNaoEncontradaException.class)
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        String employeeNotFoundHandler(PessoaNaoEncontradaException ex) {
+                return ex.getMessage();
+        }
+
+}</code></pre>
+<ol type="1" start="10">
+<li>Altere o arquivo /src/main/resources/application.properties: (Você precisa criar um esquema no seu SGBD MySQL chamado teste)</li>
+</ol>
+<pre><code>spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/teste
+spring.datasource.username=root
+spring.datasource.password=
+
+spring.jpa.show-sql=true
+logging.level.org.springframework.web=trace</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Preparando o ambiente de testes" duration="0">
+        <p>Postman é uma plataforma colaborativa para desenvolvimento de API. Vamos usar a funcionalidade de cliente API para realizar requisições HTTP e inspecionar a resposta. Clique na imagem abaixo para fazer o download e instalar o aplicativo e <strong>se cadastre para começar a usar a plataforma</strong>.</p>
+<p><a href="https://www.postman.com/downloads/" target="_blank"><paper-button class="colored" raised>Download</paper-button></a></p>
+<p>Depois de instalar o Postman, você deve copiar a coleção de requisições HTTP que usaremos para realizar os testes. Quando você clicar no botão <a href="https://app.getpostman.com/run-collection/1277871-26c8ba74-1768-4f04-9340-431f5c7df7ce?action=collection%2Ffork&collection-url=entityId%3D1277871-26c8ba74-1768-4f04-9340-431f5c7df7ce%26entityType%3Dcollection%26workspaceId%3D7ca6a8e1-2282-4ba5-9c92-d2396b97c0d4" target="_blank"><paper-button class="colored" raised>Run in Postman</paper-button></a> vai aparecer a tela abaixo e você deverá escolher a opção ‘<strong>import a copy</strong>&#39; para copiar a coleção na sua instalação do Postman. Depois de escolher a opção para importar uma cópia da coleção, o browser pergunta se você permite a execução do Postman e você deverá clicar em ‘Abrir Postman&#39;</p>
+<p class="image-container"><img style="width: 548.70px" src="img\e0a169e5750692ca.png"></p>
+<p class="image-container"><img style="width: 544.00px" src="img\167ab0be33dfe1d8.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Testando a aplicação" duration="0">
+        <p class="image-container"><img style="width: 718.11px" src="img\857b72e33b7aac5.png"></p>
+<p>No lado esquerdo da tela temos a coleção <strong>RESTful API com Spring Boot</strong>, e quando você clica em cima do nome da coleção são mostradas as requisições abaixo:</p>
+<p class="image-container"><img style="width: 293.00px" src="img\bd38b4f0431b1640.png"></p>
+<h2 is-upgraded><strong>POST</strong></h2>
+<p>Vamos começar os testes usando o método POST. Para isso clique em ‘<strong>Cria uma nova pessoa no sistema</strong>&#39;, e do lado direito aparece: </p>
+<p class="image-container"><img style="width: 718.11px" src="img\48cb2ba67b902f55.png"></p>
+<p>Para enviar os dados clique em Body / raw e escolha JSON na lista a direita (veja imagem abaixo) </p>
+<p class="image-container"><img style="width: 362.00px" src="img\8bd3a903ba6d07bd.png"></p>
+<p>Na área abaixo, entre com um objeto Javascript com os dados a serem enviados (veja imagem abaixo)</p>
+<p class="image-container"><img style="width: 718.11px" src="img\eb8079ce8adde894.png"></p>
+<p>Depois clique no botão Send e veja o retorno da requisição na parte de baixo da tela. Veja que agora o objeto exibe o valor para o campo id do objeto (<code>&#34;id&#34;: 1</code>). Isto significa que o registro foi gravado no banco de dados.</p>
+<h2 is-upgraded><strong>GET</strong></h2>
+<h2 is-upgraded><img style="width: 718.11px" src="img\376180720e448ea4.png"></h2>
+<h2 is-upgraded><strong>PUT</strong></h2>
+<h2 is-upgraded><img style="width: 718.11px" src="img\5cfc63b59e66a403.png"></h2>
+<p class="image-container"><img style="width: 718.11px" src="img\bf02e3fc06167778.png"></p>
+<h2 is-upgraded><strong>DELETE</strong></h2>
+<p class="image-container"><img style="width: 718.11px" src="img\bd4b5e8ed80327c3.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\7565b6f211e3647f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Problemas com serialização com entidades relacionadas" duration="0">
+        <p>O problema ocorre entre entidades que possuem relacionamento bidirecional e leva um loop infinito. Para evitar o problema devemos usar as anotações  </p>
+<ul>
+<li>@JsonManagedReference na classe que possui um atributo com a anotação @OneToMany</li>
+<li>@JsonBackReference na classe que possui um atributo com a anotação @ManyToOne</li>
+</ul>
+<p>Exemplo:</p>
+<pre><code>@Entity
+@Data
+public class TodoList {
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
+        private String nome;
+        @OneToMany(mappedBy = &#34;lista&#34;)
+        @JsonManagedReference
+        private List&lt;TodoListItem&gt; itens = new ArrayList&lt;TodoListItem&gt;();        
+}
+
+
+@Entity
+@Data
+public class TodoListItem {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
+        private String nomeDoItem;
+        @ManyToOne
+        @JsonBackReference
+        private TodoList lista;
+}</code></pre>
+<p class="image-container"><img style="width: 571.00px" src="img\9f4c72266e40d511.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
