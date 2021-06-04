@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-03-19T23:17:26Z",
+  "id": "",
+  "duration": 35,
+  "title": "Codelab - Meu primeiro ORM",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Criaremos um web service SOAP e nos conectaremos a ele usando JAX-WS.",
+  "source": "1zQxRJPslDoY0-dLZ01eDTyEvzt7-A98R_1Luh23dBDk",
+  "theme": "web",
+  "status": [
+    "em construção"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}

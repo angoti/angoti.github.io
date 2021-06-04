@@ -1,0 +1,250 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Meu primeiro ORM</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - Meu primeiro ORM"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <p class="image-container"><img style="width: 624.00px" src="img\3c64271cb73f9dda.png"></p>
+<p><strong>Última atualização: </strong>17/03/2021</p>
+<p>Este guia mostra o processo de criação de um projeto Spring e a implementação de uma classe persistente.</p>
+<h2 is-upgraded><strong>O que você vai fazer </strong></h2>
+<ul>
+<li>Criar um projeto Spring Boot</li>
+<li>Criar uma classe persistente usando anotações JPA</li>
+<li>Testar a persistência usando CommandLineRunner</li>
+</ul>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Anotações @Autowired, @Entity, @Id, @GeneratedValue e @Repository</li>
+<li>Interface JpaRepository</li>
+</ul>
+<h2 is-upgraded><strong>O que você precisa</strong></h2>
+<ul>
+<li>IDE Spring Tool Suite 4</li>
+<li>JDK 8</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ORM e JPA" duration="5">
+        <p>O mapeamento objeto / relacional é a persistência automatizada (e transparente) de objetos em um aplicativo Java para as tabelas em um banco de dados SQL, usando metadados que descrevem o mapeamento entre as classes do aplicativo e o esquema do banco de dados SQL. </p>
+<p>Em essência, ORM funciona transformando os dados de uma representação para outra.</p>
+<p>Desenvolvedores Java devem ter um nível suficiente de familiaridade com  modelagem relacional e SQL para trabalhar com o Hibernate.</p>
+<p>Java Persistence API define o seguinte:</p>
+<ul>
+<li>Um mecanismo para especificar metadados de mapeamento - como classes persistentes e suas propriedades estão relacionadas ao esquema do banco de dados.</li>
+<li>APIs para realizar operações CRUD básicas </li>
+<li>Uma linguagem e APIs para especificar consultas </li>
+<li>Como o mecanismo de persistência interage com instâncias transacionais para realizar verificação, fetching e outras funções de otimização. </li>
+<li>Estratégias básicas de armazenamento em cache.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criando o projeto Spring Boot" duration="5">
+        <p>Usando o <a href="https://start.spring.io/" target="_blank">site </a><img style="width: 129.82px" src="img\202307b37557451.png"> ou o wizard do STS4 Spring Starter Project, vamos criar um projeto Spring Boot. Vamos usar as seguintes dependências:</p>
+<p class="image-container"><img style="width: 556.00px" src="img\217a74d4d9087a0b.png"></p>
+<p>Arquivo pom.xml</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+        xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&gt;
+        &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+        &lt;parent&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+                &lt;version&gt;2.4.3&lt;/version&gt;
+                &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+        &lt;/parent&gt;
+        &lt;groupId&gt;com.professorangoti&lt;/groupId&gt;
+        &lt;artifactId&gt;teste-springboot-hibernate&lt;/artifactId&gt;
+        &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+        &lt;name&gt;teste-springboot-hibernate&lt;/name&gt;
+        &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+        &lt;properties&gt;
+                &lt;java.version&gt;1.8&lt;/java.version&gt;
+        &lt;/properties&gt;
+        &lt;dependencies&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+
+                &lt;dependency&gt;
+                        &lt;groupId&gt;mysql&lt;/groupId&gt;
+                        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+                        &lt;scope&gt;runtime&lt;/scope&gt;
+                &lt;/dependency&gt;
+                
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+                        &lt;scope&gt;test&lt;/scope&gt;
+                &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+
+        &lt;build&gt;
+                &lt;plugins&gt;
+                        &lt;plugin&gt;
+                                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                        &lt;/plugin&gt;
+                &lt;/plugins&gt;
+        &lt;/build&gt;
+
+&lt;/project&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mapeamento de classe persistente" duration="5">
+        <p>Para o nosso exemplo vamos usar a seguinte classe Java</p>
+<pre><code>public class Categoria {
+  private Integer id;
+  private String nome;
+
+  // construtor padrão e construtor com todos atributos
+  // e getters/setters
+}</code></pre>
+<h2 is-upgraded><strong>@Entity</strong></h2>
+<p>A classe deve ser anotada com a anotação @Entity, que é usada para declarar que a classe representa uma entidade no banco de dados.</p>
+<pre><code>import javax.persistence.Entity;
+
+@Entity
+public class Categoria { ... }</code></pre>
+<h2 is-upgraded><strong>@Id e @GeneratedValue</strong></h2>
+<p>@Id – especifica o identificador da entidade. Qualquer entidade precisa ter um atributo identificador, este que é usado ao carregar a entidade.</p>
+<p>@GeneratedValue – especifica que o valor do identificador de entidade é gerado automaticamente utilizando a coluna de identidade, uma sequência de banco de dados ou um gerador de tabelas</p>
+<pre><code>import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Integer id;</code></pre>
+<h2 is-upgraded><strong>Serializable </strong></h2>
+<p>A classe deve implementar a interface Serializable. Esta interface permite transformar o objeto em um formato em que os dados do objeto sejam usados de forma externa ao código, com o objetivo de armazenar ou transmitir os dados.</p>
+<pre><code>@Entity
+public class Categoria implements Serializable {
+        private static final long serialVersionUID = 1L;
+    ...
+}</code></pre>
+<h2 is-upgraded>Os métodos hashCode e equals</h2>
+<p>A classe deve implementar a interface Serializable e acrescentar dois métodos: hashCode e equals (implementação padrão: somente id)</p>
+<pre><code>@Override
+public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+}
+
+@Override
+public boolean equals(Object obj) {
+        if (this == obj)
+                return true;
+        if (obj == null)
+                return false;
+        if (getClass() != obj.getClass())
+                return false;
+        Categoria other = (Categoria) obj;
+        if (id == null) {
+                if (other.id != null)
+                        return false;
+        } else if (!id.equals(other.id))
+                return false;
+        return true;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Declaração de propriedades datasource" duration="5">
+        <p>Altere o arquivo /src/main/resources/application.properties:</p>
+<pre><code>spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/teste
+spring.datasource.username=root
+spring.datasource.password=
+
+spring.jpa.show-sql=true
+
+logging.level.org.springframework.web=trace</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Repository" duration="5">
+        <p>A interface central na abstração da camada de acesso a dados do Spring Data é Repository. Esta interface precisa da classe de domínio e o tipo de id da classe de domínio como argumentos de tipo. </p>
+<pre><code>@Repository
+public interface CategoriaRepository extends JpaRepository&lt;Categoria, Integer&gt;{ }</code></pre>
+<p>A declaração dessa interface, ao estender JpaRepository, permite acessar um monte de métodos CRUD genéricos.</p>
+<p>Para que o Spring crie um bean que implemente esta interface, tudo que você precisa fazer é usar a anotação @Repository.</p>
+<p>Alguns métodos que podemos usar da interface JpaRepository&lt;T, ID&gt; (consulte a lista completa em <a href="https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html#deleteAllInBatch--" target="_blank">documentação</a>):</p>
+<ul>
+<li>void delete(T entity)</li>
+<li>&lt;S extends T&gt; S save(S entity)</li>
+<li>Optional&lt;T&gt; findById(ID id)</li>
+<li>List&lt;T&gt; findAll()</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="CommandLineRunner" duration="5">
+        <p>Vamos agora testar a nossa classe persistente usando a interface CommandLineRunner. Veja o código completo da classe TesteSpringbootHibernateApplication</p>
+<pre><code>@SpringBootApplication
+public class TesteSpringbootHibernateApplication implements CommandLineRunner {
+
+        @Autowired
+        CategoriaRepository repo;
+        
+        public static void main(String[] args) {
+                SpringApplication.run(TesteSpringbootHibernateApplication.class, args);
+        }
+
+        @Override
+        public void run(String... args) throws Exception {
+                repo.save(new Categoria(null,&#34;teste&#34;));
+                
+        }
+
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

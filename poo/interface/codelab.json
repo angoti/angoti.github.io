@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-06-04T22:08:13Z",
+  "id": "interface",
+  "duration": 60,
+  "title": "Codelab Interface",
+  "authors": "Professor Edson Angoti Júnior",
+  "summary": "Estudo dirigido sobre interface onde será implementado um conjunto de classes e interfaces. Exemplo retirado de https://www.caelum.com.br/apostila-java-orientacao-objetos/interfaces/",
+  "source": "1ttdFNNmzQ-cuBvOV94WXI7C0iSRhoPdottB_yHl4KiE",
+  "theme": "programa-o-orientada-a-objetos",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Programação Orientada a Objetos"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "interface"
+}

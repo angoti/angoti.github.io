@@ -1,0 +1,333 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab Interface</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="interface"
+                  title="Codelab Interface"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <p>Uma interface é um contrato! Quando você criar uma interface, estará definindo um contrato com o que a classe pode fazer, sem mencionar nada sobre como a classe o fará.</p>
+<p>Todos os métodos de uma interface são públicos e abstratos, e podem ou não usar os modificadores public abstract.</p>
+<p>Toda classe que implementar (implements) o comportamento de uma interface deverá implementar todos os métodos da interface. Uma classe pode implementar mais de uma interface.</p>
+<p>Uma interface pode especializar (extends) de outra interface.</p>
+<p>Atributos de interfaces são sempre public static final.</p>
+<h2 is-upgraded>O que você vai construir</h2>
+<p>Uma aplicação que autentica diferentes tipos de usuários.</p>
+<h2 is-upgraded><strong>Conceitos que você vai aprender</strong></h2>
+<ul>
+<li>classe abstrata</li>
+<li>herança</li>
+<li>sobrescrita</li>
+<li>polimorfismo</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Começando" duration="10">
+        <aside class="special"><p>O seguinte estudo dirigido foi baseado na <a href="https://www.caelum.com.br/apostila-java-orientacao-objetos/interfaces/" target="_blank">apostila </a>da Caelum.</p>
+</aside>
+<p>Crie uma hierarquia de classes para representar os diferentes tipos de funcionários de um escritório que tem os seguintes cargos: gerente, assistente, vendedor. Escreva uma classe base abstrata chamada <code>Funcionario</code> que declara um método abstrato: <code>double calculaSalario().</code></p>
+<p>Esta classe também deve definir os seguintes atributos: <code>nome</code> (tipo String), <code>matricula</code> (tipo String) e <code>salario_base</code> (tipo double). Use encapsulamento e forneça um construtor que recebe os valores correspondentes a serem armazenados nos respectivos atributos. Esta classe abstrata deverá ser estendida pelas outras classes representativas dos tipos de funcionários, portanto devem ser escritas as classes <code>Gerente</code>, <code>Assistente</code> e <code>Vendedor</code>. </p>
+<p>Em cada classe deve-se sobrescrever o método <code>calculaSalario()</code> de forma que cálculo do salário é feito assim: O gerente recebe duas vezes o <code>salário_ba</code>se, o assistente recebe o <code>salário_ba</code>se e o vendedor recebe o <code>salário_ba</code>se mais uma comissão definida no construtor de sua classe. </p>
+<p>Crie uma classe Teste com um método main que cria um objeto de cada tipo e os armazena em uma lista e depois calcula a folha salarial dos três funcionários e imprime o valor total. Indique quais conceitos de POO você usou e como foi usado.</p>
+<p>Código da classe Funcionario</p>
+<pre>package professor.angoti;
+
+public abstract class Funcionario {
+        private String nome, matricula;
+        private double salario_base;
+
+        public Funcionario(String nome, String matricula, double salario_base) {
+                super();
+                this.nome = nome;
+                this.matricula = matricula;
+                this.salario_base = salario_base;
+        }
+
+        public String getNome() {
+                return nome;
+        }
+
+        public void setNome(String nome) {
+                this.nome = nome;
+        }
+
+        public String getMatricula() {
+                return matricula;
+        }
+
+        public void setMatricula(String matricula) {
+                this.matricula = matricula;
+        }
+
+        public double getSalario_base() {
+                return salario_base;
+        }
+
+        public void setSalario_base(double salario_base) {
+                this.salario_base = salario_base;
+        }
+
+        abstract double calculaSalario();
+}</pre>
+<p>Código da classe Gerente</p>
+<pre>package professor.angoti;
+
+public class Gerente extends Funcionario {
+
+        public Gerente(String nome, String matricula, double salario_base) {
+                super(nome, matricula, salario_base);
+        }
+
+        @Override
+        double calculaSalario() {
+                return 2*getSalario_base();
+        }        
+}</pre>
+<p>Código da classe Assistente</p>
+<pre>package professor.angoti;
+
+public class Assistente extends Funcionario {
+
+        public Assistente(String nome, String matricula, 
+                        double salario_base) {
+
+                super(nome, matricula, salario_base);
+        }
+
+        @Override
+        double calculaSalario() {
+                return getSalario_base();
+        }
+}</pre>
+<p>Código da classe Vendedor</p>
+<pre>package professor.angoti;
+
+public class Vendedor extends Funcionario {
+        private double comissao;
+        public Vendedor(String nome, String matricula, double salario_base,    
+                      double salario) {
+
+                super(nome, matricula, salario_base);
+                comissao = salario;
+        }
+
+        @Override
+        double calculaSalario() {
+                return getSalario_base()+comissao;
+        }
+}</pre>
+<p>Vou deixar a implementação da classe Teste por sua conta!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adicionando funcionalidade" duration="5">
+        <p>Agora precisamos adicionar uma nova funcionalidade ao nosso sistema. Suponha que precisamos validar o usuário para acesso ao sistema.</p>
+<p>Vamos adicionar então o método <code>public boolean autentica(int senha)</code> que recebe uma senha a ser validada pelo método às classe <code>Gerente</code> e <code>Assistente</code>.</p>
+<p>O método ficaria assim:</p>
+<p>public boolean autentica(int senha) {</p>
+<p>                // validar a senha aqui</p>
+<p>}</p>
+<p>Para validar a senha do assistente será necessário também verificar se o departamento dele tem acesso. O diagrama a seguir mostra a hierarquia de classes do nosso sistema. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\cf3a740d2de29882.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Usando as novas classes" duration="5">
+        <p>O sistema de controle então precisa verificar se o funcionário se autentica. O código da classe poderia ser assim:</p>
+<pre>public class Sistema {
+
+    public void verificarAcesso(Funcionario funcionario, int senha) {
+        if(funcionario.autentica(senha)){
+             //aqui vai o código para dar prosseguimento ao acesso 
+        }
+    }
+}</pre>
+<p>O método <code>verificarAcesso</code> recebe um objeto do tipo <code>Funcionario</code> e usa este objeto para autenticar o funcionário chamando o método <code>autentica.</code></p>
+<p>Aqui temos um problema: nem todo funcionário tem o método <code>autentica</code>. O código acima não compila. Uma possibilidade é sobrecarregar o método e fornecer duas versões, cada uma recebendo <code>Gerente</code> ou <code>Assistente</code>.</p>
+<pre>public void verificarAcesso(Gerente funcionario) {
+        if(funcionario.autentica(senha)){
+             //aqui vai o código para dar prosseguimento ao acesso 
+        }
+}
+
+public void verificarAcesso(Assistente funcionario) {
+        if(funcionario.autentica(senha)){
+             //aqui vai o código para dar prosseguimento ao acesso 
+        }
+}</pre>
+<h2 is-upgraded><strong>O problema</strong></h2>
+<p>Esta solução leva a um problema: toda vez que você criar um novo tipo de funcionário que tem acesso ao sistema, por exemplo engenheiro, você terá que adicionar um novo método na classe Sistema. Isto não é boa prática e fere a extensibilidade de seu código, já que você precisará alterar duas classes, toda vez que precisar adicionar um novo tipo de funcionário.</p>
+<aside class="special"><p>Observe que nesta solução usamos a <strong>sobrecarga </strong>de método, ou seja, em uma mesma classe temos mais de um método com o mesmo nome.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Modificando a hierarquia de classes" duration="15">
+        <p>Uma solução adequada seria criar uma nova classe, por exemplo, <code>FuncionarioAutenticavel</code> que herda de <code>Funcionario</code> e é estendida pelas classes <code>Gerente</code> e <code>Assistente</code>. Desta forma retiramos o método autentica da classe Funcionario e o colocamos na classe nova <code>FuncionarioAutenticavel.</code></p>
+<pre>public abstract class FuncionarioAutenticavel extends Funcionario {
+    
+    public boolean autentica(int senha) {
+        // faz autenticação  
+                return true;
+    }
+        
+//demais métodos</pre>
+<p>Esta classe deve ser abstrata, uma vez que não existe FuncionarioAutenticavel, e sim <code>Gerente</code>, <code>Vendedor</code> e <code>Assistente</code>.</p>
+<p>Agora o sistema ficaria assim:</p>
+<pre>public class Sistema {
+
+    public void verificarAcesso(FuncionarioAutenticavel funcionario,
+                                int senha) {
+        if(funcionario.autentica(senha)){
+             //aqui vai o código para dar prosseguimento ao acesso 
+        }
+    }
+}</pre>
+<aside class="special"><p>Observe que agora estamos usando <strong>polimorfismo </strong>pois o método <code>verificar acesso recebe um FuncionarioAutenticavel, que pode ser um Gerente ou um Assistente. </code></p>
+</aside>
+<p>E o diagrama de classe fica assim:</p>
+<p class="image-container"><img style="width: 310.00px" src="img\3b8a2cf6db14c2f7.png"></p>
+<p>Reparem que Gerente e Assistente continuam sendo um Funcionário, já que estão na mesma hierarquia de classes.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adicionando outra classe fora da hierarquia" duration="15">
+        <p>Agora temos a seguinte situação: os clientes também terão acesso ao sistema. Como fazer? Sabemos que cliente não é funcionário, então ele não pode estender a classe <code>FuncionarioAutenticavel</code>. </p>
+<aside class="special"><p>Lembre-se da regra É-UM/TEM-UM. Se um cliente não é funcionário, então não podemos estender a classe FuncionarioAutenticavel. </p>
+</aside>
+<p>Qual a solução? Para não alterar a classe Sistema (já vimos que não é boa prática modificar a classe Sistema toda vez que precisamos adicionar uma nova classe ao sistema) e manter o método <code>verificarAcesso</code> como está e ainda poder receber um cliente precisamos adicionar um conceito novo: interface.</p>
+<p>Uma interface define o que uma classe faz e podemos fazer que objetos de hierarquias diferentes possam exibir o mesmo comportamento. A interface funciona como um contrato, estabelecendo que quem quiser se comportar de determinada maneira deve assinar um contrato, ou seja, implementar os métodos declarados na interface.</p>
+<p>Vamos então criar uma interface que declara o método <code>autentica:</code> </p>
+<pre>public interface Autenticavel {
+    boolean autentica(int senha);
+}</pre>
+<p>Agora as classes que precisam de autenticação precisam assinar este contrato implementando a interface.</p>
+<p>As classes modificadas ficam assim agora:</p>
+<pre>package professor.angoti;
+public class Gerente extends Funcionario implements Autenticavel {
+
+        public Gerente(String nome, String matricula, double salario_base) {
+                super(nome, matricula, salario_base);
+        }
+
+        @Override
+        double calculaSalario() {
+                return 2 * getSalario_base();
+        }
+
+        //sobrescrita de método &#34;herdado&#34; da interface
+        @Override
+        public boolean autentica(int senha) {
+        // verifica aqui se a senha confere com a recebida como parâmetro
+                return true;
+        }
+}
+
+
+
+package professor.angoti;
+public class Assistente extends Funcionario implements Autenticavel {
+
+        public Assistente(String nome, String matricula, 
+                        double salario_base) {
+                super(nome, matricula, salario_base);
+        }
+
+        @Override
+        double calculaSalario() {
+                return getSalario_base();
+        }
+
+        //sobrescrita de método &#34;herdado&#34; da interface
+        @Override
+        public boolean autentica(int senha) {
+        // verifica aqui se a senha confere com a recebida como parâmetro
+        // no caso do assistente verifica também se o departamento dele
+        // tem acesso
+                return true;
+        }
+}</pre>
+<p>E a classe cliente fica assim:</p>
+<pre>package professor.angoti;
+
+public class Cliente implements Autenticavel {
+
+        @Override
+        public boolean autentica(int senha) {
+                // TODO Auto-generated method stub
+                return false;
+        }
+        
+        //outros métodos
+}</pre>
+<p>Observe que estas classes implementam a interface <code>Autenticavel</code>, o que implica que todas estas classes exibem o mesmo comportamento, a saber, possuem o método <code>autentica.</code></p>
+<p>A classe <code>Sistema</code> recebe então sua última alteração:</p>
+<pre>public class Sistema {
+
+        public void verificarAcesso(Autenticavel funcionario, int senha) {
+                if (funcionario.autentica(senha)) {
+                        // aqui vai o código para dar prosseguimento ao acesso
+                }
+        }
+}
+
+</pre>
+<p>Observe como ficou o diagrama de classes agora:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\562c563462c0abb1.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Conclusão" duration="5">
+        <p>O <code>implements</code> pode ser lido da seguinte maneira: &#34;A classe Gerente se compromete a ser tratada como <code>Autenticavel</code>, sendo obrigada a implementar os métodos necessários, definidos neste contrato&#34;.</p>
+<p>Desta forma continuamos nos beneficiando do polimorfismo. Temos mais uma forma de referenciar um objeto do tipo <code>Gerente</code> ou <code>Assistente</code>. Quando crio uma variável do tipo Autenticavel, estou criando uma referência para qualquer objeto de uma classe que implemente Autenticavel, direta ou indiretamente:</p>
+<pre>Autenticavel a = new Gerente();
+a.autentica(12345);</pre>
+<p>A interface permite diminuir o acoplamento entre classes e também oferece uma maneira de tratar objetos de diferentes hierarquias da mesma forma, utilizando o polimorfismo. </p>
+<p>Lemas da gang of four (livro Design Patterns) </p>
+<ul>
+<li>&#34;evite herança, prefira composição&#34;</li>
+<li>&#34;programe voltado a interface e não à implementação&#34;.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
