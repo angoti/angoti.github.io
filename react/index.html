@@ -727,31 +727,37 @@ const listItems = numbers.map(
       </google-codelab-step>
     
       <google-codelab-step label="Desenvolvendo uma aplicação CRUD" duration="0">
-        <h2 is-upgraded>Criando a app usando script padrão</h2>
+        <p>Visão geral da estrutura da aplicação</p>
+<p class="image-container"><img style="width: 642.52px" src="img\8a45da70099e35bb.png"></p>
+<p>A aplicação é um sistema de cadastro de livros de uma biblioteca e o cliente React consome uma api Rest CRUD implementada por um servidor Spring Boot.</p>
+<ul>
+<li>O componente <code>&lt;App&gt;</code> é um contêiner com <em>React Router</em>. Exibe uma barra de navegação com links para as rotas definidas pelos componentes &lt;Switch&gt; e &lt;Route&gt;.</li>
+<li>O componente <code>&lt;ListagemLivro&gt;</code> exibe todos os livros </li>
+<li>O componente <code>&lt;NovoLivro&gt;</code>  é um formulário para criar um novo livro.</li>
+<li>O componente <code>&lt;EditaLivro&gt;</code>  é um formulário para editar um livro.</li>
+</ul>
+<p>Esses componentes chamam métodos de serviço, definidos no arquivo <code>/services/Endpoints.js</code>, que usam axios para fazer requisições HTTP e receber respostas.</p>
+<h2 is-upgraded>Criando o app usando script padrão</h2>
 <p><code>npx create-react-app aula-react-crud</code></p>
-<h2 is-upgraded>Instalação de pacotes</h2>
+<h2 is-upgraded>Instalação de dependências</h2>
 <p><code>yarn add bootstrap</code></p>
 <p><code>yarn add react-router-dom</code></p>
 <aside class="special"><p><a href="https://reactrouter.com/web/guides/quick-start" target="_blank">Para saber mais sobre react-router-dom</a></p>
 </aside>
 <p><code>yarn add axios</code></p>
-<h2 is-upgraded>Criação da estrutura de diretórios e arquivos</h2>
-<p class="image-container"><img style="width: 278.00px" src="img\10a26707bdab4d57.png"></p>
+<h2 is-upgraded>Estrutura de diretórios e arquivos do projeto</h2>
+<p class="image-container"><img style="width: 187.00px" src="img\be77a7fc330ef56c.png"></p>
 <h3 is-upgraded>Arquivo src/index.js</h3>
 <pre><code>import React from &#34;react&#34;;
 import ReactDOM from &#34;react-dom&#34;;
-import { BrowserRouter } from &#34;react-router-dom&#34;;
+
 import App from &#34;./App&#34;;
 
-ReactDOM.render(
-  &lt;BrowserRouter&gt;
-    &lt;App /&gt;
-  &lt;/BrowserRouter&gt;,
-  document.getElementById(&#34;root&#34;)
+ReactDOM.render(&lt;App /&gt;,  document.getElementById(&#34;root&#34;)
 );</code></pre>
 <h3 is-upgraded>Arquivo src/App.js</h3>
 <pre><code>import React from &#34;react&#34;;
-import { Switch, Route, Link } from &#34;react-router-dom&#34;;
+import { BrowserRouter, Switch, Route, Link } from &#34;react-router-dom&#34;;
 import &#34;bootstrap/dist/css/bootstrap.min.css&#34;;
 import &#34;./App.css&#34;;
 
@@ -761,7 +767,7 @@ import EditaLivro from &#34;./components/EditaLivro.js&#34;;
 
 function App() {
   return (
-    &lt;div&gt;
+    &lt;BrowserRouter&gt;
       &lt;nav className=&#34;container navbar navbar-expand navbar-dark bg-dark&#34;&gt;
         &lt;h1 className=&#34;navbar-brand&#34;&gt;
           Exemplo CRUD
@@ -787,41 +793,39 @@ function App() {
           &lt;Route path=&#34;/livros/:id&#34; component={EditaLivro} /&gt;
         &lt;/Switch&gt;
       &lt;/div&gt;
-    &lt;/div&gt;
+    &lt;/BrowserRouter&gt;
   );
 }
 
 export default App;</code></pre>
-<h3 is-upgraded>Arquivo src/http-common.js</h3>
+<h3 is-upgraded>Arquivo services/Endpoints.js</h3>
 <pre><code>import axios from &#34;axios&#34;;
 
-export default axios.create({
+const httpClient = axios.create({
   baseURL: &#34;http://localhost:8080/api&#34;,
   headers: {
     &#34;Content-type&#34;: &#34;application/json&#34;
   }
-});</code></pre>
-<h3 is-upgraded>Arquivo services/Endpoints.js</h3>
-<pre><code>import http from &#34;../http-common&#34;;
+})
 
 export const getAll = () =&gt; {
-  return http.get(&#34;/livro&#34;);
+  return httpClient.get(&#34;/livro&#34;);
 };
 
 export const get = id =&gt; {
-  return http.get(`/livro/${id}`);
+  return httpClient.get(`/livro/${id}`);
 };
 
 export const create = data =&gt; {
-  return http.post(&#34;/livro&#34;, data);
+  return httpClient.post(&#34;/livro&#34;, data);
 };
 
 export const update = (id, data) =&gt; {
-  return http.put(`/livro/${id}`, data);
+  return httpClient.put(`/livro/${id}`, data);
 };
 
 export const remove = id =&gt; {
-  return http.delete(`/livro/${id}`);
+  return httpClient.delete(`/livro/${id}`);
 };</code></pre>
 <h2 is-upgraded>Construindo os componentes</h2>
 <h3 is-upgraded>Listando todos os livros</h3>
