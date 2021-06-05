@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>React - Conceitos</title>
+  <title>React</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,7 +23,7 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id=""
-                  title="React - Conceitos"
+                  title="React"
                   environment="web"
                   feedback-link="">
     
@@ -736,7 +736,7 @@ const listItems = numbers.map(
 </aside>
 <p><code>yarn add axios</code></p>
 <h2 is-upgraded>Criação da estrutura de diretórios e arquivos</h2>
-<p class="image-container"><img style="width: 247.00px" src="img\40a4e53c244d1417.png"></p>
+<p class="image-container"><img style="width: 278.00px" src="img\10a26707bdab4d57.png"></p>
 <h3 is-upgraded>Arquivo src/index.js</h3>
 <pre><code>import React from &#34;react&#34;;
 import ReactDOM from &#34;react-dom&#34;;
@@ -757,22 +757,25 @@ import &#34;./App.css&#34;;
 
 import ListagemLivros from &#34;./components/ListagemLivros.js&#34;;
 import NovoLivro from &#34;./components/NovoLivro.js&#34;;
-import DetalheLivro from &#34;./components/DetalheLivro.js&#34;;
+import EditaLivro from &#34;./components/EditaLivro.js&#34;;
 
 function App() {
   return (
-    &lt;div className=&#34;container&#34;&gt;
-      &lt;nav className=&#34;navbar navbar-expand navbar-dark bg-dark&#34;&gt;
-       
+    &lt;div&gt;
+      &lt;nav className=&#34;container navbar navbar-expand navbar-dark bg-dark&#34;&gt;
+        &lt;h1 className=&#34;navbar-brand&#34;&gt;
+          Exemplo CRUD
+        &lt;/h1&gt;
         &lt;div className=&#34;navbar-nav mr-auto&#34;&gt;
           &lt;li className=&#34;nav-item&#34;&gt;
-            &lt;Link to={&#34;/livros&#34;} className=&#34;nav-link&#34;&gt;Biblioteca&lt;/Link&gt;
+            &lt;Link to={&#34;/livros&#34;} className=&#34;nav-link&#34;&gt;
+              Livros
+            &lt;/Link&gt;
           &lt;/li&gt;
           &lt;li className=&#34;nav-item&#34;&gt;
-            &lt;Link to={&#34;/novo&#34;} className=&#34;nav-link&#34;&gt;Novo&lt;/Link&gt;
-          &lt;/li&gt;
-          &lt;li className=&#34;nav-item&#34;&gt;
-            &lt;Link to={&#34;/livros/1&#34;} className=&#34;nav-link&#34;&gt;Detalhe&lt;/Link&gt;
+            &lt;Link to={&#34;/novo&#34;} className=&#34;nav-link&#34;&gt;
+              Novo livro
+            &lt;/Link&gt;
           &lt;/li&gt;
         &lt;/div&gt;
       &lt;/nav&gt;
@@ -781,7 +784,7 @@ function App() {
         &lt;Switch&gt;
           &lt;Route exact path={[&#34;/&#34;, &#34;/livros&#34;]} component={ListagemLivros} /&gt;
           &lt;Route exact path=&#34;/novo&#34; component={NovoLivro} /&gt;
-          &lt;Route path=&#34;/livros/:id&#34; component={DetalheLivro} /&gt;
+          &lt;Route path=&#34;/livros/:id&#34; component={EditaLivro} /&gt;
         &lt;/Switch&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -986,7 +989,7 @@ const NovoLivro = () =&gt; {
 
 export default NovoLivro;</code></pre>
 <h3 is-upgraded>Editando um livro</h3>
-<h4 is-upgraded>Arquivo components/DetalheLivro.js</h4>
+<h4 is-upgraded>Arquivo components/EditaLivro.js</h4>
 <pre><code>import React, { useState, useEffect } from &#34;react&#34;;
 import * as api from &#34;../services/Endpoints&#34;
 
