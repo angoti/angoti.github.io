@@ -740,11 +740,15 @@ const listItems = numbers.map(
 <h2 is-upgraded>Criando o app usando script padrão</h2>
 <p><code>npx create-react-app aula-react-crud</code></p>
 <h2 is-upgraded>Instalação de dependências</h2>
-<p><code>yarn add bootstrap</code></p>
-<p><code>yarn add react-router-dom</code></p>
+<p>Neste projeto vamos utilizar três dependências: </p>
+<ol type="1" start="1">
+<li>Bootstrap: um kit de ferramentas para estilizar front-end </li>
+<li>React Router: uma ferramenta que permite manipular rotas em um aplicativo da web</li>
+<li>Axios: um cliente HTTP</li>
+</ol>
+<p><code>yarn add bootstrap react-router-dom axios</code></p>
 <aside class="special"><p><a href="https://reactrouter.com/web/guides/quick-start" target="_blank">Para saber mais sobre react-router-dom</a></p>
 </aside>
-<p><code>yarn add axios</code></p>
 <h2 is-upgraded>Estrutura de diretórios e arquivos do projeto</h2>
 <p class="image-container"><img style="width: 187.00px" src="img\be77a7fc330ef56c.png"></p>
 <h3 is-upgraded>Arquivo src/index.js</h3>
@@ -774,12 +778,12 @@ function App() {
         &lt;/h1&gt;
         &lt;div className=&#34;navbar-nav mr-auto&#34;&gt;
           &lt;li className=&#34;nav-item&#34;&gt;
-            &lt;Link to={&#34;/livros&#34;} className=&#34;nav-link&#34;&gt;
+            &lt;Link to=&#34;/livros&#34; className=&#34;nav-link&#34;&gt;
               Livros
             &lt;/Link&gt;
           &lt;/li&gt;
           &lt;li className=&#34;nav-item&#34;&gt;
-            &lt;Link to={&#34;/novo&#34;} className=&#34;nav-link&#34;&gt;
+            &lt;Link to=&#34;/novo&#34; className=&#34;nav-link&#34;&gt;
               Novo livro
             &lt;/Link&gt;
           &lt;/li&gt;
