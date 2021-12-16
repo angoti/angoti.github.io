@@ -28,8 +28,8 @@
                   feedback-link="">
     
       <google-codelab-step label="Introdução" duration="60">
-        <p class="image-container"><img style="width: 285.00px" src="img\\e30b3df21aeeefaf.png"><img style="width: 408.00px" src="img\\eb8425b4ec40aacf.png"></p>
-<p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado. Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos aqui neste tutorial é a anotação <code>@ControllerAdvice.</code></p>
+        <p class="image-container"><img style="width: 454.73px" src="img\\c2d6cca715e29abc.png"></p>
+<p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado. Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos aqui neste tutorial é a anotação <code>@ControllerAdvice</code>.</p>
 <p>Esta anotação facilita nossa vida para lidar com todos os tipos de exceções em um local central em nossa aplicação. A facilidade está em não precisar capturar exceções em cada método ou classe separadamente, bastando apenas lançar a exceção no método e, em seguida, ela será capturada na classe central de tratamento de exceções anotada por <code>@ControllerAdvice</code>. </p>
 
 
@@ -37,18 +37,18 @@
     
       <google-codelab-step label="Lançando exceções" duration="0">
         <p>Considere o seguinte método de uma classe da camada de serviço</p>
-<pre><code>public Participante findById(Integer id) {
+<pre>public Participante findById(Integer id) {
                 return repository.findById(id)
                                  .orElseThrow(
                        () -&gt; new ParticipanteNaoEncontradoException(id));
-}</code></pre>
+}</pre>
 <p>Caso o método findById não encontre o registro indentificado pelo parâmetro id, precisamos informar que o registro não foi encontrado. Então lançamos uma exceção chamada <code>ParticipanteNaoEncontradoException</code>, definida na classe abaixo.</p>
-<pre><code>public class ParticipanteNaoEncontradoException extends RuntimeException {
+<pre>public class ParticipanteNaoEncontradoException extends RuntimeException {
 
         public ParticipanteNaoEncontradoException(Integer id) {
                 super(&#34;Participante não encontrado. ID = &#34; + id);
         }
-}</code></pre>
+}</pre>
 <p>Quando o banco de dados não encontrar um determinado participante, o sistema lança a exceção <code>ParticipanteNaoEncontradoException</code> que tem no seu construtor um parâmetro para receber o id do registro buscado e assim você pode criar uma mensagem que será usada na resposta à requisição do cliente. </p>
 
 
