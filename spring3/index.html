@@ -1,0 +1,795 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Sistema Web MVC</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Sistema Web MVC"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="30">
+        <aside class="special"><p>Última atualização:15/12/2021</p>
+</aside>
+<p>Neste codelab você aprenderá a desenvolver um aplicativo Java Web  utilizando o framework Spring Boot com Thymeleaf e acesso a dados com JdbcTemplate (SQL DAO - repository), com controle de acesso (autenticação e autorização com Spring Security) que gerencia informações em um banco de dados com operações CRUD padrão: Criar, Recuperar, Atualizar e Excluir. O sistema será hospedado no servidor Heroku.  </p>
+<h2 is-upgraded><strong>O que você vai fazer </strong></h2>
+<ul>
+<li>Criar um projeto maven spring boot</li>
+<li>Criar um banco de dados usando MySQL Workbench</li>
+<li>Configurar a aplicação usando o arquivo src/main/resources/application.properties.</li>
+<li>Estilizar as páginas HTML com Bootstrap</li>
+<li>Estruturar as páginas HTML com Thymeleaf fragments</li>
+<li>Implementar controladores, repositórios e visualizações usando template engine</li>
+<li>Controle de acesso com autenticação de formulário e autorização com base em papéis</li>
+<li>Publicar a aplicação no servidor Heroku</li>
+</ul>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Gerenciar dependências com Maven</li>
+<li>Modelo MVC para aplicações Web</li>
+<li>Funcionalidades CRUD</li>
+<li>Acesso a dados usando DAO SQL</li>
+<li>Bootstrap</li>
+<li>Autenticação Username/Password </li>
+<li>Autorização de requisições HTTP</li>
+</ul>
+<h2 is-upgraded><strong>O que você precisa</strong></h2>
+<p>Observação: a instalação destas ferramentas está fora do escopo deste documento.</p>
+<ul>
+<li>IDE (Eclipse, VS Code, Intellij IDE ...)</li>
+<li>JDK 8</li>
+<li>Servidor MySQL</li>
+<li>MySQL Workbench</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Modelagem de dados" duration="30">
+        <p>A aplicação consiste de uma página web para exibir produtos cadastrados previamente. Teremos vários papéis que os usuários poderão desempenhar na aplicação. Vamos ter os seguintes papeis na aplicação:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Papel</p>
+</td><td colspan="1" rowspan="1"><p>Autorização</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>USUÁRIO </p>
+</td><td colspan="1" rowspan="1"><p>permissão para visualizar todos os produtos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>CRIADOR </p>
+</td><td colspan="1" rowspan="1"><p>permissão para criar novos produtos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>EDITOR </p>
+</td><td colspan="1" rowspan="1"><p>permissão para editar produtos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ADMIN </p>
+</td><td colspan="1" rowspan="1"><p>todas as permissões</p>
+</td></tr>
+</table>
+<p>O diagrama de entidades e relacionamentos da aplicação:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\bbcd8bbe78ea4875.png"></p>
+<p>A tabela de usuários armazena credenciais e a tabela de papeis armazena autorizações (direitos). O relacionamento de entidade entre usuários e papeis é muitos para muitos porque um usuário pode ter uma ou mais papeis e um papel pode ser atribuído a um ou mais usuários. É por isso que precisamos ter a tabela intermediária usuarios_papeis para representar essa associação muitos para muitos.</p>
+<p>Script de criação do banco de dados:</p>
+<pre>CREATE SCHEMA IF NOT EXISTS `teste` DEFAULT CHARACTER SET utf8mb4 ;
+USE `teste` ;
+
+CREATE TABLE IF NOT EXISTS `papeis` (
+  `papel_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`papel_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `produto` (
+  `produto_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `descricao` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`produto_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `usuario_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`usuario_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `usuarios_papeis` (
+  `usuario_id` INT(11) NOT NULL,
+  `papel_id` INT(11) NOT NULL,
+  CONSTRAINT `papel_fk`
+    FOREIGN KEY (`papel_id`)
+    REFERENCES `papeis` (`papel_id`),
+  CONSTRAINT `user_fk`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `autentica-autoriza`.`usuarios` (`usuario_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Maven" duration="15">
+        <p>Vamos usar o Maven para gerenciar as dependências do projeto e facilitar o processo de construção da aplicação. Maven usa um arquivo XML chamado pom.xml. Um modelo de objeto de projeto ou POM é a unidade fundamental de trabalho no Maven. É um arquivo XML que contém informações sobre o projeto e detalhes de configuração usados ​​pelo Maven para construir o projeto. O uso do framework Spring Boot permite o desenvolvimento rápido de aplicações. </p>
+<p>Neste projeto vamos usar as dependências</p>
+<ul>
+<li>Web - aplicação web mvc que simplifica a codificação da camada do controlador. </li>
+<li>Thymeleaf - template engine para criação das visualizações do modelo mvc que simplifica a codificação da camada de visualização.</li>
+<li>JDBC - acesso ao banco de dados </li>
+<li>MySQL - conector do banco de dados mysql</li>
+<li>Security - implementação da autenticação e autorização</li>
+<li>Validation - validação de dados recebidos de formulários</li>
+<li>Devtools - ferramentas de desenvolvimento</li>
+</ul>
+<p>O arquivo pom.xml</p>
+<pre>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+        xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&gt;
+        &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+        &lt;parent&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+                &lt;version&gt;2.6.1&lt;/version&gt;
+                &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+        &lt;/parent&gt;
+        &lt;groupId&gt;br.edu.iftm&lt;/groupId&gt;
+        &lt;artifactId&gt;autentica-autoriza&lt;/artifactId&gt;
+        &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+        &lt;name&gt;autentica-autoriza&lt;/name&gt;
+        &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+        &lt;properties&gt;
+                &lt;java.version&gt;8&lt;/java.version&gt;
+        &lt;/properties&gt;
+        &lt;dependencies&gt;
+
+                &lt;!-- dependencia para usar JdbcTemplate --&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+
+                &lt;!-- dependencia para usar engine template Thymeleaf --&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+
+                &lt;!-- dependencia app web mvc --&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+        
+                &lt;!-- dependencias de segurança--&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.thymeleaf.extras&lt;/groupId&gt;
+                        &lt;artifactId&gt;thymeleaf-extras-springsecurity5&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+
+                &lt;!-- dependencia conector banco de dados mysql --&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;mysql&lt;/groupId&gt;
+                        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+                        &lt;scope&gt;runtime&lt;/scope&gt;
+                &lt;/dependency&gt;
+
+                &lt;!-- dependencias de testes --&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+                        &lt;scope&gt;test&lt;/scope&gt;
+                &lt;/dependency&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-security-test&lt;/artifactId&gt;
+                        &lt;scope&gt;test&lt;/scope&gt;
+                &lt;/dependency&gt;
+
+                &lt;!-- dependencias ferramentas desenvolvedor --&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+                        &lt;scope&gt;runtime&lt;/scope&gt;
+                        &lt;optional&gt;true&lt;/optional&gt;
+                &lt;/dependency&gt;
+
+                &lt;!-- Validação --&gt;
+                &lt;dependency&gt;
+                        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                        &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+                &lt;/dependency&gt;
+
+        &lt;/dependencies&gt;
+
+        &lt;build&gt;
+                &lt;plugins&gt;
+                        &lt;plugin&gt;
+                                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                                &lt;!-- configuração para upload automatico de resources. Executar o app com maven:spring-boot:run --&gt;
+                                &lt;configuration&gt;
+                                        &lt;addResources&gt;true&lt;/addResources&gt;
+                                &lt;/configuration&gt;
+                        &lt;/plugin&gt;
+                &lt;/plugins&gt;
+        &lt;/build&gt;
+&lt;/project&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configuração da aplicação" duration="15">
+        <p>O arquivo src\main\resources\application.properties contém informações para o framework Spring. </p>
+<p>A configuração #1 estabelece as informações para conexão ao banco de dados. A configuração #2 permite a visualização do log do servidor no console. A configuração #3 permite a criação automática das tabelas do banco de dados e a configuração #4 habilita a página de erro que deve ser exibida quando alguma exceção acontecer.</p>
+<pre>#1 configuração da fonte de dados 
+spring.datasource.url=jdbc:mysql://localhost:3306/autentica-autoriza
+spring.datasource.username=root
+spring.datasource.password=
+
+#2 configuração de log da aplicação. 
+logging.level.root=info
+logging.level.org.springframework.jdbc.core.JdbcTemplate=debug
+logging.level.web=DEBUG
+
+#3 retire o comentário da linha abaixo para criar as tabelas do banco de 
+# dados. O banco de dados deve ser criado antes de executar o servidor. 
+# O nome do banco de dados deverá ser autentica-autoriza. O arquivo com o script de criação das tabelas deve
+# ter o seguinte nome e localização src\main\resources\schema.sql
+#spring.sql.init.mode=always
+
+#4 página de erro src\main\resources\templates\error.html
+server.error.whitelabel.enabled=false
+server.error.include-stacktrace=always
+server.error.include-exception=true
+server.error.include-message=always
+server.error.include-binding-errors=always</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Fragments Thymeleaf e a estrutura do website" duration="60">
+        <p><a href="https://docs.google.com/presentation/d/1i9XNj-9uMjClVl2sd-SRV23WTXN2LT6sRu-rNt76mjs/edit#slide=id.p" target="_blank">Notas da aula</a></p>
+<p>O site tem a seguinte estrutura</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\6eda8812c34f7ec1.png"></p>
+<p>A tela foi dividida em três partes</p>
+<p>No projeto teremos um layout padrão que será usado por todas as páginas da aplicação. Assim na estrutura de pastas vamos criar dois arquivos de templates: um para conter os fragmentos e outro para conter o layout.</p>
+<p class="image-container"><img style="width: 549.00px" src="img\\a485c1d7bd41e697.png"></p>
+<p>O arquivo fragmentos.html</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&#34;http://www.thymeleaf.org&#34; xmlns:sec=&#34;https://www.thymeleaf.org/thymeleaf-extras-springsecurity5&#34;&gt;
+
+&lt;div th:fragment=&#34;navbar&#34; class=&#34;navbar navbar-dark navbar-expand-md bg-dark mb-1&#34;&gt;
+  &lt;button class=&#34;navbar-toggler&#34; type=&#34;button&#34; data-bs-toggle=&#34;collapse&#34; data-bs-target=&#34;#navbarSupportedContent&#34;
+    aria-controls=&#34;navbarSupportedContent&#34; aria-expanded=&#34;false&#34; aria-label=&#34;Toggle navigation&#34;&gt;
+    &lt;span class=&#34;navbar-toggler-icon &#34;&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&#34;container d-flex&#34;&gt;
+    &lt;div class=&#34;collapse navbar-collapse col-6&#34; id=&#34;navbarSupportedContent&#34;&gt;
+      &lt;ul class=&#34;navbar-nav&#34;&gt;
+        &lt;li class=&#34;nav-item&#34;&gt;
+          &lt;a class=&#34;nav-link text-white m-1 material-icons&#34; href=&#34;/&#34; title=&#34;Início&#34;&gt;home&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class=&#34;nav-item dropdown&#34;&gt;
+          &lt;a class=&#34;nav-link dropdown-toggle&#34; href=&#34;#&#34; id=&#34;navbarDropdown&#34; role=&#34;button&#34;
+            data-bs-toggle=&#34;dropdown&#34; aria-haspopup=&#34;true&#34; aria-expanded=&#34;false&#34;&gt;
+            Usuários
+          &lt;/a&gt;
+          &lt;div class=&#34;dropdown-menu&#34; aria-labelledby=&#34;navbarDropdown&#34;&gt;
+            &lt;a class=&#34;dropdown-item&#34; href=&#34;/novo-usuario&#34;&gt;Novo&lt;/a&gt;
+            &lt;a class=&#34;dropdown-item&#34; href=&#34;/usuarios&#34;&gt;Todos&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li class=&#34;nav-item dropdown&#34;&gt;
+          &lt;a class=&#34;nav-link dropdown-toggle&#34; href=&#34;#&#34; id=&#34;navbarDropdown&#34; role=&#34;button&#34;
+            data-bs-toggle=&#34;dropdown&#34; aria-haspopup=&#34;true&#34; aria-expanded=&#34;false&#34;&gt;
+            Produtos
+          &lt;/a&gt;
+          &lt;div class=&#34;dropdown-menu&#34; aria-labelledby=&#34;navbarDropdown&#34;&gt;
+            &lt;a class=&#34;dropdown-item&#34; href=&#34;/novo-produto&#34;&gt;Novo&lt;/a&gt;
+            &lt;a class=&#34;dropdown-item&#34; href=&#34;/produtos&#34;&gt;Todos&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;h5 class=&#34;text-white col-4 mb-0&#34;&gt;Projeto Sistema Web MVC SQL&lt;/h5&gt;
+
+    &lt;div class=&#34;d-flex col-2&#34; sec:authorize=&#34;isAuthenticated()&#34;&gt;
+      &lt;span class=&#34;text-white small&#34; sec:authentication=&#34;name&#34;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+    &lt;form th:action=&#34;@{/logout}&#34; method=&#34;post&#34; class=&#34;ml-4&#34; sec:authorize=&#34;isAuthenticated()&#34;&gt;
+      &lt;input class=&#34;btn btn-secondary btn-sm p-1 small&#34; type=&#34;submit&#34; value=&#34;Sair&#34; /&gt;
+    &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+
+&lt;div th:fragment=&#34;rodape&#34;&gt;
+  &lt;button type=&#34;button&#34; class=&#34;btn btn-dark&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#sobre&#34;&gt;
+    Quem somos
+  &lt;/button&gt;
+
+  &lt;!-- Modal --&gt;
+  &lt;div class=&#34;modal fade&#34; id=&#34;sobre&#34; tabindex=&#34;-1&#34; role=&#34;dialog&#34;&gt;
+    &lt;div class=&#34;modal-dialog modal-dialog-scrollable modal-lg&#34; role=&#34;document&#34;&gt;
+      &lt;div class=&#34;modal-content&#34;&gt;
+        &lt;div class=&#34;modal-header&#34;&gt;
+          &lt;h5 class=&#34;modal-title&#34; id=&#34;exampleModalLongTitle&#34;&gt;Projeto Sistema Web MVC e SQL&lt;/h5&gt;
+          &lt;button type=&#34;button&#34; class=&#34;btn-close&#34; data-bs-dismiss=&#34;modal&#34; aria-label=&#34;Close&#34;&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;modal-body&#34;&gt;
+          &lt;p&gt;No segundo período o estudante desenvolverá um sistema web monolítico utilizando template engine MVC e
+            acesso a dados
+            baseado em comandos SQL. A concepção deste projeto foi para que o estudante tenha a oportunidade tanto de
+            utilizar uma
+            tecnologia de template engine, bem como aplicar na prática o acesso a dados de uma forma mais manual, via
+            comandos SQL, sem
+            ainda recorrer a ferramentas modernas de mapeamento objeto-relacional.&lt;/p&gt;
+          &lt;p&gt;Tecnologias utilizadas neste sistema:&lt;/p&gt;
+          &lt;ul&gt;
+            &lt;li&gt;Spring boot&lt;/li&gt;
+            &lt;li&gt;Maven&lt;/li&gt;
+            &lt;li&gt;MySQL&lt;/li&gt;
+            &lt;li&gt;GitHub&lt;/li&gt;
+            &lt;li&gt;Javascript&lt;/li&gt;
+            &lt;li&gt;JQuery&lt;/li&gt;
+            &lt;li&gt;MVC&lt;/li&gt;
+            &lt;li&gt;Bootstrap&lt;/li&gt;
+            &lt;li&gt;Spring Security&lt;/li&gt;
+            &lt;li&gt;Spring Data Access&lt;/li&gt;
+            &lt;li&gt;Heroku Server&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;modal-footer&#34;&gt;
+          &lt;button type=&#34;button&#34; class=&#34;btn btn-secondary&#34; data-bs-dismiss=&#34;modal&#34;&gt;Fechar&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/html&gt;</pre>
+<p>O arquivo layout.html</p>
+<pre>&lt;html xmlns:th=&#34;http://www.thymeleaf.org&#34; th:fragment=&#34;layout&#34;&gt;
+&lt;head&gt;
+&lt;!-- Required meta tags --&gt;
+&lt;meta charset=&#34;utf-8&#34;&gt;
+&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1, shrink-to-fit=no&#34;&gt;
+&lt;!-- Bootstrap CSS --&gt;
+&lt;link href=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34; integrity=&#34;sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3&#34; crossorigin=&#34;anonymous&#34;&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://fonts.googleapis.com/icon?family=Material+Icons&#34;&gt;
+
+&lt;title&gt;Escola 5.3&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&#34;d-flex flex-column min-vh-100&#34;&gt;
+
+        &lt;!-- Início do conteúdo da página --&gt;
+        &lt;nav th:insert=&#34;fragmentos/fragmentos :: navbar&#34;&gt;&lt;/nav&gt;
+
+        &lt;main th:insert=&#34;this :: conteudo&#34; class=&#34;ml-3&#34;&gt;&lt;/main&gt;
+
+        &lt;footer th:insert=&#34;fragmentos/fragmentos :: rodape&#34; class=&#34;mt-auto mx-auto my-3&#34;&gt;&lt;/footer&gt;
+        &lt;!-- Fim do conteúdo da página --&gt;
+        
+        &lt;script src=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js&#34; integrity=&#34;sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p&#34; crossorigin=&#34;anonymous&#34;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>
+<p>Toda página nova deverá ter o seguinte código inicial</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&#34;http://www.thymeleaf.org&#34; th:replace=&#34;fragmentos/layout&#34;&gt;
+&lt;div th:fragment=&#34;conteudo&#34;&gt;
+    &lt;!-- insira seu código aqui --&gt;
+&lt;/div&gt;
+
+&lt;/html&gt;</pre>
+<p>O seu código deverá ser inserido depois do comentário <code><!-- insira seu código aqui --></code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="CRUD Usuario" duration="180">
+        <p>Referências:</p>
+<ul>
+<li><a href="https://docs.google.com/presentation/u/0/d/1dfUbNYiSVOswH0iWh46StSjRB7Ddm1Y6V_mNhkXPNro/edit" target="_blank">Nota de aula Jdbctemplate e DAO</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc-JdbcTemplate" target="_blank">Referência Using JdbcTemplate</a></li>
+<li><a href="https://docs.google.com/document/u/0/d/1BTnWm507VEwbaRAuGvTLsKWngl8oo3tclmUFt5874sw/edit" target="_blank">Nota de aula Formulários e Thymeleaf</a></li>
+<li><a href="https://drive.google.com/file/d/15Pg8PGzdwdFNRS8xYWqB62R30tpbRpn7/view?usp=drive_web&authuser=0" target="_blank">Aula CRUD 1</a></li>
+<li><a href="https://drive.google.com/file/d/1AADB2A-2SbmWaFvTG00EG9xWaDzrpIzl/view?usp=drive_web&authuser=0" target="_blank">Aula CRUD 2</a></li>
+<li><a href="https://drive.google.com/file/d/1lFHI1ss9H57lX8HZjmL8026sc_k-pVyl/view?usp=drive_web&authuser=0" target="_blank">Aula CRUD 3</a></li>
+</ul>
+<h2 is-upgraded><strong>Criação do modelo</strong></h2>
+<p>O modelo é uma classe Java que representa uma entidade do banco de dados. Chaves estrangeiras no banco de dados são representadas no modelo por um atributo da classe do tipo da tabela referenciada.</p>
+<h2 is-upgraded><strong>Criação do repositório</strong></h2>
+<p>O repositório é uma classe Java que realiza as transações com o banco de dados fazendo a &#34;ponte&#34; entre os mundos dos objetos e o mundo das tabelas. Aqui são implementados métodos para efetivar as operações CRUD. Estas classes devem ser anotadas com <code>@Repository.</code></p>
+<h2 is-upgraded><strong>Criação do controlador</strong></h2>
+<p>Nestas classes encontramos os métodos que implementam a lógica MVC para atender às solicitações do usuário do sistema. Estas classes são anotadas com <code>@Controller</code> e seus métodos podem ser anotados com <code>@GetMapping</code> ou <code>@PostMapping</code>, dependendo do tipo de requisição HTTP vinda do front-end. A interação do usuário com o sistema se dá através de links ou botões. Cada link ou botão de formulário define uma URL com uma parte (chamada <em>path</em>, veja figura abaixo) que é utilizada para mapear qual método atenderá a solicitação do usuário.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\60a6377e61ebe76.png"></p>
+<p>fonte: <a href="https://pzwiki.wdka.nl/mediadesign/Universal_Resource_Locator" target="_blank">https://pzwiki.wdka.nl/mediadesign/Universal_Resource_Locator</a></p>
+<p class="image-container"><img style="width: 377.00px" src="img\\adcc6bb611a1a7c7.png"></p>
+<h2 is-upgraded><strong>Criação dos templates</strong></h2>
+<p>Referências</p>
+<ul>
+<li><a href="https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html" target="_blank">https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html</a></li>
+<li><a href="https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html" target="_blank">https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html</a></li>
+</ul>
+<p>Os templates são arquivos HTML que utilização atributos Thymeleaf e representam a letra V do MVC. </p>
+<p class="image-container"><img style="width: 595.85px" src="img\\72400580d32f5bb7.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adicionando autenticação de Usuario" duration="60">
+        <p>Referências:</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-security/reference/" target="_blank">https://docs.spring.io/spring-security/reference/</a></li>
+<li><a href="https://docs.spring.io/spring-security/site/docs/4.1.1.RELEASE/reference/htmlsingle/" target="_blank">Spring Security Reference</a></li>
+<li><a href="https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial" target="_blank">Spring Boot Security Role-based Authorization Tutorial</a></li>
+</ul>
+<aside class="special"><p>Observação 1: alterar o formulário html de cadastro de usuários de forma que o campo de entrada da senha seja readonly em caso de edição de um usuário existente. --&gt; <code>th:readonly="*{id}"</code></p>
+<p>Observação 2: Deve-se adicionar uma etapa de criptografia na senha para adicionar segurança:</p>
+<p><code>@PostMapping(value = "novo-usuario")</code></p>
+<p><code>  public String cadastraNovoUsuario(Usuario usuario) {</code></p>
+<p><code>    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();</code></p>
+<p><code>    String encodedPassword = passwordEncoder.encode(usuario.getSenha());</code></p>
+<p><code>    usuario.setSenha(encodedPassword);</code></p>
+<p><code>usuarioRepository.gravaUsuario(usuario);</code></p>
+<p><code>    return "redirect:/usuarios";</code></p>
+<p><code>}</code></p>
+</aside>
+<p>Vamos usar a <a href="https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html" target="_blank">autenticação de nome de usuário / senha</a>, que utiliza um formulário HTML para obter do usuário um nome e uma senha para autenticação. </p>
+<p>Quando a página de login é especificada na configuração do Spring Security, você é responsável por renderizar a página. </p>
+<p>Existem alguns pontos-chave sobre o formulário HTML padrão:</p>
+<ul>
+<li>O formulário deve ser submetido para /login usando o método post</li>
+<li>O formulário precisará incluir um token CSRF que é automaticamente incluído pelo Thymeleaf através  do atributo Thymeleaf <code>th:action="@{/login}"</code></li>
+<li>O formulário deve especificar o nome de usuário em um parâmetro chamado <code>username</code></li>
+<li>O formulário deve especificar a senha em um parâmetro chamado <code>password</code></li>
+<li>Se um parâmetro HTTP com o nome <code>error</code> for encontrado (<code>th:if="${param.error}"</code>), isso indica que o usuário não forneceu um nome de usuário / senha válidos</li>
+<li>Se um parâmetro HTTP chamado <code>logout</code> for encontrado (<code>th:if="${param.logout}"</code>), indica que o usuário foi desconectado com sucesso</li>
+</ul>
+<p>Primeiro vamos adicionar uma nova pasta à nossa estrutura do projeto</p>
+<p class="image-container"><img style="width: 246.00px" src="img\\3f6de19e8791005e.png"></p>
+<h2 is-upgraded><strong>Configurando a segurança com WebSecurityConfigurerAdapter</strong></h2>
+<pre>package br.edu.iftm.autenticaautoriza.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+@Configuration
+@EnableWebSecurity
+public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new MyUserDetailsService();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                 .antMatchers(&#34;/usuarios&#34;).authenticated()
+                 .anyRequest().permitAll()
+                .and()
+            .formLogin()
+                 .loginPage(&#34;/login&#34;)
+                 .defaultSuccessUrl(&#34;/&#34;)
+                 .permitAll()
+                 .and()
+            .logout()
+                 .logoutSuccessUrl(&#34;/&#34;)
+                 .permitAll();
+    }
+}</pre>
+<h2 is-upgraded><strong>Implementar a interface UserDetails</strong></h2>
+<pre>package br.edu.iftm.autenticaautoriza.security;
+
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import br.edu.iftm.autenticaautoriza.model.Usuario;
+
+public class MyUserDetails implements UserDetails {
+
+    private Usuario usuario;
+
+    public MyUserDetails(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    @Override
+    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return usuario.getSenha();
+    }
+
+    @Override
+    public String getUsername() {
+        return usuario.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}</pre>
+<h2 is-upgraded><strong>Implementar a interface UserDetailsService</strong></h2>
+<pre>package br.edu.iftm.autenticaautoriza.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import br.edu.iftm.autenticaautoriza.model.Usuario;
+import br.edu.iftm.autenticaautoriza.repository.UsuarioRepository;
+
+public class MyUserDetailsService implements UserDetailsService {
+ 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+     
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.buscaPorEmail(username);
+        if (usuario == null) {
+            throw new UsernameNotFoundException(&#34;User not found&#34;);
+        }
+        return new MyUserDetails(usuario);
+    }
+}</pre>
+<h2 is-upgraded><strong>Adicionar um controle para /login</strong></h2>
+<pre>@GetMapping(&#34;/login&#34;)
+    public String login() {
+        return &#34;login&#34;;
+}</pre>
+<h2 is-upgraded><strong>Adicionar um template com formulário para o login</strong></h2>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&#34;http://www.thymeleaf.org&#34; th:replace=&#34;fragmentos/layout&#34;&gt;
+&lt;div th:fragment=&#34;conteudo&#34;&gt;
+    &lt;!-- insira seu código aqui --&gt;
+    &lt;div class=&#34;container col-6&#34;&gt;
+        &lt;h1&gt;Autenticação (login)&lt;/h1&gt;
+        &lt;div th:if=&#34;${param.error}&#34;&gt;
+            Usuario/senha inválidos&lt;/div&gt;
+        &lt;div th:if=&#34;${param.logout}&#34;&gt;
+            Você foi logged out&lt;/div&gt;
+        &lt;form th:action=&#34;@{/login}&#34; method=&#34;post&#34;&gt;
+            &lt;div class=&#34;form-group&#34;&gt;
+                &lt;input class=&#34;form-control&#34; type=&#34;text&#34; name=&#34;username&#34; placeholder=&#34;E-mail&#34; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&#34;form-group&#34;&gt;
+                &lt;input class=&#34;form-control&#34; type=&#34;password&#34; name=&#34;password&#34; placeholder=&#34;Senha&#34; /&gt;
+            &lt;/div&gt;
+            &lt;input class=&#34;btn btn-primary mt-3&#34; type=&#34;submit&#34; value=&#34;Log in&#34; /&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/html&gt;</pre>
+<h2 is-upgraded><strong>Alteração do fragmento da barra de navegação para adicionar botão de logout e saudação do usuário logado</strong></h2>
+<pre>&lt;div class=&#34;d-flex col-2&#34; sec:authorize=&#34;isAuthenticated()&#34;&gt;
+    &lt;span class=&#34;text-white small&#34; sec:authentication=&#34;name&#34;&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div&gt;
+    &lt;form th:action=&#34;@{/logout}&#34; method=&#34;post&#34; class=&#34;ml-4&#34; sec:authorize=&#34;isAuthenticated()&#34;&gt;
+        &lt;input class=&#34;btn btn-secondary btn-sm p-1 small&#34; type=&#34;submit&#34; value=&#34;Sair&#34; /&gt;
+    &lt;/form&gt;
+&lt;/div&gt;</pre>
+<h2 is-upgraded><strong>Recuperar os detalhes do usuário no Spring Security</strong></h2>
+<p><a href="https://www.baeldung.com/get-user-in-spring-security" target="_blank">https://www.baeldung.com/get-user-in-spring-security</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tratamento de exceções" duration="60">
+        <p><a href="https://docs.google.com/document/d/1ESet1fmL7cfiY9_Ax3f5fXdUmJH-fWV9yzLBqcNCgH8/edit?resourcekey=0-EnMHwQRipyvHxP8f-ebHuw#" target="_blank">Codelab - Spring Boot e tratamento de exceções</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Validação de dados do formulário" duration="120">
+        <p>Referência:</p>
+<p><a href="https://stackabuse.com/spring-boot-thymeleaf-form-data-validation-with-bean-validator/" target="_blank">https://stackabuse.com/spring-boot-thymeleaf-form-data-validation-with-bean-validator/</a></p>
+<p>A validação de dados obtidos através de formulários HTML deve ser realizada para garantir a integridade dos dados em aplicações web.</p>
+<p>É necessário garantir que intervalos de valores são respeitados ou que formatos são seguidos. Por exemplo, queremos ter certeza de que o usuário não tem -345 anos ou que seu endereço de e-mail é válido. </p>
+<p>Existem muitas maneiras de validar os dados do formulário - e o método que você usa depende do seu aplicativo. Em geral, você desejará realizar validação do lado do cliente, bem como validação do lado do servidor. A validação do lado do cliente garante que os dados não filtrados nem cheguem ao back-end, enquanto a validação do lado do servidor garante que os dados errados não sejam processados posteriormente.</p>
+<p>Começamos com os modelos de domínio, com a aplicação de anotações nos campos das classes que queremos validar.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Publicando a aplicação em servidor" duration="60">
+        <h2 is-upgraded><strong>Criar uma conta no Heroku</strong></h2>
+<ol type="1" start="1">
+<li><h3 is-upgraded>Entre em <a href="https://www.heroku.com/" target="_blank">https://www.heroku.com/</a></h3>
+</li>
+<li><h3 is-upgraded>Clique no botão SIGN UP FOR FREE</h3>
+</li>
+</ol>
+<p class="image-container"><img style="width: 666.68px" src="img\\36e13b4dda9eda6.png"></p>
+<h2 is-upgraded><strong>Instalar Heroku CLI</strong></h2>
+<p>Use o endereço <a href="https://cli-assets.heroku.com/heroku-x64.exe" target="_blank">https://cli-assets.heroku.com/heroku-x64.exe</a> para baixar o instalador do Heroku Command Line Interface (CLI).</p>
+<p>Após a conclusão da instalação, você pode usar o comando heroku em seu terminal. No Windows, inicie o Prompt de Comando (cmd.exe) ou Powershell para acessar o shell de comando. Use o comando heroku login para fazer login na CLI do Heroku:</p>
+<pre>c:\heroku login
+heroku: Press any key to open up the browser to login or q to exit
+ ›   Warning: If browser does not open, visit
+ ›   https://cli-auth.heroku.com/auth/browser/***
+heroku: Waiting for login...
+Logging in... done
+Logged in as me@example.com</pre>
+<p>Este comando abre seu navegador na página de login do Heroku para completar a autenticação. Se o seu navegador já estiver conectado ao Heroku, clique no botão Login exibido na página.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\bde34804b51b7f24.png"></p>
+<p>Depois de logado aparecerá a tela abaixo e você fechar a página.<img style="width: 509.00px" src="img\\9bca19ddbcb7365f.png"></p>
+<h2 is-upgraded><strong>Criar um app no Heroku</strong></h2>
+<h3 is-upgraded><strong>1. Criar uma nova app</strong></h3>
+<p>No canto superior direito da tela principal, clique em <strong>New</strong> e escolha <strong>Create new app</strong>. <img style="width: 409.13px" src="img\\fa3cdab2c78f6991.png"></p>
+<h3 is-upgraded>2.<strong>Escolha um nome para sua app</strong></h3>
+<p>Depois de preencher os campos App name e Choose a region, clique no botão <strong>Create App</strong></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\fbdf364d35f8907e.png"></p>
+<h3 is-upgraded>3. <strong>Método de implantação - Deploy</strong></h3>
+<p>Escolha o deployment method GitHub, que permitirá a automação dos próximos deployments quando o repositório GitHub for atualizado.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\85fedd1de5187004.png"></p>
+<h3 is-upgraded><strong>4. Conexão com o GitHub</strong></h3>
+<p>Você deve indicar o endereço do repositório GitHub do projeto, veja figura abaixo. Informe o nome do repositório e clique em Search</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\ff69c9b22c32324f.png"></p>
+<p>Após informar o repositório GitHub, Heroku informará o estabelecimento da conexão conforme figura abaixo:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\d584468096c892e.png"></p>
+<p>Você pode verificar a situação de sua app na aba <strong>Overview</strong>:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\6383e26ad30e3d1e.png"></p>
+<p>Depois do primeiro deploy você já pode acessar a app usando o botão <strong>Open app</strong> no canto superior direito da página:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\16ae5be1a3391.png"></p>
+<p>Você verá a sua app sendo executada na Web no endereço: <img style="width: 483.00px" src="img\\c96a75d77a69e17e.png">:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\acea986f754249df.png"></p>
+<h3 is-upgraded><strong>5. Configurando o banco de dados</strong></h3>
+<p>No seu DashBoard , vá em Resources e no campo Add-ons digite mysql e adicione o recurso ClearDB Mysql:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\4ff86345fb85d3e.png"></p>
+<h3 is-upgraded><strong>6. Gerando a app em arquivo jar</strong></h3>
+<p>Com o seu projeto aberto no vscode, vá em MAVEN/nome do projeto/Lifecycle e escolha package</p>
+<p class="image-container"><img style="width: 341.00px" src="img\\255f1720f72ec750.png"></p>
+<p>Quando terminar de empacotar o projeto em um arquivo JAR, você verá no terminal:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\3f9b86dd81c9c13f.png"></p>
+<p>Na pasta \target você verá o arquivo JAR gerado</p>
+<p class="image-container"><img style="width: 520.00px" src="img\\185da234426f4a71.png"></p>
+<p>Copie o nome do arquivo gerado (neste exemplo foi <strong>demo-0.0.1-SNAPSHOT.jar</strong>). </p>
+<h3 is-upgraded><strong>7. O arquivo Procfile</strong></h3>
+<p>Após a criação do pacote JAR você deve criar um arquivo chamado Procfile na raiz do seu projeto, veja figura abaixo:</p>
+<p class="image-container"><img style="width: 177.00px" src="img\\85d53790b9074ada.png"></p>
+<p>Neste arquivo você vai inserir a linha abaixo</p>
+<pre>web: java -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/[nome do arquivo .jar gerado no passo anterior]</pre>
+<h3 is-upgraded><strong>8. Obtendo a URL de conexão com o banco de dados</strong></h3>
+<p>Vá ao dashboard do Heroku e selecione a aba <strong>Settings</strong>:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\f5ef8f735cd00d28.png"></p>
+<p>Em Settings role a tela para baixo até exibir o botão <strong>Reveal Config Vars</strong>:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\e9b001468ea8fbc1.png"></p>
+<p>Clique neste botão e veremos a url de conexão do BD:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\a56990787500b58.png"></p>
+<p>Agora vamos copiar o arquivo de configuração da app <strong>src\main\resources\application.properties</strong> e renomear a cópia para <strong>application-prod.properties </strong></p>
+<p>Você vai copiar o texto da caixa mostrada em vermelho na figura acima e colar no arquivo <strong>src\main\resources\application-prod.properties</strong>, conforme mostrado abaixo (a url de conexão é o valor da propriedade <code>spring.datasource.url</code> :</p>
+<pre>#MySQL
+spring.datasource.url = mysql://a129f37d8b1a49:a99f4aa6@us-cdbr-east-05.cleardb.net/heroku_a5fef719c15dc8d?reconnect=true
+spring.jpa.show-sql=false 
+spring.jpa.hibernate.ddl-auto=update</pre>
+<p>O seu arquivo <strong>application-prod.properties</strong> ficará assim:</p>
+<pre>spring.datasource.url = mysql://a129f37d8b1a49:a99f4aa6@us-cdbr-east-05.cleardb.net/heroku_a5fef719c15dc8d?reconnect=true
+spring.jpa.show-sql=false 
+spring.jpa.hibernate.ddl-auto=update
+
+# logs
+logging.level.root=info
+logging.level.org.springframework.jdbc.core.JdbcTemplate=debug
+logging.level.web=DEBUG
+
+# retire o comentário da linha abaixo para criar as tabelas do banco de 
+# dados. O banco de dados deve ser criado antes de executar o servidor. 
+# O nome do banco de dados deverá ser autentica-autoriza
+spring.sql.init.mode=always
+
+# página de erro
+server.error.whitelabel.enabled=false
+server.error.include-stacktrace=always
+server.error.include-exception=true
+server.error.include-message=always
+server.error.include-binding-errors=always</pre>
+<p>Com os dois novos arquivos criados, o seu projeto ficará assim:</p>
+<p class="image-container"><img style="width: 243.00px" src="img\\38c7c0c629b21870.png"></p>
+<p>Você pode atualizar o GitHub com as novas alterações no projeto e após um breve espaço de tempo você verá que o Heroku realizou o deploy da app automaticamente.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\459f46f39ed4a0fc.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configurando autorização" duration="120">
+        <p>Referência:</p>
+<ul>
+<li><a href="https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial" target="_blank">Spring Boot Security Role-based Authorization Tutorial</a></li>
+</ul>
+<p>Em desenvolvimento</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
