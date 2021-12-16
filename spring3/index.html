@@ -27,7 +27,7 @@
                   environment="web"
                   feedback-link="">
     
-      <google-codelab-step label="Introdução" duration="30">
+      <google-codelab-step label="Introdução" duration="10">
         <aside class="special"><p>Última atualização:15/12/2021</p>
 </aside>
 <p>Neste codelab você aprenderá a desenvolver um aplicativo Java Web  utilizando o framework Spring Boot com Thymeleaf e acesso a dados com JdbcTemplate (SQL DAO - repository), com controle de acesso (autenticação e autorização com Spring Security) que gerencia informações em um banco de dados com operações CRUD padrão: Criar, Recuperar, Atualizar e Excluir. O sistema será hospedado no servidor Heroku.  </p>
@@ -69,7 +69,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Modelagem de dados" duration="30">
+      <google-codelab-step label="Modelagem de dados" duration="15">
         <p>A aplicação consiste de uma página web para exibir produtos cadastrados previamente. Teremos vários papéis que os usuários poderão desempenhar na aplicação. Vamos ter os seguintes papeis na aplicação:</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p>Papel</p>
@@ -92,7 +92,7 @@
 <p class="image-container"><img style="width: 624.00px" src="img\\bbcd8bbe78ea4875.png"></p>
 <p>A tabela de usuários armazena credenciais e a tabela de papeis armazena autorizações (direitos). O relacionamento de entidade entre usuários e papeis é muitos para muitos porque um usuário pode ter uma ou mais papeis e um papel pode ser atribuído a um ou mais usuários. É por isso que precisamos ter a tabela intermediária usuarios_papeis para representar essa associação muitos para muitos.</p>
 <p>Script de criação do banco de dados:</p>
-<pre>CREATE SCHEMA IF NOT EXISTS `teste` DEFAULT CHARACTER SET utf8mb4 ;
+<pre>CREATE SCHEMA IF NOT EXISTS `teste` DEFAULT CHARACTER SET utf8mb4;
 USE `teste` ;
 
 CREATE TABLE IF NOT EXISTS `papeis` (
@@ -276,7 +276,7 @@ server.error.include-binding-errors=always</pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="Fragments Thymeleaf e a estrutura do website" duration="60">
+      <google-codelab-step label="Fragments Thymeleaf e a estrutura do website" duration="30">
         <p><a href="https://docs.google.com/presentation/d/1i9XNj-9uMjClVl2sd-SRV23WTXN2LT6sRu-rNt76mjs/edit#slide=id.p" target="_blank">Notas da aula</a></p>
 <p>O site tem a seguinte estrutura</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\6eda8812c34f7ec1.png"></p>
@@ -332,9 +332,7 @@ server.error.include-binding-errors=always</pre>
     &lt;/form&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-
 &lt;/div&gt;
-
 
 &lt;div th:fragment=&#34;rodape&#34;&gt;
   &lt;button type=&#34;button&#34; class=&#34;btn btn-dark&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#sobre&#34;&gt;
@@ -420,7 +418,7 @@ server.error.include-binding-errors=always</pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="CRUD Usuario" duration="180">
+      <google-codelab-step label="CRUD Usuario" duration="60">
         <p>Referências:</p>
 <ul>
 <li><a href="https://docs.google.com/presentation/u/0/d/1dfUbNYiSVOswH0iWh46StSjRB7Ddm1Y6V_mNhkXPNro/edit" target="_blank">Nota de aula Jdbctemplate e DAO</a></li>
@@ -662,12 +660,63 @@ public class MyUserDetailsService implements UserDetailsService {
       </google-codelab-step>
     
       <google-codelab-step label="Tratamento de exceções" duration="60">
-        <p><a href="https://docs.google.com/document/d/1ESet1fmL7cfiY9_Ax3f5fXdUmJH-fWV9yzLBqcNCgH8/edit?resourcekey=0-EnMHwQRipyvHxP8f-ebHuw#" target="_blank">Codelab - Spring Boot e tratamento de exceções</a></p>
+        <p class="image-container"><img style="width: 454.00px" src="img\\3b00d34d898e1472.png"></p>
+<h2 is-upgraded><strong>Introdução</strong></h2>
+<p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado. Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos aqui neste tutorial é a anotação <code>@ControllerAdvice</code>.</p>
+<p>Esta anotação facilita nossa vida para lidar com todos os tipos de exceções em um local central em nossa aplicação. A facilidade está em não precisar capturar exceções em cada método ou classe separadamente, bastando apenas lançar a exceção no método e, em seguida, ela será capturada na classe central de tratamento de exceções anotada por <code>@ControllerAdvice</code>. </p>
+<h2 is-upgraded><strong>Lançando exceções</strong></h2>
+<p>Considere o seguinte método de uma classe da camada de serviço</p>
+<pre>public Participante findById(Integer id) {
+                return repository.findById(id)
+                                 .orElseThrow(
+                       () -&gt; new ParticipanteNaoEncontradoException(id));
+}</pre>
+<p>Caso o método findById não encontre o registro indentificado pelo parâmetro id, precisamos informar que o registro não foi encontrado. Então lançamos uma exceção chamada <code>ParticipanteNaoEncontradoException</code>, definida na classe abaixo.</p>
+<pre>public class ParticipanteNaoEncontradoException extends RuntimeException {
+
+        public ParticipanteNaoEncontradoException(Integer id) {
+                super(&#34;Participante não encontrado. ID = &#34; + id);
+        }
+}</pre>
+<p>Quando o banco de dados não encontrar um determinado participante, o sistema lança a exceção <code>ParticipanteNaoEncontradoException</code> que tem no seu construtor um parâmetro para receber o id do registro buscado e assim você pode criar uma mensagem que será usada na resposta à requisição do cliente. </p>
+<h2 is-upgraded><strong>A central de tratamento de exceções</strong></h2>
+<p>A classe que será criada para fazer o papel de central de tratamento de exceções deverá ser anotada com a anotação <code>@ControllerAdvice</code>. Nesta classe vamos usar as seguintes anotações em seus métodos:</p>
+<ul>
+<li><code>@ResponseBody</code>: indica que o corpo da resposta será constituída pelo retorno do método. </li>
+<li><code>@ExceptionHandler</code>: você deverá fornecer as exceções tratadas pelo método</li>
+<li><code>@ResponseStatus</code>: informa o código de retorno da resposta.</li>
+</ul>
+<p>Classe <code>@ControllerAdvice</code></p>
+<pre>@ControllerAdvice
+public class Exemplo{
+
+        @ResponseBody
+        @ExceptionHandler(ParticipanteNaoEncontradoException.class)
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        String participanteNaoEncontrado(ParticipanteNaoEncontradoException ex) {
+                return ex.getMessage();
+        }
+        
+        @ResponseBody
+        @ExceptionHandler(MethodArgumentNotValidException.class)
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        String campoVazio(MethodArgumentNotValidException ex) {
+                return ex.getLocalizedMessage();
+        }
+        
+        @ResponseBody
+        @ExceptionHandler(ErradoException.class)
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        String erro(ErradoException ex) {
+                return ex.getLocalizedMessage();
+        }
+}</pre>
+<p><a href="https://github.com/angoti/leilao-rest-api" target="_blank">Código completo da aplicação</a></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Validação de dados do formulário" duration="120">
+      <google-codelab-step label="Validação de dados do formulário" duration="60">
         <p>Referência:</p>
 <p><a href="https://stackabuse.com/spring-boot-thymeleaf-form-data-validation-with-bean-validator/" target="_blank">https://stackabuse.com/spring-boot-thymeleaf-form-data-validation-with-bean-validator/</a></p>
 <p>A validação de dados obtidos através de formulários HTML deve ser realizada para garantir a integridade dos dados em aplicações web.</p>
@@ -678,7 +727,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
       </google-codelab-step>
     
-      <google-codelab-step label="Publicando a aplicação em servidor" duration="60">
+      <google-codelab-step label="Publicando a aplicação em servidor" duration="30">
         <h2 is-upgraded><strong>Criar uma conta no Heroku</strong></h2>
 <ol type="1" start="1">
 <li><h3 is-upgraded>Entre em <a href="https://www.heroku.com/" target="_blank">https://www.heroku.com/</a></h3>
@@ -778,7 +827,7 @@ server.error.include-binding-errors=always</pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="Configurando autorização" duration="120">
+      <google-codelab-step label="Configurando autorização" duration="60">
         <p>Referência:</p>
 <ul>
 <li><a href="https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial" target="_blank">Spring Boot Security Role-based Authorization Tutorial</a></li>
