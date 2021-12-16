@@ -1,0 +1,102 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Spring Boot e tratamento de exceções</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - Spring Boot e tratamento de exceções"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="60">
+        <p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado. Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos aqui neste tutorial é a anotação <code>@ControllerAdvice.</code></p>
+<p>Esta anotação facilita nossa vida para lidar com todos os tipos de exceções em um local central em nossa aplicação. A facilidade está em não precisar capturar exceções em cada método ou classe separadamente, bastando apenas lançar a exceção no método e, em seguida, ela será capturada na classe central de tratamento de exceções anotada por <code>@ControllerAdvice</code>. </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Lançando exceções" duration="0">
+        <p>Considere o seguinte método de uma classe da camada de serviço</p>
+<pre><code>public Participante findById(Integer id) {
+                return repository.findById(id)
+                                 .orElseThrow(
+                       () -&gt; new ParticipanteNaoEncontradoException(id));
+}</code></pre>
+<p>Caso o método findById não encontre o registro indentificado pelo parâmetro id, precisamos informar que o registro não foi encontrado. Então lançamos uma exceção chamada <code>ParticipanteNaoEncontradoException</code>, definida na classe abaixo.</p>
+<pre><code>public class ParticipanteNaoEncontradoException extends RuntimeException {
+
+        public ParticipanteNaoEncontradoException(Integer id) {
+                super(&#34;Participante não encontrado. ID = &#34; + id);
+        }
+}</code></pre>
+<p>Quando o banco de dados não encontrar um determinado participante, o sistema lança a exceção <code>ParticipanteNaoEncontradoException</code> que tem no seu construtor um parâmetro para receber o id do registro buscado e assim você pode criar uma mensagem que será usada na resposta à requisição do cliente. </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="A central de tratamento de exceções" duration="0">
+        <p>A classe que será criada para fazer o papel de central de tratamento de exceções deverá ser anotada com a anotação <code>@ControllerAdvice</code>. Nesta classe vamos usar as seguintes anotações em seus métodos:</p>
+<ul>
+<li>@ResponseBody: indica que o corpo da resposta será constituída pelo retorno do método. </li>
+<li>@ExceptionHandler: você deverá fornecer as exceções tratadas pelo método</li>
+<li>@ResponseStatus: informa o código de retorno da resposta.</li>
+</ul>
+<p>Classe <code>@ControllerAdvice</code></p>
+<pre><code>@ControllerAdvice
+public class Exemplo{
+
+        @ResponseBody
+        @ExceptionHandler(ParticipanteNaoEncontradoException.class)
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        String participanteNaoEncontrado(ParticipanteNaoEncontradoException ex) {
+                return ex.getMessage();
+        }
+        
+        @ResponseBody
+        @ExceptionHandler(MethodArgumentNotValidException.class)
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        String campoVazio(MethodArgumentNotValidException ex) {
+                return ex.getLocalizedMessage();
+        }
+        
+        @ResponseBody
+        @ExceptionHandler(ErradoException.class)
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        String erro(ErradoException ex) {
+                return ex.getLocalizedMessage();
+        }
+}</code></pre>
+<p><a href="https://github.com/angoti/leilao-rest-api" target="_blank">Código completo da aplicação</a></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
