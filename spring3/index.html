@@ -62,8 +62,9 @@
 </ul>
 <h2 is-upgraded><strong>Referências</strong></h2>
 <ul>
-<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank">Spring Boot Reference Documentation</a></li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank">Spring Boot Reference Documentation</a>(HTML)</li>
 <li><a href="https://www.thymeleaf.org/documentation.html" target="_blank">Documentation - Thymeleaf</a></li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/pdf/spring-boot-reference.pdf" target="_blank">Spring Boot Reference Documentation</a>(PDF)</li>
 </ul>
 
 
@@ -455,6 +456,8 @@ server.error.include-binding-errors=always</pre>
 <li><a href="https://docs.spring.io/spring-security/reference/" target="_blank">https://docs.spring.io/spring-security/reference/</a></li>
 <li><a href="https://docs.spring.io/spring-security/site/docs/4.1.1.RELEASE/reference/htmlsingle/" target="_blank">Spring Security Reference</a></li>
 <li><a href="https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial" target="_blank">Spring Boot Security Role-based Authorization Tutorial</a></li>
+<li><a href="https://www.thymeleaf.org/doc/articles/springsecurity.html" target="_blank">Thymeleaf + Spring Security integration basics</a></li>
+<li><a href="https://github.com/thymeleaf/thymeleaf-extras-springsecurity" target="_blank">Thymeleaf &#34;extras&#34; integration module for Spring Security 3.x and 4.x</a></li>
 </ul>
 <aside class="special"><p>Observação 1: alterar o formulário html de cadastro de usuários de forma que o campo de entrada da senha seja readonly em caso de edição de um usuário existente. --&gt; <code>th:readonly="*{id}"</code></p>
 <p>Observação 2: Deve-se adicionar uma etapa de criptografia na senha para adicionar segurança:</p>
@@ -665,60 +668,43 @@ public class MyUserDetailsService implements UserDetailsService {
 <p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado. Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos aqui neste tutorial é a anotação <code>@ControllerAdvice</code>.</p>
 <p>Esta anotação facilita nossa vida para lidar com todos os tipos de exceções em um local central em nossa aplicação. A facilidade está em não precisar capturar exceções em cada método ou classe separadamente, bastando apenas lançar a exceção no método e, em seguida, ela será capturada na classe central de tratamento de exceções anotada por <code>@ControllerAdvice</code>. </p>
 <h2 is-upgraded><strong>Lançando exceções</strong></h2>
-<p>Considere o seguinte método de uma classe da camada de serviço</p>
-<pre>public Participante findById(Integer id) {
-                return repository.findById(id)
-                                 .orElseThrow(
-                       () -&gt; new ParticipanteNaoEncontradoException(id));
-}</pre>
-<p>Caso o método findById não encontre o registro indentificado pelo parâmetro id, precisamos informar que o registro não foi encontrado. Então lançamos uma exceção chamada <code>ParticipanteNaoEncontradoException</code>, definida na classe abaixo.</p>
-<pre>public class ParticipanteNaoEncontradoException extends RuntimeException {
-
-        public ParticipanteNaoEncontradoException(Integer id) {
-                super(&#34;Participante não encontrado. ID = &#34; + id);
-        }
-}</pre>
-<p>Quando o banco de dados não encontrar um determinado participante, o sistema lança a exceção <code>ParticipanteNaoEncontradoException</code> que tem no seu construtor um parâmetro para receber o id do registro buscado e assim você pode criar uma mensagem que será usada na resposta à requisição do cliente. </p>
+<h3 is-upgraded><strong>Um exemplo de erro (exceção)</strong></h3>
+<p>Divisão por zero - java.lang.ArithmeticException: / by zero</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\da080c7bef67505d.png"></p>
+<p>Depois de executar o programa acima teremos o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\ef174cfa92e72d62.png"></p>
+<p>Como tratar este erro? Vamos modificar o código anterior para exemplificar</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\ef724c459e0982c0.png"></p>
+<p>Bloco try/catch não deixa o programa parar, tratando o erro no local onde aconteceu. Se as exceções capturadas forem de mesma hierarquia, as classes mais especializadas devem aparecer primeiro. Para capturar qualquer exceção use a classe Exception (não indicado):</p>
+<p><code>catch (</code><strong><code>Exception</code></strong><code> e) {  ...  }</code></p>
+<p>Podemos também delegar o tratamento do erro para outro método na pilha de execução, para isso podemos lançar uma exceção .</p>
 <h2 is-upgraded><strong>A central de tratamento de exceções</strong></h2>
-<p>A classe que será criada para fazer o papel de central de tratamento de exceções deverá ser anotada com a anotação <code>@ControllerAdvice</code>. Nesta classe vamos usar as seguintes anotações em seus métodos:</p>
+<p>A classe que será criada para fazer o papel de central de tratamento de exceções deverá ser anotada com a anotação <code>@ControllerAdvice</code>. Nesta classe vamos usa a seguinte anotação em seus métodos:</p>
 <ul>
-<li><code>@ResponseBody</code>: indica que o corpo da resposta será constituída pelo retorno do método. </li>
 <li><code>@ExceptionHandler</code>: você deverá fornecer as exceções tratadas pelo método</li>
-<li><code>@ResponseStatus</code>: informa o código de retorno da resposta.</li>
 </ul>
+<p>Esta anotação vai funcionar como um filtro para capturar uma exceção específica, possibilitando o tratamento do erro.</p>
 <p>Classe <code>@ControllerAdvice</code></p>
 <pre>@ControllerAdvice
-public class Exemplo{
+public class WebControllerAdvice {
 
-        @ResponseBody
-        @ExceptionHandler(ParticipanteNaoEncontradoException.class)
-        @ResponseStatus(HttpStatus.NOT_FOUND)
-        String participanteNaoEncontrado(ParticipanteNaoEncontradoException ex) {
-                return ex.getMessage();
-        }
-        
-        @ResponseBody
-        @ExceptionHandler(MethodArgumentNotValidException.class)
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
-        String campoVazio(MethodArgumentNotValidException ex) {
-                return ex.getLocalizedMessage();
-        }
-        
-        @ResponseBody
-        @ExceptionHandler(ErradoException.class)
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
-        String erro(ErradoException ex) {
-                return ex.getLocalizedMessage();
-        }
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    String erroDAO(org.springframework.dao.DataIntegrityViolationException ex, Model modelo) {
+        modelo.addAttribute(&#34;error&#34;, ex.getMessage());
+        return &#34;error&#34;;
+    }
 }</pre>
-<p><a href="https://github.com/angoti/leilao-rest-api" target="_blank">Código completo da aplicação</a></p>
+<p>Esta classe pode ficar no pacote <code>controller</code> ou em outro pacote como por exemplo <code>exceptions</code>.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Validação de dados do formulário" duration="60">
         <p>Referência:</p>
-<p><a href="https://stackabuse.com/spring-boot-thymeleaf-form-data-validation-with-bean-validator/" target="_blank">https://stackabuse.com/spring-boot-thymeleaf-form-data-validation-with-bean-validator/</a></p>
+<ul>
+<li><a href="https://www.baeldung.com/spring-boot-bean-validation" target="_blank">Validation in Spring Boot | Baeldung</a></li>
+<li><a href="https://stackabuse.com/spring-boot-thymeleaf-form-data-validation-with-bean-validator/" target="_blank">Spring Boot Thymeleaf Form Data Validation with Bean Validator</a></li>
+</ul>
 <p>A validação de dados obtidos através de formulários HTML deve ser realizada para garantir a integridade dos dados em aplicações web.</p>
 <p>É necessário garantir que intervalos de valores são respeitados ou que formatos são seguidos. Por exemplo, queremos ter certeza de que o usuário não tem -345 anos ou que seu endereço de e-mail é válido. </p>
 <p>Existem muitas maneiras de validar os dados do formulário - e o método que você usa depende do seu aplicativo. Em geral, você desejará realizar validação do lado do cliente, bem como validação do lado do servidor. A validação do lado do cliente garante que os dados não filtrados nem cheguem ao back-end, enquanto a validação do lado do servidor garante que os dados errados não sejam processados posteriormente.</p>
@@ -759,10 +745,12 @@ Logged in as me@example.com</pre>
 <p>Escolha o deployment method GitHub, que permitirá a automação dos próximos deployments quando o repositório GitHub for atualizado.</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\85fedd1de5187004.png"></p>
 <h3 is-upgraded><strong>4. Conexão com o GitHub</strong></h3>
-<p>Você deve indicar o endereço do repositório GitHub do projeto, veja figura abaixo. Informe o nome do repositório e clique em Search</p>
+<p>Você deve indicar o endereço do repositório GitHub do projeto, veja figura abaixo. Informe o nome do repositório e clique em <strong>Search</strong></p>
 <p class="image-container"><img style="width: 624.00px" src="img\\ff69c9b22c32324f.png"></p>
 <p>Após informar o repositório GitHub, Heroku informará o estabelecimento da conexão conforme figura abaixo:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\d584468096c892e.png"></p>
+<p>Na mesma tela clique no botão <strong>Enable Automatic Deploys</strong> (veja figura abaixo)</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\ac92200315621f54.png"></p>
 <p>Você pode verificar a situação de sua app na aba <strong>Overview</strong>:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\6383e26ad30e3d1e.png"></p>
 <p>Depois do primeiro deploy você já pode acessar a app usando o botão <strong>Open app</strong> no canto superior direito da página:</p>
