@@ -685,16 +685,27 @@ public class MyUserDetailsService implements UserDetailsService {
 </ul>
 <p>Esta anotação vai funcionar como um filtro para capturar uma exceção específica, possibilitando o tratamento do erro.</p>
 <p>Classe <code>@ControllerAdvice</code></p>
-<pre>@ControllerAdvice
-public class WebControllerAdvice {
+<pre>package br.edu.iftm.autenticaautoriza.controller;
 
-    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
-    String erroDAO(org.springframework.dao.DataIntegrityViolationException ex, Model modelo) {
-        modelo.addAttribute(&#34;error&#34;, ex.getMessage());
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@ControllerAdvice
+public class MyControllerAdvice {
+
+    @ExceptionHandler(java.sql.SQLIntegrityConstraintViolationException.class)
+    public String loginNameDuplicado(java.sql.SQLIntegrityConstraintViolationException ex,
+            final RedirectAttributes redirectAttributes) {
+        String errorMessage = ex.getMessage();
+        if (errorMessage.contains(&#34;Duplicate entry&#34;)) {
+            redirectAttributes.addFlashAttribute(&#34;mensagem&#34;, &#34;E-mail já cadastrado. Tente cadastrar outro e-mail&#34;);
+            return &#34;redirect:/novo-usuario&#34;;
+        }
         return &#34;error&#34;;
     }
 }</pre>
-<p>Esta classe pode ficar no pacote <code>controller</code> ou em outro pacote como por exemplo <code>exceptions</code>.</p>
+<p>Esta classe deve estar no mesmo pacote das classes controladoras (pacote <code>controller)</code>.</p>
 
 
       </google-codelab-step>
