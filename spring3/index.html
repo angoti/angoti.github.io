@@ -47,24 +47,28 @@
 <li>Gerenciar dependências com Maven</li>
 <li>Modelo MVC para aplicações Web</li>
 <li>Funcionalidades CRUD</li>
-<li>Acesso a dados usando DAO SQL</li>
-<li>Bootstrap</li>
+<li>Acesso a dados usando Spring Data JDBC</li>
 <li>Autenticação Username/Password </li>
 <li>Autorização de requisições HTTP</li>
 </ul>
 <h2 is-upgraded><strong>O que você precisa</strong></h2>
 <p>Observação: a instalação destas ferramentas está fora do escopo deste documento.</p>
 <ul>
-<li>IDE (Eclipse, VS Code, Intellij IDE ...)</li>
+<li>IDE (Spring Tools Suite, Eclipse, VS Code, Intellij IDE ...)</li>
 <li>JDK 8</li>
 <li>Servidor MySQL</li>
 <li>MySQL Workbench</li>
+<li>Maven</li>
 </ul>
 <h2 is-upgraded><strong>Referências</strong></h2>
 <ul>
 <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank">Spring Boot Reference Documentation</a>(HTML)</li>
-<li><a href="https://www.thymeleaf.org/documentation.html" target="_blank">Documentation - Thymeleaf</a></li>
 <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/pdf/spring-boot-reference.pdf" target="_blank">Spring Boot Reference Documentation</a>(PDF)</li>
+<li><a href="https://www.thymeleaf.org/documentation.html" target="_blank">Documentation - Thymeleaf</a></li>
+<li><a href="https://openjdk.java.net/install/" target="_blank">How to download and install prebuilt OpenJDK packages</a></li>
+<li><a href="https://www.mysql.com/downloads/" target="_blank">MySQL Downloads</a></li>
+<li><a href="https://downloads.mysql.com/archives/get/p/8/file/mysql-workbench-community-8.0.26-winx64.msi" target="_blank">MySQL Workbench 8.0.26</a></li>
+<li><a href="https://maven.apache.org/download.cgi" target="_blank">Download Apache Maven</a></li>
 </ul>
 
 
@@ -93,10 +97,7 @@
 <p class="image-container"><img style="width: 624.00px" src="img\\bbcd8bbe78ea4875.png"></p>
 <p>A tabela de usuários armazena credenciais e a tabela de papeis armazena autorizações (direitos). O relacionamento de entidade entre usuários e papeis é muitos para muitos porque um usuário pode ter uma ou mais papeis e um papel pode ser atribuído a um ou mais usuários. É por isso que precisamos ter a tabela intermediária usuarios_papeis para representar essa associação muitos para muitos.</p>
 <p>Script de criação do banco de dados:</p>
-<pre>CREATE SCHEMA IF NOT EXISTS `teste` DEFAULT CHARACTER SET utf8mb4;
-USE `teste` ;
-
-CREATE TABLE IF NOT EXISTS `papeis` (
+<pre>CREATE TABLE IF NOT EXISTS `papeis` (
   `papel_id` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`papel_id`))
@@ -130,7 +131,28 @@ CREATE TABLE IF NOT EXISTS `usuarios_papeis` (
     FOREIGN KEY (`usuario_id`)
     REFERENCES `autentica-autoriza`.`usuarios` (`usuario_id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;</pre>
+DEFAULT CHARACTER SET = utf8;
+
+
+-- Script de inserção de dados
+
+INSERT INTO `papeis` (`nome`) VALUES (&#39;USUARIO&#39;);
+INSERT INTO `papeis` (`nome`) VALUES (&#39;CRIADOR&#39;);
+INSERT INTO `papeis` (`nome`) VALUES (&#39;EDITOR&#39;);
+INSERT INTO `papeis` (`nome`) VALUES (&#39;ADMIN&#39;);
+
+INSERT INTO `usuarios` (`email`, `senha`) VALUES (&#39;mercurio@teste.com&#39;, &#39;$2a$10$wSa39/yk/UTovsqPt817X.c0I8xlS2s76YQy4ViDxag0mlxUoYUq2&#39;);
+INSERT INTO `usuarios` (`email`, `senha`) VALUES (&#39;venus@teste.com&#39;, &#39;$2a$10$v8Wr0mf6HgmIG0ANimKJOuOIt/09qIkXIF7wCwzq8.U/LTqTs9ovq&#39;);
+INSERT INTO `usuarios` (`email`, `senha`) VALUES (&#39;terra@teste.com&#39;, &#39;$2a$10$SXuWtufjZVvmMFpc56HMEObBhX/vov8UJxUBeZX3RoEnOIR0yqdH6&#39;);
+INSERT INTO `usuarios` (`email`, `senha`) VALUES (&#39;marte@teste.com&#39;, &#39;$2a$10$Wl1gojjJgFhXztvHIULT3e0hiEMrDbCWCys0p6LnfrqxcxYkgh9OW&#39;);
+INSERT INTO `usuarios` (`email`, `senha`) VALUES (&#39;jupiter@teste.com&#39;, &#39;$2a$10$5sci59bfdcED4XxxuN9gx.SJBPsdNknirJSkLbTCouf2mFzLmX/Gi&#39;);
+
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (1, 1); -- usuário mercurio tem papel USUARIO
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (2, 2); -- usuário venus tem papel CRIADOR
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (3, 3); -- usuário terra tem papel EDITOR
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (4, 2); -- usuário marte tem papel CRIADOR
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (4, 3); -- usuário marte tem papel EDITOR
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (5, 4); -- usuário jupiter tem papel ADMIN</pre>
 
 
       </google-codelab-step>
@@ -139,13 +161,13 @@ DEFAULT CHARACTER SET = utf8;</pre>
         <p>Vamos usar o Maven para gerenciar as dependências do projeto e facilitar o processo de construção da aplicação. Maven usa um arquivo XML chamado pom.xml. Um modelo de objeto de projeto ou POM é a unidade fundamental de trabalho no Maven. É um arquivo XML que contém informações sobre o projeto e detalhes de configuração usados ​​pelo Maven para construir o projeto. O uso do framework Spring Boot permite o desenvolvimento rápido de aplicações. </p>
 <p>Neste projeto vamos usar as dependências</p>
 <ul>
-<li>Web - aplicação web mvc que simplifica a codificação da camada do controlador. </li>
-<li>Thymeleaf - template engine para criação das visualizações do modelo mvc que simplifica a codificação da camada de visualização.</li>
-<li>JDBC - acesso ao banco de dados </li>
-<li>MySQL - conector do banco de dados mysql</li>
-<li>Security - implementação da autenticação e autorização</li>
-<li>Validation - validação de dados recebidos de formulários</li>
-<li>Devtools - ferramentas de desenvolvimento</li>
+<li><code>Web</code> - aplicação web mvc que simplifica a codificação da camada do controlador. </li>
+<li><code>Thymeleaf</code> - template engine para criação das visualizações do modelo mvc que simplifica a codificação da camada de visualização.</li>
+<li><code>JDBC</code> - acesso ao banco de dados </li>
+<li><code>MySQL</code> - conector do banco de dados mysql</li>
+<li><code>Security</code> - implementação da autenticação e autorização</li>
+<li><code>Validation</code> - validação de dados recebidos de formulários</li>
+<li><code>Devtools</code> - ferramentas de desenvolvimento</li>
 </ul>
 <p>O arquivo pom.xml</p>
 <pre>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
@@ -168,13 +190,13 @@ DEFAULT CHARACTER SET = utf8;</pre>
         &lt;/properties&gt;
         &lt;dependencies&gt;
 
-                &lt;!-- dependencia para usar JdbcTemplate --&gt;
+                &lt;!-- dependência para usar JdbcTemplate --&gt;
                 &lt;dependency&gt;
                         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
                         &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
                 &lt;/dependency&gt;
 
-                &lt;!-- dependencia para usar engine template Thymeleaf --&gt;
+                &lt;!-- dependência para usar engine template Thymeleaf --&gt;
                 &lt;dependency&gt;
                         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
                         &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
@@ -186,7 +208,7 @@ DEFAULT CHARACTER SET = utf8;</pre>
                         &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
                 &lt;/dependency&gt;
         
-                &lt;!-- dependencias de segurança--&gt;
+                &lt;!-- dependências de segurança--&gt;
                 &lt;dependency&gt;
                         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
                         &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
@@ -196,14 +218,14 @@ DEFAULT CHARACTER SET = utf8;</pre>
                         &lt;artifactId&gt;thymeleaf-extras-springsecurity5&lt;/artifactId&gt;
                 &lt;/dependency&gt;
 
-                &lt;!-- dependencia conector banco de dados mysql --&gt;
+                &lt;!-- dependência conector banco de dados mysql --&gt;
                 &lt;dependency&gt;
                         &lt;groupId&gt;mysql&lt;/groupId&gt;
                         &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
                         &lt;scope&gt;runtime&lt;/scope&gt;
                 &lt;/dependency&gt;
 
-                &lt;!-- dependencias de testes --&gt;
+                &lt;!-- dependências de testes --&gt;
                 &lt;dependency&gt;
                         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
                         &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
@@ -215,7 +237,7 @@ DEFAULT CHARACTER SET = utf8;</pre>
                         &lt;scope&gt;test&lt;/scope&gt;
                 &lt;/dependency&gt;
 
-                &lt;!-- dependencias ferramentas desenvolvedor --&gt;
+                &lt;!-- dependências ferramentas desenvolvedor --&gt;
                 &lt;dependency&gt;
                         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
                         &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
@@ -257,15 +279,14 @@ spring.datasource.username=root
 spring.datasource.password=
 
 #2 configuração de log da aplicação. 
-logging.level.root=info
-logging.level.org.springframework.jdbc.core.JdbcTemplate=debug
-logging.level.web=DEBUG
+logging.level.root=INFO
+logging.level.org.springframework.jdbc.core.JdbcTemplate=TRACE
+logging.level.web=TRACE
 
-#3 retire o comentário da linha abaixo para criar as tabelas do banco de 
-# dados. O banco de dados deve ser criado antes de executar o servidor. 
+#3 O banco de dados deve ser criado antes de executar o app. 
 # O nome do banco de dados deverá ser autentica-autoriza. O arquivo com o script de criação das tabelas deve
 # ter o seguinte nome e localização src\main\resources\schema.sql
-#spring.sql.init.mode=always
+spring.sql.init.mode=always
 
 #4 página de erro src\main\resources\templates\error.html
 server.error.whitelabel.enabled=false
