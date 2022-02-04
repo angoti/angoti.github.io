@@ -475,7 +475,7 @@ server.error.include-binding-errors=always</pre>
         <p>Referências:</p>
 <ul>
 <li><a href="https://docs.spring.io/spring-security/reference/" target="_blank">https://docs.spring.io/spring-security/reference/</a></li>
-<li><a href="https://docs.spring.io/spring-security/site/docs/4.1.1.RELEASE/reference/htmlsingle/" target="_blank">Spring Security Reference</a></li>
+<li><a href="https://docs.spring.io/spring-security/site/docs/5.2.1.RELEASE/reference/htmlsingle/" target="_blank">Spring Security Reference</a></li>
 <li><a href="https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial" target="_blank">Spring Boot Security Role-based Authorization Tutorial</a></li>
 <li><a href="https://www.thymeleaf.org/doc/articles/springsecurity.html" target="_blank">Thymeleaf + Spring Security integration basics</a></li>
 <li><a href="https://github.com/thymeleaf/thymeleaf-extras-springsecurity" target="_blank">Thymeleaf &#34;extras&#34; integration module for Spring Security 3.x and 4.x</a></li>
@@ -745,8 +745,11 @@ public class MyControllerAdvice {
 
       </google-codelab-step>
     
-      <google-codelab-step label="Publicando a aplicação em servidor" duration="30">
-        <h2 is-upgraded><strong>Criar uma conta no Heroku</strong></h2>
+      <google-codelab-step label="Publicando a aplicação em servidor" duration="10">
+        <ol type="1" start="1">
+<li><h2 is-upgraded><strong>Criar uma conta no Heroku</strong></h2>
+</li>
+</ol>
 <ol type="1" start="1">
 <li><h3 is-upgraded>Entre em <a href="https://www.heroku.com/" target="_blank">https://www.heroku.com/</a></h3>
 </li>
@@ -754,29 +757,14 @@ public class MyControllerAdvice {
 </li>
 </ol>
 <p class="image-container"><img style="width: 666.68px" src="img\\36e13b4dda9eda6.png"></p>
-<h2 is-upgraded><strong>Instalar Heroku CLI</strong></h2>
-<p>Use o endereço <a href="https://cli-assets.heroku.com/heroku-x64.exe" target="_blank">https://cli-assets.heroku.com/heroku-x64.exe</a> para baixar o instalador do Heroku Command Line Interface (CLI).</p>
-<p>Após a conclusão da instalação, você pode usar o comando heroku em seu terminal. No Windows, inicie o Prompt de Comando (cmd.exe) ou Powershell para acessar o shell de comando. Use o comando heroku login para fazer login na CLI do Heroku:</p>
-<pre>c:\heroku login
-heroku: Press any key to open up the browser to login or q to exit
- ›   Warning: If browser does not open, visit
- ›   https://cli-auth.heroku.com/auth/browser/***
-heroku: Waiting for login...
-Logging in... done
-Logged in as me@example.com</pre>
-<p>Este comando abre seu navegador na página de login do Heroku para completar a autenticação. Se o seu navegador já estiver conectado ao Heroku, clique no botão Login exibido na página.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\bde34804b51b7f24.png"></p>
-<p>Depois de logado aparecerá a tela abaixo e você fechar a página.<img style="width: 509.00px" src="img\\9bca19ddbcb7365f.png"></p>
-<h2 is-upgraded><strong>Criar um app no Heroku</strong></h2>
-<h3 is-upgraded><strong>1. Criar uma nova app</strong></h3>
+<h2 is-upgraded><strong>2. Criar um app no Heroku</strong></h2>
 <p>No canto superior direito da tela principal, clique em <strong>New</strong> e escolha <strong>Create new app</strong>. <img style="width: 409.13px" src="img\\fa3cdab2c78f6991.png"></p>
-<h3 is-upgraded>2.<strong>Escolha um nome para sua app</strong></h3>
 <p>Depois de preencher os campos App name e Choose a region, clique no botão <strong>Create App</strong></p>
 <p class="image-container"><img style="width: 624.00px" src="img\\fbdf364d35f8907e.png"></p>
-<h3 is-upgraded>3. <strong>Método de implantação - Deploy</strong></h3>
+<h2 is-upgraded><strong>3. Método de implantação - Deploy</strong></h2>
 <p>Escolha o deployment method GitHub, que permitirá a automação dos próximos deployments quando o repositório GitHub for atualizado.</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\85fedd1de5187004.png"></p>
-<h3 is-upgraded><strong>4. Conexão com o GitHub</strong></h3>
+<h2 is-upgraded><strong>4. Conexão com o GitHub</strong></h2>
 <p>Você deve indicar o endereço do repositório GitHub do projeto, veja figura abaixo. Informe o nome do repositório e clique em <strong>Search</strong></p>
 <p class="image-container"><img style="width: 624.00px" src="img\\ff69c9b22c32324f.png"></p>
 <p>Após informar o repositório GitHub, Heroku informará o estabelecimento da conexão conforme figura abaixo:</p>
@@ -785,14 +773,14 @@ Logged in as me@example.com</pre>
 <p class="image-container"><img style="width: 624.00px" src="img\\ac92200315621f54.png"></p>
 <p>Você pode verificar a situação de sua app na aba <strong>Overview</strong>:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\6383e26ad30e3d1e.png"></p>
-<p>Depois do primeiro deploy você já pode acessar a app usando o botão <strong>Open app</strong> no canto superior direito da página:</p>
+<p>Você já pode acessar a app usando o botão <strong>Open app</strong> no canto superior direito da página:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\16ae5be1a3391.png"></p>
 <p>Você verá a sua app sendo executada na Web no endereço: <img style="width: 483.00px" src="img\\c96a75d77a69e17e.png">:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\acea986f754249df.png"></p>
-<h3 is-upgraded><strong>5. Configurando o banco de dados</strong></h3>
+<h2 is-upgraded><strong>5. Configurando o banco de dados</strong></h2>
 <p>No seu DashBoard , vá em Resources e no campo Add-ons digite mysql e adicione o recurso ClearDB Mysql:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\4ff86345fb85d3e.png"></p>
-<h3 is-upgraded><strong>6. Gerando a app em arquivo jar</strong></h3>
+<h2 is-upgraded><strong>6. Gerando a app em arquivo jar</strong></h2>
 <p>Com o seu projeto aberto no vscode, vá em MAVEN/nome do projeto/Lifecycle e escolha package</p>
 <p class="image-container"><img style="width: 341.00px" src="img\\255f1720f72ec750.png"></p>
 <p>Quando terminar de empacotar o projeto em um arquivo JAR, você verá no terminal:</p>
@@ -800,12 +788,12 @@ Logged in as me@example.com</pre>
 <p>Na pasta \target você verá o arquivo JAR gerado</p>
 <p class="image-container"><img style="width: 520.00px" src="img\\185da234426f4a71.png"></p>
 <p>Copie o nome do arquivo gerado (neste exemplo foi <strong>demo-0.0.1-SNAPSHOT.jar</strong>). </p>
-<h3 is-upgraded><strong>7. O arquivo Procfile</strong></h3>
+<h2 is-upgraded><strong>7. O arquivo Procfile</strong></h2>
 <p>Após a criação do pacote JAR você deve criar um arquivo chamado Procfile na raiz do seu projeto, veja figura abaixo:</p>
 <p class="image-container"><img style="width: 177.00px" src="img\\85d53790b9074ada.png"></p>
 <p>Neste arquivo você vai inserir a linha abaixo</p>
 <pre>web: java -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/[nome do arquivo .jar gerado no passo anterior]</pre>
-<h3 is-upgraded><strong>8. Obtendo a URL de conexão com o banco de dados</strong></h3>
+<h2 is-upgraded><strong>8. Obtendo a URL de conexão com o banco de dados</strong></h2>
 <p>Vá ao dashboard do Heroku e selecione a aba <strong>Settings</strong>:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\f5ef8f735cd00d28.png"></p>
 <p>Em Settings role a tela para baixo até exibir o botão <strong>Reveal Config Vars</strong>:</p>
