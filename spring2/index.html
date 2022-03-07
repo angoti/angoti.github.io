@@ -245,7 +245,7 @@ public class PessoaService {
     @Autowired
     PessoaRepository repository;
 
-    public Iterable&lt;Pessoa&gt; todos() {
+    public List&lt;Pessoa&gt; todos() {
         return repository.findAll();
     }
 
