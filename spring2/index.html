@@ -38,13 +38,21 @@
 <p>API é um conjunto de definições e protocolos usado no desenvolvimento e na integração de software de aplicações. API é um acrônimo em inglês que significa interface de programação de aplicações. As APIs costumam ser vistas como contratos, com documentações que representam um acordo entre as partes interessadas (<a href="https://www.redhat.com/pt-br/topics/api/what-are-application-programming-interfaces" target="_blank">referência</a>). Como exemplo podemos citar a API java (<a href="https://docs.oracle.com/en/java/javase/16/" target="_blank">referência</a>).</p>
 <h3 is-upgraded><strong>Endpoint</strong></h3>
 <p>Um endpoint de um web service é a URL onde seu serviço pode ser acessado por uma aplicação cliente (<a href="https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api" target="_blank">referência</a>).<img style="width: 296.00px" src="img\\6dea4a584f4d5054.png"></p>
-<h3 is-upgraded><a href="https://documenter.getpostman.com/view/1277871/TzJsheff" target="_blank">Exemplo de uso de API usando Postman</a></h3>
+<h3 is-upgraded><strong>Cliente web service</strong></h3>
+<p class="image-container"><img style="width: 619.00px" src="img\\b050200838979391.png"></p>
+<p>Aplicações que fornecem web services precisam de clientes que têm a capacidade de realizar requisições HTTP usando todos os tipos de métodos e, portanto, precisaremos de um cliente especial para testar nossas aplicações. Vamos usar uma aplicativo chamado Postman para consumir web services. </p>
+<p><a href="https://documenter.getpostman.com/view/1277871/TzJsheff" target="_blank">Exemplo de uso de API usando Postman</a></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Métodos HTTP" duration="0">
-        <p class="image-container"><img style="width: 624.00px" src="img\\30bfa735c4166fa5.png"></p>
+        <p>Referências</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/5.3.16/reference/html/web.html#mvc-ann-requestmapping" target="_blank">Request Mapping</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" target="_blank">Class ResponseEntity&lt;T&gt;</a></li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img\\30bfa735c4166fa5.png"></p>
 <h2 is-upgraded><strong>Idempotente </strong></h2>
 <p>Um método HTTP é idempotente se uma requisição idêntica pode ser feita uma ou mais vezes em sequência com o mesmo efeito enquanto deixa o servidor no mesmo estado. Em outras palavras, um método idempotente não deveria possuir nenhum efeito colateral (exceto para manter estatísticas). Implementados corretamente, o GET, HEAD, PUT, e DELETE são métodos idempotentes, mas não o método POST. </p>
 <h2 is-upgraded><strong>Códigos de status de resposta HTTP</strong></h2>
@@ -151,26 +159,40 @@
       <google-codelab-step label="Construindo serviços REST com Spring" duration="0">
         <h2 is-upgraded><strong>Usando o modelo de camadas</strong></h2>
 <p class="image-container"><img style="width: 624.00px" src="img\\71013e51f289c2d7.png"></p>
-<h2 is-upgraded><strong>Projeto Spring REST services</strong></h2>
+<h2 is-upgraded><strong>Criando o projeto Spring </strong></h2>
 <ol type="1" start="1">
-<li>Para criar novo projeto usando o IDE STS, escolha menu File / New / Spring Starter Project</li>
+<li>Para criar novo projeto usando o VSCode, use o atalho <code>Ctrl + Shift + P</code> e digite spring init e escolha a opção mostrada abaixo:</li>
 </ol>
-<p class="image-container"><img style="width: 624.00px" src="img\\501e6e0ecbe06a13.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\a168f98d6957a605.png"></p>
 <ol type="1" start="2">
+<li>Siga as escolhas mostradas abaixo:</li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\3e950d7f44248e8a.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\f81a8ca797f9d8ba.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\88a3bccefe7d3be.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\5f9d7c439726be4a.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\35aa7af700e332c8.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\57f7e1bf20d3852e.png"></p>
+<ol type="1" start="3">
 <li>Escolher as dependências MySQL Driver, Spring Data JPA e Spring Web</li>
 </ol>
-<p class="image-container"><img style="width: 530.00px" src="img\\1babc89f22e8225f.png"></p>
-<ol type="1" start="3">
+<p class="image-container"><img style="width: 718.11px" src="img\\582bb57fe0f95fd6.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\9a15682a3978f320.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\f2d91d8b20637d07.png"></p>
+<ol type="1" start="4">
+<li>Pressione Enter para criar o projeto e escolha uma pasta no seu computador onde serão gravados os arquivos do projeto:</li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\28e066663d612608.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\e9003e9b42266cb7.png"></p>
+<ol type="1" start="5">
+<li>No meu computador os projetos Spring ficam na pasta c:/Spring. Este projeto será gravado na pasta <code>C:\Spring\pessoa-api></code></li>
 <li>Criar os pacotes ‘controller&#39;, ‘domain&#39;, ‘repository&#39;,  ‘service&#39;</li>
 </ol>
-<p class="image-container"><img style="width: 343.00px" src="img\\f502dcc0989203af.png"></p>
-<ol type="1" start="4">
+<p class="image-container"><img style="width: 335.00px" src="img\\2be11bbebaee25d3.png"></p>
+<ol type="1" start="7">
 <li>Entidade Pessoa</li>
 </ol>
-<p><code>com.professorangoti.domain.Pessoa</code></p>
-<pre><code>package com.professorangoti.domain;
-
-import java.io.Serializable;
+<pre><code>package br.iftm.edu.pessoaapi.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -178,66 +200,61 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Pessoa implements Serializable {
+public class Pessoa {
 
-        private static final long serialVersionUID = 1L;
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
-        private String nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String nome;
 
-        public Pessoa() {
-        }
+    public Pessoa() {
+    }
 
-        public Pessoa(String nome) {
-                this.nome = nome;
-        }
+    public Pessoa(String nome) {
+        this.nome = nome;
+    }
 
-        public Integer getId() {
-                return this.id;
-        }
+    public Integer getId() {
+        return this.id;
+    }
 
-        public void setId(Integer id) {
-                this.id = id;
-        }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-        public String getNome() {
-                return this.nome;
-        }
+    public String getNome() {
+        return this.nome;
+    }
 
-        public void setNome(String nome) {
-                this.nome = nome;
-        }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }</code></pre>
-<ol type="1" start="5">
+<ol type="1" start="8">
 <li>Repositório para entidades do tipo Pessoa</li>
 </ol>
-<p><code>com.professorangoti.repository.PessoaRepository</code></p>
-<pre><code>package com.professorangoti.repository;
+<pre><code>package br.iftm.edu.pessoaapi.repository;
 
 import java.util.List;
-import com.professorangoti.exemplo.domain.Pessoa;
 import org.springframework.data.repository.CrudRepository;
+import br.iftm.edu.pessoaapi.domain.Pessoa;
 
 public interface PessoaRepository extends CrudRepository&lt;Pessoa, Integer&gt; {
     @Override
     List&lt;Pessoa&gt; findAll();
-}
-</code></pre>
-<ol type="1" start="6">
+}</code></pre>
+<ol type="1" start="9">
 <li>Service</li>
 </ol>
-<p><code>com.professorangoti.service.PessoaService</code></p>
-<pre><code>package com.professorangoti.service;
+<pre><code>package br.iftm.edu.pessoaapi.service;
 
+import java.util.List;
 import java.util.Optional;
-
-import com.professorangoti.exemplo.domain.Pessoa;
-import com.professorangoti.exemplo.repository.PessoaRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import br.iftm.edu.pessoaapi.domain.Pessoa;
+import br.iftm.edu.pessoaapi.repository.PessoaRepository;
 
 @Service
 public class PessoaService {
@@ -266,15 +283,12 @@ public class PessoaService {
         repository.deleteById(id);
     }
 }</code></pre>
-<ol type="1" start="7">
+<ol type="1" start="10">
 <li>Controlador REST</li>
 </ol>
-<p><code>com.professorangoti.controller.PessoaController</code></p>
-<pre><code>package com.professorangoti.controller;
+<pre><code>package br.iftm.edu.pessoaapi.controller;
 
 import java.util.List;
-import com.professorangoti.exemplo.domain.Pessoa;
-import com.professorangoti.exemplo.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -284,6 +298,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.iftm.edu.pessoaapi.domain.Pessoa;
+import br.iftm.edu.pessoaapi.service.PessoaService;
 
 @RestController
 @RequestMapping(&#34;/pessoa&#34;)
@@ -317,46 +333,37 @@ class PessoaController {
         service.exclui(id);
     }
 }</code></pre>
-<ol type="1" start="8">
+<ol type="1" start="11">
 <li>Classe RuntimeException quando não encontrar uma pessoa no BD</li>
 </ol>
-<p><code>com.professorangoti.service.PessoaNaoEncontradaException</code></p>
-<pre><code>package com.professorangoti.controller;
+<pre><code>package br.iftm.edu.pessoaapi.controller;
 
 public class PessoaNaoEncontradaException extends RuntimeException {
 
-        private static final long serialVersionUID = 1L;
-
-        PessoaNaoEncontradaException(Integer id) {
-            super(&#34;Não encontrei pessoa &#34; + id);
-          }
+    PessoaNaoEncontradaException(Integer id) {
+        super(&#34;Não encontrei pessoa &#34; + id);
+    }
 
 }</code></pre>
-<ol type="1" start="9">
+<ol type="1" start="12">
 <li>Classe @ControllerAdvice</li>
 </ol>
-<p><code>com.professorangoti.controller.PessoaNaoEncontradaAdvice</code></p>
-<pre><code>package com.professorangoti.controller;
+<pre><code>package br.iftm.edu.pessoaapi.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.professorangoti.service.PessoaNaoEncontradaException;
-
-@ControllerAdvice
+@RestControllerAdvice
 public class PessoaNaoEncontradaAdvice {
-        @ResponseBody
-        @ExceptionHandler(PessoaNaoEncontradaException.class)
-        @ResponseStatus(HttpStatus.NOT_FOUND)
-        String employeeNotFoundHandler(PessoaNaoEncontradaException ex) {
-                return ex.getMessage();
-        }
-
+    
+    @ExceptionHandler
+    ResponseEntity&lt;String&gt; employeeNotFoundHandler(PessoaNaoEncontradaException ex) {
+        return new ResponseEntity&lt;String&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }</code></pre>
-<ol type="1" start="10">
+<ol type="1" start="13">
 <li>Altere o arquivo /src/main/resources/application.properties: (Você precisa criar um esquema no seu SGBD MySQL chamado teste)</li>
 </ol>
 <pre><code>spring.jpa.hibernate.ddl-auto=update
@@ -373,7 +380,7 @@ logging.level.org.springframework.web=trace</code></pre>
       <google-codelab-step label="Preparando o ambiente de testes" duration="0">
         <p>Postman é uma plataforma colaborativa para desenvolvimento de API. Vamos usar a funcionalidade de cliente API para realizar requisições HTTP e inspecionar a resposta. Clique na imagem abaixo para fazer o download e instalar o aplicativo e <strong>se cadastre para começar a usar a plataforma</strong>.</p>
 <p><a href="https://www.postman.com/downloads/" target="_blank"><paper-button class="colored" raised>Download</paper-button></a></p>
-<p>Depois de instalar o Postman, você deve copiar a coleção de requisições HTTP que usaremos para realizar os testes. Quando você clicar no botão <a href="https://app.getpostman.com/run-collection/1277871-26c8ba74-1768-4f04-9340-431f5c7df7ce?action=collection%2Ffork&collection-url=entityId%3D1277871-26c8ba74-1768-4f04-9340-431f5c7df7ce%26entityType%3Dcollection%26workspaceId%3D7ca6a8e1-2282-4ba5-9c92-d2396b97c0d4" target="_blank"><paper-button class="colored" raised>Run in Postman</paper-button></a> vai aparecer a tela abaixo e você deverá escolher a opção ‘<strong>import a copy</strong>&#39; para copiar a coleção na sua instalação do Postman. Depois de escolher a opção para importar uma cópia da coleção, o browser pergunta se você permite a execução do Postman e você deverá clicar em ‘Abrir Postman&#39;</p>
+<p>Depois de instalar o Postman, você deve copiar a coleção de requisições HTTP que usaremos para realizar os testes. Quando você clicar no botão <a href="https://app.getpostman.com/run-collection/1277871-26c8ba74-1768-4f04-9340-431f5c7df7ce?action=collection%2Ffork&collection-url=entityId%3D1277871-26c8ba74-1768-4f04-9340-431f5c7df7ce%26entityType%3Dcollection%26workspaceId%3D7ca6a8e1-2282-4ba5-9c92-d2396b97c0d4" target="_blank">Run in Postman</a> vai aparecer a tela abaixo e você deverá escolher a opção ‘import a copy&#39; para copiar a coleção na sua instalação do Postman. Depois de escolher a opção para importar uma cópia da coleção, o browser pergunta se você permite a execução do Postman e você deverá clicar em ‘Abrir Postman&#39;</p>
 <p class="image-container"><img style="width: 548.70px" src="img\\b1fdf71dd4e6b7a2.png"></p>
 <p class="image-container"><img style="width: 544.00px" src="img\\aadf898388fe0ec2.png"></p>
 
