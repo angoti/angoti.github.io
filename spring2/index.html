@@ -68,7 +68,8 @@
       </google-codelab-step>
     
       <google-codelab-step label="Boas práticas para projetar RESTful API" duration="0">
-        <ul>
+        <p>Em REST, a representação de dados primária é chamada de recurso. Como boa prática de nomenclatura de recursos REST vamos seguir as seguintes diretivas.</p>
+<ul>
 <li>Não use verbos ou ações para descrever as APIs.</li>
 <li>Use substantivos no plural ou no singular, mas deve ser consistente em todas as APIs.</li>
 <li>O URL do endpoint deve conter métodos HTTP para descrever a funcionalidade da API. </li>
@@ -123,35 +124,39 @@
 <h2 is-upgraded><strong>Atualizar dados</strong></h2>
 <p>Não faça assim </p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>PUT /atualizaritem/id </code></p>
+<tr><td colspan="1" rowspan="1"><p><code>PUT /atualizaritem/2</code></p>
 </td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>POST /id/atualizaritem</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>POST /2/atualizaritem</code></p>
 </td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
 </td></tr>
 </table>
 <p>Faça assim </p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>PUT /itens/:id</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>PUT /itens/2</code></p>
 </td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
 </td></tr>
 </table>
 <h2 is-upgraded><strong>Excluir dados</strong></h2>
 <p>Não faça assim </p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>DELETE /excluiritem/id </code></p>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE /excluiritem/201</code></p>
 </td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>POST /id/removeitem</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>POST /201/removeitem</code></p>
 </td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
 </td></tr>
 </table>
 <p>Faça assim </p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>DELETE /itens/:id</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE /itens/201</code></p>
 </td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
 </td></tr>
 </table>
+<h2 is-upgraded><strong>Coleções de recursos </strong></h2>
+<p>Podemos identificar o recurso de coleção &#34;clientes&#34; usando o URI &#34;<code>/clientes</code>&#34;. Podemos identificar um único recurso &#34;cliente&#34; usando o URI &#34;<code>/clientes/{id do cliente}</code>&#34;. </p>
+<h2 is-upgraded><strong>Recursos de coleção e subcoleção </strong></h2>
+<p>Um recurso também pode conter recursos de subcoleção. Por exemplo, o recurso de subcoleção &#34;contas&#34; de um &#34;cliente&#34; específico pode ser identificado usando o URI &#34;<code>/clientes/{id do cliente}/contas</code>&#34; (em um domínio bancário). Da mesma forma, um recurso singleton &#34;conta&#34; dentro do recurso de subcoleção &#34;contas&#34; pode ser identificado da seguinte forma: &#34;<code>/clientes/{id do cliente}/contas/{id da conta}</code>&#34;.</p>
 
 
       </google-codelab-step>
