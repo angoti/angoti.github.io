@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-04-06T22:03:09Z",
+  "id": "",
+  "duration": 185,
+  "title": "Codelab - React native e firebase",
+  "authors": "Edson Angoti Júnior",
+  "summary": "React native e firebase. Última atualização: 23/02/2022",
+  "source": "16NiLQWIlVJjmLZU6fXMBrv1JvIWAzR5PG4d8y58Lkb8",
+  "theme": "mobile",
+  "status": [
+    "em construção"
+  ],
+  "category": [
+    "Mobile"
+  ],
+  "tags": [
+    "mobile"
+  ],
+  "url": ""
+}
