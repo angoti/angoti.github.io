@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Codelab - React native e firebase</title>
+  <title>Codelab - App chat com React native e firebase</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,13 +23,13 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id=""
-                  title="Codelab - React native e firebase"
+                  title="Codelab - App chat com React native e firebase"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="Introdução" duration="5">
         <p>React native e firebase</p>
-<h3 is-upgraded>O que você vai fazer </h3>
+<h3 is-upgraded><strong>O que você vai fazer </strong></h3>
 <ul>
 <li>Desenvolver um app chat </li>
 </ul>
@@ -74,13 +74,13 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Ativando o Cloud Firestore" duration="20">
+      <google-codelab-step label="Ativando o Firestore" duration="20">
         <p>O Cloud Firestore é um banco de dados não relacional (NoSQL), assim como o MongoDB. Para ativar o Cloud Firestore, clique em Firestore Database na barra lateral: </p>
 <p class="image-container"><img style="width: 624.00px" src="img\\66e6d15d8e6e3fdd.png"></p>
 <p>Clique em <code>Criar banco de dados</code> e você verá a seguinte tela:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\dc6fc21d639e6437.png"></p>
 <p>Vamos iniciar o banco de dados do Firestore no modo de teste. Isso ocorre porque não queremos nos preocupar com um ambiente de produção e regras de segurança, para nos concentrarmos mais no lado do desenvolvimento. No entanto, você pode alterá-lo para o modo de produção depois de concluir o projeto.</p>
-<p>Clique em <code>Avançar</code>, escolha um local geográfico onde ficará o seu banco de dados (pode ser qualquer um) e pressione Criar. Isso criará seu banco de dados do Cloud Firestore.</p>
+<p>Clique em Avançar e  escolha um local geográfico onde ficará o seu banco de dados (pode ser qualquer um) e pressione Criar. Isso criará seu banco de dados do Cloud Firestore.</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\1319b0595432279.png"></p>
 <p>Em uma etapa posterior vamos precisar da configuração do banco de dados criado.Clique no ícone de engrenagem na barra lateral e vá para as configurações do projeto. </p>
 <p class="image-container"><img style="width: 447.00px" src="img\\56ef2dabab0697d7.png"></p>
@@ -93,34 +93,34 @@
 <p>O seu arquivo <code>google-services.json</code> será parecido com este:</p>
 <pre><code>{
   &#34;project_info&#34;: {
-    &#34;project_number&#34;: &#34;439977024970&#34;,
-    &#34;project_id&#34;: &#34;sala-de-aula-app&#34;,
-    &#34;storage_bucket&#34;: &#34;sala-de-aula-app.appspot.com&#34;
+    &#34;project_number&#34;: &#34;184594998406&#34;,
+    &#34;project_id&#34;: &#34;lista-de-tarefas-d0615&#34;,
+    &#34;storage_bucket&#34;: &#34;lista-de-tarefas-d0615.appspot.com&#34;
   },
   &#34;client&#34;: [
     {
       &#34;client_info&#34;: {
-        &#34;mobilesdk_app_id&#34;: &#34;1:439977024970:android:105bd5b23511b4cfdec333&#34;,
+        &#34;mobilesdk_app_id&#34;: &#34;1:184594998406:android:9df3ac0ca5d0ff788a9d07&#34;,
         &#34;android_client_info&#34;: {
-          &#34;package_name&#34;: &#34;br.iftm.edu.saladeaula&#34;
+          &#34;package_name&#34;: &#34;com.professorangoti.listadetarefas&#34;
         }
       },
       &#34;oauth_client&#34;: [
         {
-          &#34;client_id&#34;: &#34;439977024970-hl040j52rem8m896hh3ta4r1fqejakkd.apps.googleusercontent.com&#34;,
+          &#34;client_id&#34;: &#34;184594998406-d9fmffc8tj8dgcev6qlm29q5e9issrtc.apps.googleusercontent.com&#34;,
           &#34;client_type&#34;: 3
         }
       ],
       &#34;api_key&#34;: [
         {
-          &#34;current_key&#34;: &#34;AIzaSyDNGWiL6Es2mvCqcnIKgxBEqeaZLuRm85Q&#34;
+          &#34;current_key&#34;: &#34;AIzaSyBCsJYBXCRdm35_JpeKFHAUdP5yGIKcVJ8&#34;
         }
       ],
       &#34;services&#34;: {
         &#34;appinvite_service&#34;: {
           &#34;other_platform_oauth_client&#34;: [
             {
-              &#34;client_id&#34;: &#34;439977024970-hl040j52rem8m896hh3ta4r1fqejakkd.apps.googleusercontent.com&#34;,
+              &#34;client_id&#34;: &#34;184594998406-d9fmffc8tj8dgcev6qlm29q5e9issrtc.apps.googleusercontent.com&#34;,
               &#34;client_type&#34;: 3
             }
           ]
@@ -135,10 +135,24 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="Ativando o Storage" duration="20">
+        <p>O Firebase Storage será usado para armazenar arquivos da aplicação. Clique em primeiros passos para começar.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\3d82cf60498d89d0.png"></p>
+<p>Na primeira etapa use as configurações mostradas abaixo:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\d59a82130b2d2223.png"></p>
+<p>Escolha um local do servidor e aperte o botão Concluir para finalizar a configuração.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\c3ffa6ed09d7a0ce.png"></p>
+<p>Habilite no seu dispositivo a permissão para ter acesso aos arquivos</p>
+<aside class="special"><p><code>Settings > Apps & notifications > seu app > Permissions > Storage > allow</code></p>
+</aside>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Criação do App React Native" duration="20">
         <p>Vamos criar uma aplicação React native. Primeiro abra um terminal e use os seguintes comandos: </p>
-<pre><code>npx react-native init saladeaulaApp
-cd saladeaulaApp
+<pre><code>npx react-native init listadetarefas
+cd listadetarefas
 code .</code></pre>
 <p>O último comando abrirá o Visual Studio Code nesse diretório. Vamos limpar o código do arquivo <code>App.js</code>, que ficará assim:</p>
 <pre><code>import React from &#39;react&#39;;
@@ -146,7 +160,7 @@ import { Text, StyleSheet } from &#39;react-native&#39;;
 
 function App() {
 
-    return (&lt;Text style={styles.bigBlue}&gt;Sala de aula&lt;/Text&gt;);
+    return (&lt;Text style={styles.bigBlue}&gt;Lista de tarefas&lt;/Text&gt;);
 }
 
 const styles = StyleSheet.create({
@@ -159,17 +173,54 @@ const styles = StyleSheet.create({
 });
 
 export default App;</code></pre>
+<p>Vamos criar agora um arquivo na raiz do projeto com o nome <code>jsconfig.json</code>, com o seguinte código:</p>
+<pre><code>{
+  &#34;compilerOptions&#34;: {
+    &#34;checkJs&#34;: true,
+    &#34;jsx&#34;: &#34;react-native&#34;,
+    
+  },
+  &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;**/node_modules/*&#34;]
+}</code></pre>
 <p>Em seguida, abra o Terminal Integrado (Ctrl+J) e digite o seguinte comando para iniciar o aplicativo:</p>
 <pre><code>npx react-native run-android</code></pre>
-<p class="image-container"><img style="width: 279.00px" src="img\\bfddb552f52c055a.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Instalando a dependência React Native Firebase" duration="20">
-        <p><a href="https://rnfirebase.io/" target="_blank">Referência</a>        </p>
-<p>O módulo <code>@react-native-firebase/app</code> deve ser instalado antes de usar qualquer outro serviço do Firebase. Digite o comando abaixo no terminal aberto anteriormente.</p>
-<pre><code>yarn add @react-native-firebase/app</code></pre>
+      <google-codelab-step label="Instalando as dependências" duration="20">
+        <p>Vamos usar o <a href="https://firebase.google.com/docs/reference/js" target="_blank">Firebase Web SDK</a>, que é compatível com React Native CLI e é suportado diretamente pelo Google.</p>
+<ul>
+<li>Adicione o SDK do Firebase ao projeto React Native</li>
+</ul>
+<pre><code>yarn add firebase</code></pre>
+<ul>
+<li>Adicione a biblioteca <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a> </li>
+</ul>
+<pre><code>yarn add @react-navigation/native</code></pre>
+<ul>
+<li>Adicione as dependências do React Native Navigation </li>
+</ul>
+<pre><code>yarn add react-native-screens react-native-safe-area-context</code></pre>
+<ul>
+<li>Instale a biblioteca native stack navigator </li>
+</ul>
+<pre><code>yarn add @react-navigation/native-stack</code></pre>
+<ul>
+<li>Adicione vários componentes e pacotes de interface do usuário a serem usados ​​no projeto</li>
+</ul>
+<pre><code>yarn add react-native-keyboard-aware-scroll-view base-64 react-native-gesture-handler</code></pre>
+<ul>
+<li>Componentes Material Design</li>
+</ul>
+<pre><code>yarn add react-native-paper</code></pre>
+<ul>
+<li>Icons</li>
+</ul>
+<pre><code>yarn add react-native-vector-icons
+react-native link react-native-vector-icons</code></pre>
+<p>Edite o arquivo <code>android/app/build.gradle</code> ( NOT android/build.gradle ) e adicione o seguinte:</p>
+<pre><code>apply from: &#34;../../node_modules/react-native-vector-icons/fonts.gradle&#34;</code></pre>
 
 
       </google-codelab-step>
@@ -215,108 +266,104 @@ apply plugin: &#39;com.google.gms.google-services&#39; </code></pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="Autenticação" duration="20">
-        <p>Para usar o Firebase Authentication é preciso instalar o módulo @react-native-firebase/app e para fazer login com Google é preciso instalar o módulo @react-native-google-signin/google-signin.</p>
-<pre><code>yarn add @react-native-firebase/auth @react-native-google-signin/google-signin</code></pre>
-<p>O Firebase Authentication fornece serviços de back-end e SDKs fáceis de usar para autenticar usuários no seu aplicativo. Ele suporta autenticação usando senhas, números de telefone,  Google, Facebook etc.</p>
-<p>Assista ao vídeo de introdução direto do canal do youtube dos fabricantes do Firebase, link abaixo:</p>
-<iframe class="youtube-video" src="https://www.youtube.com/embed/8sGY55yxicA?rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p>Para realizar o controle da autenticação do usuário do app o módulo fornece um método chamado <code>onAuthStateChanged</code> que imlementa o Design Pattern Observer e permite que você assine o estado de autenticação atual do usuário e receba um evento sempre que esse estado mudar. </p>
-<p>Vamos modificar o nosso componente <code><App /></code>  para mostrar na tela o email do usuário logado.</p>
-<pre><code>import React, { useState, useEffect } from &#39;react&#39;;
-import { View, Text, Button } from &#39;react-native&#39;;
-import auth from &#39;@react-native-firebase/auth&#39;;
-import { GoogleSignin } from &#39;@react-native-google-signin/google-signin&#39;;
+      <google-codelab-step label="Organização das pastas do projeto" duration="20">
+        <p>Ocultando pastas e arquivos e deixando a vista apenas o necessário teremos o seguinte no vscode:</p>
+<p class="image-container"><img style="width: 210.00px" src="img\\24a1c5b04596e6c1.png"></p>
+<p>Vamos crias as seguintes pastas a partir da raiz do projeto:</p>
+<ul>
+<li>src/componentes</li>
+<li>src/screens</li>
+<li>src/util</li>
+</ul>
+<p>E depois teremos a seguinte estrutura no nosso projeto</p>
+<p class="image-container"><img style="width: 323.00px" src="img\\391340f88a3e1cb0.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="A Interface Gráfica com o Usuário" duration="20">
+        <ul>
+<li><h2 is-upgraded><strong>App.js (raiz do projeto)</strong></h2>
+</li>
+</ul>
+<pre><code>import React, { createContext, useEffect, useMemo, useReducer } from &#39;react&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createNativeStackNavigator } from &#39;@react-navigation/native-stack&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+import SignInScreen, { logOut } from &#39;./src/screens/SignInScreen&#39;;
+import SplashScreen from &#39;./src/screens/SplashScreen&#39;;
+import { Text, TouchableOpacity } from &#39;react-native&#39;;
+import { styles } from &#39;./src/util/styles&#39;;
+
+const Stack = createNativeStackNavigator();
+
+// @ts-ignore
+export const AuthContext = createContext();
 
 function App() {
-    // Set an initializing state whilst Firebase connects
-    const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState();
+  const [state, dispatch] = useReducer(
+    (prevState, action) =&gt; {
+      switch (action.type) {
+        case &#39;RESTORE_TOKEN&#39;:
+          return {
+            ...prevState,
+            isLoading: false,
+          };
+        case &#39;SIGN_IN&#39;:
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case &#39;SIGN_OUT&#39;:
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    },
+  );
 
-    GoogleSignin.configure({
-        webClientId: &#39;439977024970-hl040j52rem8m896hh3ta4r1fqejakkd.apps.googleusercontent.com&#39;,
-    });
+  // temporizador para exibir a splashScreen
+  useEffect(() =&gt; {
+    const sleep = async (ms) =&gt; {
+      await new Promise((resolve) =&gt; setTimeout(resolve, ms));
+      // @ts-ignore
+      dispatch({ type: &#39;RESTORE_TOKEN&#39; });
+    };
+    sleep(500);
+  }, []);
 
-    function GoogleSignIn() {
-        return (
-            &lt;Button
-                title=&#34;Google Sign-In&#34;
-                onPress={() =&gt; onGoogleButtonPress().then(() =&gt; console.log(&#39;Signed in with Google!&#39;))}
-            /&gt;
-        );
-    }
+  const authContext = useMemo(
+    () =&gt; ({
+      signIn: async (data) =&gt; {
+        // @ts-ignore
+        dispatch({ type: &#39;SIGN_IN&#39;, token: data });
+      },
+      // @ts-ignore
+      signOut: () =&gt; {
+        logOut();
+        // @ts-ignore
+        dispatch({ type: &#39;SIGN_OUT&#39; });
+      },
+      usuario: state.userToken,
+    }),
+    [state.userToken],
+  );
 
-    async function onGoogleButtonPress() {
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
-
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-        // Sign-in the user with the credential
-        return auth().signInWithCredential(googleCredential);
-    }
-
-    // Handle user state changes
-    function onAuthStateChanged(user) {
-        console.log(&#39;---------- opa -----------------&#39;)
-        console.log(user)
-        setUser(user);
-        if (initializing) setInitializing(false);
-    }
-
-    useEffect(() =&gt; {
-        console.log(&#39;---------- teste -----------------&#39;)
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        console.log(subscriber)
-
-        return subscriber; // unsubscribe on unmount
-    }, []);
-
-    if (initializing) return null;
-
-    if (!user) {
-        return (
-            &lt;View&gt;
-                &lt;Text&gt;Login&lt;/Text&gt;
-                {GoogleSignIn()}
-            &lt;/View&gt;
-        );
-    }
-
-    return (
-        &lt;View&gt;
-            &lt;Text&gt;Welcome {user.email}&lt;/Text&gt;
-        &lt;/View&gt;
-    );
-}
-
-export default App;
-</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Cloud Firestore" duration="20">
-        <p><a href="https://rnfirebase.io/firestore/usage" target="_blank">Referência</a></p>
-<p>O Firestore é um banco de dados em nuvem NoSQL. Antes da utilização dos serviços de persistência precisamos Instalar o pacote:</p>
-<pre><code>yarn add @react-native-firebase/firestore</code></pre>
-<p>Assista ao vídeo sobre o Cloud Firestore direto do canal do youtube dos fabricantes do Firebase, link abaixo:</p>
-<iframe class="youtube-video" src="https://www.youtube.com/embed/QcsAb2RR52c?rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p>O Cloud Firestore armazena dados em &#34;documentos&#34;, que estão contidos em &#34;coleções&#34;, e os documentos também podem conter coleções. </p>
-<p>Exemplo:</p>
-<pre><code>import firestore from &#39;@react-native-firebase/firestore&#39;;
-
-const usersCollection = firestore().collection(&#39;Users&#39;);
-const userDocument = firestore().collection(&#39;Users&#39;).doc(&#39;ABC&#39;);</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Criando o fluxo de autenticação" duration="20">
-        <p><a href="https://reactnavigation.org/docs/auth-flow" target="_blank">Referência</a></p>
-<p>Queremos controlar o conteúdo protegido exibindo a tela de login caso não tenha feito a autenticação ou exibir a tela protegida. Vamos fazer isso usando um operador condicional ternário como mostrado no código abaixo. </p>
-<pre><code>&lt;Stack.Navigator&gt;
+  if (state.isLoading) {
+    return &lt;SplashScreen /&gt;;
+  }
+  return (
+    &lt;AuthContext.Provider value={authContext}&gt;
+      &lt;NavigationContainer&gt;
+        &lt;Stack.Navigator&gt;
           {state.userToken == null ? (
             // No token found, user isn&#39;t signed in
             &lt;Stack.Screen
@@ -331,6 +378,8 @@ const userDocument = firestore().collection(&#39;Users&#39;).doc(&#39;ABC&#39;);
                 headerTitleStyle: {
                   fontWeight: &#39;bold&#39;,
                 },
+                // When logging out, a pop animation feels intuitive
+                // You can remove this if you want the default &#39;push&#39; animation
                 animationTypeForReplace: state.isSignout ? &#39;pop&#39; : &#39;push&#39;,
               }}
             /&gt;
@@ -361,7 +410,393 @@ const userDocument = firestore().collection(&#39;Users&#39;).doc(&#39;ABC&#39;);
               }}
             /&gt;
           )}
-&lt;/Stack.Navigator&gt;</code></pre>
+        &lt;/Stack.Navigator&gt;
+      &lt;/NavigationContainer&gt;
+    &lt;/AuthContext.Provider&gt;
+  );
+}
+
+export default App;</code></pre>
+<ul>
+<li><h2 is-upgraded><strong>src/screens/HomeScreen.js</strong></h2>
+</li>
+</ul>
+<pre><code>import React, { useContext, useEffect, useState } from &#39;react&#39;;
+import { FlatList, View } from &#39;react-native&#39;;
+import { styles } from &#39;../util/styles&#39;;
+import firestore from &#39;@react-native-firebase/firestore&#39;;
+import { Button, TextInput } from &#39;react-native-paper&#39;;
+import Mensagem from &#39;../components/Mensagem&#39;;
+import { AuthContext } from &#39;../../App&#39;;
+import { launchImageLibrary } from &#39;react-native-image-picker&#39;;
+import { saveImageMessage } from &#39;../util/firebase&#39;;
+
+const HomeScreen = () =&gt; {
+  const ref = firestore().collection(&#39;mensagens&#39;);
+  const [mensagem, setMensagem] = useState(&#39;&#39;);
+  // const [loading, setLoading] = useState(true);
+  const [mensagens, setMensagens] = useState([]);
+  const { usuario } = useContext(AuthContext);
+
+  async function enviarMensagem() {
+    await ref.add({
+      texto: mensagem,
+      usuario: usuario.displayName,
+      foto: usuario.photoURL,
+      timeStamp: firestore.FieldValue.serverTimestamp(),
+    });
+    setMensagem(&#39;&#39;);
+  }
+
+  function enviarImagem() {
+    console.log(&#39;escolhendo imagem&#39;);
+    launchImageLibrary({
+      mediaType: &#39;photo&#39;,
+    }).then((result) =&gt; {
+      saveImageMessage(result.assets[0], usuario);
+    });
+  }
+
+  useEffect(() =&gt; {
+    console.log(&#39;--------------- useEffect &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&#39;);
+    return ref.orderBy(&#39;timeStamp&#39;, &#39;desc&#39;).onSnapshot((querySnapshot) =&gt; {
+      const list = [];
+      querySnapshot.forEach((doc) =&gt; {
+        list.push({
+          ...doc.data(),
+          id: doc.id,
+        });
+      });
+      setMensagens(list);
+      // if (loading) {
+      //   setLoading(false);
+      // }
+    });
+  }, []);
+
+  const Separador = () =&gt; {
+    return &lt;View style={styles.separador} /&gt;;
+  };
+
+  // if (loading) {
+  //   return null;
+  // }
+  return (
+    &lt;&gt;
+      &lt;FlatList
+        style={styles.mensagens}
+        data={mensagens}
+        keyExtractor={(item) =&gt; item.id}
+        renderItem={({ item }) =&gt; {
+          return &lt;Mensagem {...item} /&gt;;
+        }}
+        ItemSeparatorComponent={Separador}
+      /&gt;
+      &lt;View style={styles.containerTextInput}&gt;
+        &lt;TextInput
+          label={&#39;Nova mensagem&#39;}
+          value={mensagem}
+          onChangeText={setMensagem}
+          style={styles.textInputStyle}
+        /&gt;
+        &lt;Button
+          icon=&#34;send&#34;
+          onPress={() =&gt; enviarMensagem()}
+          style={styles.buttonTextInput}
+        /&gt;
+        &lt;Button
+          icon=&#34;camera&#34;
+          onPress={() =&gt; enviarImagem()}
+          style={styles.buttonTextInput}
+        /&gt;
+      &lt;/View&gt;
+    &lt;/&gt;
+  );
+};
+
+export default HomeScreen;</code></pre>
+<ul>
+<li><h2 is-upgraded><strong>src/screens/SignScreen.js</strong></h2>
+</li>
+</ul>
+<pre><code>import auth from &#39;@react-native-firebase/auth&#39;;
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from &#39;@react-native-google-signin/google-signin&#39;;
+import React, { useContext, useState } from &#39;react&#39;;
+import { View } from &#39;react-native&#39;;
+import { AuthContext } from &#39;../../App&#39;;
+import { styles } from &#39;../util/styles&#39;;
+
+export async function logOut() {
+  try {
+    await GoogleSignin.signOut();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function SignInScreen() {
+  const { signIn } = useContext(AuthContext);
+  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
+
+  GoogleSignin.configure({
+    webClientId:
+      &#39;439977024970-hl040j52rem8m896hh3ta4r1fqejakkd.apps.googleusercontent.com&#39;,
+  });
+
+  async function onGoogleButtonPress() {
+    setIsSigninInProgress(true);
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;GoogleSigninButton
+        style={styles.button}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Light}
+        onPress={() =&gt; onGoogleButtonPress().then((user) =&gt; signIn(user.user))}
+        disabled={isSigninInProgress}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default SignInScreen;</code></pre>
+<ul>
+<li><h2 is-upgraded><strong>src/screens/SplashScreen.js</strong></h2>
+</li>
+</ul>
+<pre><code>import React, { useState } from &#39;react&#39;
+import { Image, Text, TextInput, TouchableOpacity, View } from &#39;react-native&#39;
+import { KeyboardAwareScrollView } from &#39;react-native-keyboard-aware-scroll-view&#39;;
+import styles from &#39;./styles&#39;;
+
+export default function RegistrationScreen({navigation}) {
+    const [fullName, setFullName] = useState(&#39;&#39;)
+    const [email, setEmail] = useState(&#39;&#39;)
+    const [password, setPassword] = useState(&#39;&#39;)
+    const [confirmPassword, setConfirmPassword] = useState(&#39;&#39;)
+
+    const onFooterLinkPress = () =&gt; {
+        navigation.navigate(&#39;Login&#39;)
+    }
+
+    const onRegisterPress = () =&gt; {
+    }
+
+    return (
+        &lt;View style={styles.container}&gt;
+            &lt;KeyboardAwareScrollView
+                style=&#123;&#123; flex: 1, width: &#39;100%&#39; }}
+                keyboardShouldPersistTaps=&#34;always&#34;&gt;
+                &lt;Image
+                    style={styles.logo}
+                    source={require(&#39;../../../assets/icon.png&#39;)}
+                /&gt;
+                &lt;TextInput
+                    style={styles.input}
+                    placeholder=&#39;Full Name&#39;
+                    placeholderTextColor=&#34;#aaaaaa&#34;
+                    onChangeText={(text) =&gt; setFullName(text)}
+                    value={fullName}
+                    underlineColorAndroid=&#34;transparent&#34;
+                    autoCapitalize=&#34;none&#34;
+                /&gt;
+                &lt;TextInput
+                    style={styles.input}
+                    placeholder=&#39;E-mail&#39;
+                    placeholderTextColor=&#34;#aaaaaa&#34;
+                    onChangeText={(text) =&gt; setEmail(text)}
+                    value={email}
+                    underlineColorAndroid=&#34;transparent&#34;
+                    autoCapitalize=&#34;none&#34;
+                /&gt;
+                &lt;TextInput
+                    style={styles.input}
+                    placeholderTextColor=&#34;#aaaaaa&#34;
+                    secureTextEntry
+                    placeholder=&#39;Password&#39;
+                    onChangeText={(text) =&gt; setPassword(text)}
+                    value={password}
+                    underlineColorAndroid=&#34;transparent&#34;
+                    autoCapitalize=&#34;none&#34;
+                /&gt;
+                &lt;TextInput
+                    style={styles.input}
+                    placeholderTextColor=&#34;#aaaaaa&#34;
+                    secureTextEntry
+                    placeholder=&#39;Confirm Password&#39;
+                    onChangeText={(text) =&gt; setConfirmPassword(text)}
+                    value={confirmPassword}
+                    underlineColorAndroid=&#34;transparent&#34;
+                    autoCapitalize=&#34;none&#34;
+                /&gt;
+                &lt;TouchableOpacity
+                    style={styles.button}
+                    onPress={() =&gt; onRegisterPress()}&gt;
+                    &lt;Text style={styles.buttonTitle}&gt;Create account&lt;/Text&gt;
+                &lt;/TouchableOpacity&gt;
+                &lt;View style={styles.footerView}&gt;
+                    &lt;Text style={styles.footerText}&gt;Already got an account? &lt;Text onPress={onFooterLinkPress} style={styles.footerLink}&gt;Log in&lt;/Text&gt;&lt;/Text&gt;
+                &lt;/View&gt;
+            &lt;/KeyboardAwareScrollView&gt;
+        &lt;/View&gt;
+    )
+}</code></pre>
+<ul>
+<li><h2 is-upgraded><strong>src/components/Mensagens.js</strong></h2>
+</li>
+</ul>
+<pre><code>import React from &#39;react&#39;;
+import { View, Image } from &#39;react-native&#39;;
+import { Avatar, List } from &#39;react-native-paper&#39;;
+import { styles } from &#39;../util/styles&#39;;
+
+function Mensagem({ texto, usuario, foto, imageUrl }) {
+  return (
+    &lt;View&gt;
+      &lt;List.Item
+        title={usuario + &#39; falou&#39;}
+        titleStyle=&#123;&#123; fontSize: 10 }}
+        description={texto}
+        descriptionStyle=&#123;&#123; fontSize: 16 }}
+        left={() =&gt; (
+          &lt;Avatar.Image
+            size={44}
+            source=&#123;&#123;
+              uri: foto,
+            }}
+          /&gt;
+        )}
+      /&gt;
+      {imageUrl ? (
+        &lt;Image
+          source=&#123;&#123; uri: imageUrl }}
+          style={styles.imageMessage}
+          resizeMode=&#34;contain&#34;
+        /&gt;
+      ) : (
+        &lt;&gt;&lt;/&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+export default React.memo(Mensagem);</code></pre>
+<ul>
+<li><h2 is-upgraded><strong>src/util/firebase.js</strong></h2>
+</li>
+</ul>
+<pre><code>import firestore from &#39;@react-native-firebase/firestore&#39;;
+import storage from &#39;@react-native-firebase/storage&#39;;
+
+var LOADING_IMAGE_URL = &#39;https://www.google.com/images/spin-32.gif?a&#39;;
+
+export async function saveImageMessage(file, usuario) {
+  const ref = firestore().collection(&#39;mensagens&#39;);
+
+  try {
+    // 1 - We add a message with a loading icon that will get updated with the shared image.
+    const messageRef = await ref.add({
+      usuario: usuario.displayName,
+      foto: usuario.photoURL,
+      timeStamp: firestore.FieldValue.serverTimestamp(),
+      imageUrl: LOADING_IMAGE_URL,
+    });
+
+    // 2 - Upload the image to Cloud Storage.
+    // const filePath = `${usuario.uid}/${messageRef.id}/${file.fileName}`;
+    const filePath = `${file.fileName}`;
+    const newImageRef = storage().ref(filePath);
+    const task = newImageRef.putFile(file.uri);
+
+    task.on(&#39;state_changed&#39;, (taskSnapshot) =&gt; {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+      );
+    });
+
+    task.then(() =&gt; {
+      console.log(&#39;Image uploaded to the bucket!&#39;);
+      // 3 - Generate a public URL for the file.
+      newImageRef.getDownloadURL().then((publicImageUrl) =&gt; {
+        console.log(&#39;------------&gt; url da imagem: &#39; + publicImageUrl);
+        // 4 - Update the chat message placeholder with the image&#39;s URL.
+        messageRef.update({
+          imageUrl: publicImageUrl,
+        });
+      });
+    });
+  } catch (error) {
+    console.error(
+      &#39;-----------------&gt; There was an error uploading a file to Cloud Storage:&#39;,
+      error,
+    );
+  }
+}</code></pre>
+<ul>
+<li><h2 is-upgraded><strong>src/util/styles.js</strong></h2>
+</li>
+</ul>
+<pre><code>import { StyleSheet } from &#39;react-native&#39;;
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: &#39;center&#39;,
+    alignItems: &#39;center&#39;,
+    backgroundColor: &#39;#18073f&#39;,
+  },
+  navbar: { backgroundColor: &#39;#f4511e&#39; },
+  titulo: {
+    fontSize: 20,
+    fontWeight: &#39;bold&#39;,
+    padding: 8,
+    color: &#39;#0fa&#39;,
+  },
+  button: {
+    // width: 192,
+    // height: 48,
+    alignSelf: &#39;center&#39;,
+  },
+  logoutButton: {
+    color: &#39;#fff&#39;,
+  },
+  mensagens: {},
+  card: { borderColor: &#39;#f00&#39;, borderWidth: 2 },
+  separador: {
+    height: 1,
+    width: &#39;100%&#39;,
+    backgroundColor: &#39;#aaa&#39;,
+    marginBottom: 4,
+  },
+  splashLogo: {
+    padding: 8,
+    width: 32,
+    height: 32,
+  },
+  imageMessage: {
+    margin: 16,
+    width: &#39;100%&#39;,
+    height: 200,
+  },
+  textInputStyle: { flexGrow: 1 },
+  containerTextInput: {
+    flexDirection: &#39;row&#39;,
+    alignItems: &#39;center&#39;,
+  },
+  buttonTextInput: {},
+});</code></pre>
 
 
       </google-codelab-step>
