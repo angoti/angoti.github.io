@@ -142,9 +142,6 @@
 <p class="image-container"><img style="width: 624.00px" src="img\\d59a82130b2d2223.png"></p>
 <p>Escolha um local do servidor e aperte o botão Concluir para finalizar a configuração.</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\c3ffa6ed09d7a0ce.png"></p>
-<p>Habilite no seu dispositivo a permissão para ter acesso aos arquivos</p>
-<aside class="special"><p><code>Settings > Apps & notifications > seu app > Permissions > Storage > allow</code></p>
-</aside>
 
 
       </google-codelab-step>
@@ -156,70 +153,66 @@ cd listadetarefas
 code .</code></pre>
 <p>O último comando abrirá o Visual Studio Code nesse diretório. Vamos limpar o código do arquivo <code>App.js</code>, que ficará assim:</p>
 <pre><code>import React from &#39;react&#39;;
-import { Text, StyleSheet } from &#39;react-native&#39;;
+import {Header} from &#39;react-native/Libraries/NewAppScreen&#39;;
 
 function App() {
-
-    return (&lt;Text style={styles.bigBlue}&gt;Lista de tarefas&lt;/Text&gt;);
+  return &lt;Header /&gt;;
 }
-
-const styles = StyleSheet.create({
-    bigBlue: {
-        color: &#39;blue&#39;,
-        fontWeight: &#39;bold&#39;,
-        fontSize: 30,
-        textAlign: &#34;center&#34;
-    }
-});
 
 export default App;</code></pre>
 <p>Vamos criar agora um arquivo na raiz do projeto com o nome <code>jsconfig.json</code>, com o seguinte código:</p>
 <pre><code>{
   &#34;compilerOptions&#34;: {
     &#34;checkJs&#34;: true,
-    &#34;jsx&#34;: &#34;react-native&#34;,
-    
+    &#34;jsx&#34;: &#34;react-native&#34;,    
   },
   &#34;exclude&#34;: [&#34;node_modules&#34;, &#34;**/node_modules/*&#34;]
 }</code></pre>
-<p>Em seguida, abra o Terminal Integrado (Ctrl+J) e digite o seguinte comando para iniciar o aplicativo:</p>
+<h2 is-upgraded><strong>Usando Hermes</strong></h2>
+<p><a href="https://hermesengine.dev/" target="_blank">Hermes</a> é uma máquina virtual Javascript otimizada para React Native. Para usar Hermes você precisa abrir o arquivo <code>android/app/build.gradle</code> e fazer a alteração mostrada abaixo:</p>
+<pre><code>project.ext.react = [
+      entryFile: &#34;index.js&#34;,
+      enableHermes: true  
+]</code></pre>
+<p>Depois execute o script abaixo dentro da pasta <code>/android</code> de seu projeto:</p>
+<pre><code>gradlew clean</code></pre>
+<p>Em seguida, execute o seguinte comando para iniciar o aplicativo:</p>
 <pre><code>npx react-native run-android</code></pre>
+<p>O seu aplicativo exibirá a tela abaixo. Observe no canto superior direito da tela a mensagem de ativação do Hermes.</p>
+<p class="image-container"><img style="width: 485.00px" src="img\\1401065206de8356.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Instalando as dependências" duration="20">
-        <p>Vamos usar o <a href="https://firebase.google.com/docs/reference/js" target="_blank">Firebase Web SDK</a>, que é compatível com React Native CLI e é suportado diretamente pelo Google.</p>
-<ul>
-<li>Adicione o SDK do Firebase ao projeto React Native</li>
+        <ul>
+<li>Vamos usar o <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a>, que é uma coleção de pacotes oficialmente recomendada que oferece suporte ao React Native para todos os serviços do Firebase em aplicativos Android e iOS.</li>
 </ul>
-<pre><code>yarn add firebase</code></pre>
+<pre><code>yarn add 
+@react-native-firebase/app 
+@react-native-firebase/auth 
+@react-native-firebase/firestore 
+@react-native-firebase/storage 
+@react-native-firebase/messaging</code></pre>
 <ul>
-<li>Adicione a biblioteca <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a> </li>
+<li>Adicione o pacote <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a>, composto de alguns utilitários responsáveis para criar a estrutura de navegação em seu aplicativo. No nosso app vamos usar navegação em pilha, que emula a navegação na web.</li>
 </ul>
-<pre><code>yarn add @react-navigation/native</code></pre>
+<pre><code>yarn add 
+@react-navigation/native 
+react-native-screens 
+react-native-safe-area-context 
+@react-navigation/native-stack</code></pre>
 <ul>
-<li>Adicione as dependências do React Native Navigation </li>
-</ul>
-<pre><code>yarn add react-native-screens react-native-safe-area-context</code></pre>
-<ul>
-<li>Instale a biblioteca native stack navigator </li>
-</ul>
-<pre><code>yarn add @react-navigation/native-stack</code></pre>
-<ul>
-<li>Adicione vários componentes e pacotes de interface do usuário a serem usados ​​no projeto</li>
-</ul>
-<pre><code>yarn add react-native-keyboard-aware-scroll-view base-64 react-native-gesture-handler</code></pre>
-<ul>
-<li>Componentes Material Design</li>
+<li>Componentes <a href="https://callstack.github.io/react-native-paper/index.html" target="_blank">Cross-platform Material Design for React Native</a> usados para montar a UI</li>
 </ul>
 <pre><code>yarn add react-native-paper</code></pre>
 <ul>
 <li>Icons</li>
 </ul>
-<pre><code>yarn add react-native-vector-icons
-react-native link react-native-vector-icons</code></pre>
-<p>Edite o arquivo <code>android/app/build.gradle</code> ( NOT android/build.gradle ) e adicione o seguinte:</p>
+<pre><code>yarn add react-native-vector-icons</code></pre>
+<p>Depois execute o seguinte comando na raiz do seu projeto:</p>
+<pre><code>npx react-native link react-native-vector-icons</code></pre>
+<p>Edite o arquivo <code>android/app/build.gradle</code> ( Não é android/build.gradle ) e adicione o seguinte:</p>
 <pre><code>apply from: &#34;../../node_modules/react-native-vector-icons/fonts.gradle&#34;</code></pre>
 
 
