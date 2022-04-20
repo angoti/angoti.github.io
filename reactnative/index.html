@@ -195,6 +195,10 @@ export default App;</code></pre>
 @react-native-firebase/storage 
 @react-native-firebase/messaging</code></pre>
 <ul>
+<li>A biblioteca <a href="https://rnfirebase.io/auth/social-auth#google" target="_blank">React Native Google Signin</a> fornece um wrapper em torno da biblioteca oficial de login do Google, permitindo que você crie uma credencial e faça login no Firebase.</li>
+</ul>
+<pre><code>yarn add @react-native-google-signin/google-signin</code></pre>
+<ul>
 <li>Adicione o pacote <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a>, composto de alguns utilitários responsáveis para criar a estrutura de navegação em seu aplicativo. No nosso app vamos usar navegação em pilha, que emula a navegação na web.</li>
 </ul>
 <pre><code>yarn add 
@@ -214,6 +218,10 @@ react-native-safe-area-context
 <pre><code>npx react-native link react-native-vector-icons</code></pre>
 <p>Edite o arquivo <code>android/app/build.gradle</code> ( Não é android/build.gradle ) e adicione o seguinte:</p>
 <pre><code>apply from: &#34;../../node_modules/react-native-vector-icons/fonts.gradle&#34;</code></pre>
+<ul>
+<li>Um <a href="https://github.com/react-native-image-picker/react-native-image-picker" target="_blank">módulo</a> React Native que permite selecionar uma foto do dispositivo ou da câmera.</li>
+</ul>
+<pre><code>yarn add react-native-image-picker</code></pre>
 
 
       </google-codelab-step>
@@ -229,7 +237,7 @@ react-native-safe-area-context
 <p class="image-container"><img style="width: 624.00px" src="img\\a507813e3c905e97.png"></p>
 <p class="image-container"><img style="width: 575.00px" src="img\\2f7edd04e8183cd7.png"></p>
 <ol type="1" start="3">
-<li>Abra o arquivo <code>/android/app/build.gradle</code> e modifique o valor do atributo applicationId dentro de defaultConfig</li>
+<li>Abra o arquivo <code>/android/app/build.gradle</code> e modifique o valor do atributo applicationId dentro de <code>defaultConfig{ ... }</code> e adicione como última linha <code>apply plugin: "com.google.gms.google-services"</code>.</li>
 </ol>
 <pre><code>defaultConfig {
         applicationId &#34;br.edu.iftm.saladeaula&#34;
@@ -237,24 +245,29 @@ react-native-safe-area-context
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName &#34;1.0&#34;
-}</code></pre>
+}
+
+...
+
+plugin: &#34;com.google.gms.google-services&#34; // &lt;--- deve ser a última linha</code></pre>
 <ol type="1" start="4">
 <li>Abra os arquivos <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainActivity.java</code> e <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainApplication.java</code> e modifique o nome do pacote para <code>package br.edu.iftm.saladeaula;</code> </li>
+</ol>
+<ol type="1" start="5">
 <li>Adicione o plugin google-services como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
 </ol>
-<pre><code>dependencies {
+<pre><code>buildscript {
+    ext {
+        ...
+        googlePlayServicesAuthVersion = &#34;19.2.0&#34; // &lt;--- ou versão mais nova
+    }
+
+    dependencies {
         classpath(&#39;com.android.tools.build:gradle:7.1.2&#39;)
         classpath(&#39;com.google.gms:google-services:4.3.10&#39;)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }</code></pre>
-<p class="image-container"><img style="width: 624.00px" src="img\\259e3b6f33300ac.png"></p>
-<ol type="1" start="6">
-<li>Por fim, execute o plug-in adicionando o seguinte ao seu arquivo /android/app/build.gradle:</li>
-</ol>
-<pre><code>apply plugin: &#34;com.android.application&#34;
-apply plugin: &#39;com.google.gms.google-services&#39; </code></pre>
-<p class="image-container"><img style="width: 624.00px" src="img\\2e8e80cee4afde70.png"></p>
 
 
       </google-codelab-step>
@@ -569,85 +582,23 @@ export default SignInScreen;</code></pre>
 <li><h2 is-upgraded><strong>src/screens/SplashScreen.js</strong></h2>
 </li>
 </ul>
-<pre><code>import React, { useState } from &#39;react&#39;
-import { Image, Text, TextInput, TouchableOpacity, View } from &#39;react-native&#39;
-import { KeyboardAwareScrollView } from &#39;react-native-keyboard-aware-scroll-view&#39;;
-import styles from &#39;./styles&#39;;
+<pre><code>import React from &#39;react&#39;;
+import { View, Text, Image } from &#39;react-native&#39;;
+import { styles } from &#39;../util/styles&#39;;
 
-export default function RegistrationScreen({navigation}) {
-    const [fullName, setFullName] = useState(&#39;&#39;)
-    const [email, setEmail] = useState(&#39;&#39;)
-    const [password, setPassword] = useState(&#39;&#39;)
-    const [confirmPassword, setConfirmPassword] = useState(&#39;&#39;)
+const SplashScreen = () =&gt; {
+  const LOADING_IMAGE_URL = &#39;https://www.google.com/images/spin-32.gif?a&#39;;
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.titulo}&gt;Projeto X&lt;/Text&gt;
+      &lt;Image source=&#123;&#123; uri: LOADING_IMAGE_URL }} style={styles.splashLogo} /&gt;
+    &lt;/View&gt;
+  );
+};
 
-    const onFooterLinkPress = () =&gt; {
-        navigation.navigate(&#39;Login&#39;)
-    }
-
-    const onRegisterPress = () =&gt; {
-    }
-
-    return (
-        &lt;View style={styles.container}&gt;
-            &lt;KeyboardAwareScrollView
-                style=&#123;&#123; flex: 1, width: &#39;100%&#39; }}
-                keyboardShouldPersistTaps=&#34;always&#34;&gt;
-                &lt;Image
-                    style={styles.logo}
-                    source={require(&#39;../../../assets/icon.png&#39;)}
-                /&gt;
-                &lt;TextInput
-                    style={styles.input}
-                    placeholder=&#39;Full Name&#39;
-                    placeholderTextColor=&#34;#aaaaaa&#34;
-                    onChangeText={(text) =&gt; setFullName(text)}
-                    value={fullName}
-                    underlineColorAndroid=&#34;transparent&#34;
-                    autoCapitalize=&#34;none&#34;
-                /&gt;
-                &lt;TextInput
-                    style={styles.input}
-                    placeholder=&#39;E-mail&#39;
-                    placeholderTextColor=&#34;#aaaaaa&#34;
-                    onChangeText={(text) =&gt; setEmail(text)}
-                    value={email}
-                    underlineColorAndroid=&#34;transparent&#34;
-                    autoCapitalize=&#34;none&#34;
-                /&gt;
-                &lt;TextInput
-                    style={styles.input}
-                    placeholderTextColor=&#34;#aaaaaa&#34;
-                    secureTextEntry
-                    placeholder=&#39;Password&#39;
-                    onChangeText={(text) =&gt; setPassword(text)}
-                    value={password}
-                    underlineColorAndroid=&#34;transparent&#34;
-                    autoCapitalize=&#34;none&#34;
-                /&gt;
-                &lt;TextInput
-                    style={styles.input}
-                    placeholderTextColor=&#34;#aaaaaa&#34;
-                    secureTextEntry
-                    placeholder=&#39;Confirm Password&#39;
-                    onChangeText={(text) =&gt; setConfirmPassword(text)}
-                    value={confirmPassword}
-                    underlineColorAndroid=&#34;transparent&#34;
-                    autoCapitalize=&#34;none&#34;
-                /&gt;
-                &lt;TouchableOpacity
-                    style={styles.button}
-                    onPress={() =&gt; onRegisterPress()}&gt;
-                    &lt;Text style={styles.buttonTitle}&gt;Create account&lt;/Text&gt;
-                &lt;/TouchableOpacity&gt;
-                &lt;View style={styles.footerView}&gt;
-                    &lt;Text style={styles.footerText}&gt;Already got an account? &lt;Text onPress={onFooterLinkPress} style={styles.footerLink}&gt;Log in&lt;/Text&gt;&lt;/Text&gt;
-                &lt;/View&gt;
-            &lt;/KeyboardAwareScrollView&gt;
-        &lt;/View&gt;
-    )
-}</code></pre>
+export default SplashScreen;</code></pre>
 <ul>
-<li><h2 is-upgraded><strong>src/components/Mensagens.js</strong></h2>
+<li><h2 is-upgraded><strong>src/components/Mensagem.js</strong></h2>
 </li>
 </ul>
 <pre><code>import React from &#39;react&#39;;
