@@ -184,28 +184,6 @@
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
     crossorigin="anonymous"></script>
 
-  <script type="text/javascript">
-    Array.from(document.getElementsByTagName("code")).forEach(function (container) {
-      let btn = new Image();
-      btn.src = "https://cdn.iconscout.com/icon/free/png-32/copy-data-667851.png";
-      btn.style.float = "right";
-      btn.style.color = "white";
-      btn.onclick = () => {
-        navigator.clipboard.writeText(container.innerText).then(
-          () => {
-            alert("Código copiado para o clipboard!");
-            return false;
-          },
-          () => {
-            alert("erro");
-            return false;
-          }
-        );
-      };
-      container.insertBefore(btn, container.firstChild);
-    });
-
-  </script>
 </body>
 
 </html>
