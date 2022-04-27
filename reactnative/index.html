@@ -148,9 +148,10 @@
     
       <google-codelab-step label="Criação do App React Native" duration="20">
         <p>Vamos criar uma aplicação React native. Primeiro abra um terminal e use os seguintes comandos: </p>
-<pre><code>npx react-native init listadetarefas
-cd listadetarefas
-code .</code></pre>
+<pre><code>npx react-native init &lt;nome da aplicação&gt;</code></pre>
+<p>Precisamos renomear o pacote dentro da aplicação Android. Use o mesmo nome do pacote do Android informado no passo 2. Execute o seguinte comando dentro da pasta raiz do projeto:</p>
+<pre><code>cd &lt;nome da aplicação&gt;
+npx react-native-rename &#34;nome da aplicação&#34; -b &lt;nome do pacote&gt;</code></pre>
 <p>O último comando abrirá o Visual Studio Code nesse diretório. Vamos limpar o código do arquivo <code>App.js</code>, que ficará assim:</p>
 <pre><code>import React from &#39;react&#39;;
 import {Header} from &#39;react-native/Libraries/NewAppScreen&#39;;
