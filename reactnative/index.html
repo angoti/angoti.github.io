@@ -174,8 +174,6 @@ export default App;</code></pre>
       entryFile: &#34;index.js&#34;,
       enableHermes: true  
 ]</code></pre>
-<p>Depois execute o script abaixo dentro da pasta <code>/android</code> de seu projeto:</p>
-<pre><code>gradlew clean</code></pre>
 <p>Em seguida, execute o seguinte comando para iniciar o aplicativo:</p>
 <pre><code>npx react-native run-android</code></pre>
 <p>O seu aplicativo exibirá a tela abaixo. Observe no canto superior direito da tela a mensagem de ativação do Hermes.</p>
@@ -252,16 +250,12 @@ defaultConfig {
 <li>Adicione o plugin google-services como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
 </ol>
 <pre><code>buildscript {
-    ext {
-        ...
-        googlePlayServicesAuthVersion = &#34;19.2.0&#34; // &lt;--- ou versão mais nova
-    }
-
+    ...
+    
     dependencies {
         classpath(&#39;com.android.tools.build:gradle:7.1.2&#39;)
         classpath(&#39;com.google.gms:google-services:4.3.10&#39;)
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        ...
     }</code></pre>
 
 
