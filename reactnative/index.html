@@ -183,6 +183,32 @@ export default App;</code></pre>
 
       </google-codelab-step>
     
+      <google-codelab-step label="Configurando o Android" duration="20">
+        <ol type="1" start="1">
+<li>O arquivo de configuração <code>google-services.json</code> que obtivemos no passo 4 deve ser copiado para dentro de seu projeto no seguinte local: /android/app/.</li>
+</ol>
+<p class="image-container"><img style="width: 286.00px" src="img\\849c746fcbc6ab9f.png"></p>
+<ol type="1" start="2">
+<li>Abra o arquivo <code>/android/app/build.gradle</code> e adicione a linha <code>apply plugin: "com.google.gms.google-services"</code>.</li>
+</ol>
+<pre><code>apply plugin: &#39;com.android.application&#39;
+// Adicione esta linha
+apply plugin: &#39;com.google.gms.google-services&#39;</code></pre>
+<ol type="1" start="3">
+<li>Adicione o plugin google-services como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
+</ol>
+<pre><code>buildscript {
+    ...
+    
+    dependencies {
+        ...
+        classpath(&#39;com.google.gms:google-services:4.3.10&#39;)
+        ...
+    }</code></pre>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Instalando as dependências" duration="20">
         <ul>
 <li>Vamos usar o <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a>, que é uma coleção de pacotes oficialmente recomendada que oferece suporte ao React Native para todos os serviços do Firebase em aplicativos Android e iOS.</li>
@@ -210,54 +236,6 @@ export default App;</code></pre>
 <li>Um <a href="https://github.com/react-native-image-picker/react-native-image-picker" target="_blank">módulo</a> React Native que permite selecionar uma foto do dispositivo ou da câmera.</li>
 </ul>
 <pre><code>yarn add react-native-image-picker</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Configurando o Android" duration="20">
-        <ol type="1" start="1">
-<li>O arquivo de configuração <code>google-services.json</code> que obtivemos no passo 4 deve ser copiado para dentro de seu projeto no seguinte local: /android/app/.</li>
-</ol>
-<p class="image-container"><img style="width: 286.00px" src="img\\849c746fcbc6ab9f.png"></p>
-<ol type="1" start="2">
-<li>Abra o arquivo <code>/android/app/src/main/AndroidManifest.xml</code> e altere a primeira linha para que o atributo ‘package&#39; tenha o mesmo valor que o atributo ‘package_name&#39; do arquivo <code>google-services.json</code>   </li>
-</ol>
-<p class="image-container"><img style="width: 624.00px" src="img\\a507813e3c905e97.png"></p>
-<p class="image-container"><img style="width: 575.00px" src="img\\2f7edd04e8183cd7.png"></p>
-<ol type="1" start="3">
-<li>Abra o arquivo <code>/android/app/build.gradle</code> e modifique o valor do atributo <code>applicationId</code> para  o mesmo valor que o atributo ‘package_name&#39; do arquivo <code>google-services.json</code> dentro de <code>defaultConfig{ ... }</code> e adicione a linha <code>apply plugin: "com.google.gms.google-services"</code>.</li>
-</ol>
-<pre><code>apply plugin: &#39;com.android.application&#39;
-
-// Adicione esta linha
-apply plugin: &#39;com.google.gms.google-services&#39;
-
-...
-
-defaultConfig {
-        applicationId &#34;br.edu.iftm.saladeaula&#34;
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName &#34;1.0&#34;
-}
-
-...
-</code></pre>
-<ol type="1" start="4">
-<li>Abra os arquivos <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainActivity.java</code> e <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainApplication.java</code> e modifique o nome do pacote para <code>package [mesmo valor que o atributo ‘package_name' do arquivo google-services.json];</code> </li>
-</ol>
-<ol type="1" start="5">
-<li>Adicione o plugin google-services como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
-</ol>
-<pre><code>buildscript {
-    ...
-    
-    dependencies {
-        classpath(&#39;com.android.tools.build:gradle:7.1.2&#39;)
-        classpath(&#39;com.google.gms:google-services:4.3.10&#39;)
-        ...
-    }</code></pre>
 
 
       </google-codelab-step>
