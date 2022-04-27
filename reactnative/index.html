@@ -205,8 +205,6 @@ export default App;</code></pre>
 <li>Icons</li>
 </ul>
 <pre><code>yarn add react-native-vector-icons</code></pre>
-<p>Depois execute o seguinte comando na raiz do seu projeto:</p>
-<pre><code>npx react-native link react-native-vector-icons</code></pre>
 <p>Edite o arquivo <code>android/app/build.gradle</code> ( Não é android/build.gradle ) e adicione o seguinte:</p>
 <pre><code>apply from: &#34;../../node_modules/react-native-vector-icons/fonts.gradle&#34;</code></pre>
 <ul>
@@ -228,9 +226,16 @@ export default App;</code></pre>
 <p class="image-container"><img style="width: 624.00px" src="img\\a507813e3c905e97.png"></p>
 <p class="image-container"><img style="width: 575.00px" src="img\\2f7edd04e8183cd7.png"></p>
 <ol type="1" start="3">
-<li>Abra o arquivo <code>/android/app/build.gradle</code> e modifique o valor do atributo applicationId dentro de <code>defaultConfig{ ... }</code> e adicione como última linha <code>apply plugin: "com.google.gms.google-services"</code>.</li>
+<li>Abra o arquivo <code>/android/app/build.gradle</code> e modifique o valor do atributo <code>applicationId</code> para  o mesmo valor que o atributo ‘package_name&#39; do arquivo <code>google-services.json</code> dentro de <code>defaultConfig{ ... }</code> e adicione a linha <code>apply plugin: "com.google.gms.google-services"</code>.</li>
 </ol>
-<pre><code>defaultConfig {
+<pre><code>apply plugin: &#39;com.android.application&#39;
+
+// Adicione esta linha
+apply plugin: &#39;com.google.gms.google-services&#39;
+
+...
+
+defaultConfig {
         applicationId &#34;br.edu.iftm.saladeaula&#34;
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -239,10 +244,9 @@ export default App;</code></pre>
 }
 
 ...
-
-plugin: &#34;com.google.gms.google-services&#34; // &lt;--- deve ser a última linha</code></pre>
+</code></pre>
 <ol type="1" start="4">
-<li>Abra os arquivos <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainActivity.java</code> e <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainApplication.java</code> e modifique o nome do pacote para <code>package br.edu.iftm.saladeaula;</code> </li>
+<li>Abra os arquivos <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainActivity.java</code> e <code>android\app\src\main\java\br.edu.iftm.saladeaula\MainApplication.java</code> e modifique o nome do pacote para <code>package [mesmo valor que o atributo ‘package_name' do arquivo google-services.json];</code> </li>
 </ol>
 <ol type="1" start="5">
 <li>Adicione o plugin google-services como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
