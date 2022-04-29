@@ -82,7 +82,12 @@
 <p>Vamos iniciar o banco de dados do Firestore no modo de teste. Isso ocorre porque não queremos nos preocupar com um ambiente de produção e regras de segurança, para nos concentrarmos mais no lado do desenvolvimento. No entanto, você pode alterá-lo para o modo de produção depois de concluir o projeto.</p>
 <p>Clique em Avançar e  escolha um local geográfico onde ficará o seu banco de dados (pode ser qualquer um) e pressione Criar. Isso criará seu banco de dados do Cloud Firestore.</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\1319b0595432279.png"></p>
-<p>Em uma etapa posterior vamos precisar da configuração do banco de dados criado.Clique no ícone de engrenagem na barra lateral e vá para as configurações do projeto. </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criando um app Android no Firebase" duration="10">
+        <p>Em uma etapa posterior vamos precisar da configuração associada a um app criado no console do Firebase. Clique no ícone de engrenagem na barra lateral e vá para as configurações do projeto. </p>
 <p class="image-container"><img style="width: 447.00px" src="img\\56ef2dabab0697d7.png"></p>
 <p>Role a tela até aparecer o seguinte:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\36246443d7758c71.png"></p>
@@ -142,6 +147,8 @@
 <p class="image-container"><img style="width: 624.00px" src="img\\d59a82130b2d2223.png"></p>
 <p>Escolha um local do servidor e aperte o botão Concluir para finalizar a configuração.</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\c3ffa6ed09d7a0ce.png"></p>
+<p>Verifique as regras de segurança do Storage e compare a regra mostrada abaixo. Modifique sua regra se estiver diferente do mostrado abaixo.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\18796319dd13167f.png"></p>
 
 
       </google-codelab-step>
@@ -189,22 +196,48 @@ export default App;</code></pre>
 </ol>
 <p class="image-container"><img style="width: 286.00px" src="img\\849c746fcbc6ab9f.png"></p>
 <ol type="1" start="2">
-<li>Abra o arquivo <code>/android/app/build.gradle</code> e adicione a linha <code>apply plugin: "com.google.gms.google-services"</code>.</li>
+<li>Abra o arquivo <code>/android/app/build.gradle</code> e adicione o seguinte código:</li>
 </ol>
-<pre><code>apply plugin: &#39;com.android.application&#39;
-// Adicione esta linha
-apply plugin: &#39;com.google.gms.google-services&#39;</code></pre>
+<pre><code>dependencies {
+    ...
+    
+    // For animated GIF support
+    implementation &#39;com.facebook.fresco:animated-gif:2.6.0&#39;
+    
+    ...
+}
+
+// Adicione esta linha no fim do arquivo
+apply plugin: &#39;com.google.gms.google-services&#39; // &lt;--- this should be the last line</code></pre>
 <ol type="1" start="3">
 <li>Adicione o plugin google-services como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
 </ol>
 <pre><code>buildscript {
-    ...
-    
+    ext {
+        buildToolsVersion = &#34;...&#34;
+        minSdkVersion = ...
+        compileSdkVersion = ...
+        targetSdkVersion = ...
+        supportLibVersion = &#34;...&#34;
+        googlePlayServicesAuthVersion = &#34;19.2.0&#34; // &lt;--- use this version or newer
+    }
+        
     dependencies {
         ...
-        classpath(&#39;com.google.gms:google-services:4.3.10&#39;)
+        classpath(&#39;com.google.gms:google-services:4.3.10&#39;) // &lt;--- use this version or newer
         ...
     }</code></pre>
+<ol type="1" start="4">
+<li>Vamos gerar chaves para configurar o app no Firebase console. </li>
+</ol>
+<pre><code>cd android &amp;&amp; ./gradlew signingReport</code></pre>
+<p>Isso gera duas chaves. Você precisa copiar as chaves &#39;SHA1&#39; e &#39;SHA-256&#39; que pertencem à variante  &#39;<code>debugAndroidTest</code>&#39; e ‘<code>Store</code>&#39; indicando o diretório de sua aplicação. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\35561d7f023fcd61.png"></p>
+<p>Em seguida, você pode adicionar essas chaves às &#34;impressões digitais do certificado SHA&#34; em seu aplicativo no Firebase console. Veja sequencia de imagens a seguir:</p>
+<p class="image-container"><img style="width: 445.00px" src="img\\da8ad9d43113defc.png"></p>
+<p>Role a página até aparecer o seu aplicativo Android</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\a955849ffe33ecf8.png"></p>
+<p>Copie as chaves geradas no campo <code>Impressão digital do certificado</code>. </p>
 
 
       </google-codelab-step>
@@ -236,6 +269,10 @@ apply plugin: &#39;com.google.gms.google-services&#39;</code></pre>
 <li>Um <a href="https://github.com/react-native-image-picker/react-native-image-picker" target="_blank">módulo</a> React Native que permite selecionar uma foto do dispositivo ou da câmera.</li>
 </ul>
 <pre><code>yarn add react-native-image-picker</code></pre>
+<ul>
+<li><a href="https://github.com/emeraldsanto/react-native-encrypted-storage" target="_blank">React native wrapper</a> de SharedPreferences para fornecer um sistema de armazenamento de chave-valor seguro.</li>
+</ul>
+<pre><code>$ yarn add react-native-encrypted-storage</code></pre>
 
 
       </google-codelab-step>
@@ -428,6 +465,9 @@ const HomeScreen = () =&gt; {
       mediaType: &#39;photo&#39;,
     }).then((result) =&gt; {
       saveImageMessage(result.assets[0], usuario);
+    })
+    .catch(error =&gt; {
+        console.log(&#39;-------------------------&gt; &#39; + error);
     });
   }
 
