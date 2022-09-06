@@ -1,0 +1,140 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - React Native</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - React Native"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <h2 is-upgraded><img style="width: 688.00px" src="img\\8f9f9e336f14e00e.png"></h2>
+<p>Última atualização: 06/09/2022</p>
+<p>React Native é um dos frameworks de desenvolvimento de aplicativos móveis mais populares projetada e desenvolvida pelo Facebook. O Facebook abriu sua base de código em 2015. Permite desenvolver um único código que roda nas duas plataformas que existem:  Android e iOS.</p>
+<h2 is-upgraded><strong>O que você vai fazer</strong></h2>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 259.70px" src="img\\146394d531ee8ba5.png"></p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Preparar o ambiente de desenvolvimento Expo</li>
+<li>Criar uma aplicação de e-commerce simples com uma tela de produtos, tela de detalhe e carrinho de compras</li>
+</ul>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Estrutura de uma aplicação React Native</li>
+<li>Componentes funcionais</li>
+<li>Hooks</li>
+<li>Estilização</li>
+<li>Layout com flexbox</li>
+<li>Componentes fundamentais: <code><View>, <Text> e <Image></code></li>
+<li>Navegação entre telas (<em>stack navigation</em>)</li>
+<li>Contexto</li>
+</ul>
+<h2 is-upgraded><strong>O que você precisa</strong></h2>
+<ul>
+<li>VS Code</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ambiente de desenvolvimento" duration="15">
+        <h2 is-upgraded><strong>Instalação do Node.js e Expo</strong></h2>
+<p>Baixe o instalador direto do site <a href="https://nodejs.org/" target="_blank">site oficial</a>. Após a instalação, você poderá verificar a instalação com o comando:</p>
+<pre>node -v</pre>
+<p>Depois de instalar o node, precisamos instalar Expo CLI: </p>
+<pre>npm install --global expo-cli</pre>
+<p>Para executar a  aplicação no celular é necessário instalar o app Expo na <a href="https://play.google.com/store/apps/details?id=host.exp.exponent" target="_blank">Google Play</a> ou na <a href="https://apps.apple.com/br/app/expo-go/id982107779" target="_blank">App Store</a>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação da aplicação" duration="0">
+        <p>Na linha de comando crie uma pasta chamada projetos: e dentro desta pasta execute o comando <code>npx</code> abaixo:</p>
+<pre>npx create-expo-app app-rn1</pre>
+<p>Após o download e instalação das dependências, digite: </p>
+<pre>cd app-rn1
+npm start</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Executando seu aplicativo com o Expo Go" duration="0">
+        <p>Com o seu celular abra o app Expo Go e escaneie o QR-Code que aparece na janela de comandos depois que você executou o npm start.</p>
+<p class="image-container"><img style="width: 696.00px" src="img\\48cf14fcee66517d.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Editando o código da aplicação" duration="0">
+        <p>Dentro da pasta onde você criou a aplicação digite:</p>
+<pre>code . </pre>
+<p class="image-container"><img style="width: 200.70px" src="img\\dc5dd4c5b042b9a4.png"></p>
+<p>Vamos começar editando o arquivo App.js</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Seu primero componente" duration="0">
+        <p>Conheça os <a href="https://reactnative.dev/docs/components-and-apis#basic-components" target="_blank">componentes básicos</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Rolando a tela" duration="0">
+        <p>&lt;ScrollView&gt;</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Apresentado dados em listas" duration="0">
+        <p>&lt;FlatList&gt;</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Estilos" duration="0">
+        <p>StyleSheet</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Layout com Flexbox" duration="0">
+        <p><a href="https://flexboxfroggy.com/" target="_blank">Flexbox froggy</a></p>
+<p><a href="https://docs.expo.dev/guides/using-custom-fonts/#using-a-google-font" target="_blank">Expo custom fonts</a></p>
+<p class="image-container"><img style="width: 288.70px" src="img\\614ec2589ae8f8b8.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

@@ -5,13 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Coleção de Codelabs desenvolvidos pelo professor Angoti - programação web e mobile>
+  <meta name="description" content="Coleção de Codelabs desenvolvidos pelo professor Angoti - programação web e mobile">
   <meta name=" author" content="Edson Angoti Júnior">
   <title>Codelabs do professor Angoti</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="./index_files/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link href="./index_files/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
   <!-- Favicons -->
   <link rel="icon" href="index_files\computer_black_24dp.svg">
@@ -54,135 +53,67 @@
   </header>
 
   <main>
-
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <a href="react\index.html">
-                <img src="react\img\9cc8bffdd05c4440.png" class="bd-placeholder-img card-img-top" width="100%">
-              </a>
-              <div class="card-body">
-                <p class="card-text">React - Revisão Javascript, elementos e componentenentes, hooks, ciclo de vida,
-                  exemplo crud, uso de bibliotecas Bootstrap, Axios, roteamento e exemplos com códgio.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <a href="reactnative\index.html">
-                <img src="reactnative\img\1401065206de8356.png" class="bd-placeholder-img card-img-top" width="100%">
-              </a>
-              <div class="card-body">
-                <p class="card-text">React Native - App chat usando o FireBase com o pacote React Native Firebase e
-                  Stack Navigation com o pacote React Navigation e Hooks useReducer e useMemo.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <a href="spring1\index.html">
-                <img src="spring1\img\520edccd092854fe.png" class="bd-placeholder-img card-img-top" width="100%">
-              </a>
-              <div class="card-body">
-                <p class="card-text">Spring Boot - Construindo um serviço da Web RESTful.
-                <p>
-                  Tutorial para orientar o processo de criação de um serviço da Web RESTful com Spring Boot.
-                </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <a href="spring2\index.html">
-                <img src="spring2\img\71013e51f289c2d7.png" class="bd-placeholder-img card-img-top" width="100%">
-              </a>
-              <div class="card-body">
-                <p class="card-text">Spring Boot - REST API
-                <p>
-                  Desenvolvendo uma aplicação CRUD usando MySQL e JPA - uma entidade.
-                </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <a href="orm\index.html">
-                <img src="orm\img\3c64271cb73f9dda.png" class="bd-placeholder-img card-img-top" width="100%">
-              </a>
-              <div class="card-body">
-                <p class="card-text">Hibernate - Meu primeiro ORM
-                <p>
-                  Este guia mostra o processo de criação de um projeto Spring e a implementação de uma classe
-                  persistente.
-                </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <a href="spring4/index.html">
-                <img src="spring4\img\c2d6cca715e29abc.png" class="bd-placeholder-img card-img-top" width="100%">
-              </a>
-              <div class="card-body">
-                <p class="card-text">Spring boot - Tratamento de exceções e a anotação @ControllerAdvice
-                <p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java
-                  as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado.
-                  Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos
-                  aqui neste tutorial é a anotação @ControllerAdvice.</p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <a href="spring3\index.html">
-                <img src="spring3\img\6eda8812c34f7ec1.png" class="bd-placeholder-img card-img-top" width="100%">
-              </a>
-              <div class="card-body">
-                <p class="card-text">Spring boot - Aplicação Web MVC com JdbcTemplate
-                <p>Neste codelab você aprenderá a desenvolver um aplicativo Java Web utilizando o framework Spring Boot
-                  com Thymeleaf e acesso a dados
-                  com JdbcTemplate e controle de acesso através de autenticação e autorização usando Spring Security que
-                  gerencia informações
-                  em um banco de dados com operações CRUD padrão: Criar, Recuperar, Atualizar e Excluir. O sistema será
-                  hospedado no servidor Heroku.
-                </p>
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Asunto</th>
+            <th scope="col">Nome</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>React</td>
+            <td><a href="react/index.html">Introdução ao React</a></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>React Native</td>
+            <td><a href="reactnative/index.html">App chat usando o FireBase, React Navigation e Hooks useReducer e useMemo</a></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Spring Boot</td>
+            <td><a href="spring1/index.html">Tutorial para orientar o processo de criação de um serviço da Web RESTful com Spring Boot</a></td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Spring Boot</td>
+            <td><a href="spring2/index.html">Desenvolvendo uma aplicação CRUD usando MySQL e JPA - uma entidade</a></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Spring Boot</td>
+            <td><a href="orm/index.html">Projeto Spring com persistência JPA</a></td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Spring Boot</td>
+            <td><a href="spring4/index.html">Tratamento de exceções e a anotação @ControllerAdvice</a></td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>Spring Boot</td>
+            <td><a href="spring3/index.html">Aplicação Web MVC com JdbcTemplate, Thymeleaf, Security e hospedagem no Heroku</a></td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>Programação Orientada a Objetos</td>
+            <td><a href="poo/interface/index.html">Interface</a></td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>React Native</td>
+            <td><a href="rn-introduction/index.html">Introdução à React Native</a></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </main>
 
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#topo">Voltar ao inicio</a>
-      </p>
-
-    </div>
-  </footer>
-
-  <script src="./index_files/bootstrap.bundle.min.js.download"
-    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-    crossorigin="anonymous"></script>
+  <script src="./index_files/bootstrap.bundle.min.js.download" crossorigin="anonymous"></script>
 
 </body>
 
