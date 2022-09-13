@@ -29,7 +29,7 @@
     
       <google-codelab-step label="Introdução" duration="5">
         <h2 is-upgraded><img style="width: 688.00px" src="img\\8f9f9e336f14e00e.png"></h2>
-<p>Última atualização: 06/09/2022</p>
+<p><code>Última atualização: 06/09/2022</code></p>
 <p>React Native é um dos frameworks de desenvolvimento de aplicativos móveis mais populares projetada e desenvolvida pelo Facebook. O Facebook abriu sua base de código em 2015. Permite desenvolver um único código que roda nas duas plataformas que existem:  Android e iOS.</p>
 <h2 is-upgraded><strong>O que você vai fazer</strong></h2>
 <table>
@@ -75,55 +75,230 @@
 <pre>npx create-expo-app app-rn1</pre>
 <p>Após o download e instalação das dependências, digite: </p>
 <pre>cd app-rn1
-npm start</pre>
+code .</pre>
+<p>Depois de abrir o VSCode você verá a estrutura de pastas e arquivos do projeto criado, como mostrado abaixo:</p>
+<p class="image-container"><img style="width: 199.00px" src="img\\bc145770d91f9dc7.png"></p>
+<p>Crie as seguintes pastas para conter o código da aplicação:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 189.00px" src="img\\fbb347b51251d292.png"></p>
+</td><td colspan="1" rowspan="1"><p>1 - Criar a pasta /src na raiz da aplicação</p>
+<p>2 - Criar as pastas <code>/components</code>, <code>/screens</code> e <code>/services</code> dentro da pasta <code>/src</code></p>
+</td></tr>
+</table>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Executando seu aplicativo com o Expo Go" duration="0">
-        <p>Com o seu celular abra o app Expo Go e escaneie o QR-Code que aparece na janela de comandos depois que você executou o npm start.</p>
+        <p>Para executar o app em seu celular temos duas situações: </p>
+<ol type="1" start="1">
+<li>Quando seu computador e seu celular estiverem na mesma rede digite o comando na pasta raiz da aplicação:</li>
+</ol>
+<pre>npx expo start</pre>
+<ol type="1" start="2">
+<li>Quando seu computador e seu celular estiverem em redes separadas:</li>
+</ol>
+<pre>npm install -g @expo/ngrok@4.1.0
+npx expo start --tunnel</pre>
+<p>Abra no seu celular o app Expo Go e escaneie o QR-Code que aparece na janela de comandos depois que você executou o comando acima.</p>
 <p class="image-container"><img style="width: 696.00px" src="img\\48cf14fcee66517d.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Editando o código da aplicação" duration="0">
-        <p>Dentro da pasta onde você criou a aplicação digite:</p>
-<pre>code . </pre>
-<p class="image-container"><img style="width: 200.70px" src="img\\dc5dd4c5b042b9a4.png"></p>
-<p>Vamos começar editando o arquivo App.js</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Seu primero componente" duration="0">
+      <google-codelab-step label="Criando um novo componente" duration="0">
         <p>Conheça os <a href="https://reactnative.dev/docs/components-and-apis#basic-components" target="_blank">componentes básicos</a></p>
+<ol type="1" start="1">
+<li><h2 is-upgraded><strong>Início do desenvolvimento</strong><img style="width: 718.11px" src="img\\6231382067d96f97.png"></h2>
+</li>
+<li><h2 is-upgraded><strong>Apresentação de informações de um determinado dado</strong><img style="width: 718.11px" src="img\\3ae4983994e8559b.png"></h2>
+</li>
+<li><h2 is-upgraded><strong>Componente criado</strong></h2>
+</li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\e6fa6a6c3c29bb21.gif"></p>
+<p class="image-container"><img style="width: 675.00px" src="img\\5d453d0ec0172ca8.png"></p>
+<ol type="1" start="4">
+<li><h2 is-upgraded><strong>Customizando o componente</strong></h2>
+</li>
+</ol>
+<p>Antes de falarmos da customização do componente, uma palavrinha sobre o mecanismo de importação de módulo/componente. </p>
+<p>Temos duas maneiras de exportar um módulo de um arquivo: </p>
+<ul>
+<li>exportação nomeada</li>
+<li>exportação padrão</li>
+</ul>
+<h3 is-upgraded><strong>Exportação nomeada</strong></h3>
+<p>Com exportações nomeadas, pode-se ter várias exportações nomeadas por arquivo. Em seguida, importe as exportações específicas que desejar entre chaves. O nome do módulo importado deve ser igual ao nome do módulo exportado.</p>
+<p>Exemplos de exportação:</p>
+<pre><code>// Arquivo Componentes.js 
+export const Componente1 = () =&gt; {}
+export const Componente2 = () =&gt; {}
 
+// Importando um único componente
+import { Componente1 } from &#34;./Componentes&#34;;
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Rolando a tela" duration="0">
-        <p>&lt;ScrollView&gt;</p>
+// Importing múltiplos componentes
+import { Componente1, Componenet2 } from &#34;./Componentes&#34;;
+
+// Renomeando o componente importado
+import { Componente2 as Comp2 } from &#34;./Componentes&#34;;
+
+// Importando todos os componentes
+// Uso: Comp.Componente1 e Comp.Componente2
+import * as Comp from &#34;./Componentes&#34;;</code></pre>
+<h3 is-upgraded><strong>Exportação Default</strong></h3>
+<p>Pode-se ter apenas uma exportação padrão por arquivo. Quando importamos, temos que especificar um nome que pode ser diferente do nome exportado.</p>
+<p>Exemplo de exportação default:</p>
+<pre><code>// export
+const NovoComponente = () =&gt; {}
+export default NovoComponente;
+
+// import sem mudar o nome 
+import NovoComponente from &#34;./NovoComponente&#34;;
+
+// import renomeando o componente 
+import Comp from &#34;./NovoComponente&#34;;</code></pre>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export" target="_blank">Referência</a></p>
+<h3 is-upgraded><strong>Props</strong></h3>
+<p>Vamos customizar o nosso componente recém criado. Podemos perceber as informações que podem ser utilizadas para customizar o componente: a imagem a ser exibida e os textos: titulo, descrição e informações. A função Card pode receber um parâmetro que representa as propriedades (conhecido como Props, abreviação de &#34;<em>properties</em>&#34;) do componente. (<a href="https://reactnative.dev/docs/intro-react#props" target="_blank">React Native Guides - Fundamentals - Props</a>).</p>
+<p>Devemos passar os valores para a customização do componente como o exemplo a seguir:</p>
+<pre><code>&lt;Card
+    imagem={imagem1}
+    titulo={&#34;Título&#34;}
+    descrição={&#34;Descrição&#34;}
+    informações={&#34;demais informações sobre o item/produto&#34;}
+/&gt;</code></pre>
+<p>O componente &lt;Card&gt; possui as seguintes propriedades: <code>imagem</code>, <code>titulo</code>, <code>descrição</code> e <code>informações</code>.</p>
+<p>Podemos usar duas notações para receber as propriedades pelo componente:</p>
+<ul>
+<li>Recebendo o objeto Props</li>
+</ul>
+<p>Observe no código abaixo o parâmetro props sendo recebido como um objeto e seu uso com a notação ponto  (props.imagem por exemplos) para acessar os valores individuais de props.</p>
+<pre><code>const Card = (props) =&gt; {
+  return (
+    &lt;View style={styles.seção}&gt;
+      &lt;Image style={styles.imagem} source={props.imagem} /&gt;
+      &lt;View style={styles.texto}&gt;
+        &lt;Text&gt;{props.titulo}&lt;/Text&gt;
+        &lt;Text&gt;{props.descrição}&lt;/Text&gt;
+        &lt;Text&gt;{props.informações}&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+};</code></pre>
+<ul>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#desestrutura%C3%A7%C3%A3o_de_objeto" target="_blank">Desestruturação de parâmetros</a></li>
+</ul>
+<p>Observe a existência dos colchetes que contêm a lista de parâmetros que o componente recebe. Esta forma é nomeada desestruturação de objetos.</p>
+<pre><code>const Card = ({ imagem, titulo, descrição, informações }) =&gt; {
+  return (
+    &lt;View style={styles.seção}&gt;
+      &lt;Image style={styles.imagem} source={imagem} /&gt;
+      &lt;View style={styles.texto}&gt;
+        &lt;Text&gt;{titulo}&lt;/Text&gt;
+        &lt;Text&gt;{descrição}&lt;/Text&gt;
+        &lt;Text&gt;{informações}&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+};
+</code></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Apresentado dados em listas" duration="0">
-        <p>&lt;FlatList&gt;</p>
+        <p>O componente básico do React Native <a href="https://reactnative.dev/docs/flatlist" target="_blank"><code><FlatList></code></a> deve ser usado quando temos uma lista de objetos a serem consumidos para exibição dos valores.</p>
+<p>Vamos simular um repositório de dados através de um arquivo mock:</p>
+<pre><code>const itemList = [
+  {
+    id: 1,
+    titulo: &#34;Aspirador de pó&#34;,
+    descricao:
+      &#34;Aspirador de Pó Vertical e Portátil de Mão 2 em 1 WAP HIGH SPEED 1000W 1,2 litros Filtro HEPA 127V&#34;,
+    valor: 150.99,
+    imagem: require(&#34;../../assets/products/aspirador.jpg&#34;),
+  },
+  {
+    id: 2,
+    titulo: &#34;Power Bank&#34;,
+    descricao: &#34;Belkin BPB006BT USB-C 10000mAh Power Bank&#34;,
+    valor: 90.99,
+    imagem: require(&#34;../../assets/products/power-bank.jpg&#34;),
+  },
+  {
+    id: 3,
+    titulo: &#34;Smartphone&#34;,
+    descricao:
+      &#34;Smartphone Samsung Galaxy A32 128GB Violeta 4G - 4GB RAM Tela 6,4&#34; Câm. Quádrupla + Selfie 20MP&#34;,
+    valor: 1150.99,
+    imagem: require(&#34;../../assets/products/smartphone.jpg&#34;),
+  },
+];
+
+export const getItens = () =&gt; {
+  return itemList;
+};</code></pre>
+<p>Duas propriedades são obrigatórias: <a href="https://reactnative.dev/docs/flatlist#required-renderitem" target="_blank"><code>renderItem</code></a> e <a href="https://reactnative.dev/docs/flatlist#required-data" target="_blank"><code>data</code></a></p>
+<pre><code>import { FlatList, StatusBar, StyleSheet, Text, View } from &#34;react-native&#34;;
+import Card from &#34;./src/components/Card&#34;;
+import { getItens } from &#34;./src/services/ItemServiceMock&#34;;
+
+const App = () =&gt; {
+  const renderCard = ({ item }) =&gt; (
+    &lt;Card
+      descrição={item.descricao}
+      imagem={item.imagem}
+      informações={item.valor}
+      titulo={item.titulo}
+    /&gt;
+  );
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;StatusBar /&gt;
+      &lt;FlatList data={getItens()} renderItem={renderCard} /&gt;
+    &lt;/View&gt;
+  );
+};
+export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 4,
+  },
+  seção: {
+    flexDirection: &#34;row&#34;,
+    borderColor: &#34;#ccc&#34;,
+    borderWidth: 1,
+  },
+  imagem: {
+    padding: 4,
+    flex: 1,
+    height: 200,
+  },
+  texto: {
+    flex: 1,
+    padding: 4,
+  },
+});</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Estilos" duration="0">
-        <p>StyleSheet</p>
+      <google-codelab-step label="Navegação" duration="0">
+        <p>Existem muitas bibliotecas de componentes de navegação disponíveis para usar com react native. Aqui vamos usar a biblioteca <a href="https://reactnavigation.org/" target="_blank">React Navigation</a>.</p>
+<p>Vamos usar a navegação em pilha (stack navigation) que simula o funcionamento dos links de uma página na web. Os tipos diferentes de navegação estão ilustrados abaixo:</p>
+<p class="image-container"><img style="width: 718.11px" src="img\\efd8a81085832007.png"></p>
+<p>Para mais detalhes veja <a href="https://www.reactnativedevelopmentcompany.com/how-many-types-of-navigation-in-react-native/" target="_blank">este</a> artigo.</p>
+<p>Vamos seguir o <a href="https://reactnavigation.org/docs/hello-react-navigation/" target="_blank">tutorial</a> da documentação oficial.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Layout com Flexbox" duration="0">
-        <p><a href="https://flexboxfroggy.com/" target="_blank">Flexbox froggy</a></p>
-<p><a href="https://docs.expo.dev/guides/using-custom-fonts/#using-a-google-font" target="_blank">Expo custom fonts</a></p>
-<p class="image-container"><img style="width: 288.70px" src="img\\614ec2589ae8f8b8.png"></p>
+      <google-codelab-step label="Contexto" duration="0">
+        <p><a href="https://pt-br.reactjs.org/docs/hooks-reference.html#usecontext" target="_blank">https://pt-br.reactjs.org/docs/hooks-reference.html#usecontext</a></p>
 
 
       </google-codelab-step>
