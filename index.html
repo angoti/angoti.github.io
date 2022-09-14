@@ -16,6 +16,10 @@
   <link rel="icon" href="index_files\computer_black_24dp.svg">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+  <!-- Excel-like Bootstrap Table Sorting And Filtering Plugin -->
+  <script src="/excel-bootstrap-table-filter-bundle.js"></script>
+  <link rel="stylesheet" href="/excel-bootstrap-table-filter-style.css">
+
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -54,7 +58,7 @@
 
   <main>
     <div class="container">
-      <table class="table">
+      <table class="table" id="lista-de-codelabs">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -114,7 +118,9 @@
   </main>
 
   <script src="./index_files/bootstrap.bundle.min.js.download" crossorigin="anonymous"></script>
-
+  <script>
+    $('table').excelTableFilter();
+  </script>
 </body>
 
 </html>
