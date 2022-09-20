@@ -1,0 +1,101 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Ambiente de desenvolvimento React Native</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - Ambiente de desenvolvimento React Native"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <h2 is-upgraded><img style="width: 688.00px" src="img\\8f9f9e336f14e00e.png"></h2>
+<p><code>Última atualização: 16/09/2022</code></p>
+<h2 is-upgraded><strong>O que você vai fazer</strong></h2>
+<p>Preparar o ambiente de desenvolvimento de aplicações React Native em um sistema operacional Windows 10</p>
+<h2 is-upgraded><strong>Referências</strong></h2>
+<ul>
+<li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
+<li><a href="https://docs.expo.dev/" target="_blank">Expo</a></li>
+<li><a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html" target="_blank">Java SE Development Kit 17 latest JDK LTS</a></li>
+<li><a href="https://code.visualstudio.com/" target="_blank">Visual Studio</a></li>
+<li><a href="https://dev.to/andreisfedotov/how-to-install-android-emulator-without-installing-android-studio-3lce" target="_blank">Android Emulator</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Node.js" duration="10">
+        <p>Vamos usar a versão LTS (long-term support)  mais recente que é <code>16.17.0</code>. Baixe o instalador direto do site <a href="https://nodejs.org/" target="_blank">site oficial</a>. Após a instalação, você poderá verificar a instalação com o comando:</p>
+<pre>node -v</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Expo" duration="10">
+        <p>Depois de instalar o node, precisamos instalar Expo CLI: </p>
+<pre>npm install --global expo-cli</pre>
+<p>Para executar a  aplicação no celular é necessário instalar o app Expo na <a href="https://play.google.com/store/apps/details?id=host.exp.exponent" target="_blank">Google Play</a> ou na <a href="https://apps.apple.com/br/app/expo-go/id982107779" target="_blank">App Store</a>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Java Development Kit" duration="5">
+        <p>O Java 17 LTS (<em>long-term support</em>) é a versão LTS mais recente para a plataforma Java SE. O JDK 17 receberá atualizações até pelo menos setembro de 2024. Baixe o <a href="https://download.oracle.com/java/17/latest/jdk-17_windows-x64_bin.exe" target="_blank">instalador</a> e instale o JDK para rodar o emulador Android.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Visual Studio e JavaScript extensions for VS Code" duration="15">
+        <p>Baixe o instalador do <a href="https://code.visualstudio.com/download" target="_blank">vscode</a> e depois instale as seguintes extensões: </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img alt="Prettier - Code formatter" style="width: 99.54px" src="img\\a7b46d2484c340ed.png"></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode" target="_blank">Prettier - Code formatter</a></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img alt="IntelliCode" style="width: 114.46px" src="img\\17029b689d5dc3db.png"></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode" target="_blank">IntelliCode</a></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img alt="JavaScript (ES6) code snippets" style="width: 102.46px" src="img\\22cfb3a0e21f9351.png"></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets" target="_blank">JavaScript (ES6) code snippets</a></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Babel JavaScript" style="width: 145.69px" src="img\\c21ed2e97848fcf.png"></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel" target="_blank">Babel JavaScript</a></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img alt="Node.js Modules Intellisense" style="width: 118.80px" src="img\\80b4db26d4c74d1.png"></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=leizongmin.node-module-intellisense" target="_blank">Node.js Modules Intellisense</a></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 100.20px" src="img\\7321b1be144ba053.png"></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank">ESLint</a></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 107.54px" src="img\\d3210086887361e1.png"></p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode" target="_blank">SonarLint</a></p>
+</td><td colspan="1" rowspan="1"></td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
