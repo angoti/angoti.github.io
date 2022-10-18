@@ -1,0 +1,282 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - React Native</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - React Native"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <h2 is-upgraded><img style="width: 688.00px" src="img\\8f9f9e336f14e00e.png"></h2>
+<p><code>Última atualização: 18/10/2022</code></p>
+<p>React Native é um dos frameworks de desenvolvimento de aplicativos móveis mais populares projetada e desenvolvida pelo Facebook. O Facebook abriu sua base de código em 2015. Permite desenvolver um único código que roda nas duas plataformas que existem:  Android e iOS.</p>
+<h2 is-upgraded><strong>O que você vai fazer</strong></h2>
+<p class="image-container"><img style="width: 323.00px" src="img\\d728405c54ba5c4d.gif"></p>
+<p>Para instalar o jogo no seu celular use este <a href="https://expo.dev/accounts/angoti/projects/rnge1/builds/0048ab07-8511-4ce7-8b07-0ce89fa064a1" target="_blank">link</a> com o app <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR&gl=US" target="_blank">Expo</a></p>
+<h2 is-upgraded><strong>Referências</strong></h2>
+<ul>
+<li><a href="https://medium.com/@williamyang93/my-journey-with-react-native-game-engine-part-i-starting-the-project-bbebcd2ccf6" target="_blank">William Yang</a></li>
+<li><a href="https://blog.logrocket.com/using-react-native-sensors-create-racing-game/" target="_blank">Wern Ancheta</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ambiente de desenvolvimento" duration="15">
+        <h2 is-upgraded><strong>Instalação do Node.js e Expo</strong></h2>
+<p>Baixe o instalador direto do site <a href="https://nodejs.org/" target="_blank">site oficial</a>. Após a instalação, você poderá verificar a instalação com o comando:</p>
+<pre>node -v</pre>
+<p>Depois de instalar o node, precisamos instalar Expo CLI: </p>
+<pre>npm install --global expo-cli</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação da aplicação" duration="0">
+        <p>Na linha de comando crie uma pasta chamada projetos: e dentro desta pasta execute o comando <code>npx</code> abaixo:</p>
+<pre>npx create-expo-app jogo</pre>
+<p>Após o download e instalação das dependências, digite: </p>
+<pre>cd jogo
+code .</pre>
+<p>Depois de abrir o VSCode você verá a estrutura de pastas e arquivos do projeto criado, como mostrado abaixo:</p>
+<p class="image-container"><img style="width: 199.00px" src="img\\bc145770d91f9dc7.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Executando seu aplicativo com o Expo Go" duration="0">
+        <p>Para executar o app em seu celular temos duas situações: </p>
+<pre>npx expo start</pre>
+<p class="image-container"><img style="width: 696.00px" src="img\\48cf14fcee66517d.png"></p>
+<ol type="1" start="1">
+<li>Para executar usando o emulador do Android use a tecla <code>a</code></li>
+<li>Para executar no seu celular use o app Expo para escanear o QR code </li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Game Engine" duration="0">
+        <p>Vamos usas duas bibliotecas para construir o jogo. Então vamos instalar no nosso projeto. Na linha de comando e dentro da pasta da aplicação, execute o comando:</p>
+<pre>yarn add react-native-game-engine matter-js</pre>
+<p>Abra o arquivo App.js e apague todo o código, vamos começar do zero.</p>
+<pre>import Matter from &#34;matter-js&#34;;
+import { GameEngine } from &#34;react-native-game-engine&#34;;
+import { StyleSheet, StatusBar } from &#34;react-native&#34;;
+const App =() =&gt; {
+    return (
+      &lt;GameEngine style={styles.container}&gt;
+        &lt;StatusBar hidden={true} /&gt;
+      &lt;/GameEngine&gt;
+    );
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: &#34;#6ff&#34;,
+  },
+});
+export default App;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Entities" duration="0">
+        <p>As entidades são como são os objetos do jogo. Vamos adicionar um entity simples - um retângulo - ao nosso engine. Crie um novo arquivo chamado Box.js.</p>
+<pre>import { View } from &#34;react-native&#34;;
+
+const Box = (props) =&gt; {
+  const width = props.size[0];
+  const height = props.size[1];
+  const x = props.body.position.x - width / 2;
+  const y = props.body.position.y - height / 2;
+
+  return (
+    &lt;View
+      style=&#123;&#123;
+        position: &#34;absolute&#34;,
+        left: x,
+        top: y,
+        width: width,
+        height: height,
+        backgroundColor: props.color || &#34;pink&#34;,
+      }}
+    /&gt;
+  );
+};
+
+export default Box;</pre>
+<p>Para exibir o retângulo na tela, vamos voltar ao App.js</p>
+<pre>import Matter from &#34;matter-js&#34;;
+import { GameEngine } from &#34;react-native-game-engine&#34;;
+import { StyleSheet, StatusBar, Dimensions } from &#34;react-native&#34;;
+import Box from &#34;./Box&#34;;
+
+const { width, height } = Dimensions.get(&#34;screen&#34;);
+const boxSize = Math.trunc(Math.max(width, height) * 0.075);
+const initialBox = Matter.Bodies.rectangle(width / 2, height / 2, boxSize, boxSize);
+
+const App = () =&gt; {
+  return (
+    &lt;GameEngine
+      style={styles.container}
+      entities=&#123;&#123;
+        initialBox: {
+          body: initialBox,
+          size: [boxSize, boxSize],
+          color: &#39;red&#39;,
+          renderer: Box
+        }
+      }}&gt;
+      &lt;StatusBar hidden={true} /&gt;
+    &lt;/GameEngine&gt;
+  );
+};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: &#34;#6ff&#34;,
+  },
+});
+
+export default App;</pre>
+<p>Você verá a tela assim:</p>
+<p class="image-container"><img style="width: 437.00px" src="img\\df06e516d31b0fbf.png"></p>
+<p>Vamos adicionar mais um objeto ao nosso engine:</p>
+<pre>const floor = Matter.Bodies.rectangle(width / 2, height - boxSize, width, boxSize, { isStatic: true });</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Física" duration="0">
+        <p>Vamos adicionar gravidade ao nosso mundo. Adicione as linhas abaixo</p>
+<pre>const engine = Matter.Engine.create({ enableSleeping: false });
+const world = engine.world;</pre>
+<p>Para que nossos objetos sejam afetados pela física do nosso mundo, precisamos adicioná-los ao mundo</p>
+<pre>Matter.World.add(world, [initialBox, floor]);</pre>
+<p>Por fim, vamos adicionar o engine e world a nossa lista de entidades com o nome de physics:</p>
+<pre>entities=&#123;&#123; 
+            physics: { 
+               engine: engine, 
+               world: world 
+         },
+            initialBox: { 
+               body: initialBox, 
+               size: [boxSize, boxSize], 
+               color: &#39;red&#39;, 
+               renderer: Box
+         },
+           floor: { 
+               body: floor, 
+               size: [width, boxSize], 
+               color: &#34;green&#34;, 
+               renderer: Box 
+        }
+}}</pre>
+<p>Agora nossa lista de objetos do jogo está completa, vamos colocar em funcionamento este mundo. Então precisamos colocar um <code>System</code> ao nosso engine que faz o mundo funcionar.</p>
+<p><code>System</code> é um <em>array</em> contém uma série de funções, que serão chamadas em cada <em>tick </em>do jogo. Ou seja, essas funções serão executadas em uma velocidade muito rápida e podem ser usadas para verificar e atualizar nosso jogo. A primeira função que adicionaremos ao System será:</p>
+<pre>const Physics = (entities, { time }) =&gt; {
+  let engine = entities[&#34;physics&#34;].engine;
+  Matter.Engine.update(engine, time.delta);
+  return entities;
+};</pre>
+<p>As funções do sistema recebem dois parâmetros:</p>
+<ul>
+<li>A lista de objetos do jogo</li>
+<li>Um array com os seguintes objetos:</li>
+<li>Touches</li>
+<li>Screen</li>
+<li>Events</li>
+<li>Dispatch</li>
+<li>Time</li>
+</ul>
+<p>Por fim adicionamos o sistema ao engine:</p>
+<pre>&lt;GameEngine
+style={styles.container}
+systems={[Physics]}
+entities=&#123;&#123; 
+            physics: { 
+               engine: engine, 
+               world: world 
+         },
+            initialBox: { 
+               body: initialBox, 
+               size: [boxSize, boxSize], 
+               color: &#39;red&#39;, 
+               renderer: Box
+         },
+           floor: { 
+               body: floor, 
+               size: [width, boxSize], 
+               color: &#34;green&#34;, 
+               renderer: Box 
+        }
+}}&gt;
+&lt;StatusBar hidden={true} /&gt;
+&lt;/GameEngine&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tratando touches" duration="0">
+        <p>Vamos criar um novo Box a cada touch do usuário. Crie uma nova função acima de App.</p>
+<pre>  const CreateBox = (entities, { touches, screen }) =&gt; {
+    let world = entities[&#34;physics&#34;].world;
+    let boxSize = Math.trunc(Math.max(screen.width, screen.height) * 0.075);
+    touches
+      .filter((t) =&gt; t.type === &#34;press&#34;)
+      .forEach((t) =&gt; {
+        let body = Matter.Bodies.rectangle(t.event.pageX, t.event.pageY, boxSize, boxSize, { frictionAir: 0.021, restitution: 1.0 });
+        Matter.World.add(world, [body]);
+        entities[++boxIds] = {
+          body: body,
+          size: [boxSize, boxSize],
+          color: &#34;#a8f93f&#34;,
+          renderer: Box,
+        };
+      });
+    return entities;
+  };</pre>
+<p>Agora, vamos adicionar CreateBox ao array Systems no componente GameEngine:</p>
+<pre>systems={[Physics, CreateBox]}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Jogo do carrinho" duration="0">
+        <p>Vamos começar a desenvolver o jogo que apresentei no início da oficina.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

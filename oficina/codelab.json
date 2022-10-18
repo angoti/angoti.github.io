@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-10-18T21:36:27Z",
+  "id": "",
+  "duration": 20,
+  "title": "Codelab - React Native",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Codelab baseado no documento ‘React Native' (https://reactnative.dev/)",
+  "source": "1gkydmtlvHyq41u_CITtPwG7hNDwi5UkAglpIP-QxZvc",
+  "theme": "web",
+  "status": [
+    "em construção"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}
