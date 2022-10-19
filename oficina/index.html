@@ -165,6 +165,13 @@ export default App;</pre>
 <p class="image-container"><img style="width: 437.00px" src="img\\df06e516d31b0fbf.png"></p>
 <p>Vamos adicionar mais um objeto ao nosso engine:</p>
 <pre>const floor = Matter.Bodies.rectangle(width / 2, height - boxSize, width, boxSize, { isStatic: true });</pre>
+<p>E adicione o objeto <code>floor</code> à propriedade <code>entities</code> do <code><GameEngine></code></p>
+<pre>floor: {
+          body: floor,
+          size: [width, boxSize],
+          color: &#34;green&#34;,
+          renderer: Box,
+        },</pre>
 
 
       </google-codelab-step>
@@ -241,7 +248,8 @@ entities=&#123;&#123;
     
       <google-codelab-step label="Tratando touches" duration="0">
         <p>Vamos criar um novo Box a cada touch do usuário. Crie uma nova função acima de App.</p>
-<pre>  const CreateBox = (entities, { touches, screen }) =&gt; {
+<pre>let boxIds=0;  
+const CreateBox = (entities, { touches, screen }) =&gt; {
     let world = entities[&#34;physics&#34;].world;
     let boxSize = Math.trunc(Math.max(screen.width, screen.height) * 0.075);
     touches
@@ -258,7 +266,7 @@ entities=&#123;&#123;
       });
     return entities;
   };</pre>
-<p>Agora, vamos adicionar CreateBox ao array Systems no componente GameEngine:</p>
+<p>Agora, vamos adicionar <code>CreateBox</code> ao array Systems no componente <code><GameEngine></code>:</p>
 <pre>systems={[Physics, CreateBox]}</pre>
 
 
