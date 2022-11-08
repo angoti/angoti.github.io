@@ -254,7 +254,7 @@ apply plugin: &#39;com.google.gms.google-services&#39; // &lt;--- this should be
 <ul>
 <li>Adicione o pacote <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a>, composto de alguns utilitários responsáveis para criar a estrutura de navegação em seu aplicativo. No nosso app vamos usar navegação em pilha, que emula a navegação na web.</li>
 </ul>
-<pre><code>yarn add @react-navigation/native react-native-screens react-native-safe-area-context @react-navigation/native-stack</code></pre>
+<pre><code>yarn add @react-navigation/native react-native-screens react-native-safe-area-context @react-navigation/native-stack @react-navigation/bottom-tabs</code></pre>
 <ul>
 <li>Componentes <a href="https://callstack.github.io/react-native-paper/index.html" target="_blank">Cross-platform Material Design for React Native</a> usados para montar a UI</li>
 </ul>
@@ -270,28 +270,34 @@ apply plugin: &#39;com.google.gms.google-services&#39; // &lt;--- this should be
 </ul>
 <pre><code>yarn add react-native-image-picker</code></pre>
 <ul>
-<li><a href="https://github.com/emeraldsanto/react-native-encrypted-storage" target="_blank">React native wrapper</a> de SharedPreferences para fornecer um sistema de armazenamento de chave-valor seguro.</li>
+<li><a href="https://github.com/emeraldsanto/react-native-encrypted-storage" target="_blank">React Native Encrypted Storage</a> para fornecer um sistema de armazenamento de chave-valor seguro.</li>
 </ul>
-<pre><code>$ yarn add react-native-encrypted-storage</code></pre>
+<pre><code>yarn add react-native-encrypted-storage</code></pre>
 <ul>
 <li><a href="https://rnfirebase.io/messaging/usage" target="_blank">React Native Firebase</a> fornece integração nativa do Firebase Cloud Messaging (FCM) </li>
 </ul>
 <pre><code>yarn add @react-native-firebase/messaging</code></pre>
+<p>Todos módulos em um só comando:</p>
+<pre>yarn add @react-native-firebase/app @react-native-firebase/auth @react-native-firebase/firestore @react-native-firebase/storage @react-native-firebase/messaging @react-native-google-signin/google-signin @react-navigation/native react-native-screens @react-navigation/bottom-tabs react-native-safe-area-context @react-navigation/native-stack react-native-paper react-native-vector-icons react-native-image-picker react-native-encrypted-storage @react-native-firebase/messaging</pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Organização das pastas do projeto" duration="20">
-        <p>Ocultando pastas e arquivos e deixando a vista apenas o necessário teremos o seguinte no vscode:</p>
-<p class="image-container"><img style="width: 210.00px" src="img\\24a1c5b04596e6c1.png"></p>
-<p>Vamos crias as seguintes pastas a partir da raiz do projeto:</p>
+        <p>Vamos crias as seguintes pastas a partir da raiz do projeto:</p>
 <ul>
-<li>src/componentes</li>
+<li>src</li>
+<li>src/assets</li>
+<li>src/assets/fonts</li>
+<li>src/assets/images</li>
+<li>src/components</li>
+<li>src/navigations</li>
 <li>src/screens</li>
-<li>src/util</li>
+<li>src/styles</li>
+<li>src/utils</li>
 </ul>
 <p>E depois teremos a seguinte estrutura no nosso projeto</p>
-<p class="image-container"><img style="width: 323.00px" src="img\\391340f88a3e1cb0.png"></p>
+<p class="image-container"><img style="width: 253.50px" src="img\\14d127fc8887a96f.png"></p>
 
 
       </google-codelab-step>
