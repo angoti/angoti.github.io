@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-09-20T22:01:08Z",
+  "id": "",
+  "duration": 45,
+  "title": "Codelab - Ambiente de desenvolvimento React Native",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Preparação ambiente de desenvolvimento com vscode e expo com emulador android via linha de comando",
+  "source": "1M7MV-PTwcugXZtinp9RAIQg6PCBgl_xB5uYpZAumuIU",
+  "theme": "web",
+  "status": [
+    "em construção"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}

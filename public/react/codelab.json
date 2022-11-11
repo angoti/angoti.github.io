@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-06-21T00:18:09Z",
+  "id": "",
+  "duration": 70,
+  "title": "React",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Apresentando React - elementos e  componentes",
+  "source": "18kW_w1m0vBFw1xNyVwOlA6jWubonkGm5BzeErIlWGmg",
+  "theme": "web",
+  "status": [
+    "em desenvolvimento"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}

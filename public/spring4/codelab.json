@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-12-16T14:18:36Z",
+  "id": "",
+  "duration": 60,
+  "title": "Codelab - Spring Boot e tratamento de exceções",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Spring Boot e tratamento de exceções",
+  "source": "1ESet1fmL7cfiY9_Ax3f5fXdUmJH-fWV9yzLBqcNCgH8",
+  "theme": "web",
+  "status": [
+    "em construção"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}

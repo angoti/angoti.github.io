@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-02-04T14:41:02Z",
+  "id": "",
+  "duration": 395,
+  "title": "Sistema Web MVC",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Desenvolvimento de sistema web desde o desenho do DER e geração do banco do banco de dados, funcionalidades CRUD e autenticação e autorização de usuários.",
+  "source": "1baM5-8Nn4QhjyrIAWjGq6NRP0_KAFdKh_KmmM8FHPg0",
+  "theme": "web",
+  "status": [
+    "em construção"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}
