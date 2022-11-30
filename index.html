@@ -53,17 +53,71 @@
 
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
-        <div class="navbar-brand d-flex align-items-center">
-          <span class="material-icons mx-2">computer</span>
-          <strong>Codelabs do professor Angoti</strong>
+        <div class="navbar-brand d-flex flex-grow-1  justify-content-between">
+          <div class="d-flex align-items-center">
+            <span class="material-icons mx-2">computer</span>
+            <strong>Codelabs do professor Angoti</strong>
+          </div>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#poo-tab-pane" type="button" role="tab"
+                aria-controls="home-tab-pane" aria-selected="false">POO</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#springboot-tab-pane" type="button" role="tab"
+                aria-controls="profile-tab-pane" aria-selected="false">Spring Boot</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#react-tab-pane" type="button" role="tab"
+                aria-controls="contact-tab-pane" aria-selected="false">React</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#reactnative-tab-pane" type="button" role="tab"
+                aria-controls="contact-tab-pane" aria-selected="false">React Native</button>
+            </li>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </header>
 
   <main>
-    <div class="container">
-      <table class="table" id="lista-de-codelabs">
+    <div class="container mt-5">
+      <div class="tab-content" id="myTabContent">
+        <!-- Programação Orientada a Objetos -->
+        <ol class="list-group list-group-numbered tab-pane fade show" id="poo-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+          <a href="poo/interface/index.html" class="list-group-item list-group-item-action">Interface</a>
+        </ol>
+        <!-- Spring boot -->
+        <ol class="list-group list-group-numbered tab-pane fade" id="springboot-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+          <a href="spring1/index.html" class="list-group-item list-group-item-action">Tutorial para orientar o processo de criação de um serviço da Web RESTful
+            com Spring Boot</a>
+          <a href="spring2/index.html" class="list-group-item list-group-item-action">Desenvolvendo uma aplicação CRUD usando MySQL e JPA - uma entidade</a>
+          <a href="orm/index.html" class="list-group-item list-group-item-action">Projeto Spring com persistência JPA</a>
+          <a href="spring4/index.html" class="list-group-item list-group-item-action">Tratamento de exceções e a anotação @ControllerAdvice</a>
+          <a href="spring3/index.html" class="list-group-item list-group-item-action">Aplicação Web MVC com JdbcTemplate, Thymeleaf, Security e hospedagem no
+            Heroku</a>
+          <a href="/spring-validation/index.html" class="list-group-item list-group-item-action">Validação de formulário</a>
+        </ol>
+        <!-- React -->
+        <div class="list-group list-group-numbered list-group list-group-numbered tab-pane fade" id="react-tab-pane" role="tabpanel"
+          aria-labelledby="contact-tab" tabindex="0">
+          <a href="react/index.html" class="list-group-item list-group-item-action">Introdução ao React</a>
+        </div>
+        <!-- React Native -->
+        <div class="list-group list-group-numbered tab-pane fade" id="reactnative-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+          <a href="reactnative/index.html" class="list-group-item list-group-item-action">App chat usando o FireBase, React Navigation e Hooks useReducer e
+            useMemo</a>
+          <a href="rn-introduction/index.html" class="list-group-item list-group-item-action">Introdução à React Native</a>
+          <a href="/reactnative-ambiente-de-desenvolvimento/index.html" class="list-group-item list-group-item-action">Ambiente de desenvolvimento</a>
+          <a href="/oficina/index.html" class="list-group-item list-group-item-action">Oficina SNCT Jogo React Native</a>
+          <a href="/reactnative-login-google/index.html" class="list-group-item list-group-item-action">Autenticação com Google</a>
+        </div>
+      </div>
+
+
+      <!-- <table class="table" id="lista-de-codelabs">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -138,15 +192,13 @@
             <td><a href="/spring-validation/index.html">Validação de formulário</a></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-  <script>
-    $('lista-de-codelabs').excelTableFilter('lista-de-codelabs');
-  </script>
+
 </body>
 
 </html>
