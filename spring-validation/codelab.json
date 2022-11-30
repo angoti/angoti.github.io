@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-11-30T13:30:24Z",
+  "id": "",
+  "duration": 70,
+  "title": "Validação de dados de formulário",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Demostração do uso",
+  "source": "1gRg4-9zhAPv70mw5cmHiTnBdQJaIOrp8Z39RhR_FSmE",
+  "theme": "web",
+  "status": [
+    "primeiraversão"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}

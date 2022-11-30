@@ -1,0 +1,142 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Validação de dados de formulário</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Validação de dados de formulário"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <aside class="special"><p>Última atualização:30/11/2022</p>
+</aside>
+<p>Quando temos um formulário HTML queremos garantir que os dados fornecidos respeite determinados intervalos e que determinados formatos sejam seguidos. Por exemplo, queremos garantir que o usuário não tenha -345 anos ou que seu endereço de e-mail seja válido. </p>
+<p>Em geral, você desejará executar a validação do lado do cliente (HTML5), bem como a validação do lado do servidor. A validação do lado do cliente garante que os dados inválidos nem cheguem ao back-end, enquanto a validação do lado do servidor garante que os dados errados não sejam processados ou salvos no banco de dados. </p>
+<p>Neste codelab você continuará o <a href="https://github.com/angoti/condominio" target="_blank">projeto</a> desenvolvido em aula e adicionará a validação de dados de formulário com Spring Boot e Thymeleaf.  Faça a clonagem do repositório para iniciar o codelab. </p>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Validação de dados de formulário do lado do servidor</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Dependência Maven" duration="5">
+        <p>Precisamos adicionar a dependência abaixo no arquivo pom.xml para utilizar a validação:</p>
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+&lt;/dependency&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Anotações de validação" duration="20">
+        <p>A validação de campos é suportado por restrições na forma de anotações colocadas em uma variável em classes da camada <code>model</code>. Veja exemplo abaixo:</p>
+<pre>package com.professorangoti.condominio.model;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Proprietario {
+    private Long id;
+
+    @NotEmpty
+    private String nome;
+
+    @NotEmpty
+    @Size(min = 9, max = 11, message = &#34;informe o telefone com apenas dígitos, com o tamanho entre 9 e 11 dígitos&#34;)
+    private String telefone;
+}</pre>
+<p><a href="https://javaee.github.io/tutorial/bean-validation002.html" target="_blank">Aqui</a> você encontra uma lista completa das anotações de validação.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adicionando código Thymeleaf para exibir mensagens de erro" duration="20">
+        <pre>&lt;html th:include=&#34;template :: modelo&#34;&gt;
+    &lt;div th:fragment=&#34;conteudo&#34;&gt;
+        &lt;form action=&#34;/cad_prop&#34; method=&#34;post&#34; th:object=&#34;${proprietario}&#34;&gt;
+            &lt;div class=&#34;mb-3&#34;&gt;
+                &lt;label for=&#34;nome&#34; class=&#34;form-label&#34;&gt;Nome&lt;/label&gt;
+                &lt;input type=&#34;text&#34; class=&#34;form-control&#34; th:field=&#34;*{nome}&#34;&gt;
+                &lt;div class=&#34;alert alert-warning&#34; th:if=&#34;${#fields.hasErrors(&#39;nome&#39;)}&#34; th:errors=&#34;*{nome}&#34;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&#34;mb-3&#34;&gt;
+                &lt;label for=&#34;telefone&#34; class=&#34;form-label&#34;&gt;Telefone&lt;/label&gt;
+                &lt;input type=&#34;text&#34; class=&#34;form-control&#34; th:field=&#34;*{telefone}&#34;&gt;
+                &lt;div class=&#34;alert alert-warning&#34; th:if=&#34;${#fields.hasErrors(&#39;telefone&#39;)}&#34; th:errors=&#34;*{telefone}&#34;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;button type=&#34;submit&#34; class=&#34;btn btn-primary&#34;&gt;Gravar&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/html&gt;</pre>
+<p>A inha <code><div class="alert alert-warning" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div></code> adiciona dois comandos Thymeleaf:</p>
+<ul>
+<li><a href="https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#conditional-evaluation" target="_blank"><code>th:if</code></a></li>
+<li><a href="https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#validation-and-error-messages" target="_blank"><code>th:errors</code></a></li>
+</ul>
+<p><code>th:if</code> é um condicional que quando é avaliado como falso não exibe o componente HTML que contem o condicional.</p>
+<p>Precisamos mostrar mensagens de validação para informar o usuário sobre os erros que ele cometeu. Thymeleaf oferece algumas ferramentas para isso: algumas funções no objeto <code>#fields</code> e o atributos <code>th:errors</code>.</p>
+<p>A função <code>#fields.hasErrors</code> recebe a nome do campo como parâmetro (por exemplo <code>nome</code>), e retorna um booleano informando se existe algum erro de validação para aquele campo. </p>
+<p><code>th:errors</code> exibe as mensagens de erro para o campo informado como valor do atributo.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Controller" duration="20">
+        <p>Agora, vamos alterar o controlador que recebe os dados enviados pelo browser para salvar um proprietário no banco de dados. Como de costume, teremos um <code>@GetMapping</code> para mostrar o formulário e um <code>@PostMapping</code> para lidar com os dados do formulário. Na assinatura do método anotado com <code>@PostMapping</code>, anotaremos o parâmetro que representa os dados do formulário  com <code>@Valid</code>. A anotação <code>@Valid</code> aciona um validador para verificar se os campos preenchidos no objeto estão de acordo com as anotações que usamos na definição da classe. O segundo parâmetro é um objeto que retorna o resultado da validação, e é usado para testar se o preenchimento do formulário contém erros:</p>
+<pre>@GetMapping(&#34;cad_prop&#34;)
+    public String formCadastroProprietario(Model model) {
+        model.addAttribute(&#34;proprietario&#34;, new Proprietario());
+        return &#34;form_prop&#34;;
+}
+
+@PostMapping(&#34;cad_prop&#34;)
+    public String gravaNovoProprietario(@Valid Proprietario proprietario, BindingResult validacao) {
+        if (validacao.hasErrors())
+            return &#34;form_prop&#34;;
+        repository.save(proprietario);
+        return &#34;redirect:/rel_prop&#34;;
+}</pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
