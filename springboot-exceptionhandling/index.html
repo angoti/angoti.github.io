@@ -1,0 +1,176 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Spring Boot - Tratamento de exceções</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="Spring Boot - Tratamento de exceções"
+                  title="Spring Boot - Tratamento de exceções"
+                  environment="web"
+                  feedback-link="professorangoti.com">
+    
+      <google-codelab-step label="Introdução" duration="10">
+        <aside class="special"><p>Última atualização:01/12/2022</p>
+</aside>
+<p>Neste codelab você aprenderá a tratar erros em sua aplicação web utilizando o framework Spring Boot com Thymeleaf e acesso a dados com JdbcTemplate. </p>
+<h2 is-upgraded><strong>O que você vai fazer </strong></h2>
+<p>Clonar o projeto neste <a href="https://github.com/angoti/condominio" target="_blank">repositório</a> GitHub e adicionar tratamento de erros.</p>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li><code>@ControllerAdvice</code></li>
+<li><code>@ExceptionHandler</code></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tratamento de exceções" duration="60">
+        <p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado. Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos aqui neste tutorial é a anotação <code>@ControllerAdvice</code>.</p>
+<p>Esta anotação facilita nossa vida para lidar com todos os tipos de exceções em um local central em nossa aplicação. A facilidade está em não precisar capturar exceções em cada método ou classe separadamente, bastando apenas lançar a exceção no método e, em seguida, ela será capturada na classe central de tratamento de exceções anotada por <code>@ControllerAdvice</code>. </p>
+<h2 is-upgraded><strong>Lançando exceções</strong></h2>
+<h3 is-upgraded><strong>Um exemplo de erro (exceção)</strong></h3>
+<p>Divisão por zero - java.lang.ArithmeticException: / by zero</p>
+<pre>public class Teste {
+  public static void main(String[] args) {
+    System.out.println(&#34;chamando m1()&#34;);
+    m1();
+    System.out.println(&#34;fim do método main&#34;);
+  }
+  
+  private static void m1() {
+    System.out.println(&#34;chamando m2()&#34;);
+    m2();
+    System.out.println(&#34;fim do método m1()&#34;);
+  }
+  
+  private static void m2() {
+    System.out.println(&#34;início do m2()&#34;);
+    int x = 1 / 0;
+    System.out.println(&#34;fim do método m2()&#34;);
+  }
+}</pre>
+<p>Depois de executar o programa acima teremos o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\373ec3d8cbb7402f.png"></p>
+<p>Como tratar este erro? Vamos modificar o código anterior para exemplificar</p>
+<pre>package com.professorangoti.condominio;
+
+public class Teste {
+  public static void main(String[] args) {
+    System.out.println(&#34;chamando m1()&#34;);
+    m1();
+    System.out.println(&#34;fim do método main&#34;);
+  }
+
+  private static void m1() {
+    System.out.println(&#34;chamando m2()&#34;);
+    m2();
+    System.out.println(&#34;fim do método m1()&#34;);
+  }
+  
+  private static void m2() {
+    System.out.println(&#34;início do m2()&#34;);
+    try {  // colocar o código com potencial de erro dentro do bloco try
+      int x = 1 / 0;
+    } catch (ArithmeticException e) { //capturar as exceções que podem ocorrer
+      System.out.println(&#34;Erro: &#34; + e.getMessage());
+    }
+    System.out.println(&#34;fim do método m2()&#34;);
+  }
+}</pre>
+<p>Depois de executar o programa acima teremos o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\8d0f85f8afbcdd7c.png"></p>
+<p>O bloco try/catch não deixa o programa parar, tratando o erro no local onde aconteceu. Se as exceções capturadas forem de mesma hierarquia, as classes mais especializadas devem aparecer primeiro. Para capturar qualquer exceção use a classe <code>Exception</code> (não indicado):</p>
+<p><code>catch (</code><strong><code>Exception</code></strong><code> e) {  ...  }</code></p>
+<p>Podemos também delegar o tratamento do erro para outro método na pilha de execução, para isso podemos lançar uma exceção .</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="A central de tratamento de exceções" duration="0">
+        <p>A classe que será criada para fazer o papel de central de tratamento de exceções deverá ser anotada com a anotação <code>@ControllerAdvice</code>. Nesta classe vamos usar a seguinte anotação em seus métodos:</p>
+<ul>
+<li><code>@ExceptionHandler</code>: você deverá fornecer as exceções tratadas pelo método</li>
+</ul>
+<p>Esta anotação vai funcionar como um filtro para capturar uma exceção específica, possibilitando o tratamento do erro.</p>
+<p>Classe <code>MyControllerAdvice</code></p>
+<pre>import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@ControllerAdvice
+public class MyControllerAdvice {
+
+  @ExceptionHandler(java.sql.SQLIntegrityConstraintViolationException.class)
+  public String violaçãoDeIntegridade(java.sql.SQLIntegrityConstraintViolationException ex,
+      final RedirectAttributes redirectAttributes) {
+    String errorMessage = ex.getMessage();
+    if (errorMessage.contains(&#34;Cannot delete or update a parent row&#34;)) {
+      redirectAttributes.addFlashAttribute(&#34;mensagem&#34;, &#34;O proprietário tem apartamento cadastrado. Não é possível excluí-lo do sistema&#34;);
+      return &#34;redirect:/rel_prop&#34;;
+    }
+    return &#34;error&#34;;
+  }
+}</pre>
+<p>Esta classe deve estar no mesmo pacote das classes controladoras (pacote <code>controller)</code>. </p>
+<p>Precisamos alterar o template <code>rel_prop.html</code> para exibir a mensagem de erro:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html th:include=&#34;template :: modelo&#34;&gt;
+&lt;body&gt;
+    &lt;div th:fragment=&#34;conteudo&#34;&gt;
+        &lt;div th:if=&#34;${mensagem}&#34; th:text=&#34;${mensagem}&#34; class=&#34;p-3 mb-2 bg-warning text-dark&#34;&gt;
+        &lt;/div&gt;
+        &lt;table class=&#34;table&#34;&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th scope=&#34;col&#34;&gt;#&lt;/th&gt;
+                    &lt;th scope=&#34;col&#34;&gt;Nome&lt;/th&gt;
+                    &lt;th scope=&#34;col&#34;&gt;Telefone&lt;/th&gt;
+                    &lt;th scope=&#34;col&#34;&gt;Ações&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr th:each=&#34;prop : ${proprietarios}&#34;&gt;
+                    &lt;th scope=&#34;row&#34; th:text=&#34;${prop.id}&#34;&gt;&lt;/th&gt;
+                    &lt;td th:text=&#34;${prop.nome}&#34;&gt;&lt;/td&gt;
+                    &lt;td th:text=&#34;${prop.telefone}&#34;&gt;&lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;a th:href=&#34;@{/excluir_prop(id=*{prop.id})}&#34;&gt;Excluir&lt;/a&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

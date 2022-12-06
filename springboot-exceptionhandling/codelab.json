@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-12-06T16:40:22Z",
+  "id": "Spring Boot - Tratamento de exceções",
+  "duration": 70,
+  "title": "Spring Boot - Tratamento de exceções",
+  "authors": "Professor Edson Angoti Júnior",
+  "summary": "Tratamento de exceções em aplicações Spring Boot utilizando a anotação @ControllerAdvice.",
+  "source": "1DMH9PItALe-vLscMD2HuMcm596BuQl80vuzN6qz3k0o",
+  "theme": "web",
+  "status": [
+    "emprodução"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "professorangoti.com",
+  "url": "Spring Boot - Tratamento de exceções"
+}
