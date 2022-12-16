@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-12-16T22:43:25Z",
+  "id": "",
+  "duration": 140,
+  "title": "Spring Boot - Autenticação e Autorização",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Implementação de autenticação e autorização em sistema web com Spring Boot.",
+  "source": "1EGj7euqPTIT7H2PIroEpffnEesOc57w7KZvUXfPdCGQ",
+  "theme": "web",
+  "status": [
+    "emconstrução"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}

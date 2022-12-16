@@ -1,0 +1,572 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Spring Boot - Autenticação e Autorização</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Spring Boot - Autenticação e Autorização"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="10">
+        <aside class="special"><p>Última atualização:16/12/2022</p>
+</aside>
+<p>O Spring Security é o módulo que fornece suporte para autenticação, autorização e proteção contra ataques comuns em aplicações Web.  A autenticação é como verificamos a identidade de usuários para ter acesos às funcionalidades de um sistema. Uma maneira comum de autenticação é a verificação de nome e senha fornecidos pelo usuário. </p>
+<p>Depois que a autenticação é realizada, podemos executar a autorização, que é a permissão de acesso a recursos conforme um determinado papel que o usuário autenticado desempenha no sistema. </p>
+<p>Neste Codelab você aprenderá a desenvolver um aplicativo Java Web  utilizando o framework Spring Boot com Thymeleaf e acesso a dados com JdbcTemplate, com controle de acesso (autenticação e autorização). </p>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Autenticação Username/Password </li>
+<li>Autorização de requisições HTTP</li>
+</ul>
+<h2 is-upgraded><strong>Repositório Github</strong></h2>
+<ul>
+<li>https://github.com/angoti/condominio</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Modelagem de dados" duration="30">
+        <p>A aplicação consiste de uma página web para gerenciar um condomínio. (consulte este <a href="https://docs.google.com/document/d/1JrQJiMVDMYb_IWzhVlpbCVQED2JFWSCIDHyNCtEcjVo/edit#" target="_blank">documento</a> para mais detalhes). Teremos três papéis que os usuários poderão desempenhar na aplicação:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Papel</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Autorização</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>USUARIO </p>
+</td><td colspan="1" rowspan="1"><p>permissão para visualizar os relatórios de apartamentos e proprietários.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>MORADOR</p>
+</td><td colspan="1" rowspan="1"><p>permissão para visualizar os relatórios de apartamentos e proprietários e criar novos registros.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ADMIN </p>
+</td><td colspan="1" rowspan="1"><p>todas as permissões.</p>
+</td></tr>
+</table>
+<p>Para representar as informações de usuários e suas permissões vamos usar o seguinte modelo de dados:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\1862577da18e599e.png"></p>
+<p>A tabela de usuários armazena suas credenciais para autenticação e a tabela de papeis armazena suas autorizações (permissões). O relacionamento de entidade entre usuários e papeis é muitos-para-muitos porque um usuário pode ter um ou mais papeis e um papel pode ser atribuído a um ou mais usuários. É por isso que precisamos ter a tabela intermediária <code>usuarios_papeis</code> para representar esse relacionamento.</p>
+<p>Script de criação do banco de dados:</p>
+<pre>CREATE TABLE IF NOT EXISTS `papeis` (
+  `papel_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`papel_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `usuario_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(64) NOT NULL,
+  PRIMARY KEY (`usuario_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `usuarios_papeis` (
+  `usuario_id` INT(11) NOT NULL,
+  `papel_id` INT(11) NOT NULL,
+  CONSTRAINT `papel_fk`
+    FOREIGN KEY (`papel_id`)
+    REFERENCES `papeis` (`papel_id`),
+  CONSTRAINT `user_fk`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `usuarios` (`usuario_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+-- Script de inserção de dados
+INSERT INTO `papeis` (`papel_id`, `nome`) VALUES (1, &#39;USUARIO&#39;);
+INSERT INTO `papeis` (`papel_id`, `nome`) VALUES (2, &#39;MORADOR&#39;);
+INSERT INTO `papeis` (`papel_id`, `nome`) VALUES (3, &#39;ADMIN&#39;);
+
+INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (1, &#39;mercurio@teste.com&#39;, &#39;$2a$10$wSa39/yk/UTovsqPt817X.c0I8xlS2s76YQy4ViDxag0mlxUoYUq2&#39;);
+INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (2, &#39;venus@teste.com&#39;, &#39;$2a$10$v8Wr0mf6HgmIG0ANimKJOuOIt/09qIkXIF7wCwzq8.U/LTqTs9ovq&#39;);
+INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (3, &#39;jupiter@teste.com&#39;, &#39;$2a$10$5sci59bfdcED4XxxuN9gx.SJBPsdNknirJSkLbTCouf2mFzLmX/Gi&#39;);
+INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (4, &#39;marte@teste.com&#39;, &#39;$2a$10$Wl1gojjJgFhXztvHIULT3e0hiEMrDbCWCys0p6LnfrqxcxYkgh9OW&#39;);
+INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (5, &#39;jupiter@teste.com&#39;, &#39;$2a$10$5sci59bfdcED4XxxuN9gx.SJBPsdNknirJSkLbTCouf2mFzLmX/Gi&#39;);
+
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (1, 1); -- usuário mercurio tem papel USUARIO
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (2, 2); -- usuário venus tem papel MORADOR
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (3, 2); -- usuário terra tem papel MORADOR
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (4, 1); -- usuário marte tem papel USUARIO
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (5, 3); -- usuário jupiter tem papel ADMIN</pre>
+<p>Observe que as senhas dos usuários estão criptografadas. A criptografia de senha é necessário para aumentar a segurança da aplicação. Vamos usar o algoritmo bcrypt para criptografar as senhas. Note que cada usuário tem um código diferente para a senha, no entanto, todas as senhas têm o mesmo valor (123456). Para gerar este códigos você pode usar este <a href="https://bcrypt-generator.com/" target="_blank">website</a>. O Spring Security fornece uma implementação deste algoritmo para codificar as senhas cadastradas pelo usuário. Como não teremos a implementação de CRUD para usuários neste codelab, vamos inserir manualmente os dados de usuários usando o script mostrado acima.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Maven" duration="10">
+        <p>Para adicionar segurança à aplicação vamos adicionar as seguintes dependências ao arquivo <code>pom.xml</code></p>
+<pre>&lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+        &lt;groupId&gt;org.thymeleaf.extras&lt;/groupId&gt;
+        &lt;artifactId&gt;thymeleaf-extras-springsecurity5&lt;/artifactId&gt;
+&lt;/dependency&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adicionando autenticação de Usuario" duration="45">
+        <aside class="special"><p>Referências:</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-security/reference/" target="_blank">https://docs.spring.io/spring-security/reference/</a></li>
+<li><a href="https://docs.spring.io/spring-security/site/docs/5.2.1.RELEASE/reference/htmlsingle/" target="_blank">Spring Security Reference</a></li>
+<li><a href="https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial" target="_blank">Spring Boot Security Role-based Authorization Tutorial</a></li>
+<li><a href="https://www.thymeleaf.org/doc/articles/springsecurity.html" target="_blank">Thymeleaf + Spring Security integration basics</a></li>
+<li><a href="https://github.com/thymeleaf/thymeleaf-extras-springsecurity" target="_blank">Thymeleaf &#34;extras&#34; integration module for Spring Security 3.x and 4.x</a></li>
+</ul>
+</aside>
+<p>Observação: Em um caso de uso de cadastro de usuário, deve-se adicionar uma etapa de criptografia na senha para adicionar segurança, veja o exemplo abaixo:</p>
+<pre>@PostMapping(value = &#34;novo-usuario&#34;)
+  public String cadastraNovoUsuario(Usuario usuario) {
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    String encodedPassword = passwordEncoder.encode(usuario.getSenha());
+    usuario.setSenha(encodedPassword);
+    usuarioRepository.gravaUsuario(usuario);
+    return &#34;redirect:/usuarios&#34;;
+}</pre>
+<p>Vamos usar a <a href="https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html" target="_blank">autenticação de nome de usuário / senha</a>, que utiliza um formulário HTML para obter do usuário um nome e uma senha para autenticação. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\776afb4101eb18ac.png"></p>
+<p>Fonte: spring.io</p>
+<p>Quando a página de login é especificada na configuração do Spring Security, você é responsável por renderizar a página. </p>
+<p>Existem alguns pontos-chave sobre o formulário HTML padrão:</p>
+<ul>
+<li>O formulário deve ser submetido para /login usando o método post: <code><form th:action="@{/login}" method="post></code></li>
+<li>O formulário precisará incluir um token CSRF que é automaticamente incluído pelo Thymeleaf através  do atributo Thymeleaf <code>th:action="@{/login}"</code></li>
+<li>O formulário deve especificar o nome de usuário em um parâmetro chamado <code>username</code></li>
+<li>O formulário deve especificar a senha em um parâmetro chamado <code>password</code></li>
+<li>Se um parâmetro HTTP com o nome <code>error</code> for encontrado (<code>th:if="${param.error}"</code>), isso indica que o usuário não forneceu um nome de usuário / senha válidos</li>
+<li>Se um parâmetro HTTP chamado <code>logout</code> for encontrado (<code>th:if="${param.logout}"</code>), indica que o usuário foi desconectado com sucesso</li>
+</ul>
+<p>Primeiro vamos adicionar uma nova pasta (<code>security</code>) à nossa estrutura do projeto:</p>
+<p class="image-container"><img style="width: 309.00px" src="img\\d12f117feb111bfb.png"></p>
+<p>Antes de iniciar a codificação da autenticação, precisamos adicionar duas classes na camada <code>model</code> e uma classe na camada <code>repository</code></p>
+<p>As seguintes classes representam os dados persistentes (camada model):</p>
+<p>Arquivo model/Papel.java</p>
+<pre>package com.professorangoti.condominio.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Papel {
+  private Long id;
+  private String nome;
+}</pre>
+<p>Arquivo model/Usuario.java</p>
+<pre>package com.professorangoti.condominio.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Usuario {
+  private Long id;
+  private String email, senha,  papeis;
+}</pre>
+<p>e a classe de acesso a dados do usuario repository/UsuarioRepository.java:</p>
+<pre>package com.professorangoti.condominio.repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.professorangoti.condominio.model.Usuario;
+
+@Repository
+public class UsuarioRepository {
+  @Autowired
+  JdbcTemplate jdbc;
+
+  public Usuario buscaPorEmail(String email) {
+    String sql = &#34;SELECT usuarios.*, group_concat(distinct papeis.nome separator &#39;, &#39;) papeis FROM usuarios &#34;
+        + &#34;inner join usuarios_papeis ON usuarios.usuario_id = usuarios_papeis.usuario_id &#34;
+        + &#34;inner JOIN papeis ON usuarios_papeis.papel_id = papeis.papel_id &#34;
+        + &#34;where email = ? &#34;
+        + &#34;group by usuarios.usuario_id, usuarios.email;&#34;;
+    return jdbc.queryForObject(sql, this::mapper, email);
+  }
+
+  private Usuario mapper(ResultSet registro, int linha) throws SQLException {
+    return new Usuario(registro.getLong(&#34;usuario_id&#34;), 
+                       registro.getString(&#34;email&#34;), 
+                       registro.getString(&#34;senha&#34;), 
+                       registro.getString(&#34;papeis&#34;));
+  }
+}</pre>
+<h2 is-upgraded><strong>Configurando a segurança</strong></h2>
+<p>Como as credenciais do usuário estão armazenadas em banco de dados com a senha criptografada, precisamos configurar um Bean DaoAuthenticationProvider que usa um UserDetailsService e PasswordEncoder para autenticar um nome de usuário e senha.</p>
+<p>Veja em <a href="https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html" target="_blank">DaoAuthenticationProvider :: Spring Security</a></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\9a6bc9270526d6ae.png"></p>
+<p>Fonte: spring.io</p>
+<p>Arquivo security/CondominioSecurity.java</p>
+<pre>package com.professorangoti.condominio.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class CondominioSecurity {
+
+  @Bean
+  public UserDetailsService userDetailsService() {
+    return new CondominioUserDetailsService();
+  }
+
+  @Bean
+  public BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public DaoAuthenticationProvider authenticationProvider() {
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(userDetailsService());
+    authProvider.setPasswordEncoder(passwordEncoder());
+    return authProvider;
+  }
+
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(authorize -&gt; authorize
+        .antMatchers(&#34;/&#34;,&#34;/home&#34;).permitAll()
+        .anyRequest().authenticated())
+        .formLogin(form -&gt; form.loginPage(&#34;/login&#34;).permitAll())
+        .logout().logoutSuccessUrl(&#34;/&#34;);
+    return http.build();
+  }
+}</pre>
+<p>O método <code>SecurityFilterChain filterChain(HttpSecurity http)</code> estabelece as regras de segurança da aplicação. O objeto <code>http</code> é usado para escrever as regras da autorização e autenticação. Usamos o método <code>authorizeHttpRequests</code> para restringir o acesso com base na URL da requisição HTTP. As regras são aplicadas na ordem apresentada.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Regra</p>
+</td><td colspan="1" rowspan="1"><p>Autorização</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>antMatchers("/","/home").permitAll()</code></p>
+</td><td colspan="1" rowspan="1"><p>autoriza o acesso livre aos recursos mapeados com a URL &#34;/&#34; ou &#34;/home&#34; </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>anyRequest().authenticated())</code></p>
+</td><td colspan="1" rowspan="1"><p>qualquer outra requisição precisa de autenticação</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>formLogin(form -> form.loginPage("/login").permitAll())</code></p>
+</td><td colspan="1" rowspan="1"><p>configura a URL da página de login a ser exibida. Necessita definir um controle mapeado com GET /login. </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>logout().logoutSuccessUrl("/")</code></p>
+</td><td colspan="1" rowspan="1"><p>configura a página a ser exibida após o logout.</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Implementar a interface UserDetails</strong></h2>
+<p>Arquivo security/CondominioUserDetails.java</p>
+<pre>package com.professorangoti.condominio.security;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.professorangoti.condominio.model.Usuario;
+
+public class CondominioUserDetails implements UserDetails {
+
+  private Usuario usuario;
+
+  public CondominioUserDetails(Usuario usuario) {
+    this.usuario = usuario;
+  }
+
+  @Override
+  public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+    String[] papeis = usuario.getPapeis().split(&#34;,&#34;);
+    List&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();
+    for (String papel : papeis) {
+      authorities.add(new SimpleGrantedAuthority(papel));
+    }
+    return authorities;
+  }
+
+  @Override
+  public String getPassword() {
+    return usuario.getSenha();
+  }
+
+  @Override
+  public String getUsername() {
+    return usuario.getEmail();
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+}</pre>
+<h2 is-upgraded><strong>Implementar a interface UserDetailsService</strong></h2>
+<p>Arquivo security/CondominioUserDetailsService.java</p>
+<pre>package com.professorangoti.condominio.security;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.professorangoti.condominio.model.Usuario;
+import com.professorangoti.condominio.repository.UsuarioRepository;
+
+
+public class CondominioUserDetailsService implements UserDetailsService {
+
+  @Autowired
+  private UsuarioRepository usuarioRepository;
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    Usuario usuario = usuarioRepository.buscaPorEmail(username);
+    if (usuario == null) {
+      throw new UsernameNotFoundException(&#34;Usuário não autenticado!&#34;);
+    }
+    System.out.println(usuario.getPapeis());
+    return new CondominioUserDetails(usuario);
+  }
+}</pre>
+<h2 is-upgraded><strong>Adicionar um controle para /login</strong></h2>
+<p>Inserir este método no arquivo HomeController.java</p>
+<pre>@GetMapping(&#34;/login&#34;)
+    public String login() {
+        return &#34;login&#34;;
+}</pre>
+<h2 is-upgraded><strong>Adicionar um template com formulário para o login</strong></h2>
+<p>Arquivo resources/templates/login.html</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html th:include=&#34;template :: modelo&#34;&gt;
+&lt;div th:fragment=&#34;conteudo&#34;&gt;
+  &lt;nav aria-label=&#34;breadcrumb&#34;&gt;
+    &lt;ol class=&#34;breadcrumb&#34;&gt;
+      &lt;li class=&#34;breadcrumb-item&#34;&gt;&lt;a href=&#34;/home&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&#34;breadcrumb-item active&#34; aria-current=&#34;page&#34;&gt;Autenticação (login)&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/nav&gt;
+  &lt;div th:if=&#34;${param.error}&#34;&gt;
+    &lt;h6 class=&#34;alert alert-danger&#34;&gt;Usuario/senha inválidos&lt;/h6&gt;
+  &lt;/div&gt;
+  &lt;form th:action=&#34;@{/login}&#34; method=&#34;post&#34;&gt;
+    &lt;div class=&#34;mb-3&#34;&gt;
+      &lt;label class=&#34;form-label&#34;&gt;Email&lt;/label&gt;
+      &lt;input class=&#34;form-control&#34; type=&#34;text&#34; name=&#34;username&#34; placeholder=&#34;E-mail&#34; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;mb-3&#34;&gt;
+      &lt;label class=&#34;form-label&#34;&gt;Senha&lt;/label&gt;
+      &lt;input class=&#34;form-control&#34; type=&#34;password&#34; name=&#34;password&#34; placeholder=&#34;Senha&#34; /&gt;
+    &lt;/div&gt;
+    &lt;input class=&#34;btn btn-primary&#34; type=&#34;submit&#34; value=&#34;Log in&#34; /&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;/html&gt;</pre>
+<h2 is-upgraded><strong>Alteração do fragmento da barra de navegação para adicionar botão de logout e saudação do usuário logado</strong></h2>
+<p>Arquivo resources/templates/template.html</p>
+<pre> &lt;!-- Alteração do fragmento da barra de navegação para adicionar botão de logout e saudação do usuário logado --&gt;
+            &lt;div class=&#34;d-flex col-2&#34; sec:authorize=&#34;isAuthenticated()&#34;&gt;
+                &lt;span class=&#34;text-white small&#34; sec:authentication=&#34;name&#34;&gt;opa&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&#34;align-self-center&#34;&gt;
+                &lt;form th:action=&#34;@{/logout}&#34; method=&#34;post&#34; sec:authorize=&#34;isAuthenticated()&#34;&gt;
+                    &lt;input class=&#34;btn btn-secondary btn-sm p-1 small&#34; type=&#34;submit&#34; value=&#34;Sair&#34; /&gt;
+                &lt;/form&gt;
+                &lt;a href=&#34;/login&#34; sec:authorize=&#34;!isAuthenticated()&#34; class=&#34;btn btn-secondary btn-sm p-1 small&#34;&gt;Entrar&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;!-- Alteração do fragmento da barra de navegação para adicionar botão de logout e saudação do usuário logado --&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configurando autorização" duration="45">
+        <p>A autorização consiste em estabelecer regras relacionando usuários com permissões de acesso a recursos da aplicação. Os recursos de uma aplicação Spring Web MVC consistem em mapear URLs e métodos de uma classe da camada controller. </p>
+<h2 is-upgraded><strong>Tabela de configuração de autorização</strong></h2>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>#</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Endpoint</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Perfil permitido</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>1</p>
+</td><td colspan="1" rowspan="1"><p>/upload</p>
+</td><td colspan="1" rowspan="1"><p>MORADOR, ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>1</p>
+</td><td colspan="1" rowspan="1"><p>/cad_apto</p>
+</td><td colspan="1" rowspan="1"><p>MORADOR, ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>1</p>
+</td><td colspan="1" rowspan="1"><p>/cad_prop</p>
+</td><td colspan="1" rowspan="1"><p>MORADOR, ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>2</p>
+</td><td colspan="1" rowspan="1"><p>/fotos_apto</p>
+</td><td colspan="1" rowspan="1"><p>USUARIO, MORADOR, ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>2</p>
+</td><td colspan="1" rowspan="1"><p>/rel_apto</p>
+</td><td colspan="1" rowspan="1"><p>USUARIO, MORADOR, ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>2</p>
+</td><td colspan="1" rowspan="1"><p>/rel_prop</p>
+</td><td colspan="1" rowspan="1"><p>USUARIO, MORADOR, ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>3</p>
+</td><td colspan="1" rowspan="1"><p>/excluir_foto</p>
+</td><td colspan="1" rowspan="1"><p>ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>3</p>
+</td><td colspan="1" rowspan="1"><p>/excluir_prop</p>
+</td><td colspan="1" rowspan="1"><p>ADMIN</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>4</p>
+</td><td colspan="1" rowspan="1"><p>/home ou /</p>
+</td><td colspan="1" rowspan="1"><p>aberto</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>4</p>
+</td><td colspan="1" rowspan="1"><p>/login</p>
+</td><td colspan="1" rowspan="1"><p>aberto</p>
+</td></tr>
+</table>
+<h2 is-upgraded>Tabela de usuários cadastrados</h2>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Papel</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Usuário</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>MORADOR</p>
+</td><td colspan="1" rowspan="1"><p>venus@teste.com</p>
+<p>terra@teste.com</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>USUARIO</p>
+</td><td colspan="1" rowspan="1"><p>mercurio@teste.com</p>
+<p>marte@teste.com</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ADMIN</p>
+</td><td colspan="1" rowspan="1"><p>jupiter@teste.com</p>
+</td></tr>
+</table>
+<p>As autorizações também serão feitas dentro do arquivo <code>CondominioSecurity.java</code>. Para cada conjunto de endpoints teremos um filtro que declara qual perfil tem autorização de acesso. </p>
+<p>O primeiro conjunto (#1) composto pelos endpoints: /upload, /cad_apto e /cad_apto permite o acesso aos papeis MORADOR e ADMIN e a regra fica assim:</p>
+<pre>antMatchers(&#34;/upload&#34;, &#34;/cad_apto&#34;, &#34;/cad_prop&#34;).hasAnyAuthority(&#34;MORADOR&#34;, &#34;ADMIN&#34;)</pre>
+<p>O segundo conjunto (#2) composto pelos endpoints: /fotos_apto, /rel_apto, /rel_prop permite o acesso aos papeis USUARIO, MORADOR, ADMIN e a regra fica assim:</p>
+<pre>antMatchers(&#34;/fotos_apto&#34;, &#34;/rel_apto&#34;, &#34;/rel_prop&#34;).hasAnyAuthority(&#34;USUARIO&#34;, &#34;MORADOR&#34;, &#34;ADMIN&#34;)</pre>
+<p>O terceiro conjunto (#3) composto pelos endpoints: /excluir_foto, /excluir_prop permite o acesso somente ao ADMIN e a regra fica assim:</p>
+<pre>antMatchers(&#34;/excluir_foto&#34;, &#34;/excluir_prop&#34;).hasAnyAuthority(&#34;ADMIN&#34;) </pre>
+<p>O quarto conjunto (#4) composto pelos endpoints: /home, /, /login permite o acesso aberto (sem necessidade de autenticação) e a regra fica assim:</p>
+<pre>antMatchers(&#34;/&#34;, &#34;/home&#34;).permitAll()
+
+formLogin(form -&gt; form.loginPage(&#34;/login&#34;).permitAll())</pre>
+<p>e o método fica assim no final da configuração: </p>
+<pre>@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(authorize -&gt; authorize
+        .antMatchers(&#34;/upload&#34;, &#34;/cad_apto&#34;, &#34;/cad_prop&#34;).hasAnyAuthority(&#34;MORADOR&#34;, &#34;ADMIN&#34;) // permissão para criar
+        .antMatchers(&#34;/fotos_apto&#34;, &#34;/rel_apto&#34;, &#34;/rel_prop&#34;).hasAnyAuthority(&#34;USUARIO&#34;, &#34;MORADOR&#34;, &#34;ADMIN&#34;) // permissão para visualizar
+        .antMatchers(&#34;/excluir_foto&#34;, &#34;/excluir_prop&#34;).hasAnyAuthority(&#34;ADMIN&#34;) // permissão para editar/excluir
+        .antMatchers(&#34;/&#34;, &#34;/home&#34;).permitAll()
+        .anyRequest().authenticated())
+
+        .formLogin(form -&gt; form.loginPage(&#34;/login&#34;).permitAll())
+        .logout().logoutSuccessUrl(&#34;/&#34;);
+    return http.build();
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Thymeleaf Extras module" duration="0">
+        <p><a href="https://github.com/thymeleaf/thymeleaf-extras-springsecurity" target="_blank">https://github.com/thymeleaf/thymeleaf-extras-springsecurity</a></p>
+<p>Este módulo oferece alguns atributos que usaremos nas páginas da aplicação para exibir as funções do sistema conforme o papel do usuário autenticado.</p>
+<p>Lista dos atributos:</p>
+<ul>
+<li>sec:authorize-url=&#34;url&#34;</li>
+</ul>
+<p>Renderiza o elemento se o usuário autenticado estiver autorizado a ver a URL especificada. Exemplo:</p>
+<pre>&lt;a class=&#34;dropdown-item&#34; href=&#34;/rel_prop&#34; sec:authorize-url=&#34;/rel_prop&#34;&gt;Listagem&lt;/a&gt;</pre>
+<ul>
+<li>sec:authorize=&#34;isAuthenticated()&#34;</li>
+</ul>
+<p>Renderiza seu conteúdo quando a expressão do atributo é avaliada como verdadeira. A expressão <code>isAuthenticated()</code> retorna <em>true</em> se o usuário realizou a autenticação. Exemplo:</p>
+<pre>&lt;a href=&#34;/login&#34; sec:authorize=&#34;!isAuthenticated()&#34; class=&#34;btn btn-secondary btn-sm p-1 small&#34;&gt;Entrar&lt;/a&gt;</pre>
+<ul>
+<li>sec:authentication=&#34;name&#34; e sec:authentication=&#34;principal.authorities&#34;</li>
+</ul>
+<p>Este atributo oferece acesso às propriedades do objeto de autenticação. Neste exemplo, queremos exibir na barra de navegação o nome do usuário e seu perfil (<em>authorities</em>).</p>
+<pre>&lt;div class=&#34;col-3 text-white small&#34; sec:authorize=&#34;isAuthenticated()&#34;&gt;
+                &lt;span sec:authentication=&#34;name&#34;&gt;opa&lt;/span&gt;
+                &lt;span sec:authentication=&#34;principal.authorities&#34;&gt;&lt;/span&gt;
+            &lt;/div&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Apresentação da aplicação" duration="0">
+        <p class="image-container"><img style="width: 761.20px" src="img\\fe37894c0f0e5336.gif"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
