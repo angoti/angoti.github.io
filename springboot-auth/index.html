@@ -100,13 +100,14 @@ INSERT INTO `papeis` (`papel_id`, `nome`) VALUES (3, &#39;ADMIN&#39;);
 
 INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (1, &#39;mercurio@teste.com&#39;, &#39;$2a$10$wSa39/yk/UTovsqPt817X.c0I8xlS2s76YQy4ViDxag0mlxUoYUq2&#39;);
 INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (2, &#39;venus@teste.com&#39;, &#39;$2a$10$v8Wr0mf6HgmIG0ANimKJOuOIt/09qIkXIF7wCwzq8.U/LTqTs9ovq&#39;);
-INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (3, &#39;jupiter@teste.com&#39;, &#39;$2a$10$5sci59bfdcED4XxxuN9gx.SJBPsdNknirJSkLbTCouf2mFzLmX/Gi&#39;);
+INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (3, &#39;terra@teste.com&#39;, &#39;$2a$10$5sci59bfdcED4XxxuN9gx.SJBPsdNknirJSkLbTCouf2mFzLmX/Gi&#39;);
 INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (4, &#39;marte@teste.com&#39;, &#39;$2a$10$Wl1gojjJgFhXztvHIULT3e0hiEMrDbCWCys0p6LnfrqxcxYkgh9OW&#39;);
 INSERT INTO `usuarios` (`usuario_id`, `email`, `senha`) VALUES (5, &#39;jupiter@teste.com&#39;, &#39;$2a$10$5sci59bfdcED4XxxuN9gx.SJBPsdNknirJSkLbTCouf2mFzLmX/Gi&#39;);
 
 INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (1, 1); -- usuário mercurio tem papel USUARIO
 INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (2, 2); -- usuário venus tem papel MORADOR
 INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (3, 2); -- usuário terra tem papel MORADOR
+INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (3, 1); -- usuário terra tem papel USUARIO
 INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (4, 1); -- usuário marte tem papel USUARIO
 INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (5, 3); -- usuário jupiter tem papel ADMIN</pre>
 <p>Observe que as senhas dos usuários estão criptografadas. A criptografia de senha é necessário para aumentar a segurança da aplicação. Vamos usar o algoritmo bcrypt para criptografar as senhas. Note que cada usuário tem um código diferente para a senha, no entanto, todas as senhas têm o mesmo valor (123456). Para gerar este códigos você pode usar este <a href="https://bcrypt-generator.com/" target="_blank">website</a>. O Spring Security fornece uma implementação deste algoritmo para codificar as senhas cadastradas pelo usuário. Como não teremos a implementação de CRUD para usuários neste codelab, vamos inserir manualmente os dados de usuários usando o script mostrado acima.</p>
