@@ -153,7 +153,7 @@ INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (5, 3); -- usuá
 <p>Quando a página de login é especificada na configuração do Spring Security, você é responsável por renderizar a página. </p>
 <p>Existem alguns pontos-chave sobre o formulário HTML padrão:</p>
 <ul>
-<li>O formulário deve ser submetido para <code>/login</code> usando o método post: <code><form th:action="@{/login}" method="post"></code>      </li>
+<li>O formulário deve ser submetido para <code>/login</code> usando o método post;      </li>
 <li>O formulário precisará incluir um token CSRF que é automaticamente incluído pelo Thymeleaf através  do atributo Thymeleaf <code>th:action="@{/login}"</code>  </li>
 <li>O formulário deve especificar o nome de usuário em um parâmetro chamado <code>username</code> </li>
 <li>O formulário deve especificar a senha em um parâmetro chamado <code>password</code> </li>
