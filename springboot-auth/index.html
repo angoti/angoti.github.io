@@ -30,9 +30,9 @@
       <google-codelab-step label="Introdução" duration="10">
         <aside class="special"><p>Última atualização:16/12/2022</p>
 </aside>
-<p>O Spring Security é o módulo que fornece suporte para autenticação, autorização e proteção contra ataques comuns em aplicações Web.  A autenticação é como verificamos a identidade de usuários para ter acesos às funcionalidades de um sistema. Uma maneira comum de autenticação é a verificação de nome e senha fornecidos pelo usuário. </p>
+<p>O Spring Security é o módulo que fornece suporte para autenticação, autorização e proteção contra ataques comuns em aplicações Web.  A autenticação é como verificamos a identidade de usuários para termos acesso às funcionalidades de um sistema. Uma maneira comum de autenticação é a verificação de nome e senha fornecidos pelo usuário. </p>
 <p>Depois que a autenticação é realizada, podemos executar a autorização, que é a permissão de acesso a recursos conforme um determinado papel que o usuário autenticado desempenha no sistema. </p>
-<p>Neste Codelab você aprenderá a desenvolver um aplicativo Java Web  utilizando o framework Spring Boot com Thymeleaf e acesso a dados com JdbcTemplate, com controle de acesso (autenticação e autorização). </p>
+<p>Neste Codelab você aprenderá como adicionar autenticação e autorização a uma aplicação Java Web  utilizando o framework Spring Boot com Thymeleaf e acesso a dados com JdbcTemplate. </p>
 <h2 is-upgraded><strong>O que você vai aprender</strong></h2>
 <ul>
 <li>Autenticação Username/Password </li>
@@ -153,12 +153,10 @@ INSERT INTO `usuarios_papeis` (`usuario_id`, `papel_id`) VALUES (5, 3); -- usuá
 <p>Quando a página de login é especificada na configuração do Spring Security, você é responsável por renderizar a página. </p>
 <p>Existem alguns pontos-chave sobre o formulário HTML padrão:</p>
 <ul>
-<li>O formulário deve ser submetido para /login usando o método post: <code><form th:action="@{/login}" method="post></code></li>
-<li>O formulário precisará incluir um token CSRF que é automaticamente incluído pelo Thymeleaf através  do atributo Thymeleaf <code>th:action="@{/login}"</code></li>
-<li>O formulário deve especificar o nome de usuário em um parâmetro chamado <code>username</code></li>
-<li>O formulário deve especificar a senha em um parâmetro chamado <code>password</code></li>
-<li>Se um parâmetro HTTP com o nome <code>error</code> for encontrado (<code>th:if="${param.error}"</code>), isso indica que o usuário não forneceu um nome de usuário / senha válidos</li>
-<li>Se um parâmetro HTTP chamado <code>logout</code> for encontrado (<code>th:if="${param.logout}"</code>), indica que o usuário foi desconectado com sucesso</li>
+<li>O formulário deve ser submetido para /login usando o método post: <code><form th:action="@{/login}" method="post"></code> </li>
+<li>O formulário precisará incluir um token CSRF que é automaticamente incluído pelo Thymeleaf através  do atributo Thymeleaf <code>th:action="@{/login}"</code>  </li>
+<li>O formulário deve especificar o nome de usuário em um parâmetro chamado <code>username</code> </li>
+<li>O formulário deve especificar a senha em um parâmetro chamado <code>password</code> </li>
 </ul>
 <p>Primeiro vamos adicionar uma nova pasta (<code>security</code>) à nossa estrutura do projeto:</p>
 <p class="image-container"><img style="width: 309.00px" src="img\\d12f117feb111bfb.png"></p>
