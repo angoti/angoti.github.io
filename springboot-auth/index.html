@@ -273,24 +273,6 @@ public class CondominioSecurity {
     return http.build();
   }
 }</pre>
-<p>O método <code>SecurityFilterChain filterChain(HttpSecurity http)</code> estabelece as regras de segurança da aplicação. O objeto <code>http</code> é usado para escrever as regras da autorização e autenticação. Usamos o método <code>authorizeHttpRequests</code> para restringir o acesso com base na URL da requisição HTTP. As regras são aplicadas na ordem apresentada.</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p>Regra</p>
-</td><td colspan="1" rowspan="1"><p>Autorização</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>antMatchers("/","/home").permitAll()</code></p>
-</td><td colspan="1" rowspan="1"><p>autoriza o acesso livre aos recursos mapeados com a URL &#34;/&#34; ou &#34;/home&#34; </p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>anyRequest().authenticated())</code></p>
-</td><td colspan="1" rowspan="1"><p>qualquer outra requisição precisa de autenticação</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>formLogin(form -> form.loginPage("/login").permitAll())</code></p>
-</td><td colspan="1" rowspan="1"><p>configura a URL da página de login a ser exibida. Necessita definir um controle mapeado com GET /login. </p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>logout().logoutSuccessUrl("/")</code></p>
-</td><td colspan="1" rowspan="1"><p>configura a página a ser exibida após o logout.</p>
-</td></tr>
-</table>
 <h2 is-upgraded><strong>Implementar a interface UserDetails</strong></h2>
 <p>Arquivo security/CondominioUserDetails.java</p>
 <pre>package com.professorangoti.condominio.security;
@@ -381,6 +363,24 @@ public class CondominioUserDetailsService implements UserDetailsService {
     return new CondominioUserDetails(usuario);
   }
 }</pre>
+<p>O método <code>SecurityFilterChain filterChain(HttpSecurity http)</code> estabelece as regras de segurança da aplicação. O objeto <code>http</code> é usado para escrever as regras da autorização e autenticação. Usamos o método <code>authorizeHttpRequests</code> para restringir o acesso com base na URL da requisição HTTP. As regras são aplicadas na ordem apresentada.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Regra</p>
+</td><td colspan="1" rowspan="1"><p>Autorização</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>antMatchers("/","/home").permitAll()</code></p>
+</td><td colspan="1" rowspan="1"><p>autoriza o acesso livre aos recursos mapeados com a URL &#34;/&#34; ou &#34;/home&#34; </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>anyRequest().authenticated())</code></p>
+</td><td colspan="1" rowspan="1"><p>qualquer outra requisição precisa de autenticação</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>formLogin(form -> form.loginPage("/login").permitAll())</code></p>
+</td><td colspan="1" rowspan="1"><p>configura a URL da página de login a ser exibida. Necessita definir um controle mapeado com GET /login. </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>logout().logoutSuccessUrl("/")</code></p>
+</td><td colspan="1" rowspan="1"><p>configura a página a ser exibida após o logout.</p>
+</td></tr>
+</table>
 <h2 is-upgraded><strong>Adicionar um controle para /login</strong></h2>
 <p>Inserir este método no arquivo HomeController.java</p>
 <pre>@GetMapping(&#34;/login&#34;)
