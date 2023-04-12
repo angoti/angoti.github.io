@@ -1,0 +1,209 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Componentes em React Native</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Componentes em React Native"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Componentes em React Native" duration="15">
+        <aside class="special"><p>Última atualização: 10/04/2023</p>
+</aside>
+<h2 is-upgraded><strong>O que são componentes em React Native?</strong></h2>
+<p>Em React Native, os componentes são blocos de construção fundamentais que representam uma parte da interface do usuário. Esses componentes podem ser simples, como um texto ou um botão, ou podem ser complexos, como um formulário inteiro ou uma lista de itens.</p>
+<p>Exemplo de utilização de um componente</p>
+<pre>&lt;Text&gt;Olá mundo!&lt;/Text&gt;</pre>
+<h2 is-upgraded><strong>Como criar um componente básico</strong></h2>
+<p>Para criar um componente básico você pode definir uma função que representa o componente. Para utilizar o componente em outros componentes, você precisará primeiro exportá-lo no arquivo onde ele foi definido. Para exportá-lo, você pode usar a palavra-chave <code>export default</code>:</p>
+<p>Aqui está um exemplo básico de um componente que renderiza um texto:</p>
+<pre>import { Text } from &#39;react-native&#39;;
+
+const MeuComponente = () =&gt; {
+  return (
+    &lt;Text&gt;Olá, mundo!&lt;/Text&gt;
+  );
+}
+
+export default MeuComponente;</pre>
+<p>Este componente é criado usando a sintaxe de função e retorna um elemento &lt;Text&gt; que contém a string &#34;Olá, mundo!&#34;.</p>
+<p>Com o componente exportado, agora você pode importá-lo em outro arquivo React Native. Para fazer isso, use a palavra-chave import, seguida do caminho do arquivo onde o componente foi definido e o nome que você deseja dar ao componente no arquivo atual. Por exemplo:</p>
+<pre>import { View } from &#39;react-native&#39;;
+import MeuComponente from &#39;./MeuComponente&#39;;
+
+const App = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123;flex:1, justifyContent:&#39;center&#39;,alignItems:&#39;center&#39;}}&gt;
+      &lt;MeuComponente /&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Componentes personalizados" duration="0">
+        <p>Componentes personalizados são importantes porque permitem que você crie elementos reutilizáveis que podem ser usados em diferentes partes do seu aplicativo. Isso significa que, uma vez que você criou um componente personalizado, pode usá-lo sempre que precisar desse tipo de elemento, sem precisar escrever o código novamente. Isso economiza muito tempo e torna o desenvolvimento de aplicativos mais eficiente.</p>
+<h2 is-upgraded><strong>Criando um componente personalizado</strong></h2>
+<p>Para criar um componente personalizado, você precisará definir uma nova função em um arquivo com o mesmo nome da função. Essa nova função representará seu componente personalizado. Aqui está um exemplo básico de um componente personalizado que renderiza um texto:</p>
+<pre>import { Text } from &#39;react-native&#39;;
+
+const MeuComponente = ({nome}) =&gt; {
+  return &lt;Text&gt;{nome}&lt;/Text&gt;;
+};
+
+export default MeuComponente;</pre>
+<p>Neste exemplo, o componente <code>MeuComponente</code> recebe um parâmetro <code>nome</code> através de <code>props</code>. Em seguida, o valor desse parâmetro é exibido em um elemento Text. Para passar o valor para o componente, você simplesmente define o valor desejado como um parâmetro da função que define o componente:</p>
+<h2 is-upgraded><strong>O que são Props em React Native?</strong></h2>
+<p>Props (abreviação de propriedades) são uma parte fundamental do React Native e são usados para passar dados entre componentes. </p>
+<p>Props são valores que são passados para um componente como parâmetros quando ele é renderizado. Eles são usados para personalizar a aparência ou o comportamento do componente.</p>
+<h2 is-upgraded><strong>Como usar Props em React Native?</strong></h2>
+<p>Para usar Props em um componente React Native, você pode definir os parâmetros que o componente receberá em sua declaração de função. </p>
+<p>Aqui está um exemplo de como usar props em um componente React Native simples:</p>
+<pre>import { Text } from &#39;react-native&#39;;
+const MeuComponente = ({nome}) =&gt; {
+  return &lt;Text&gt;{nome}&lt;/Text&gt;;
+};
+export default MeuComponente;</pre>
+<p>Neste exemplo, o componente <code>MeuComponente</code> recebe um parâmetro chamado <code>nome</code>. Em seguida, o valor desse parâmetro é exibido em um elemento Text. </p>
+<p>Para passar o valor para o componente, você simplesmente define o valor desejado como a propriedade <code>nome</code>:</p>
+<pre>import { View } from &#39;react-native&#39;;
+import MeuComponente from &#39;./MeuComponente&#39;;
+
+const App = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123;flex:1, justifyContent:&#39;center&#39;,alignItems:&#39;center&#39;}}&gt;
+      &lt;MeuComponente nome=&#34;Angoti&#34;/&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+<h2 is-upgraded><strong>Reutilizando componentes em diferentes partes do aplicativo</strong></h2>
+<p>A grande vantagem de criar componentes personalizados é que você pode reutilizá-los em diferentes partes do seu aplicativo. Por exemplo, se você tem um componente personalizado que renderiza um botão, pode usá-lo em diferentes telas e em diferentes contextos, em vez de escrever o código do botão do zero em cada lugar. Isso torna o código mais limpo, mais organizado e mais fácil de manter.</p>
+<p>Os componentes personalizados são uma parte fundamental do React Native e permitem criar elementos reutilizáveis que podem ser usados em diferentes partes do seu aplicativo. Criar componentes personalizados é fácil e economiza muito tempo, o que torna o desenvolvimento de aplicativos mais eficiente. Lembre-se de que quanto mais você reutilizar seus componentes personalizados, mais fácil será manter e expandir seu aplicativo ao longo do tempo.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prática componentes básicos" duration="0">
+        <ol type="1" start="1">
+<li><h2 is-upgraded><strong>Crie um componente Botao que exiba um botão simples na tela.</strong></h2>
+</li>
+<li><h2 is-upgraded><strong>Crie um componente CaixaDeTexto que exiba um campo entrada de texto.</strong></h2>
+</li>
+<li><h2 is-upgraded><strong>Crie um componente Titulo que exiba um título grande e em negrito na tela.</strong></h2>
+</li>
+<li><h2 is-upgraded><strong>Crie um componente Imagem que exiba uma imagem na tela.</strong></h2>
+</li>
+<li><h2 is-upgraded><strong>Crie um componente Paragrafo que exiba um texto simples na tela.</strong></h2>
+</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Comunicação entre componentes" duration="0">
+        <p>A comunicação entre componentes é uma parte importante do desenvolvimento de aplicativos. Existem várias maneiras de comunicar informações entre componentes, incluindo a passagem de informações do pai para o filho, do filho para o pai e entre irmãos.</p>
+<h2 is-upgraded><strong>Passando informações de pai para filho</strong></h2>
+<p>Uma maneira de passar informações de um componente pai para um componente filho em React Native é usando props. Como mencionado anteriormente, props são valores que são passados para um componente como parâmetros. Você pode passar valores para um componente filho através de props e acessá-los dentro do componente filho.</p>
+<p>Por exemplo, se você tiver um componente pai que define um valor de texto e um componente filho que exibe esse texto, você pode passar o valor de texto para o componente filho usando props. Aqui está um exemplo:</p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const Pai = () =&gt; {
+  const texto = &#39;Olá, mundo!&#39;;
+
+  return (
+    &lt;View&gt;
+      &lt;Filho texto=&#34;Angoti&#34;} /&gt;
+    &lt;/View&gt;
+  );
+};
+
+const Filho = ({texto}) =&gt; {
+  return (
+    &lt;View&gt;
+      &lt;Text&gt;{texto}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};</pre>
+<p>Neste exemplo, estamos passando a propriedade texto do componente pai <code>Pai</code> para o componente filho <code>Filho</code> usando props. Em seguida, estamos exibindo o valor da propriedade texto dentro do componente filho <code>Filho</code>.</p>
+<h2 is-upgraded><strong>Passando informações de filho para pai</strong></h2>
+<p>Para passar informações de um componente filho para um componente pai em React Native, você pode definir uma função de retorno de chamada (callback function) no componente pai e passá-la para o componente filho usando props. O componente filho pode, então, chamar a função de retorno de chamada para informar ao componente pai que alguma ação foi executada.</p>
+<p>Por exemplo, se você tiver um componente pai que define uma função de retorno de chamada para atualizar um contador e um componente filho que tem um botão que incrementa o contador, você pode passar a função de retorno de chamada para o componente filho e chamar a função quando o botão for clicado. Aqui está um exemplo:</p>
+<pre>import{ useState } from &#39;react&#39;;
+import { View, Text } from &#39;react-native&#39;;
+
+const Pai = () =&gt; {
+  const [contador, setContador] = useState(0);
+
+  const atualizarContador = () =&gt; {
+    setContador(contador + 1);
+  };
+
+  return (
+    &lt;View&gt;
+      &lt;Text&gt;Contador: {contador}&lt;/Text&gt;
+      &lt;Filho onPress={atualizarContador} /&gt;
+    &lt;/View&gt;
+  );
+};
+
+const Filho = ({onPress}) =&gt; {
+  return (
+    &lt;View&gt;
+      &lt;Button title=&#34;Clique aqui&#34; onPress={onPress} /&gt;
+    &lt;/View&gt;
+  );
+};</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prática componentes personalizados" duration="0">
+        <ol type="1" start="1">
+<li><h2 is-upgraded>Crie um componente Titulo que aceita um parâmetro <code>texto </code><strong>e exibe um título grande e em negrito na tela com o texto fornecido.</strong></h2>
+</li>
+<li><h2 is-upgraded>Crie um componente CaixaDeTexto que aceita um parâmetro <code>placeholder </code><strong>e exibe um campo de texto simples na tela com o texto fornecido como um espaço reservado.</strong></h2>
+</li>
+<li><h2 is-upgraded><strong>Crie um componente Botao que aceita um parâmetro texto e exibe um botão na tela com o texto fornecido.</strong></h2>
+</li>
+<li><h2 is-upgraded><strong>Crie um componente Card que aceita parâmetros titulo, texto e imagem e exibe um cartão na tela com as informações fornecidas.</strong></h2>
+</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-04-12T12:23:52Z",
+  "id": "",
+  "duration": 15,
+  "title": "Componentes em React Native",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Demostração do uso",
+  "source": "1eGyEK7jNqiUWJtMkRl-IhVsX7W3ND0M3Wvez_pdhioo",
+  "theme": "web",
+  "status": [
+    "primeiraversão"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}
