@@ -1,0 +1,370 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>FlatList</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="FlatList"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução ao componente FlatList" duration="5">
+        <aside class="special"><p>Última atualização: 18/04/2023</p>
+</aside>
+<p>O FlatList é um componente do React Native que permite exibir listas de elementos de forma eficiente, independentemente do tamanho da lista. Ele é especialmente útil para listas longas e dinâmicas que podem ser renderizadas sob demanda, melhorando o desempenho e a experiência do usuário. Veja exemplo:</p>
+<p class="image-container"><img style="width: 426.00px" src="img\\e4cd5b8913a9f26b.gif"></p>
+<aside class="special"><p>Referência: <a href="https://reactnative.dev/docs/flatlist" target="_blank">FlatList · React Native</a></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Como usar o componente FlatList" duration="15">
+        <p>Para usar o componente FlatList, você precisa primeiro importá-lo do pacote react-native. Em seguida, você pode renderizar uma lista de elementos com o FlatList passando as seguintes propriedades:</p>
+<p><code>data</code>: um array de objetos que serão exibidos na lista.</p>
+<p><code>renderItem</code>: uma função que recebe cada item do array e retorna um componente React que será exibido na lista.</p>
+<p>A lista deve ser composta por objetos e cada objeto deve ter uma propriedade chamada <code>id</code> com valor único para cada objeto.</p>
+<p>Aqui está um exemplo básico de como usar o FlatList:</p>
+<pre>import { View, FlatList, StyleSheet, Text } from &#39;react-native&#39;;
+
+const DATA = [
+  { id: &#39;1&#39;, title: &#39;Item 1&#39; },
+  { id: &#39;2&#39;, title: &#39;Item 2&#39; },
+  { id: &#39;3&#39;, title: &#39;Item 3&#39; },
+  { id: &#39;4&#39;, title: &#39;Item 4&#39; },
+  { id: &#39;5&#39;, title: &#39;Item 5&#39; },
+  { id: &#39;6&#39;, title: &#39;Item 6&#39; },
+  { id: &#39;7&#39;, title: &#39;Item 7&#39; },
+  { id: &#39;8&#39;, title: &#39;Item 8&#39; },
+  { id: &#39;9&#39;, title: &#39;Item 9&#39; },
+  { id: &#39;10&#39;, title: &#39;Item 10&#39; },
+  { id: &#39;11&#39;, title: &#39;Item 11&#39; },
+  { id: &#39;12&#39;, title: &#39;Item 12&#39; },
+  { id: &#39;13&#39;, title: &#39;Item 13&#39; },
+  { id: &#39;14&#39;, title: &#39;Item 14&#39; },
+  { id: &#39;15&#39;, title: &#39;Item 15&#39; },
+  { id: &#39;16&#39;, title: &#39;Item 16&#39; },
+  { id: &#39;17&#39;, title: &#39;Item 17&#39; },
+  { id: &#39;18&#39;, title: &#39;Item 18&#39; },
+  { id: &#39;19&#39;, title: &#39;Item 19&#39; },
+  { id: &#39;20&#39;, title: &#39;Item 20&#39; },
+];
+
+const App = () =&gt; {
+  const renderizarItem = ({ item }) =&gt; (
+    &lt;View style={styles.item}&gt;
+      &lt;Text style={styles.title}&gt;{item.title}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;FlatList data={DATA} renderItem={renderizarItem} /&gt;
+    &lt;/View&gt;
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: 10,
+    marginTop: 50,
+  },
+  item: {
+    borderWidth: 1,
+    borderColor: &#39;red&#39;,
+    padding: 10,
+  },
+  title: {
+    fontSize: 30,
+  },
+});
+
+export default App;</pre>
+<p>Neste exemplo, estamos renderizando uma lista simples de vinte itens. Cada item é representado por um objeto que contém uma chave <code>id</code> e um título <code>title</code>. O componente FlatList recebe o array de objetos DATA, que é renderizado com a função <code>renderizarItem</code>, que retorna um componente <code>View</code> com o título do item.</p>
+<aside class="warning"><p>Exercício: Altere o código para mostrar também a chave id de cada item da lista</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Propriedades do componente FlatList" duration="0">
+        <p>O FlatList possui várias propriedades que permitem personalizar sua aparência e comportamento. Algumas das propriedades mais comuns incluem:</p>
+<p><code>ItemSeparatorComponent</code>: um componente React que é renderizado entre cada item da lista. Isso permite adicionar um separador visual entre os itens.</p>
+<p><code>ListHeaderComponent</code>: um componente React que é renderizado no topo da lista. Isso permite adicionar um cabeçalho à lista.</p>
+<p><code>ListFooterComponent</code>: um componente React que é renderizado no final da lista. Isso permite adicionar um rodapé à lista.</p>
+<p>onEndReached: uma função que é chamada quando o usuário chega ao final da lista. Isso é útil para carregar mais itens dinamicamente à medida que o usuário rola a lista.</p>
+<p><code>onRefresh</code>: é uma função que é chamada quando o usuário realiza uma ação de &#34;puxar para atualizar&#34; na lista. Isso é útil para atualizar os dados da lista com informações mais recentes.</p>
+<p>Concluindo, o componente FlatList é uma ferramenta poderosa para renderizar listas de elementos em um aplicativo React Native. Com ele, é possível exibir listas dinâmicas e longas de forma eficiente, melhorando a experiência do usuário. É importante entender as propriedades do FlatList e como usá-las para personalizar a aparência e o comportamento da lista. Com o conhecimento adequado, os alunos de ensino técnico podem criar aplicativos móveis sofisticados e funcionais usando o FlatList.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exemplos de uso da o componente FlatList" duration="0">
+        <p>O FlatList é um dos componentes mais versáteis do React Native e pode ser usado de várias maneiras para renderizar listas de dados. Aqui estão alguns exemplos diversificados de como utilizar o FlatList:</p>
+<h2 is-upgraded><strong>Exemplo 1: Listagem de Produtos</strong></h2>
+<p>Suponha que você tenha uma lista de produtos e queira exibi-los em uma tela. Você pode utilizar o FlatList para renderizar esses produtos da seguinte maneira:</p>
+<pre>import { FlatList, View, Text, Image, StyleSheet } from &#39;react-native&#39;;
+
+const products = [
+  {
+    id: 1,
+    name: &#39;Product 1&#39;,
+    price: 9.99,
+    image: { uri: &#39;https://picsum.photos/id/1024/400/400&#39; },
+  },
+  {
+    id: 2,
+    name: &#39;Product 2&#39;,
+    price: 14.99,
+    image: { uri: &#39;https://picsum.photos/id/1026/400/400&#39; },
+  },
+  {
+    id: 3,
+    name: &#39;Product 3&#39;,
+    price: 19.99,
+    image: { uri: &#39;https://picsum.photos/id/1043/400/400&#39; },
+  },
+  {
+    id: 4,
+    name: &#39;Product 4&#39;,
+    price: 24.99,
+    image: { uri: &#39;https://picsum.photos/id/1062/400/400&#39; },
+  },
+  {
+    id: 5,
+    name: &#39;Product 5&#39;,
+    price: 29.99,
+    image: { uri: &#39;https://picsum.photos/id/1074/400/400&#39; },
+  },
+];
+
+const renderItem = ({ item }) =&gt; (
+  &lt;View style={styles.item}&gt;
+    &lt;Image source={item.image} style={styles.image} /&gt;
+    &lt;Text style={styles.title}&gt;{item.name}&lt;/Text&gt;
+    &lt;Text style={styles.price}&gt;${item.price}&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+const App = () =&gt; (
+  &lt;FlatList
+    data={products}
+    renderItem={renderItem}
+    keyExtractor={(item) =&gt; item.id.toString()}
+    style={styles.container}
+  /&gt;
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop:40
+  },
+  item: {
+    backgroundColor: &#39;#f9c2ff&#39;,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
+  price: {
+    fontSize: 24,
+  },
+  image: {
+    width: &#39;100%&#39;,
+    height: 200,
+  },
+});
+
+export default App;</pre>
+<h2 is-upgraded><strong>Exemplo 2: Listagem de Imagens com Paginação</strong></h2>
+<p>Suponha que você queira exibir uma lista de imagens que estão armazenadas em um servidor e quer exibir apenas algumas imagens por vez, permitindo ao usuário navegar entre as páginas para ver mais imagens. Você pode utilizar o FlatList com a propriedade <code>pagingEnabled</code> para exibir a lista de imagens com paginação. Para paginar faça o gesto de arrastar para cima:</p>
+<pre>import { useState, useEffect } from &#39;react&#39;;
+import { FlatList, Image, View, StyleSheet } from &#39;react-native&#39;;
+
+const App = () =&gt; {
+  const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
+
+  useEffect(() =&gt; {
+    fetch(`https://picsum.photos/v2/list?page=${page}&amp;limit=10`)
+      .then((response) =&gt; response.json())
+      .then((data) =&gt; setImages(data))
+      .catch((error) =&gt; console.error(error));
+  }, [page]);
+
+  const renderItem = ({ item }) =&gt; (
+    &lt;View style={styles.item}&gt;
+      &lt;Image source=&#123;&#123; uri: item.download_url }} style={styles.image} /&gt;
+    &lt;/View&gt;
+  );
+
+  const handleEndReached = () =&gt; {
+    setPage(page + 1);
+  };
+
+  return (
+    &lt;FlatList
+      data={images}
+      renderItem={renderItem}
+      keyExtractor={(item) =&gt; item.id.toString()}
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+      numColumns={2}
+      // habilita a paginação
+      pagingEnabled={true}
+      // define a função &#39;onEndReached&#39; para carregar mais imagens quando o usuário chegar ao final da lista
+      onEndReached={handleEndReached}
+      // define a quantidade de pixels que o usuário precisa rolar a lista para que a função &#39;onEndReached&#39; seja disparada
+      onEndReachedThreshold={0.1}
+    /&gt;
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: &#39;#f1f1f1&#39;,
+  },
+  contentContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  item: {
+    flex: 1,
+    marginHorizontal: 5,
+    marginVertical: 10,
+    aspectRatio: 1,
+  },
+  image: {
+    flex: 1,
+    borderRadius: 5,
+  },
+});
+
+export default App;</pre>
+<h2 is-upgraded><strong>Exemplo 3: Listagem de Notícias</strong></h2>
+<p>Suponha que você tenha uma lista de notícias e queira exibi-las em uma tela. Você pode utilizar o FlatList para renderizar essas notícias da seguinte maneira:</p>
+<pre>import { FlatList, View, Text, Image, StyleSheet } from &#39;react-native&#39;;
+
+const news = [
+  {
+    id: 1,
+    title:
+      &#39;Casos de covid no mundo ultrapassam 400 milhões com domínio global da ômicron&#39;,
+    summary:
+      &#39;A Organização Mundial da Saúde (OMS) alertou nesta segunda-feira que o número de casos de covid-19 no mundo ultrapassou a marca de 400 milhões, com o domínio global da variante ômicron do vírus.&#39;,
+  },
+
+  {
+    id: 2,
+    title:
+      &#39;França decreta novo confinamento para conter segunda onda da Covid-19&#39;,
+    summary:
+      &#39;A França decretou novo confinamento a partir desta quinta-feira (10) para conter a segunda onda da Covid-19 que, segundo o primeiro-ministro francês, Jean Castex, é mais forte que as anteriores.&#39;,
+  },
+
+  {
+    id: 3,
+    title: &#39;Nasa acha componente do plástico em lua de Saturno&#39;,
+    summary:
+      &#39;A sonda espacial Cassini encontrou fragmentos de plástico em Titã, uma das luas de Saturno, mostrando que a poluição causada pelo homem pode chegar a lugares muito distantes.&#39;,
+  },
+
+  {
+    id: 4,
+    title: &#39;Nasa pousa sonda em asteroide e coleta amostras da rocha&#39;,
+    summary:
+      &#39;A sonda OSIRIS-REx da Nasa pousou no asteroide Bennu na noite desta terça-feira (20) e coletou amostras da rocha espacial. Esta é a primeira vez que uma missão da Nasa tenta coletar amostras de um asteroide.&#39;,
+  },
+];
+
+const renderItem = ({ item }) =&gt; (
+  &lt;View style={styles.item}&gt;
+    &lt;Text style={styles.title}&gt;{item.title}&lt;/Text&gt;
+    &lt;Text style={styles.summary}&gt;{item.summary}&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+const App = () =&gt; (
+  &lt;FlatList
+    data={news}
+    renderItem={renderItem}
+    keyExtractor={(item) =&gt; item.id.toString()}
+    style={styles.container}
+  /&gt;
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop:30
+  },
+  item: {
+    backgroundColor: &#39;#fff&#39;,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 10,
+    shadowColor: &#39;#000&#39;,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: &#39;bold&#39;,
+    marginBottom: 10,
+  },
+  summary: {
+    fontSize: 18,
+  },
+  image: {
+    width: &#39;100%&#39;,
+    height: 200,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+});
+
+export default App;</pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

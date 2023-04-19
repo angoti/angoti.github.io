@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-04-19T12:26:06Z",
+  "id": "",
+  "duration": 20,
+  "title": "FlatList",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Demostração do uso",
+  "source": "1fB0heFYkT9deLi222q2l92ckmlLCO50mTWtLrvfJqKY",
+  "theme": "web",
+  "status": [
+    "primeiraversão"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}
