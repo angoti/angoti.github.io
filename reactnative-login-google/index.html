@@ -322,6 +322,78 @@ apply plugin: &#39;com.google.gms.google-services&#39; // &lt;--- this should be
     });
   };
 </pre>
+<p>O código final do arquivo App.js fica assim:</p>
+<ul>
+<li><h2 is-upgraded><strong>App.js</strong></h2>
+</li>
+</ul>
+<pre><code>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createNativeStackNavigator } from &#39;@react-navigation/native-stack&#39;;
+import { createContext, useState } from &#39;react&#39;;
+import SplashScreen from &#39;./src/screens/SplashScreen&#39;;
+import SignInScreen from &#39;./src/screens/SignInScreen&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+
+// @ts-ignore
+export const AuthContext = createContext();
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  const initialState = {
+    isLoading: true,
+    userToken: null,
+  };
+  const [state, setState] = useState(initialState);
+
+  const loaded = data =&gt; {
+    if (data === &#39;&#39;) {
+      setState(prev =&gt; {
+        return { ...prev, isLoading: false };
+      });
+    } else {
+      setState(prev =&gt; {
+        return { isLoading: false, userToken: data };
+      });
+    }
+  };
+
+  const signIn = data =&gt; {
+    setState(prev =&gt; {
+      return { ...prev, userToken: data };
+    });
+  };
+
+  const signOut = () =&gt; {
+    setState(prev =&gt; {
+      return { isLoading: true, userToken: null };
+    });
+  };
+
+  return (
+    &lt;AuthContext.Provider value=&#123;&#123; state }}&gt;
+      &lt;NavigationContainer&gt;
+        &lt;Stack.Navigator&gt;
+          {state.isLoading ? (
+            &lt;Stack.Screen name=&#34;Splash&#34;&gt;
+              {props =&gt; &lt;SplashScreen {...props} loaded={loaded} /&gt;}
+            &lt;/Stack.Screen&gt;
+          ) : state.userToken == null ? (
+            // Usuário não autenticado
+            &lt;Stack.Screen name=&#34;SignIn&#34;&gt;
+              {props =&gt; &lt;SignInScreen {...props} signIn={signIn} /&gt;}
+            &lt;/Stack.Screen&gt;
+          ) : (
+            // Usuário autenticado
+            &lt;Stack.Screen name=&#34;Home&#34;&gt;
+              {props =&gt; &lt;HomeScreen {...props} signOut={signOut} /&gt;}
+            &lt;/Stack.Screen&gt;
+          )}
+        &lt;/Stack.Navigator&gt;
+      &lt;/NavigationContainer&gt;
+    &lt;/AuthContext.Provider&gt;
+  );
+}</code></pre>
 
 
       </google-codelab-step>
