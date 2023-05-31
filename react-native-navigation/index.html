@@ -1,0 +1,244 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Navegação</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Navegação"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <aside class="special"><p>Última atualização: 31/05/2023</p>
+</aside>
+<p>Em um navegador da web, você pode criar links para várias páginas usando uma tag âncora &lt;a&gt;. Quando o usuário clica em um link, o URL é enviado para a pilha do histórico do navegador. Quando o usuário clica no botão voltar, o navegador exibe o item do topo da pilha do histórico, de modo que a página atual agora é a página visitada anteriormente. </p>
+<p>O React Native não possui um conceito embutido de uma pilha de histórico global como um navegador da web; é aqui que o <strong>React Navigation</strong> é útil. O navegador de pilha do React Navigation implementa uma maneira de seu aplicativo fazer a transição entre as telas e manter o histórico de navegação. Uma variação significativa entre como isso é executado em um navegador da Web e o React Navigation é que o navegador de pilha do React Navigation produz os gestos e animações que você precisaria em dispositivos Android e iOS ao navegar entre rotas ou telas na pilha.</p>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/" target="_blank">Navigation</a></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Navigator Components" duration="0">
+        <p>Existem 3 navegadores principais que acompanham o React Navigation, que são adequados para projetos baseados em iOS e Android.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\405c5fc2961a1da5.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Stack Navigator" duration="0">
+        <aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/stack-navigator" target="_blank">Stack Navigator</a></p>
+</aside>
+<p>O navegador mais comum que você encontrará, um navegador Stack navegará de tela para tela de forma hierárquica: Para configurar um navegador de pilha, declare um objeto de navegador de pilha por meio da função <code>createStackNavigator</code>. A partir daqui, os componentes <code>Navigator</code> e <code>Screen</code> podem ser usados ​​para incorporar e agrupar as telas desejadas.</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+
+function Home({ navigation }) {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Profile&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Profile&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Profile() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen name=&#34;Home&#34; component={Home} /&gt;
+        &lt;Stack.Screen name=&#34;Profile&#34; component={Profile} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+export default App;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Bottom Tabs Navigator" duration="0">
+        <aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/bottom-tab-navigator" target="_blank">Bottom Tabs Navigator</a></p>
+</aside>
+<p>Possivelmente, o estilo mais comum de navegação em aplicativos móveis é a navegação baseada em guias. Podem ser guias na parte inferior da tela ou na parte superior da tela.</p>
+<p>O exemplo a seguir demonstra como construir um navegador de guias inferiores:</p>
+<pre>import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import MaterialCommunityIcons from &#39;react-native-vector-icons/MaterialCommunityIcons&#39;;
+import { View, Text } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+
+function HomeScreen() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home!&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function SettingsScreen() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Settings!&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator
+        initialRouteName=&#34;HomeScreen&#34;
+        screenOptions=&#123;&#123;
+          tabBarActiveTintColor: &#39;#e91e63&#39;,
+        }}&gt;
+        &lt;Tab.Screen
+          name=&#34;HomeScreen&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            tabBarLabel: &#39;Home&#39;,
+            tabBarIcon: ({ color, size }) =&gt; (
+              &lt;MaterialCommunityIcons name=&#34;home&#34; color={color} size={size} /&gt;
+            ),
+          }}
+        /&gt;
+
+        &lt;Tab.Screen
+          name=&#34;SettingsScreen&#34;
+          component={SettingsScreen}
+          options=&#123;&#123;
+            tabBarLabel: &#39;Profile&#39;,
+            tabBarIcon: ({ color, size }) =&gt; (
+              &lt;MaterialCommunityIcons
+                name=&#34;account&#34;
+                color={color}
+                size={size}
+              /&gt;
+            ),
+          }}
+        /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Navegador de gaveta" duration="0">
+        <aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/drawer-navigator" target="_blank">Drawer Navigator</a></p>
+</aside>
+<p>Outro navegador útil que permite que as telas sejam animadas de um lado da tela a ser revelada e animadas de volta quando fechadas. </p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+
+function Feed() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Feed Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Notifications() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Notifications Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Profile() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    &lt;Drawer.Navigator useLegacyImplementation initialRouteName=&#34;Feed&#34;&gt;
+      &lt;Drawer.Screen
+        name=&#34;Feed&#34;
+        component={Feed}
+        options=&#123;&#123; drawerLabel: &#39;Home&#39; }}
+      /&gt;
+      &lt;Drawer.Screen
+        name=&#34;Notifications&#34;
+        component={Notifications}
+        options=&#123;&#123; drawerLabel: &#39;Updates&#39; }}
+      /&gt;
+      &lt;Drawer.Screen
+        name=&#34;Profile&#34;
+        component={Profile}
+        options=&#123;&#123; drawerLabel: &#39;Profile&#39; }}
+      /&gt;
+    &lt;/Drawer.Navigator&gt;
+  );
+}
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;MyDrawer /&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exercício" duration="0">
+        <p>Crie um app com navegador de gaveta com uma tela Login. Esta tela deverá ter dois campos de entrada de texto para informar o nome do usuário e senha. Depois de validar o usuário (user=&#39;teste&#39; pass=&#39;123&#39;) o app deve navegar para a tela Home. Estas duas telas deverão implementar o navegador de pilha, de foram que da tela Home pode-se voltar para a tela de Login.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
