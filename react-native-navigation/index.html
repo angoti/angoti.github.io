@@ -303,9 +303,11 @@ export default DetailsScreen;</pre>
 <h2 is-upgraded><strong>Resolução</strong></h2>
 <h3 is-upgraded><strong>Passo 1: Importação dos componentes</strong></h3>
 <p>No arquivo App.js, adicione as seguintes linhas no topo do arquivo:</p>
-<pre>import { View, Text, Button } from &#39;react-native&#39;;
-import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
-import { NavigationContainer } from &#39;@react-navigation/native&#39;;</pre>
+<pre>import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { HomeScreen } from &#39;./src/screens/HomeScreen&#39;
+import { ProfileScreen } from &#39;./src/screens/ProfileScreen&#39;
+import { SettingsScreen} from &#39;./src/screens/SettingsScreen&#39;</pre>
 <p>Neste passo, estamos importando os componentes necessários para configurar a navegação em gaveta no nosso aplicativo. O <code>createDrawerNavigator</code> é um componente fornecido pelo pacote @react-navigation/drawer, que nos permite criar um menu de navegação em gaveta. O <code>NavigationContainer</code> é o componente de nível superior fornecido pelo pacote @react-navigation/native que envolve toda a nossa navegação.</p>
 <h3 is-upgraded><strong>Passo 2: Configuração das telas</strong></h3>
 <p>Crie um diretório src/screens e adicione os seguintes arquivos:</p>
@@ -317,14 +319,17 @@ const HomeScreen = () =&gt; (
     &lt;Text&gt;Home Screen&lt;/Text&gt;
   &lt;/View&gt;
 );
+
 export default HomeScreen;</pre>
 <p>Arquivo <code>src/screens/ProfileScreen </code></p>
 <pre>import { View, Text } from &#39;react-native&#39;;
+
 const ProfileScreen = () =&gt; (
   &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
     &lt;Text&gt;Profile Screen&lt;/Text&gt;
   &lt;/View&gt;
 );
+
 export default ProfileScreen;</pre>
 <p>Arquivo <code>src/screens/SettingsScreen </code></p>
 <pre>import { View, Text } from &#39;react-native&#39;;
@@ -344,7 +349,7 @@ export default SettingsScreen;</pre>
 
 const App = () =&gt; (
   &lt;NavigationContainer&gt;
-    &lt;Drawer.Navigator initialRouteName=&#34;Home&#34;&gt;
+    &lt;Drawer.Navigator useLegacyImplementation initialRouteName=&#34;Home&#34;&gt;
       &lt;Drawer.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
       &lt;Drawer.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
       &lt;Drawer.Screen name=&#34;Settings&#34; component={SettingsScreen} /&gt;
@@ -582,6 +587,7 @@ const App = () =&gt; {
   return (
     &lt;NavigationContainer&gt;
       &lt;Drawer.Navigator
+        useLegacyImplementation
         screenOptions=&#123;&#123;
           headerStyle: {
             backgroundColor: &#39;#f4511e&#39;,
