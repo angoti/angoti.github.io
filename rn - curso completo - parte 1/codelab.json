@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-06-08T16:32:58Z",
+  "id": "",
+  "duration": 155,
+  "title": "Curso React Native - Introdução",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Demostração do uso",
+  "source": "17V0ueFIKhRPvJLr2_OirrZkp9xgmWwgwSlvx3alFFBM",
+  "theme": "reactnative",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "reactnative"
+  ],
+  "tags": [
+    "construção",
+    "web"
+  ],
+  "url": ""
+}
