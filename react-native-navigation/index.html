@@ -28,7 +28,7 @@
                   feedback-link="">
     
       <google-codelab-step label="Introdução" duration="5">
-        <aside class="special"><p>Última atualização: 31/05/2023</p>
+        <aside class="special"><p>Última atualização: 23/06/2023</p>
 </aside>
 <p>Em um navegador da web, você pode criar links para várias páginas usando uma tag âncora &lt;a&gt;. Quando o usuário clica em um link, o URL é enviado para a pilha do histórico do navegador. Quando o usuário clica no botão voltar, o navegador exibe o item do topo da pilha do histórico, de modo que a página atual agora é a página visitada anteriormente. </p>
 <p>O React Native não possui um conceito embutido de uma pilha de histórico global como um navegador da web; é aqui que o <strong>React Navigation</strong> é útil. O navegador de pilha do React Navigation implementa uma maneira de seu aplicativo fazer a transição entre as telas e manter o histórico de navegação. Uma variação significativa entre como isso é executado em um navegador da Web e o React Navigation é que o navegador de pilha do React Navigation produz os gestos e animações que você precisaria em dispositivos Android e iOS ao navegar entre rotas ou telas na pilha.</p>
@@ -472,7 +472,7 @@ const HomeScreen = () =&gt; {
 
 export default HomeScreen;</pre>
 <p>Em seguida, abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
-<p>Arquivo <code>src/screens/App  </code></p>
+<p>Arquivo <code>/App.js  </code></p>
 <pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
 import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
 import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
@@ -693,7 +693,7 @@ const App = () =&gt; {
   return (
     &lt;NavigationContainer&gt;
       &lt;Tab.Navigator&gt;
-        &lt;Tab.Screen name=&#34;Home&#34; component={HomeStack} /&gt;
+        &lt;Tab.Screen name=&#34;HomeStack&#34; component={HomeStack} /&gt;
         &lt;Tab.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
       &lt;/Tab.Navigator&gt;
     &lt;/NavigationContainer&gt;
@@ -706,7 +706,7 @@ export default App;</pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="Exercício 8: Navegação aninhada com Drawer Navigator dentro de um Stack Navigator" duration="0">
+      <google-codelab-step label="Exercício 8: Navegação aninhada com Stack Navigator dentro de um Drawer Navigator" duration="0">
         <p>Neste exercício, você irá criar uma navegação aninhada com um Drawer Navigator dentro de um Stack Navigator em um aplicativo React Native.</p>
 <h2 is-upgraded><strong>Passo 1: Criando as telas</strong></h2>
 <p>Crie os seguintes arquivos para as telas dentro do diretório src/screens:</p>
@@ -718,8 +718,8 @@ const HomeScreen = ({ navigation }) =&gt; {
     &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
       &lt;Text&gt;Home Screen&lt;/Text&gt;
       &lt;Button
-        title=&#34;Open Drawer&#34;
-        onPress={() =&gt; navigation.openDrawer()}
+        title=&#34;Go to Details&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Details&#39;)}
       /&gt;
     &lt;/View&gt;
   );
@@ -727,32 +727,24 @@ const HomeScreen = ({ navigation }) =&gt; {
 
 export default HomeScreen;</pre>
 <p>DetailsScreen.js:</p>
-<pre>import { View, Text, Button } from &#39;react-native&#39;;
+<pre>import { View, Text } from &#39;react-native&#39;;
 
 const DetailsScreen = ({ navigation }) =&gt; {
   return (
     &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
       &lt;Text&gt;Details Screen&lt;/Text&gt;
-      &lt;Button
-        title=&#34;Go back to Home&#34;
-        onPress={() =&gt; navigation.goBack()}
-      /&gt;
     &lt;/View&gt;
   );
 };
 
 export default DetailsScreen;</pre>
 <p>ProfileScreen.js:</p>
-<pre>import { View, Text, Button } from &#39;react-native&#39;;
+<pre>import { View, Text } from &#39;react-native&#39;;
 
 const ProfileScreen = ({ navigation }) =&gt; {
   return (
     &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
       &lt;Text&gt;Profile Screen&lt;/Text&gt;
-      &lt;Button
-        title=&#34;Go back to Home&#34;
-        onPress={() =&gt; navigation.goBack()}
-      /&gt;
     &lt;/View&gt;
   );
 };
@@ -782,8 +774,8 @@ const HomeStack = () =&gt; {
 const App = () =&gt; {
   return (
     &lt;NavigationContainer&gt;
-      &lt;Drawer.Navigator&gt;
-        &lt;Drawer.Screen name=&#34;Home&#34; component={HomeStack} /&gt;
+      &lt;Drawer.Navigator useLegacyImplementation&gt;
+        &lt;Drawer.Screen name=&#34;HomeStack&#34; component={HomeStack} /&gt;
         &lt;Drawer.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
       &lt;/Drawer.Navigator&gt;
     &lt;/NavigationContainer&gt;
