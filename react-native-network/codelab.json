@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-06-23T11:51:40Z",
+  "id": "",
+  "duration": 5,
+  "title": "Curso React Native - Networking",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Demostração do uso",
+  "source": "1ju-168PNvGqCDN_dRZcXX86UvdTUb911bn82EPmKgCQ",
+  "theme": "reactnative",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "reactnative"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": ""
+}

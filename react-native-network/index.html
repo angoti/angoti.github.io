@@ -1,0 +1,284 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Curso React Native - Networking</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Curso React Native - Networking"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <aside class="special"><p>Última atualização: 23/06/2023</p>
+</aside>
+<p class="image-container"><img style="width: 624.00px" src="img\\9764c7bab6d18b23.png"></p>
+<p>Você conhece aplicativos móveis para pedir comida. O cardápio, os preços e as informações sobre pedidos ficam armazenados em um banco de dados gerenciado por um <em>aplicativo de back-end</em>.</p>
+<p>Para acessar estes dados o app móvel deve fazer uma solicitação de API para o aplicativo de back-end. O aplicativo de back-end responderá com as informações solicitadas. O app móvel então usa os dados para criar uma interface para pedir comida.</p>
+<p>Neste tutorial, você aprenderá como fazer solicitações GET, POST, PUT e DELETE para APIs em um aplicativo React Native usando FetchAPI. </p>
+<aside class="special"><p>Referências:</p>
+<ul>
+<li><a href="https://reactnative.dev/docs/network" target="_blank">Networking - React Native</a> </li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">Fetch API - Javascript</a></li>
+</ul>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Como a Web funciona" duration="0">
+        <p class="image-container"><img style="width: 580.00px" src="img\\d3f8b58dfb7c52be.png"></p>
+<p>A web funciona através do envio e recebimento de dados através de uma vasta rede de dispositivos interconectados. Cada dispositivo conectado à web, seja um smartphone, um computador pessoal ou um servidor em um data center, possui um endereço IP único que permite sua identificação na rede.</p>
+<p>As páginas web são hospedadas em servidores. Quando você digita um URL (como www.example.com) no seu navegador, o navegador solicita essa página ao servidor que a hospeda. O servidor, então, responde com os dados da página, que o navegador interpreta e exibe para você como uma página web visualmente formatada.</p>
+<p>É aqui que o protocolo <strong>HTTP </strong>(Protocolo de Transferência de Hipertexto) entra em cena . HTTP é o protocolo fundamental utilizado para a transferência de dados na web. Ele define como as mensagens são formatadas e transmitidas, e quais ações os navegadores e servidores web devem tomar em resposta a vários comandos.</p>
+<p>Por exemplo, quando você digita um URL no seu navegador, na realidade está enviando uma solicitação HTTP ao servidor que hospeda essa página web. Esta solicitação inclui várias informações, incluindo o tipo de solicitação (GET para solicitar dados de um recurso específico, POST para enviar dados a um recurso, etc.), o URL do recurso e quaisquer outros dados que o navegador escolha incluir (como cabeçalhos que fornecem mais informações sobre a solicitação).</p>
+<p>O servidor, então, responde com uma mensagem HTTP própria, que inclui um código de status (como 200 para uma resposta bem-sucedida, 404 se o recurso não foi encontrado, etc.), os dados do recurso solicitado (se disponível) e quaisquer outros cabeçalhos que o servidor escolha incluir.</p>
+<p>O navegador interpreta a resposta, exibe os dados recebidos para o usuário (se apropriado) e toma quaisquer outras ações necessárias com base no código de status e cabeçalhos da resposta.</p>
+<p>Em resumo, a web funciona através da transferência de dados entre dispositivos por meio do protocolo HTTP. Este protocolo define como as solicitações e respostas são formatadas e tratadas, permitindo aos navegadores e dispositivos móveis e servidores se comunicarem eficientemente para entregar páginas web e serviços web.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Como os computadores conversam?" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\de32a079d4331aed.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\eae9747a98eb61a0.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Protocolo HTTP" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\f3fa76522e0e5cd3.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\652951eb43b562cd.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\1c55bcd2bb58e019.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\82f04c3a22c0789b.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Sistemas Web" duration="0">
+        <h2 is-upgraded><strong>Arquitetura Client / Server</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\59250264ef995d14.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\cdbce05dc5ae5efb.png"></p>
+<h2 is-upgraded><strong>Chrome DevTools</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\b69be75e8592c33c.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação das variáveis de estado" duration="0">
+        <p>Vá para Expo Snack e crie um novo snack para iniciar um novo projeto React Native, então abra o arquivo App.js e limpe o conteúdo do arquivo.</p>
+<p>Comece importando os hooks <code>useState</code> e <code>useEffect</code> do React, bem como os componentes Text, View e StyleSheet do React Native.</p>
+<pre>import {useState, useEffect} from &#39;react&#39;;
+import { Text, View, StyleSheet } from &#39;react-native&#39;;</pre>
+<p>Em seguida, defina a função App do app. Dentro do corpo da função, definimos o estado dos dados como um array vazio, o estado de carregamento como verdadeiro e, por enquanto, retornamos um simples texto &#34;Alô mundo&#34;.</p>
+<pre>export default function App() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  return (
+    &lt;View&gt;
+      &lt;Text&gt;Alô mundo&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Mock" duration="0">
+        <p>Em desenvolvimento de software, <strong><em>mock</em></strong> refere-se à técnica de simular o comportamento de objetos ou componentes reais durante testes unitários ou de integração. Essas técnicas permitem isolar partes específicas do código para testá-las de forma independente, sem depender de componentes externos ou complexos.</p>
+<p>Um &#34;mock&#34; é um objeto simulado que substitui o comportamento de um objeto real em um determinado contexto de teste. O mock é programado para se comportar como o objeto real, respondendo a chamadas de métodos específicos e retornando resultados pré-determinados. No entanto, ele não executa a lógica real do objeto ou componente original.</p>
+<p>Os mocks são especialmente úteis quando você precisa testar interações entre componentes e garantir que eles se comuniquem corretamente sem depender da implementação real. Eles permitem que você defina o comportamento esperado dos objetos dependentes e verifique se as chamadas de método foram feitas corretamente.</p>
+<p>Além disso, os mocks também podem ser usados para simular cenários de erro ou comportamentos específicos que seriam difíceis de reproduzir com objetos reais. Isso permite testar como o sistema se comporta em situações excepcionais.</p>
+<p>Existem várias bibliotecas e frameworks de teste que fornecem recursos para criação e uso de mocks, como o Mockito (para Java), o Jest (para JavaScript) e o unittest.mock (para Python). Essas ferramentas facilitam a criação de mocks e a verificação das interações durante os testes.</p>
+<p>Os dados que vamos consumir no nosso app serão obtidos de uma API mock chamada JSONPlaceholder. </p>
+<p>Esta API oferece seis recursos para ler, editar, atualizar ou excluir dados fazendo solicitações de API: </p>
+<ul>
+<li>criar uma nova postagem fazendo uma solicitação POST para esta API (ou seja, adicione um novo objeto)</li>
+<li>buscar uma postagem específica fazendo uma solicitação GET para esta API (ou seja, leia um objeto)</li>
+<li>atualizar uma postagem existente fazendo uma solicitação PUT para esta API (ou seja, modifique um objeto)</li>
+<li>excluir uma postagem existente fazendo uma solicitação DELETE para esta API (ou seja, remover um objeto)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Solicitação GET" duration="0">
+        <p>Uma solicitação API GET é um tipo de solicitação API usada para recuperar dados de um servidor. A solicitação é enviada por meio de um método HTTP GET e os dados são retornados na forma de um objeto JSON.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\cdad1fd720182ab0.png"></p>
+<p>Vamos fazer uma solicitação GET em nosso aplicativo React Native. O endereço URL para obter todos os posts existentes no banco de dados do mock é: </p>
+<pre>const url = &#34;https://jsonplaceholder.typicode.com/posts&#34;</pre>
+<p>Vamos usar a função fetch para executar a solicitação. A chamada à função fetch será feita dentro da função <code>useEffect</code> (como a chamada fetch dispara uma ação assíncrona, é necessário encapsular dentro do <em>hook</em>, que permite tratar os efeitos colaterais de forma adequada, como acontece sempre em chamadas de API):</p>
+<aside class="special"><p>Em programação, um &#34;efeito colateral&#34; é uma expressão que se refere a mudanças de estado ou comportamento que ocorrem como resultado de chamar uma função ou executar uma ação, além de simplesmente retornar um valor.</p>
+<p>Efeitos colaterais podem incluir:</p>
+<ul>
+<li>Alteração do estado de um programa</li>
+<li>Manipulação de entrada/saída (por exemplo, imprimir na tela, escrever em um arquivo, fazer uma solicitação de rede)</li>
+<li>Modificação de variáveis externas</li>
+<li>Lançamento de uma exceção</li>
+</ul>
+<p>Em React, o termo &#34;efeitos colaterais&#34; é comumente usado em relação aos Hooks. O Hook useEffect é usado para tratar efeitos colaterais em componentes funcionais. Exemplos de efeitos colaterais em um componente React podem incluir:</p>
+<ul>
+<li>Fazer uma solicitação de API (como no código a seguir)</li>
+<li>Subscrição a eventos</li>
+<li>Manipulação do DOM diretamente (embora isso seja raro em React, pois o objetivo é deixar o React lidar com o DOM)</li>
+<li>Armazenamento local ou operações de sessão</li>
+</ul>
+<p>Geralmente, você deseja minimizar e controlar os efeitos colaterais para manter seu código mais previsível e fácil de entender. No React os efeitos colaterais são geralmente isolados em Hooks como useEffect para torná-los mais gerenciáveis.</p>
+<p><a href="https://snack.expo.dev/@professor-angoti/useeffect-demo" target="_blank">Demonstração de useEffect</a></p>
+</aside>
+<pre>useEffect(() =&gt; {
+  fetch(url)
+    .then((resp) =&gt; resp.json())
+    .then((json) =&gt; setData(json))
+    .catch((error) =&gt; console.error(error))
+    .finally(() =&gt; setLoading(false));
+}, []);</pre>
+<p>A função <code>useEffect</code> aceita dois argumentos: uma função (neste caso, uma função assíncrona que busca dados de uma API) e um array que determina quando a função deve ser executada. Se o array estiver vazio (como neste exemplo, [ ]), a função será executada apenas uma vez após a renderização inicial, que acontece apenas uma vez durante o ciclo de execução do app. Se o array contiver alguma variável, a função será executada todas vez que houver alteração do valor desta variável. Para sabe mais sobre o hook useEffect, consulte a <a href="https://react.dev/reference/react/useEffect#useeffect" target="_blank">referência</a>.</p>
+<ul>
+<li><code>fetch(url)</code>: A função fetch é uma função embutida do JavaScript que é usada para fazer solicitações HTTP. Neste caso, ele está sendo usado para fazer uma solicitação GET para a URL fornecida (<a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">Referência</a>).</li>
+<li><code>.then((resp) => resp.json())</code>: Uma vez que a solicitação HTTP tenha sido completada, o fetch retorna uma promessa (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">Promise</a>) que retorna um objeto <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response" target="_blank">Response</a>. A função <code>json</code> é chamada neste objeto Response para transformar a resposta em objeto JSON, que é retorna na segunda promessa.</li>
+<li><code>.then((json) => setData(json))</code>: Quando a segunda promessa é resolvida (ou seja, os dados JSON foram extraídos), a função setData é chamada com os dados JSON. </li>
+<li><code>.catch((error) => console.error(error))</code>: Se alguma das promessas for rejeitada (ou seja, ocorre um erro), a função fornecida ao catch será chamada. Neste caso, a função simplesmente imprime o erro no console.</li>
+<li><code>.finally(() => setLoading(false));</code>: Independente de a promessa ser resolvida ou rejeitada (ou seja, se a solicitação HTTP teve sucesso ou falhou), a função fornecida ao <code>finally</code> será chamada. Neste caso, é chamada a função setLoading(false).</li>
+<li><code>}, []);</code>: Este é o fim da chamada à useEffect. Como mencionado anteriormente, o segundo argumento para useEffect é um array de dependências. Como este array está vazio, a função <code>useEffect</code> só será executada uma vez, após a renderização inicial.</li>
+</ul>
+<p>Por fim, renderizamos o post obtido da API:</p>
+<pre>&lt;View style={styles.container}&gt;
+    {loading
+      ? (&lt;Text&gt;Carregando...&lt;/Text&gt;) 
+      : (&lt;FlatList
+           data={data}
+           renderItem={({ item }) =&gt; {
+             return (
+               &lt;View&gt;
+                &lt;Text style={styles.title}&gt;{item.title}&lt;/Text&gt;
+                &lt;Text&gt;{item.body}&lt;/Text&gt;
+               &lt;/View&gt;
+             );
+           }}
+         /&gt;)}
+&lt;/View&gt;</pre>
+<p>Portanto, se a solicitação da API ainda estiver em andamento, mostramos o texto &#34;Carregando&#34; em nosso aplicativo. Depois que os dados são recuperados, percorremos o array e renderizamos o título e o texto de cada postagem.</p>
+<ul>
+<li><code>{loading ? (...</code> : Isto é um operador ternário, que é basicamente um atalho para um <em>if/else</em>. Se o valor de loading for verdadeiro, ele renderizará o que está entre os parênteses após a interrogação (&lt;Text&gt;Carregando...&lt;/Text&gt;). Se loading for falso, ele renderizará o que está entre os parênteses após os dois pontos (:).</li>
+</ul>
+<p>Por fim a estilização do componente:</p>
+<pre>const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: &#34;center&#34;,
+    backgroundColor: &#34;#ecf0f1&#34;,
+    padding: 8,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: &#34;bold&#34;,
+  },
+});</pre>
+<p>Aqui está o resultado quando as postagens são retornadas da API.</p>
+<p class="image-container"><img style="width: 322.00px" src="img\\fe79d41589e9fbec.png"></p>
+<p>Como você pode ver, buscamos com sucesso a lista de postagens da API e renderizamos cada uma delas em nosso aplicativo React Native.</p>
+<p>Agora, se você deseja recuperar um recurso específico (como uma postagem específica) em vez de uma coleção de recursos como uma lista de postagens, tudo o que você precisa fazer é adicionar o ID do recurso à URL da seguinte forma:</p>
+<pre>const url = &#34;https://jsonplaceholder.typicode.com/posts/1&#34;</pre>
+<p>Se fizermos uma solicitação GET para o endpoint da API acima, o servidor nos retornará apenas a postagem com um ID de 1.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Solicitação POST" duration="0">
+        <p>Uma solicitação POST é um tipo de solicitação API usada para criar um recurso em um servidor web. Ela envia dados para o servidor no corpo da solicitação. Se os dados forem aceitos, o servidor responde com um código de sucesso e o recurso é criado ou atualizado.</p>
+<p>Ao fazer uma solicitação POST com FetchAPI, você deve especificar o método como &#39;POST&#39;. Aqui está um exemplo de um POST para o servidor falso do nosso aplicativo React Native:</p>
+<pre>fetch(&#34;https://jsonplaceholder.typicode.com/posts&#34;, {
+  method: &#34;POST&#34;,
+  headers: {
+    Accept: &#34;application/json&#34;,
+    &#34;Content-Type&#34;: &#34;application/json&#34;,
+  },
+  body: JSON.stringify({
+    userId: 55,
+    id: 101,
+    title: &#34;Post title&#34;,
+    body: &#34;Post body&#34;,
+  }),
+})
+  .then((response) =&gt; response.json())
+  .then((responseData) =&gt; {
+    console.log(JSON.stringify(responseData));
+  })
+  .done();</pre>
+<p>O corpo (<code>body</code>) da solicitação deve sempre ser um objeto JSON, por isso chamamos a função JSON.stringify().</p>
+<p>Depois que o servidor termina de processar a solicitação, ele envia uma resposta para informar se o recurso foi criado no servidor ou não (e por que falhou).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Solicitação PUT" duration="0">
+        <p>Uma solicitação PUT deve ser usada para atualizar um recurso específico no servidor.</p>
+<p>Em uma solicitação PUT, você precisa especificar o ID do recurso que deseja atualizar no servidor, bem como os novos valores. Aqui está um exemplo que atualiza o título e o corpo da postagem no servidor:</p>
+<pre>fetch(&#34;https://jsonplaceholder.typicode.com/posts/1&#34;, {
+  method: &#34;PUT&#34;,
+  body: JSON.stringify({
+    userId: 55,
+    id: 101,
+    title: &#34;New Post title&#34;,
+    body: &#34;New Post body&#34;,
+  }),
+})
+  .then((response) =&gt; response.json())
+  .then((responseData) =&gt; {
+    console.log(JSON.stringify(responseData));
+  })
+  .done();</pre>
+<p>Semelhante a uma solicitação POST, o servidor envia uma resposta para informar se o recurso foi atualizado no servidor ou não (e por que falhou).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Solicitação DELETE" duration="0">
+        <p>Como você deve ter adivinhado, uma solicitação DELETE é usada para excluir um recurso específico de um servidor.</p>
+<p>Em uma solicitação DELETE, você especifica apenas o ID do recurso que deseja excluir no servidor:</p>
+<pre>fetch(&#34;https://jsonplaceholder.typicode.com/posts/1&#34;, {
+  method: &#34;DELETE&#34;,
+  headers: {
+    Accept: &#34;application/json&#34;,
+    &#34;Content-Type&#34;: &#34;application/json&#34;,
+  },
+})
+  .then((response) =&gt; response.json())
+  .then((responseData) =&gt; {
+    console.log(JSON.stringify(responseData));
+  })
+  .done();</pre>
+<p>Depois que o servidor conclui o processamento da solicitação, ele envia uma resposta para informar se o recurso foi excluído do servidor ou não (e por que falhou).</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
