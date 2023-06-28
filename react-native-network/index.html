@@ -87,7 +87,7 @@
         <p>Vá para Expo Snack e crie um novo snack para iniciar um novo projeto React Native, então abra o arquivo App.js e limpe o conteúdo do arquivo.</p>
 <p>Comece importando os hooks <code>useState</code> e <code>useEffect</code> do React, bem como os componentes Text, View e StyleSheet do React Native.</p>
 <pre>import {useState, useEffect} from &#39;react&#39;;
-import { Text, View, StyleSheet } from &#39;react-native&#39;;</pre>
+import { Text, View, StyleSheet, FlatList } from &#39;react-native&#39;;</pre>
 <p>Em seguida, defina a função App do app. Dentro do corpo da função, definimos o estado dos dados como um array vazio, o estado de carregamento como verdadeiro e, por enquanto, retornamos um simples texto &#34;Alô mundo&#34;.</p>
 <pre>export default function App() {
   const [data, setData] = useState([]);
@@ -102,13 +102,13 @@ import { Text, View, StyleSheet } from &#39;react-native&#39;;</pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="API Mock" duration="0">
+      <google-codelab-step label="{JSON} Placeholder API Mock" duration="0">
         <p>Em desenvolvimento de software, <strong><em>mock</em></strong> refere-se à técnica de simular o comportamento de objetos ou componentes reais durante testes unitários ou de integração. Essas técnicas permitem isolar partes específicas do código para testá-las de forma independente, sem depender de componentes externos ou complexos.</p>
 <p>Um &#34;mock&#34; é um objeto simulado que substitui o comportamento de um objeto real em um determinado contexto de teste. O mock é programado para se comportar como o objeto real, respondendo a chamadas de métodos específicos e retornando resultados pré-determinados. No entanto, ele não executa a lógica real do objeto ou componente original.</p>
 <p>Os mocks são especialmente úteis quando você precisa testar interações entre componentes e garantir que eles se comuniquem corretamente sem depender da implementação real. Eles permitem que você defina o comportamento esperado dos objetos dependentes e verifique se as chamadas de método foram feitas corretamente.</p>
 <p>Além disso, os mocks também podem ser usados para simular cenários de erro ou comportamentos específicos que seriam difíceis de reproduzir com objetos reais. Isso permite testar como o sistema se comporta em situações excepcionais.</p>
 <p>Existem várias bibliotecas e frameworks de teste que fornecem recursos para criação e uso de mocks, como o Mockito (para Java), o Jest (para JavaScript) e o unittest.mock (para Python). Essas ferramentas facilitam a criação de mocks e a verificação das interações durante os testes.</p>
-<p>Os dados que vamos consumir no nosso app serão obtidos de uma API mock chamada JSONPlaceholder. </p>
+<p>Os dados que vamos consumir no nosso app serão obtidos de uma API mock chamada <a href="https://jsonplaceholder.typicode.com/" target="_blank">JSONPlaceholder</a>. </p>
 <p>Esta API oferece seis recursos para ler, editar, atualizar ou excluir dados fazendo solicitações de API: </p>
 <ul>
 <li>criar uma nova postagem fazendo uma solicitação POST para esta API (ou seja, adicione um novo objeto)</li>
@@ -168,7 +168,7 @@ import { Text, View, StyleSheet } from &#39;react-native&#39;;</pre>
            data={data}
            renderItem={({ item }) =&gt; {
              return (
-               &lt;View&gt;
+               &lt;View style={styles.container}&gt;
                 &lt;Text style={styles.title}&gt;{item.title}&lt;/Text&gt;
                 &lt;Text&gt;{item.body}&lt;/Text&gt;
                &lt;/View&gt;
@@ -187,6 +187,8 @@ import { Text, View, StyleSheet } from &#39;react-native&#39;;</pre>
     justifyContent: &#34;center&#34;,
     backgroundColor: &#34;#ecf0f1&#34;,
     padding: 8,
+    marginTop: 30,
+    borderTopWidth:1,
   },
   title: {
     fontSize: 30,
@@ -194,11 +196,8 @@ import { Text, View, StyleSheet } from &#39;react-native&#39;;</pre>
   },
 });</pre>
 <p>Aqui está o resultado quando as postagens são retornadas da API.</p>
-<p class="image-container"><img style="width: 322.00px" src="img\\fe79d41589e9fbec.png"></p>
+<p class="image-container"><img style="width: 473.00px" src="img\\a611bc1c1f1e973a.png"></p>
 <p>Como você pode ver, buscamos com sucesso a lista de postagens da API e renderizamos cada uma delas em nosso aplicativo React Native.</p>
-<p>Agora, se você deseja recuperar um recurso específico (como uma postagem específica) em vez de uma coleção de recursos como uma lista de postagens, tudo o que você precisa fazer é adicionar o ID do recurso à URL da seguinte forma:</p>
-<pre>const url = &#34;https://jsonplaceholder.typicode.com/posts/1&#34;</pre>
-<p>Se fizermos uma solicitação GET para o endpoint da API acima, o servidor nos retornará apenas a postagem com um ID de 1.</p>
 
 
       </google-codelab-step>
