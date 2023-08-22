@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Curso React Native - Introdução</title>
+  <title>Curso React Native</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
@@ -23,7 +23,7 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id=""
-                  title="Curso React Native - Introdução"
+                  title="Curso React Native"
                   environment="web"
                   feedback-link="">
     
@@ -35,7 +35,7 @@
 <p>O React Native possui várias características distintivas que o tornam uma escolha popular entre os desenvolvedores. Vamos explorar algumas das principais características e recursos que tornam o React Native uma estrutura de desenvolvimento móvel tão poderosa:</p>
 <ul>
 <li>Desenvolvimento Multiplataforma: O React Native permite que você desenvolva aplicativos móveis para iOS e Android usando uma base de código comum. Isso significa que você pode compartilhar a lógica de negócios, componentes e funcionalidades entre as duas plataformas, economizando tempo e esforço significativos no desenvolvimento.</li>
-<li>Componentes Reutilizáveis: O React Native oferece um conjunto rico de componentes pré-definidos, conhecidos como &#34;componentes principais&#34; (core components). Esses componentes são construídos com base nos elementos nativos da interface do usuário das plataformas iOS e Android. Além disso, você também pode criar seus próprios componentes personalizados para reutilização em vários aplicativos e projetos.</li>
+<li>Componentes Reutilizáveis: O React Native oferece um conjunto rico de componentes pré-definidos, conhecidos como &#34;componentes básicos&#34; (core components). Esses componentes são construídos com base nos elementos nativos da interface do usuário das plataformas iOS e Android. Além disso, você também pode criar seus próprios componentes personalizados para reutilização em vários aplicativos e projetos.</li>
 <li>Abordagem Declarativa: O React Native segue uma abordagem declarativa, em que você descreve como a interface do usuário deve ser renderizada com base no estado atual do aplicativo. Com essa abordagem, você não precisa se preocupar em manipular diretamente as atualizações de interface do usuário. Em vez disso, você define como a interface deve ser exibida em diferentes estados e o React Native se encarrega de atualizá-la de forma eficiente.</li>
 <li>Hot Reload: O recurso de &#34;hot reload&#34; do React Native permite que você veja as alterações feitas no código instantaneamente no aplicativo em execução, sem precisar recompilar ou reiniciar o aplicativo. Isso acelera o processo de desenvolvimento, permitindo que você faça alterações e itere rapidamente na interface do usuário, estilos e lógica de negócios.</li>
 <li>Acesso a Recursos Nativos: Embora você desenvolva aplicativos usando JavaScript, o React Native oferece acesso a recursos e APIs nativas do dispositivo por meio de módulos JavaScript específicos. Isso significa que você pode acessar facilmente funcionalidades como câmera, GPS, sensores e notificações push, aproveitando as capacidades completas do dispositivo.</li>
@@ -415,47 +415,50 @@ function App() {
 
 export default App;</pre>
 <h2 is-upgraded><strong>Exercícios</strong></h2>
+<p>Para o exercício 2 use o código  a seguir como modelo.</p>
+<pre>import { View, StyleSheet } from &#39;react-native&#39;;
+import { SafeAreaView } from &#39;react-native-safe-area-context&#39;;
+
+function App() {
+  return (
+    &lt;SafeAreaView style={styles.container}&gt;
+      &lt;View style={[styles.quadrado, styles.cor1]} /&gt;
+      &lt;View style={[styles.quadrado, styles.cor2]} /&gt;
+      &lt;View style={[styles.quadrado, styles.cor3]} /&gt;
+      &lt;View style={[styles.quadrado, styles.cor4]} /&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  quadrado: {
+    width: 100,
+    height: 100,
+  },
+  cor1: {
+    backgroundColor: &#39;#50E3C2&#39;,
+  },
+  cor2: {
+    backgroundColor: &#39;#4A90E2&#39;,
+  },
+  cor3: {
+    backgroundColor: &#39;#9013FE&#39;,
+  },
+  cor4: {
+    backgroundColor: &#39;#F5A623&#39;,
+  },
+  container: {
+    margin: 8,
+  },
+});
+
+export default App;</pre>
+<p>Este código gera a tela:</p>
+<p class="image-container"><img style="width: 285.00px" src="img\\a65185f96f765000.png"></p>
 <aside class="warning"><ol type="1" start="1">
 <li>Resolver os 24 exercícios sobre <a href="https://flexboxfroggy.com/" target="_blank">Flexbox </a></li>
 <li>Para os próximos exercícios use Flexbox e o exemplo abaixo para exibir quadrados na tela:</li>
 </ol>
-<p><code>import { View, StyleSheet } from 'react-native';</code></p>
-<p><code>function App() {</code></p>
-<p><code>  return (</code></p>
-<p><code>    <View style={styles.container}></code></p>
-<p><code>      <View style={[styles.quadrado, styles.cor1]} /></code></p>
-<p><code>      <View style={[styles.quadrado, styles.cor2]} /></code></p>
-<p><code>      <View style={[styles.quadrado, styles.cor3]} /></code></p>
-<p><code>      <View style={[styles.quadrado, styles.cor4]} /></code></p>
-<p><code>    </View></code></p>
-<p><code>  );</code></p>
-<p><code>}</code></p>
-<p><code>const styles = StyleSheet.create({</code></p>
-<p><code>  quadrado: {</code></p>
-<p><code>    width: 100,</code></p>
-<p><code>    height: 100,</code></p>
-<p><code>  },</code></p>
-<p><code>  cor1: {</code></p>
-<p><code>    backgroundColor:'#50E3C2'</code></p>
-<p><code>  },</code></p>
-<p><code>  cor2: {</code></p>
-<p><code>    backgroundColor:'#4A90E2'</code></p>
-<p><code>  },</code></p>
-<p><code>  cor3: {</code></p>
-<p><code>    backgroundColor:'#9013FE'</code></p>
-<p><code>  },</code></p>
-<p><code>  cor4: {</code></p>
-<p><code>    backgroundColor:'#F5A623'</code></p>
-<p><code>  },</code></p>
-<p><code>  container: {</code></p>
-<p><code>    margin:8,</code></p>
-<p><code>    marginTop: 30,</code></p>
-<p><code>  },</code></p>
-<p><code>});</code></p>
-<p><code>export default App;</code></p>
-<p>O código acima exibe na tela 4 quadrados empilhados, veja imagem abaixo:</p>
-<p class="image-container"><img style="width: 285.00px" src="img\\a65185f96f765000.png"></p>
-<p>Escrever código para gerar as telas abaixo:</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 215.18px" src="img\\c856f20938b8a811.png"></p>
 <p>2.1</p>
