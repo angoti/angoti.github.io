@@ -915,53 +915,62 @@ const styles = StyleSheet.create({
 
 export default App;</pre>
 <h2 is-upgraded><strong>Exercícios com solução</strong></h2>
+<pre><code>const data = [
+  { id: &#39;1&#39;, title: &#39;Item 1&#39; },
+  { id: &#39;2&#39;, title: &#39;Item 2&#39; },
+  { id: &#39;3&#39;, title: &#39;Item 3&#39; },
+];</code></pre>
+<p>Listagem 1</p>
+<pre><code>import { View, FlatList, Text } from &#39;react-native&#39;;
+function ListaItens() {
+  const data = [
+    { id: &#39;1&#39;, title: &#39;Item 1&#39; },
+    { id: &#39;2&#39;, title: &#39;Item 2&#39; },
+    { id: &#39;3&#39;, title: &#39;Item 3&#39; },
+  ];
+
+  const renderItem = ({ item }) =&gt; (
+    &lt;View&gt;
+      &lt;Text&gt;{item.title}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+
+  return (
+    &lt;FlatList
+      data={data}
+      renderItem={renderItem}
+    /&gt;
+  );
+}
+export default ListaItens;</code></pre>
+<p>Listagem 2</p>
+<pre><code>const renderItem = ({ item }) =&gt; (
+  &lt;View style=&#123;&#123; backgroundColor: &#39;lightblue&#39;, marginVertical: 5, padding: 10, borderRadius: 5 }}&gt;
+    &lt;Text&gt;{item.title}&lt;/Text&gt;
+  &lt;/View&gt;
+);</code></pre>
+<p>Listagem 3</p>
+<pre>const renderItem = ({ item }) =&gt; (
+  &lt;Pressable onPress={() =&gt; Alert.alert(&#39;Item Pressionado&#39;, `ID: ${item.id}, Título: ${item.title}`)}&gt;
+    &lt;View style=&#123;&#123; backgroundColor: &#39;lightblue&#39;, marginVertical: 5, padding: 10, borderRadius: 5 }}&gt;
+      &lt;Text&gt;{item.title}&lt;/Text&gt;
+    &lt;/View&gt;
+  &lt;/Pressable&gt;
+);</pre>
+<p>Listagem 4</p>
 <aside class="warning"><h3 is-upgraded><strong>Exercício 1: Renderizando uma lista simples</strong></h3>
 <p>Crie um array de objetos, por exemplo:</p>
-<p><code>const data = [</code></p>
-<p><code>  { id: '1', title: 'Item 1' },</code></p>
-<p><code>  { id: '2', title: 'Item 2' },</code></p>
-<p><code>  { id: '3', title: 'Item 3' },</code></p>
-<p><code>];</code></p>
+<p><strong>ver listagem 1 acima</strong></p>
 <p>Crie um componente funcional chamado ListaItens que renderize um FlatList com os dados fornecidos. Utilize a propriedade <code>data</code> para passar o array de objetos e a propriedade <code>renderItem</code> para renderizar cada item da lista.</p>
-<p><code>import React from 'react';</code></p>
-<p><code>import { View, FlatList, Text } from 'react-native';</code></p>
-<p><code>function ListaItens() {</code></p>
-<p><code>  const data = [</code></p>
-<p><code>    { id: '1', title: 'Item 1' },</code></p>
-<p><code>    { id: '2', title: 'Item 2' },</code></p>
-<p><code>    { id: '3', title: 'Item 3' },</code></p>
-<p><code>  ];</code></p>
-<p><code>  const renderItem = ({ item }) => (</code></p>
-<p><code>    <View></code></p>
-<p><code>      <Text>{item.title}</Text></code></p>
-<p><code>    </View></code></p>
-<p><code>  );</code></p>
-<p><code>  return (</code></p>
-<p><code>    <FlatList</code></p>
-<p><code>      data={data}</code></p>
-<p><code>      renderItem={renderItem}</code></p>
-<p><code>    /></code></p>
-<p><code>  );</code></p>
-<p><code>}</code></p>
-<p><code>export default ListaItens;</code></p>
+<p><strong>ver Listagem 2 acima</strong></p>
 <p>Renderize o componente ListaItens em seu aplicativo para visualizar a lista simples sendo exibida.</p>
 <h3 is-upgraded><strong>Exercício 2: Personalizando o estilo dos itens da lista</strong></h3>
 <p>Modifique o componente renderItem para personalizar o estilo dos itens da lista. Por exemplo, adicione uma cor de fundo, margens, bordas, etc.</p>
-<p><code>const renderItem = ({ item }) => (</code></p>
-<p><code>  <View style=&#123;&#123; backgroundColor: 'lightblue', marginVertical: 5, padding: 10, borderRadius: 5 }}></code></p>
-<p><code>    <Text>{item.title}</Text></code></p>
-<p><code>  </View></code></p>
-<p><code>);</code></p>
+<p><strong>ver Listagem 3 acima</strong></p>
 <p>Verifique a aparência atualizada dos itens da lista.</p>
 <h3 is-upgraded><strong>Exercício 3: Lidando com eventos nos itens da lista</strong></h3>
 <p>Modifique o componente renderItem para adicionar um evento de pressionar nos itens da lista. Por exemplo, exiba um alerta quando um item for pressionado.</p>
-<p><code>const renderItem = ({ item }) => (</code></p>
-<p><code>  <Pressable onPress={() => Alert.alert('Item Pressionado', `ID: ${item.id}, Título: ${item.title}`)}></code></p>
-<p><code>    <View style=&#123;&#123; backgroundColor: 'lightblue', marginVertical: 5, padding: 10, borderRadius: 5 }}></code></p>
-<p><code>      <Text>{item.title}</Text></code></p>
-<p><code>    </View></code></p>
-<p><code>  </Pressable></code></p>
-<p><code>);</code></p>
+<p><strong>ver Listagem 4 acima</strong></p>
 <p>Verifique se o alerta é exibido corretamente ao pressionar um item da lista.</p>
 </aside>
 <aside class="special"><p>A prática constante ajudará você a se familiarizar e aperfeiçoar suas habilidades com a FlatList no React Native.</p>
