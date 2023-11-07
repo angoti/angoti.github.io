@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-11-07T21:59:26Z",
+  "id": "",
+  "duration": 195,
+  "title": "Codelab - Autenticação Firebase/Google",
+  "authors": "Edson Angoti Júnior",
+  "summary": "React native e firebase. Última atualização: 21/06/2023",
+  "source": "1AZW0nZbQD2RGNFvQP3z9dAlBU2Px8_qVZ0z0UGozqiI",
+  "theme": "mobile",
+  "status": [
+    "emconstrução"
+  ],
+  "category": [
+    "mobile"
+  ],
+  "tags": [
+    "mobile"
+  ],
+  "url": ""
+}

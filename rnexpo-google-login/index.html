@@ -1,0 +1,512 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Autenticação Firebase/Google</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - Autenticação Firebase/Google"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <aside class="special"><p>Última atualização: 21/06/2023</p>
+</aside>
+<p>Neste tutorial iremos desenvolver um aplicativo usando React Native. Este aplicativo terá como principal funcionalidade a autenticação de usuários através do Login do Google, utilizando o Firebase como nosso backend.</p>
+<p>React Native é uma framework que nos permite desenvolver aplicativos nativos para Android e iOS usando JavaScript e React. É uma ótima escolha para desenvolvedores que desejam criar aplicativos móveis de alta qualidade com agilidade e eficiência.</p>
+<p>Neste tutorial, vamos focar na criação de um sistema de autenticação de usuário. A autenticação é um aspecto crucial de muitos aplicativos modernos, e o Login do Google é uma das maneiras mais populares de realizar essa tarefa.</p>
+<p>Para tornar as coisas ainda melhores, vamos integrar nosso aplicativo React Native com o Firebase. O Firebase é uma plataforma de desenvolvimento de aplicativos da Google que fornece uma variedade de serviços, incluindo um sistema de autenticação robusto. Ao usar o Firebase, podemos facilmente configurar e gerenciar a autenticação do usuário em nosso aplicativo.</p>
+<h3 is-upgraded><strong>O que você vai fazer </strong></h3>
+<ul>
+<li>Desenvolver um app com autenticação via Google </li>
+</ul>
+<h3 is-upgraded><strong>O que você vai aprender</strong></h3>
+<ul>
+<li>Usar o FireBase com o pacote <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a> </li>
+<li>Usar Stack Navigation com o pacote <a href="https://reactnavigation.org/" target="_blank">React Navigation</a></li>
+</ul>
+<h3 is-upgraded><strong>O que você precisa</strong></h3>
+<ul>
+<li>VSCode</li>
+<li>Uma conta Google</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configurando o Firebase" duration="10">
+        <p>O Firebase vai funcionar como back-end da aplicação. Vamos começar criando um projeto através do <a href="https://console.firebase.google.com/" target="_blank">console do Firebase</a>. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\4b307fd6e94fa853.png"></p>
+<p>Insira um nome de projeto e pressione para continuar.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\6253aa488a949965.png"></p>
+<p>Agora você será perguntado se deseja habilitar o Google Analytics para seu projeto. Não habilite e continue.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\e1dbee0ce12f0343.png"></p>
+<p>Clique em <code>Criar Projeto</code>. Agora o Firebase alocará recursos para o projeto. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\992f250b498cfaee.png"></p>
+<p>Quando terminar, pressione <code>Continuar</code> para prosseguir para o painel do projeto. Agora, vamos configurar a autenticação.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ativando a autenticação" duration="10">
+        <p>Na barra de navegação lateral clique em <code>Criação/Autenticação.</code></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\533c978878579fdf.png"></p>
+<p>e será apresentada a seguinte tela e você deverá clicar em <code>Primeiros passos</code>.  Isso habilitará o módulo de autenticação:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\643313987d4aaf8f.png"></p>
+<p>Vamos utilizar a autenticação do Google. Clique em <code>Google</code> e forneça o seu email. Veja abaixo como ficará a tela:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\9df021cf4e982890.png"></p>
+<p>Você configurou com sucesso a autenticação do Google em seu projeto do Firebase.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criando um app Android no Firebase" duration="10">
+        <p>Em uma etapa posterior vamos precisar da configuração associada a um app criado no console do Firebase. Clique no ícone de engrenagem na barra lateral e vá para as configurações do projeto. </p>
+<p class="image-container"><img style="width: 447.00px" src="img\\56ef2dabab0697d7.png"></p>
+<p>Role a tela até aparecer o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\36246443d7758c71.png"></p>
+<p>Clique no segundo ícone, que representa uma aplicação Android. Forneça um nome de pacote para o aplicativo e clique em <code>Registrar app</code>.</p>
+<p class="image-container"><img style="width: 597.00px" src="img\\68c161bba1b26859.png"></p>
+<p>Após você deverá fazer o download do arquivo de configuração:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\4c3ec8eb70de4103.png"></p>
+<p>O seu arquivo <code>google-services.json</code> será parecido com este:</p>
+<pre><code>{
+  &#34;project_info&#34;: {
+    &#34;project_number&#34;: &#34;184594998406&#34;,
+    &#34;project_id&#34;: &#34;lista-de-tarefas-d0615&#34;,
+    &#34;storage_bucket&#34;: &#34;lista-de-tarefas-d0615.appspot.com&#34;
+  },
+  &#34;client&#34;: [
+    {
+      &#34;client_info&#34;: {
+        &#34;mobilesdk_app_id&#34;: &#34;1:184594998406:android:9df3ac0ca5d0ff788a9d07&#34;,
+        &#34;android_client_info&#34;: {
+          &#34;package_name&#34;: &#34;com.professorangoti.listadetarefas&#34;
+        }
+      },
+      &#34;oauth_client&#34;: [
+        {
+          &#34;client_id&#34;: &#34;184594998406-d9fmffc8tj8dgcev6qlm29q5e9issrtc.apps.googleusercontent.com&#34;,
+          &#34;client_type&#34;: 3
+        }
+      ],
+      &#34;api_key&#34;: [
+        {
+          &#34;current_key&#34;: &#34;AIzaSyBCsJYBXCRdm35_JpeKFHAUdP5yGIKcVJ8&#34;
+        }
+      ],
+      &#34;services&#34;: {
+        &#34;appinvite_service&#34;: {
+          &#34;other_platform_oauth_client&#34;: [
+            {
+              &#34;client_id&#34;: &#34;184594998406-d9fmffc8tj8dgcev6qlm29q5e9issrtc.apps.googleusercontent.com&#34;,
+              &#34;client_type&#34;: 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  &#34;configuration_version&#34;: &#34;1&#34;
+}</code></pre>
+<p>Ignore todas as próximas etapas.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação do App React Native" duration="20">
+        <p>Vamos criar uma aplicação React native. Primeiro abra um terminal e use os seguintes comandos: </p>
+<pre><code>npx create-expo-app nome-da-aplicação
+cd nome-da-aplicação
+code .</code></pre>
+<p>Em seguida, execute o seguinte comando em um terminal para iniciar o servidor Metro Bundler:</p>
+<pre><code>npx expo start</code></pre>
+<p>Você verá as seguintes informações na tela:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\9d7b153e8d563885.png"></p>
+<p>Se o seu ambiente estiver corretamente configurado (este tutorial não inclui a configuração do ambiente de desenvolvimento), pressione a letra <code>a</code> no teclado do seu computador para abrir o app em um emulador Android. </p>
+<p>Em alguns instantes o app será executado e teremos então a seguinte tela:</p>
+<p class="image-container"><img style="width: 475.00px" src="img\\24654d1845688db4.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Instalando os pacotes Firebase, Google SignIn e React Navigation" duration="20">
+        <p>Para instalar os pacotes você precisa para o servidor usando CTRL + C.</p>
+<ul>
+<li>Vamos usar o <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a>, que é uma coleção de pacotes oficialmente recomendada que oferece suporte ao React Native para todos os serviços do Firebase em aplicativos Android e iOS.</li>
+</ul>
+<pre><code>npx expo install @react-native-firebase/app</code></pre>
+<ul>
+<li>A biblioteca <a href="https://rnfirebase.io/auth/social-auth#google" target="_blank">React Native Google Signin</a> fornece um wrapper em torno da biblioteca oficial de login do Google, permitindo que você crie uma credencial e faça login no Firebase.</li>
+</ul>
+<pre><code>npx expo install @react-native-google-signin/google-signin</code></pre>
+<ul>
+<li>Adicione o pacote <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a>, composto de alguns utilitários responsáveis para criar a estrutura de navegação em seu aplicativo. No nosso app vamos usar navegação em pilha, que emula a navegação na web.</li>
+</ul>
+<pre><code>npm install @react-navigation/native @react-navigation/native-stack @react-navigation/drawer</code></pre>
+<pre><code>npx expo install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criando o módulo android no projeto" duration="40">
+        <p>Execute o seguinte comando no terminal na raiz do seu projeto:</p>
+<pre><code>npx expo prebuild --clean</code></pre>
+<p>Quando perguntar o nome do pacote, responda com o nome fornecido no passo 4 deste tutorial.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configuração da biblioteca React Native Firebase" duration="20">
+        <ol type="1" start="1">
+<li>O arquivo de configuração <code>google-services.json</code> que obtivemos no passo 4 deve ser copiado para dentro de seu projeto no seguinte local: /android/app/.</li>
+</ol>
+<p class="image-container"><img style="width: 265.00px" src="img\\143f58def50dbddd.png"></p>
+<ol type="1" start="2">
+<li>Abra o arquivo <code>/android/app/build.gradle</code> e adicione o seguinte código:</li>
+</ol>
+<pre><code>apply plugin: &#39;com.android.application&#39;
+apply plugin: &#39;com.google.gms.google-services&#39; // &lt;- Adicione esta linha</code></pre>
+<ol type="1" start="3">
+<li>Adicione o plugin <code>google-services</code> como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
+</ol>
+<pre><code>buildscript {
+  dependencies {
+    // ... outras dependencias
+    classpath (&#39;com.google.gms:google-services:4.4.0&#39;)  // &lt;- Adicione esta linha
+  }
+}</code></pre>
+<ol type="1" start="4">
+<li>Vamos gerar chaves para configurar o app no Firebase console. </li>
+</ol>
+<pre><code>cd android &amp;&amp; gradlew signingReport</code></pre>
+<p>Isso gera duas chaves. Você precisa copiar as chaves &#39;SHA1&#39; e &#39;SHA-256&#39; que pertencem à variante  &#39;<code>debugAndroidTest</code>&#39;  indicando o diretório de sua aplicação. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\35561d7f023fcd61.png"></p>
+<p>Em seguida, você pode adicionar essas chaves às &#34;impressões digitais do certificado SHA&#34; em seu aplicativo no Firebase console. Veja sequencia de imagens a seguir:</p>
+<p class="image-container"><img style="width: 445.00px" src="img\\da8ad9d43113defc.png"></p>
+<p>Role a página até aparecer o seu aplicativo Android</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\a955849ffe33ecf8.png"></p>
+<p>Copie as chaves geradas no campo <code>Impressão digital do certificado</code>. </p>
+<ol type="1" start="5">
+<li>Edite o arquivo <code>app.json</code></li>
+</ol>
+<pre><code>{
+  &#34;expo&#34;: {
+    &#34;android&#34;: {
+      &#34;googleServicesFile&#34;: &#34;./android/app/google-services.json&#34; // &lt;- Adicione esta linha
+    },
+    
+    &#34;plugins&#34;: [ // &lt;- Adicione estas linhas
+      &#34;@react-native-firebase/app&#34;,
+      &#34;@react-native-firebase/auth&#34;,
+      &#34;@react-native-google-signin/google-signin&#34;
+    ] // &lt;- até aqui
+  }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Fluxo de login/logout" duration="40">
+        <p>Arquivo <code>App.js</code></p>
+<pre><code>import &#39;react-native-gesture-handler&#39;;
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+} from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import { createContext, useContext, useEffect, useState } from &#39;react&#39;;
+import GoogleLogin, {
+  getSilentlyCurrentUserInfo,
+  isGoogleSignedIn,
+  logOut,
+} from &#39;./firebase-auth&#39;;
+
+// Contexto controla o estado da autenticação
+export const AuthContext = createContext({
+  hasUser: false,
+  setUser: estado =&gt; {
+    hasUser = estado;
+  },
+});
+
+// botão logout
+export const botaoSair = setUser =&gt; {
+  return (
+    &lt;View style=&#123;&#123; marginRight: 12 }}&gt;
+      &lt;Button
+        title=&#34;Sair&#34;
+        onPress={() =&gt; {
+          setUser(false);
+          logOut();
+        }}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+// Telas
+export const PrimeiraTela = () =&gt; {
+  const { setUser } = useContext(AuthContext);
+  return (
+    &lt;View style={styles.layout}&gt;
+      &lt;Text style={styles.title}&gt;Login&lt;/Text&gt;
+      &lt;GoogleLogin setUser={setUser} /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export const SegundaTela = () =&gt; {
+  const { hasUser } = useContext(AuthContext);
+  return (
+    &lt;View style={styles.layout}&gt;
+      &lt;Text style={styles.title}&gt;Tela A&lt;/Text&gt;
+      &lt;Text style={styles.title}&gt;{hasUser.email}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export const TerceiraTela = () =&gt; {
+  const { hasUser } = useContext(AuthContext);
+  return (
+    &lt;View style={styles.layout}&gt;
+      &lt;Text style={styles.title}&gt;Tela B&lt;/Text&gt;
+      &lt;Image
+        source=&#123;&#123; uri: hasUser.photo }}
+        style=&#123;&#123; flex: 1, width: &#39;100%&#39;, width: &#39;100%&#39; }}
+        resizeMode=&#34;contain&#34;
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export const DrawerNavigator = ({ renderHeaderButton }) =&gt; {
+  const Drawer = createDrawerNavigator();
+  const { setUser } = useContext(AuthContext);
+  return (
+    &lt;Drawer.Navigator
+      screenOptions=&#123;&#123;
+        headerRight: () =&gt; renderHeaderButton(setUser), // Adiciona o botão no cabeçalho
+      }}&gt;
+      &lt;Drawer.Screen
+        name=&#34;Tela A&#34;
+        component={SegundaTela}
+        options={
+          {
+            // title: &#39;App&#39;,
+          }
+        }
+      /&gt;
+      &lt;Drawer.Screen
+        name=&#34;Tela B&#34;
+        component={TerceiraTela}
+        options={
+          {
+            // title: &#39;App&#39;,
+          }
+        }
+      /&gt;
+    &lt;/Drawer.Navigator&gt;
+  );
+};
+
+const App = () =&gt; {
+  const [user, setUser] = useState(false);
+  const [gettingLoginStatus, setGettingLoginStatus] = useState(true);
+
+  useEffect(() =&gt; {
+    console.log(1);
+    _isSignedIn();
+  }, []);
+
+  const _isSignedIn = async () =&gt; {
+    console.log(2);
+    const isGoogleSigned = await isGoogleSignedIn();
+    console.log(3);
+    if (isGoogleSigned) {
+      console.log(&#39;User is already signed in&#39;);
+      _getCurrentUserInfo();
+    } else {
+      console.log(&#39;Please Login&#39;);
+    }
+    setGettingLoginStatus(false);
+  };
+
+  const _getCurrentUserInfo = async () =&gt; {
+    try {
+      let info = await getSilentlyCurrentUserInfo();
+      console.log(&#39;User Info --&gt; &#39;, info.user);
+      setUser(info.user);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+        alert(&#39;User has not signed in yet&#39;);
+        console.log(&#39;User has not signed in yet&#39;);
+      } else {
+        alert(&#34;Unable to get user&#39;s info&#34;);
+        console.log(&#34;Unable to get user&#39;s info&#34;);
+      }
+    }
+  };
+
+  return (
+    &lt;AuthContext.Provider value=&#123;&#123; hasUser: user, setUser }}&gt;
+      {gettingLoginStatus ? (
+        &lt;View style={styles.layout}&gt;
+          &lt;ActivityIndicator size=&#34;large&#34; color=&#34;#0000ff&#34; /&gt;
+        &lt;/View&gt;
+      ) : !user ? (
+        &lt;PrimeiraTela /&gt;
+      ) : (
+        &lt;NavigationContainer&gt;
+          &lt;DrawerNavigator renderHeaderButton={botaoSair} /&gt;
+        &lt;/NavigationContainer&gt;
+      )}
+    &lt;/AuthContext.Provider&gt;
+  );
+};
+
+export default App;
+
+const styles = StyleSheet.create({
+  layout: {
+    flex: 1,
+    justifyContent: &#39;center&#39;,
+    alignItems: &#39;center&#39;,
+  },
+  title: {
+    fontSize: 32,
+    marginBottom: 16,
+  },
+});</code></pre>
+<p>Arquivo <code>firebase-auth.js</code></p>
+<pre><code>import auth from &#39;@react-native-firebase/auth&#39;;
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from &#39;@react-native-google-signin/google-signin&#39;;
+import { useState } from &#39;react&#39;;
+import { ActivityIndicator, View } from &#39;react-native&#39;;
+
+GoogleSignin.configure({
+  webClientId:
+    &#39;//procure pelo valor client_id para o par &#34;client_type&#34;: 3&#39;,
+});
+
+export const logOut = async () =&gt; {
+  try {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getSilentlyCurrentUserInfo = async () =&gt; {
+  try {
+    const userInfo = await GoogleSignin.signInSilently();
+    return userInfo;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const isGoogleSignedIn = async () =&gt; {
+  return await GoogleSignin.isSignedIn();
+};
+
+function GoogleLogin({ setUser }) {
+  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
+
+  async function onGoogleButtonPress() {
+    setIsSigninInProgress(true);
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    try {
+      const userInfo = await GoogleSignin.signIn();
+      return userInfo;
+      // const { idToken } = await GoogleSignin.signIn();
+      // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      // return auth().signInWithCredential(googleCredential);
+    } catch (e) {
+      console.error(&#39;----------------&gt; &#39;, e);
+    }
+  }
+
+  return (
+    &lt;View&gt;
+      {isSigninInProgress ? (
+        &lt;ActivityIndicator /&gt;
+      ) : (
+        &lt;GoogleSigninButton
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Light}
+          onPress={() =&gt;
+            onGoogleButtonPress().then(user =&gt; {
+              console.log(&#39;********** &#39;, user.user);
+              setUser(user.user);
+            })
+          }
+          disabled={isSigninInProgress}
+        /&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+export default GoogleLogin;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="babel.config.js" duration="0">
+        <pre><code>module.exports = function(api) {
+  api.cache(true);
+  return {
+    presets: [&#34;babel-preset-expo&#34;],
+    plugins: [&#34;react-native-reanimated/plugin&#34;],
+  };
+};
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Execução do App" duration="20">
+        <p>Para executar o App temos que usar o seguinte comando:</p>
+<pre><code>npx expo run:android</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
