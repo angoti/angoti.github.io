@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-11-08T12:31:43Z",
+  "id": "",
+  "duration": 30,
+  "title": "Codelab - Usando a API do Planilhas Google em um app React Native",
+  "authors": "Edson Angoti Júnior",
+  "summary": "React native e firebase. Última atualização: 08/11/2023",
+  "source": "1x05P_O14ZuP4i1tNZIHuBFNerzxqVLRv1vqlXKBOaFQ",
+  "theme": "mobile",
+  "status": [
+    "emconstrução"
+  ],
+  "category": [
+    "mobile"
+  ],
+  "tags": [
+    "mobile"
+  ],
+  "url": ""
+}

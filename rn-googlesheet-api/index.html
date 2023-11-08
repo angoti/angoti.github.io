@@ -1,0 +1,233 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Usando a API do Planilhas Google em um app React Native</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id=""
+                  title="Codelab - Usando a API do Planilhas Google em um app React Native"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <aside class="special"><p>Última atualização: 08/11/2023</p>
+</aside>
+<p>Nesta aula, você será guiado passo a passo para construir um aplicativo em React Native. O foco principal será aprender a integrar a API do Google Planilhas para usar uma planilha como banco de dados. </p>
+<p>Vamos explorar como executar operações de leitura na planilha, permitindo que nosso aplicativo acesse e utilize os dados armazenados. Então, prepare-se para mergulhar no mundo do React Native e da API do Google Planilhas!</p>
+<p class="image-container"><img alt="Tabela  Descrição gerada automaticamente" style="width: 297.80px" src="img\\48212ad5c03e8906.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criando a planilha" duration="25">
+        <p>A organização dos seus dados na Planilha Google é um aspecto crucial que determinará a eficácia do seu aplicativo. Imagine a Planilha Google como a espinha dorsal do seu aplicativo, fornecendo o conteúdo essencial necessário para o seu funcionamento. Portanto, é fundamental que você estruture seus dados de maneira cuidadosa e meticulosa.</p>
+<p>Para começar, crie uma Planilha Google. Esta planilha atuará como o banco de dados principal do seu aplicativo. Pense nela como um repositório central onde todas as informações necessárias para o seu aplicativo serão armazenadas.</p>
+<p>Depois de criar a planilha, você precisará torná-la acessível para os usuários do seu aplicativo. Para fazer isso, altere as configurações de compartilhamento da planilha para permitir que qualquer pessoa com o link possa visualizá-la. Isso garantirá que os usuários do seu aplicativo possam acessar o conteúdo necessário.</p>
+<p class="image-container"><img style="width: 510.80px" src="img\\1e42045225bb6f2f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Google Sheet" duration="0">
+        <p>Vamos agora habilitar a API Google Sheet para podermos consultar a planilha como se fosse um banco de dados.</p>
+<ul>
+<li>Vá para o seu <a href="https://console.cloud.google.com/flows/enableapi?apiid=sheets.googleapis.com&source=post_page-----3f3f89a20079--------------------------------" target="_blank">console.cloud.google.com e ative a API do Planilhas Google</a></li>
+<li>Selecione ou crie um projeto </li>
+<li>Depois de habilitar a API, precisaremos de credenciais que serão usadas pelo nosso aplicativo para acessar a planilha. Vá para <a href="https://console.cloud.google.com/apis/credentials" target="_blank">APIs &amp; Services &gt; Credentials</a> no seu console do Google Cloud e clique em + CREATE CREDENTIALS e selecione API Key.</li>
+</ul>
+<p>Salve a chave, pois a usaremos em breve. Agora podemos chamar a API diretamente e receberemos os dados em JSON. Veja como é a URL da API:</p>
+<pre><code>https://sheets.googleapis.com/v4/spreadsheets/{Sheet-ID}/values/{Sheet-Name}?valueRenderOption=FORMATTED_VALUE&amp;key={API-Key}</code></pre>
+<p>Aqui precisamos de três coisas:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><ol type="1" start="1">
+<li>ID da planilha</li>
+<li>Nome da página</li>
+<li>Chave da API</li>
+</ol>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 636.90px" src="img\\71e82c0b99b90de9.png"></p>
+</td></tr>
+</table>
+<p>URL</p>
+<pre><code>https://sheets.googleapis.com/v4/spreadsheets/12Caig6R9SwLTXKnHK9wFr6RaW_qctI3OkuCXvRSh9gY/values/Atividades?valueRenderOption=FORMATTED_VALUE&amp;key=AIzaSyA_OCg2gjmuCD3U0UcnpBkBNTKm6-PxbOU</code></pre>
+<p>Quando você abrir a URL no browser verá o resultado:</p>
+<p class="image-container"><img alt="Interface gráfica do usuário, Texto, Email  Descrição gerada automaticamente" style="width: 694.84px" src="img\\4b923c50a24e710f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tratamento da resposta" duration="0">
+        <h2 is-upgraded>A) Sem usar o operador de propagação (...), que é usado para desempacotar os elementos do array retornado por map();</h2>
+<pre><code>let keys = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;];
+let linha = [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;];
+let resultado = keys.map((k, i) =&gt; ({ [k]: linha[i] }));
+console.log(resultado);
+
+// o valor de resultado será [{ a: &#34;1&#34; }, { b: &#34;2&#34; }, { c: &#34;3&#34; }];</code></pre>
+<p>Este é um código JavaScript que cria um objeto a partir de duas listas, keys e linha.</p>
+<p>A lista keys contém as chaves do objeto que será criado, e a lista linha contém os valores correspondentes a essas chaves.</p>
+<p>O método map() é usado para iterar sobre a lista keys. Para cada elemento em keys, ele cria um novo objeto onde a chave é o elemento atual de keys e o valor é o elemento correspondente na lista linha. O índice do elemento atual é acessado através do parâmetro i na função de callback do map().</p>
+<p>O resultado é uma lista de objetos, onde cada objeto tem uma única propriedade que corresponde a um par chave-valor das listas keys e linha.</p>
+<p>Portanto, para este código específico, a variável resultado será [{a: &#34;1&#34;}, {b: &#34;2&#34;}, {c: &#34;3&#34;}].</p>
+<h2 is-upgraded>B) Usando o operador de propagação (...), que é usado para desempacotar os elementos do array retornado por map();</h2>
+<pre><code>let keys = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;];
+let linha = [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;];
+let resultado = Object.assign({}, ...keys.map((k, i) =&gt; ({ [k]: linha[i] })));
+console.log(resultado);
+
+// o valor de resultado será </code></pre>
+<p>{a: &#34;1&#34;, b: &#34;2&#34;, c: &#34;3&#34;}</p>
+<p>Este é um código JavaScript que cria um único objeto a partir de duas listas, keys e linha.</p>
+<p>A lista keys contém as chaves do objeto que será criado, e a lista linha contém os valores correspondentes a essas chaves.</p>
+<p>O método map() é usado para iterar sobre a lista keys. Para cada elemento em keys, ele cria um novo objeto onde a chave é o elemento atual de keys e o valor é o elemento correspondente na lista linha. O índice do elemento atual é acessado através do parâmetro i na função de callback do map().</p>
+<p>O resultado é uma lista de objetos, onde cada objeto tem uma única propriedade que corresponde a um par chave-valor das listas keys e linha.</p>
+<p>A função Object.assign() é então usada para combinar todos esses objetos individuais em um único objeto. O operador de propagação (...) é usado para passar todos os objetos da lista como argumentos separados para Object.assign().</p>
+<p>Portanto, para este código específico, a variável resultado será {a: &#34;1&#34;, b: &#34;2&#34;, c: &#34;3&#34;}.</p>
+<p>Finalmente, console.log(resultado) imprime o objeto resultado no console.</p>
+<h2 is-upgraded>C) Sem o operador de propagação (...), que é usado para desempacotar os elementos do array retornado por map();</h2>
+<pre><code>let keys = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;];
+let linha = [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;];
+let resultado = Object.assign({}, keys.map((k, i) =&gt; ({ [k]: linha[i] })));
+console.log(resultado);
+
+// o valor de resultado será { &#39;0&#39;: { a: &#39;1&#39; }, &#39;1&#39;: { b: &#39;2&#39; }, &#39;2&#39;: { c: &#39;3&#39; } }</code></pre>
+<p>Este é um código JavaScript que cria um objeto a partir de duas listas, keys e linha.</p>
+<p>A lista keys contém as chaves do objeto que será criado, e a lista linha contém os valores correspondentes a essas chaves.</p>
+<p>O método map() é usado para iterar sobre a lista keys. Para cada elemento em keys, ele cria um novo objeto onde a chave é o elemento atual de keys e o valor é o elemento correspondente na lista linha. O índice do elemento atual é acessado através do parâmetro i na função de callback do map().</p>
+<p>O resultado é uma lista de objetos, onde cada objeto tem uma única propriedade que corresponde a um par chave-valor das listas keys e linha.</p>
+<p>A função Object.assign() é então usada para combinar todos esses objetos individuais em um único objeto. No entanto, como Object.assign() recebe um objeto como argumento, e keys.map() retorna uma lista, o resultado final não é o esperado.</p>
+<p>Portanto, para este código específico, a variável resultado será { &#39;0&#39;: { a: &#39;1&#39; }, &#39;1&#39;: { b: &#39;2&#39; }, &#39;2&#39;: { c: &#39;3&#39; } }, onde os números ‘0&#39;, ‘1&#39; e ‘2&#39; são os índices dos objetos na lista retornada por keys.map().</p>
+<p>Finalmente, console.log(resultado) imprime o objeto resultado no console. Neste caso, o objeto impresso não é {a: &#34;1&#34;, b: &#34;2&#34;, c: &#34;3&#34;}, mas sim { &#39;0&#39;: { a: &#39;1&#39; }, &#39;1&#39;: { b: &#39;2&#39; }, &#39;2&#39;: { c: &#39;3&#39; } }.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App" duration="0">
+        <p class="image-container"><img style="width: 348.00px" src="img\\1ed97d4b260435b0.png"></p>
+<h2 is-upgraded>Arquivo App.js</h2>
+<pre><code>import { FlatList, StyleSheet, Text, View } from &#34;react-native&#34;;
+import { useState, useEffect } from &#34;react&#34;;
+
+export default function App() {
+  const [allSeriesData, setAllSeriesData] = useState([]);
+
+  function getAllSeries() {
+    const SHEET_ID = &#34;12Caig6R9SwLTXKnHK9wFr6RaW_qctI3OkuCXvRSh9gY&#34;;
+    const SHEET_NAME = &#34;Atividades&#34;;
+    const API_KEY = &#34;AIzaSyA_OCg2gjmuCD3U0UcnpBkBNTKm6-PxbOU&#34;;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?valueRenderOption=FORMATTED_VALUE&amp;key=${API_KEY}`;
+
+    fetch(url)
+      .then((response) =&gt; response.json())
+      .then((json) =&gt; formatResponse(json))
+      .catch((error) =&gt; console.error(error))
+      .finally(() =&gt; console.log(&#34;ALL DONE LOADING DATA&#34;));
+  }
+
+  function formatResponse(response) {
+    const keys = response.values[0];
+    const data = response.values.slice(1);
+    const obj = data.map((arr) =&gt; Object.assign({}, ...keys.map((k, i) =&gt; ({ [k]: arr[i] }))));
+    console.log(1, obj);
+    setAllSeriesData(obj);
+  }
+
+  useEffect(() =&gt; {
+    getAllSeries();
+  }, []);
+
+  return (
+    &lt;View style={styles.container}&gt;
+      {allSeriesData.length === 0 ? (
+        &lt;Text&gt;Carregando ...&lt;/Text&gt;
+      ) : (
+        &lt;View style={styles.container}&gt;
+          &lt;FlatList
+            data={allSeriesData}
+            renderItem={({ item }) =&gt; {
+              return (
+                &lt;View style={styles.containerFlatlist}&gt;
+                  &lt;Text style={styles.flatListText}&gt;{item.Titulo}&lt;/Text&gt;
+                  &lt;View style=&#123;&#123; flexDirection: &#34;row&#34;, justifyContent: &#34;space-between&#34;, marginTop: 12 }}&gt;
+                    &lt;Text style={styles.flatListDate}&gt;{item.Data}&lt;/Text&gt;
+                    &lt;Text style={styles.flatListDate}&gt;{item.Horário}&lt;/Text&gt;
+                    &lt;Text style={styles.flatListDate}&gt;{item.Local}&lt;/Text&gt;
+                  &lt;/View&gt;
+                &lt;/View&gt;
+              );
+            }}
+          /&gt;
+        &lt;/View&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: &#34;#fff&#34;,
+    alignItems: &#34;center&#34;,
+    justifyContent: &#34;center&#34;,
+    marginTop: 30,
+    marginBottom: 20,
+  },
+  containerFlatlist: {
+    backgroundColor: &#34;#559&#34;,
+    marginHorizontal: 12,
+    marginVertical: 8,
+    padding: 12,
+    borderRadius: 12,
+    height: 120,
+  },
+  flatListText: {
+    color: &#34;white&#34;,
+    fontSize: 15,
+    fontWeight: &#34;700&#34;,
+  },
+  flatListDate: {
+    color: &#34;#46ED44&#34;,
+    fontSize: 16,
+  },
+  flatListTime: {
+    color: &#34;#702014&#34;,
+    fontSize: 16,
+    fontWeight: &#34;900&#34;,
+  },
+  flatListLocal: {
+    color: &#34;#0ff&#34;,
+    fontSize: 16,
+    fontWeight: &#34;700&#34;,
+  },
+});</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
