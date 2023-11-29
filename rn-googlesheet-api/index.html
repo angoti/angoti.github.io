@@ -67,14 +67,42 @@
 </table>
 <p>URL</p>
 <pre><code>https://sheets.googleapis.com/v4/spreadsheets/12Caig6R9SwLTXKnHK9wFr6RaW_qctI3OkuCXvRSh9gY/values/Atividades?valueRenderOption=FORMATTED_VALUE&amp;key=AIzaSyA_OCg2gjmuCD3U0UcnpBkBNTKm6-PxbOU</code></pre>
-<p>Quando você abrir a URL no browser verá o resultado:</p>
+<p>Quando você abrir a URL no browser verá a resposta da consulta à planilha:</p>
 <p class="image-container"><img alt="Interface gráfica do usuário, Texto, Email  Descrição gerada automaticamente" style="width: 694.84px" src="img\\4b923c50a24e710f.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Tratamento da resposta" duration="0">
-        <h2 is-upgraded>A) Sem usar o operador de propagação (...), que é usado para desempacotar os elementos do array retornado por map();</h2>
+        <p>Agora é preciso transformar a resposta obtida com o uso da API em uma estrutura de dados adequada para o componente &lt;FlatList&gt; do React Native.</p>
+<p>Vamos simplificar a estrutura de dados retornada pela API Google Sheet:</p>
+<pre><code>{&#34;values&#34;: [
+    [
+      &#34;ID&#34;,
+      &#34;Titulo&#34;
+    ],
+    [
+      &#34;1&#34;,
+      &#34;III Seminário das UCPs&#34;,
+    ],
+    [
+      &#34;2&#34;,
+      &#34;III EEM - Herbário: da teoria à prática&#34;,
+    ]
+]}</code></pre>
+<p>A estrutura de dados acima precisa ser modificada para a seguinte estrutura seguinte antes de ser entregue ao componente &lt;FlatList&gt;</p>
+<pre><code>[
+   {
+     &#34;ID&#34;:&#34;1&#34;,
+     &#34;Titulo&#34;:&#34;III Seminário das UCPs&#34;
+    },
+    {
+      &#34;ID&#34;:&#34;2&#34;,
+      &#34;III EEM - Herbário: da teoria à prática&#34;
+    }
+]</code></pre>
+<p>Vamos entender a transformação </p>
+<h2 is-upgraded>A) Sem usar o operador de propagação (...), que é usado para desempacotar os elementos do array retornado por map();</h2>
 <pre><code>let keys = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;];
 let linha = [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;];
 let resultado = keys.map((k, i) =&gt; ({ [k]: linha[i] }));
@@ -101,20 +129,6 @@ console.log(resultado);
 <p>A função Object.assign() é então usada para combinar todos esses objetos individuais em um único objeto. O operador de propagação (...) é usado para passar todos os objetos da lista como argumentos separados para Object.assign().</p>
 <p>Portanto, para este código específico, a variável resultado será {a: &#34;1&#34;, b: &#34;2&#34;, c: &#34;3&#34;}.</p>
 <p>Finalmente, console.log(resultado) imprime o objeto resultado no console.</p>
-<h2 is-upgraded>C) Sem o operador de propagação (...), que é usado para desempacotar os elementos do array retornado por map();</h2>
-<pre><code>let keys = [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;];
-let linha = [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;];
-let resultado = Object.assign({}, keys.map((k, i) =&gt; ({ [k]: linha[i] })));
-console.log(resultado);
-
-// o valor de resultado será { &#39;0&#39;: { a: &#39;1&#39; }, &#39;1&#39;: { b: &#39;2&#39; }, &#39;2&#39;: { c: &#39;3&#39; } }</code></pre>
-<p>Este é um código JavaScript que cria um objeto a partir de duas listas, keys e linha.</p>
-<p>A lista keys contém as chaves do objeto que será criado, e a lista linha contém os valores correspondentes a essas chaves.</p>
-<p>O método map() é usado para iterar sobre a lista keys. Para cada elemento em keys, ele cria um novo objeto onde a chave é o elemento atual de keys e o valor é o elemento correspondente na lista linha. O índice do elemento atual é acessado através do parâmetro i na função de callback do map().</p>
-<p>O resultado é uma lista de objetos, onde cada objeto tem uma única propriedade que corresponde a um par chave-valor das listas keys e linha.</p>
-<p>A função Object.assign() é então usada para combinar todos esses objetos individuais em um único objeto. No entanto, como Object.assign() recebe um objeto como argumento, e keys.map() retorna uma lista, o resultado final não é o esperado.</p>
-<p>Portanto, para este código específico, a variável resultado será { &#39;0&#39;: { a: &#39;1&#39; }, &#39;1&#39;: { b: &#39;2&#39; }, &#39;2&#39;: { c: &#39;3&#39; } }, onde os números ‘0&#39;, ‘1&#39; e ‘2&#39; são os índices dos objetos na lista retornada por keys.map().</p>
-<p>Finalmente, console.log(resultado) imprime o objeto resultado no console. Neste caso, o objeto impresso não é {a: &#34;1&#34;, b: &#34;2&#34;, c: &#34;3&#34;}, mas sim { &#39;0&#39;: { a: &#39;1&#39; }, &#39;1&#39;: { b: &#39;2&#39; }, &#39;2&#39;: { c: &#39;3&#39; } }.</p>
 
 
       </google-codelab-step>
@@ -129,10 +143,10 @@ export default function App() {
   const [allSeriesData, setAllSeriesData] = useState([]);
 
   function getAllSeries() {
-    const SHEET_ID = &#34;12Caig6R9SwLTXKnHK9wFr6RaW_qctI3OkuCXvRSh9gY&#34;;
-    const SHEET_NAME = &#34;Atividades&#34;;
-    const API_KEY = &#34;AIzaSyA_OCg2gjmuCD3U0UcnpBkBNTKm6-PxbOU&#34;;
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?valueRenderOption=FORMATTED_VALUE&amp;key=${API_KEY}`;
+    const ID_da_planilha= &#34;ID da sua planilha&#34;;
+    const nome_da_pagina = &#34;Nome da página da sua planilha&#34;;
+    const chave_da_API =  &#34;a chave que você obteve no passo anterior&#34;;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${ID_da_planilha}/values/${nome_da_pagina}?valueRenderOption=FORMATTED_VALUE&amp;key=${chave_da_API}`;
 
     fetch(url)
       .then((response) =&gt; response.json())
