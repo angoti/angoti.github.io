@@ -9,7 +9,7 @@
   <title>Codelab - RESTful API com Spring Boot</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -38,10 +38,75 @@
 <p>API é um conjunto de definições e protocolos usado no desenvolvimento e na integração de software de aplicações. API é um acrônimo em inglês que significa interface de programação de aplicações. As APIs costumam ser vistas como contratos, com documentações que representam um acordo entre as partes interessadas (<a href="https://www.redhat.com/pt-br/topics/api/what-are-application-programming-interfaces" target="_blank">referência</a>). Como exemplo podemos citar a API java (<a href="https://docs.oracle.com/en/java/javase/16/" target="_blank">referência</a>).</p>
 <h3 is-upgraded><strong>Endpoint</strong></h3>
 <p>Um endpoint de um web service é a URL onde seu serviço pode ser acessado por uma aplicação cliente (<a href="https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api" target="_blank">referência</a>).<img style="width: 296.00px" src="img\\6dea4a584f4d5054.png"></p>
-<h3 is-upgraded><strong>Cliente web service</strong></h3>
-<p class="image-container"><img style="width: 619.00px" src="img\\b050200838979391.png"></p>
-<p>Aplicações que fornecem web services precisam de clientes que têm a capacidade de realizar requisições HTTP usando todos os tipos de métodos e, portanto, precisaremos de um cliente especial para testar nossas aplicações. Vamos usar uma aplicativo chamado Postman para consumir web services. </p>
-<p><a href="https://documenter.getpostman.com/view/1277871/TzJsheff" target="_blank">Exemplo de uso de API usando Postman</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Cliente web service" duration="0">
+        <p class="image-container"><img style="width: 138.00px" src="img\\f59d8bbc744939aa.png"></p>
+<p>Aplicações que fornecem web services precisam de clientes que têm a capacidade de realizar requisições HTTP usando todos os tipos de métodos e, portanto, precisaremos de um cliente especial para testar nossas aplicações. Vamos usar uma extensão do VSCode chamada REST Client para testar nossos serviços.</p>
+<ul>
+<li><strong>Funcionalidades</strong>: O REST Client permite enviar requisições HTTP e visualizar as respostas diretamente no Visual Studio Code. Ele oferece suporte a múltiplas requisições em um único arquivo, variáveis personalizadas, e geração de snippets de código.</li>
+<li><strong>Uso</strong>: Para enviar uma requisição, clique em &#34;Send Request&#34; ou use atalhos como <code>Ctrl+Alt+R</code>. As respostas podem ser visualizadas em um painel separado ou como um documento sem título.</li>
+<li><strong>Variáveis</strong>: Suporta variáveis de ambiente, de arquivo, de requisição e prompt, permitindo a personalização flexível das requisições HTTP.</li>
+<li><strong>Autenticação</strong>: Fornece suporte para esquemas comuns de autenticação, como Basic Auth, Digest Auth e tokens do Azure Active Directory.</li>
+</ul>
+<p>A seguir mostramos exemplos de uso para cada um dos principais métodos de requisição HTTP:</p>
+<p><strong>1. GET</strong></p>
+<ul>
+<li>O método GET é usado para solicitar a representação de um recurso específico.</li>
+</ul>
+<pre><code>GET /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com</code></pre>
+<p>Neste exemplo, estamos buscando o post com ID 123 na API.</p>
+<p><strong>2. POST</strong></p>
+<ul>
+<li>O método POST é utilizado para submeter uma entidade a um recurso específico, frequentemente causando uma mudança no estado do recurso ou efeitos colaterais no servidor.</li>
+</ul>
+<pre><code>POST /posts HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: application/json
+
+{
+  &#34;title&#34;: &#34;foo&#34;,
+  &#34;body&#34;: &#34;bar&#34;,
+  &#34;userId&#34;: 1
+}</code></pre>
+<p> Aqui, estamos adicionando um novo usuário através de um modal de inscrição.</p>
+<p><strong>3.  PUT</strong></p>
+<ul>
+<li>O método PUT substitui todas as atuais representações do recurso de destino pela carga de dados da requisição.</li>
+</ul>
+<pre><code>PUT /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: application/json
+
+{
+  &#34;id&#34;: 1,
+  &#34;title&#34;: &#34;foo&#34;,
+  &#34;body&#34;: &#34;bar&#34;,
+  &#34;userId&#34;: 1
+}</code></pre>
+<p>Neste caso, estamos atualizando o post com ID 123.</p>
+<p><strong>4.  DELETE :</strong></p>
+<ul>
+<li>O método DELETE remove um recurso específico.</li>
+</ul>
+<pre><code>DELETE /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com</code></pre>
+<p> Aqui, estamos excluindo o post com ID 123.</p>
+<p><strong>5.  PATCH</strong></p>
+<ul>
+<li>O método PATCH é utilizado para aplicar modificações parciais em um recurso. </li>
+</ul>
+<pre><code>PATCH /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: application/json
+
+{
+  &#34;title&#34;: &#34;foo&#34;
+}</code></pre>
+<p>Neste exemplo, estamos alterando apenas a senha do usuário com ID 456.</p>
 
 
       </google-codelab-step>
@@ -453,11 +518,11 @@ public class TodoListItem {
     
   </google-codelab>
 
-<script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-<script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-<script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-<script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-<script src="//support.google.com/inapp/api.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
 </html>
