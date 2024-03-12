@@ -494,7 +494,7 @@ export default App;</pre>
       <google-codelab-step label="Entrada de dados" duration="30">
         <p>Neste capítulo, vamos explorar como lidar com a entrada de dados em um aplicativo React Native usando os componentes <code>TextInput</code>, <code>Button</code> e <code>Pressable</code>. A entrada de dados é uma parte essencial de muitos aplicativos, permitindo que os usuários interajam e forneçam informações ao aplicativo.</p>
 <h2 is-upgraded><strong>Componentes &lt;TextInput&gt; e &lt;Button&gt;</strong></h2>
-<p>O componente <code><TextInput></code> é usado para receber entrada de texto do usuário. Ele permite que os usuários digitem texto em um campo de entrada de texto e interajam com ele. Vamos dar uma olhada no código visto anteriormente e trocar o componente &lt;Button&gt; pelo componente &lt;Pressable&gt;:</p>
+<p>O componente <code>TextInput</code> é usado para receber entrada de texto do usuário. Ele permite que os usuários digitem texto em um campo de entrada de texto e interajam com ele. Vamos dar uma olhada no código visto anteriormente e trocar o componente <code>Button</code> pelo componente <code>Pressable</code>:</p>
 <pre>import { useState } from &#39;react&#39;;
 import { View, TextInput, Button, Alert } from &#39;react-native&#39;;
 
@@ -532,8 +532,8 @@ export default App;</pre>
 <aside class="special"><p>Os hooks são uma adição poderosa ao React que permitem que os componentes funcionais tenham recursos de estado e ciclo de vida. Eles foram introduzidos na versão 16.8 do React e fornecem uma forma mais concisa e intuitiva de escrever componentes complexos.</p>
 <p>Os hooks são funções especiais que podem ser usadas em componentes funcionais do React. Eles permitem que você adicione recursos como estado, efeitos colaterais e outros comportamentos ao seu componente sem a necessidade de converter o componente para uma classe.</p>
 <p>Existem alguns hooks principais no React, sendo os mais comuns:</p>
-<p><code>useState</code>: permite adicionar estado a um componente funcional. Ele retorna um par de valores: o estado atual e uma função para atualizar esse estado. Por exemplo, const [count, setCount] = useState(0) cria uma variável count que é inicializada com o valor 0 e uma função setCount que pode ser usada para atualizar o valor de count.</p>
-<p><code>useEffect</code>: permite executar efeitos colaterais em um componente funcional. Ele é executado após cada renderização e pode ser usado para buscar dados, manipular o DOM, registrar eventos e muito mais. Por exemplo, useEffect(() =&gt; { console.log(&#39;Componente montado&#39;) }, []) executa a função de retorno quando o componente é montado, pois passamos um array vazio como segundo argumento para indicar que não há dependências.</p>
+<p><strong><code>useState</code></strong>: permite adicionar estado a um componente funcional. Ele retorna um par de valores: o estado atual e uma função para atualizar esse estado. Por exemplo, const [count, setCount] = useState(0) cria uma variável count que é inicializada com o valor 0 e uma função setCount que pode ser usada para atualizar o valor de count.</p>
+<p><strong><code>useEffect</code></strong>: permite executar efeitos colaterais em um componente funcional. Ele é executado após cada renderização e pode ser usado para buscar dados, manipular o DOM, registrar eventos e muito mais. Por exemplo, useEffect(() =&gt; { console.log(&#39;Componente montado&#39;) }, []) executa a função de retorno quando o componente é montado, pois passamos um array vazio como segundo argumento para indicar que não há dependências.</p>
 <p>Existem também outros hooks personalizados que você pode criar ou usar a partir de bibliotecas de terceiros. Esses hooks permitem encapsular lógicas específicas do componente para reutilização em diferentes partes do aplicativo.</p>
 <p>Em resumo, os hooks fornecem uma maneira eficiente e declarativa de adicionar recursos a componentes funcionais do React. Eles ajudam a manter o código mais legível, modular e fácil de testar. Com a combinação correta de hooks, você pode criar componentes complexos com menos código e maior flexibilidade.</p>
 </aside>
@@ -543,7 +543,7 @@ export default App;</pre>
 <p>Além disso, ao usar o useState, o React também otimiza o desempenho, permitindo que ele identifique apenas as partes do componente que realmente precisam ser atualizadas na tela, em vez de renderizar todo o componente novamente.</p>
 <p>Em resumo, ao utilizar um hook como o useState, estamos aproveitando a capacidade do React de gerenciar o estado e garantir que as alterações sejam preservadas entre as renderizações do componente. Isso nos permite criar componentes mais dinâmicos e interativos, mantendo um bom desempenho em nossos aplicativos React.</p>
 <h2 is-upgraded><strong>Componente &lt;Pressable&gt;</strong></h2>
-<p>O componente <code><Pressable></code> é usado para detectar toques ou pressões do usuário em uma área específica. Podemos aproveitar esse componente para criar interações com a entrada de dados. Este componente permite estilização, ao contrário do componente &lt;Button&gt;. Vamos ver um exemplo de uso do &lt;Pressable&gt;:</p>
+<p>O componente <code>Pressable</code> é usado para detectar toques ou pressões do usuário em uma área específica. Podemos aproveitar esse componente para criar interações com a entrada de dados. Este componente permite estilização, ao contrário do componente <code>Button</code>. Vamos ver um exemplo de uso do <code>Pressable</code>:</p>
 <pre>import { useState } from &#39;react&#39;;
 import { Pressable, Text, View, TextInput, Button, Alert } from &#39;react-native&#39;;
 
@@ -587,7 +587,7 @@ function App() {
 }
 
 export default App;</pre>
-<p>Neste exemplo, além do componente &lt;TextInput&gt;, adicionamos o &lt;Pressable&gt; em vez do &lt;Button&gt;. O &lt;Pressable&gt; envolve um texto &#34;Enviar&#34; e, quando é pressionado, a função handleButtonPress é chamada. Observe a estilização do componente &lt;Pressable&gt;, que não é possível no componente &lt;Button&gt;.</p>
+<p>Neste exemplo, além do componente <code>TextInput</code>, adicionamos o <code>Pressable</code> em vez do <code>Button</code>. O <code>Pressable</code> envolve um texto &#34;Enviar&#34; e, quando é pressionado, a função <strong>handleButtonPress </strong>é chamada. Observe a estilização do componente <code>Pressable</code>, que não é possível no componente <code>Button</code>.</p>
 <h2 is-upgraded><strong>Exercícios</strong></h2>
 <aside class="warning"><ol type="1" start="1">
 <li>Crie um aplicativo React Native com um &lt;TextInput&gt; e um &lt;Button&gt;. Ao pressionar o botão, exiba um alerta com o texto digitado pelo usuário.</li>
