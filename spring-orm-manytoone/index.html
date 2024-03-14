@@ -1,0 +1,629 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Spring Rest e ORM - Associação ManyToOne</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="spring-orm-manytoone"
+                  title="Codelab - Spring Rest e ORM - Associação ManyToOne"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introdução" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\4cfa8b7178bd946c.png"></p>
+<p><strong>Last Updated:</strong> 2024-03-14</p>
+<h2 is-upgraded>O que você vai construir</h2>
+<ul>
+<li>Uma API que implementa o CRUD para duas entidades: Categoria e Item</li>
+</ul>
+<h2 is-upgraded>O que você vai aprender</h2>
+<ul>
+<li>Implementar uma aplicação backend organizada em camadas</li>
+<li>Mapeamento Objeto-Relacional (ORM)</li>
+<li>Escrever código que representa uma entidade usando JPA</li>
+<li>Escrever controladores e mapeamento correto de endpoints</li>
+<li>Acesso a dados usando repositories</li>
+<li>Usar banco de dados em memória (H2)</li>
+</ul>
+<h2 is-upgraded>O que você precisa</h2>
+<ul>
+<li>VS Code ou outro IDE de sua preferência</li>
+<li>Java JDK 17 ou superior</li>
+<li>Conhecimentos de Programação Orientada a Objetos e Banco de Dados</li>
+<li>Instale a extensão do chrome chamada <a href="https://chromewebstore.google.com/detail/codelab-code-copier/dkknnkkkadhdoahjafeihjncdgecllhb?hl=pt-BR" target="_blank">Codelab Code Copier</a> para inserir um botão em cada caixa com código. Este botão copia o código da caixa para a área de transferência.</li>
+</ul>
+<p class="image-container"><img style="width: 554.00px" src="img\\2d2831c5898d61f9.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação e configuração do projeto" duration="10">
+        <h2 is-upgraded>Criar projeto maven</h2>
+<p>Usando o atalho CTRL + SHIFT + P, acione a função &gt; Spring Initializr: Create a Maven Project, e crie um novo projeto com as dependências: </p>
+<ul>
+<li>Spring Web</li>
+<li>Spring Data JPA</li>
+<li>H2 Database</li>
+<li>Lombok</li>
+<li>Spring Boot DevTools</li>
+<li>Spring Boot Actuator</li>
+</ul>
+<h2 is-upgraded>Criar camadas</h2>
+<p>Criar as pastas  ‘controller&#39;, ‘domain&#39;, ‘repository&#39;, ‘service&#39; </p>
+<p class="image-container"><img style="width: 288.00px" src="img\\29656871bc263e0c.png"></p>
+<p>Estas pastas fazem o papel de camadas em uma arquitetura de aplicação baseada em camadas.  </p>
+<p class="image-container"><img style="width: 539.00px" src="img\\53494e9825eebced.png"></p>
+<p>A arquitetura de aplicação baseada em camadas é um padrão de design comum que separa uma aplicação em várias camadas lógicas. Cada uma dessas camadas tem uma responsabilidade específica e funciona de forma independente das outras. Isso facilita a manutenção e o teste do código, além de permitir a reutilização de código.</p>
+<ol type="1" start="1">
+<li><strong>Camada Controller</strong>: Esta é a camada de apresentação e é a primeira camada que interage com o usuário. Ela lida com a entrada do usuário e transforma as solicitações do usuário em ações a serem realizadas pela camada de serviço. Em uma aplicação web, por exemplo, esta camada seria responsável por receber as solicitações HTTP e enviar as respostas HTTP.</li>
+<li><strong>Camada Domain</strong>: Também conhecida como camada de modelo. Esta camada representa as entidades do seu negócio. As entidades são os principais objetos do seu domínio de negócios. Elas contêm as informações (campos de dados) e encapsulam a lógica relacionada a esses dados. Por exemplo, em um sistema bancário, as entidades podem ser Conta, Cliente, Transação, etc. Cada uma dessas entidades tem atributos e comportamentos específicos.</li>
+<li><strong>Camada Service</strong>: Esta camada atua como um intermediário entre a camada de controle e a camada de repositório. Ela representa os conceitos do negócio, as regras e os processos de negócio. É aqui que a maior parte da lógica e das funções do seu aplicativo residem. A camada de serviço chama a camada de repositório para recuperar os dados, aplica as regras de negócios a esses dados e, em seguida, passa os dados para a camada de controle.</li>
+<li><strong>Camada Repository</strong>: Esta é a camada de acesso aos dados. Ela é responsável por interagir com o banco de dados ou qualquer outra fonte de dados para recuperar, armazenar e excluir os dados. Esta camada abstrai os detalhes do acesso aos dados da camada de serviço.</li>
+</ol>
+<h2 is-upgraded>Configurar as propriedades da aplicação</h2>
+<p>A seguinte configuração é ideal para a etapa de desenvolvimento.</p>
+<p><code>src\main\resources\application.properties</code></p>
+<pre><code>spring.application.name=manytoone
+
+# configurações do banco de dados H2
+spring.datasource.url=jdbc:h2:mem:itemcat
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=12345
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# configurações do log
+
+# Esta linha define o nível de log para as operações SQL do Hibernate como &#39;trace&#39;. 
+# &#39;TRACE&#39; é o nível mais detalhado de log. Quando o nível de log está definido como &#39;trace&#39;, 
+# a aplicação irá registrar todos os detalhes de cada operação SQL do Hibernate, incluindo 
+# os parâmetros envolvidos na operação e o conjunto de resultados retornados pela operação. 
+# Isso pode ser útil para depuração, mas também pode gerar muita saída de log, 
+# o que pode desacelerar sua aplicação e preencher rapidamente seus arquivos de log.
+logging.level.org.hibernate.SQL=trace
+
+# Esta linha define o nível de log para as operações web do Spring Framework como &#39;trace&#39;. 
+# &#39;TRACE&#39; é o nível mais detalhado de log. Quando o nível de log está definido como &#39;trace&#39;, 
+# a aplicação irá registrar todos os detalhes de cada operação realizada pela camada web do Spring Framework. 
+# Isso inclui detalhes sobre solicitações HTTP recebidas, o tratamento dessas solicitações e as respostas enviadas de volta ao cliente. 
+# Isso pode ser útil para depuração, especialmente quando você está tentando rastrear o fluxo de solicitações e respostas através de sua aplicação. 
+# No entanto, também pode gerar muita saída de log, o que pode desacelerar sua aplicação e preencher rapidamente seus arquivos de log.
+logging.level.org.springframework.web=trace
+
+# Ativar o console H2 para que você possa visualizar e interagir com o banco de dados H2 a partir de um navegador da web. 
+# O console H2 é uma ferramenta de administração de banco de dados # que permite visualizar tabelas, executar consultas SQL e executar outras operações de banco de dados.
+# Você pode abrir um navegador web e ir para http://localhost:8080/h2-console
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Configurar o Spring Boot para exibir detalhes completos de erro em respostas de erro HTTP
+server.error.include-stacktrace=always</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Injeção de dependências no Spring" duration="0">
+        <p>A Injeção de Dependências (DI) é um padrão de design fundamental que o Spring Framework implementa e promove em suas várias partes. A ideia básica da Injeção de Dependências é que você não cria seus objetos, mas descreve como eles devem ser criados. Você não conecta diretamente seus componentes e serviços, mas descreve quais serviços são necessários por quais componentes em um arquivo de configuração ou diretamente no código. O container (neste caso, o Spring Container) é responsável por conectar tudo.</p>
+<p>Principais benefícios da Injeção de Dependências:</p>
+<p>1. <strong>Desacoplamento</strong>: As classes não precisam procurar suas dependências, e não precisam saber onde e como obtê-las. Isso leva a um código mais desacoplado, que é mais fácil de testar e manter.</p>
+<p>2. <strong>Reutilização de código</strong>: Como as dependências são injetadas, o mesmo código pode ser reutilizado em diferentes contextos com diferentes dependências.</p>
+<p>3. <strong>Eficiência</strong>: As dependências podem ser carregadas sob demanda, em vez de serem sempre carregadas.</p>
+<p>Exemplo:</p>
+<pre>@RestController
+class ItemController {
+
+    @Autowired
+    ItemService service;
+}
+</pre>
+<p>No exemplo acima, a anotação <code>@Autowired</code> do Spring é usada para realizar a injeção de dependência. Isso significa que o Spring irá automaticamente instanciar a classe <code>ItemService</code> e injetar essa instância na variável <code>service</code>.</p>
+<p>- <code>ItemController</code>: a classe onde a injeção de dependência está ocorrendo. Esta classe é um controlador responsável por lidar com solicitações HTTP e retornar respostas HTTP.</p>
+<p>- <code>@Autowired</code>: a anotação que diz ao Spring para injetar uma dependência. Quando o Spring vê essa anotação, ele procurará um bean (um objeto gerenciado pelo Spring) que corresponda ao tipo da variável (neste caso, <code>ItemService</code>). Se encontrar uma correspondência, o Spring irá automaticamente instanciar essa classe e injetar a instância na variável <code>service</code>.</p>
+<p>- <code>ItemService service</code>`: a declaração da variável onde a instância de <code>ItemService</code> será injetada. </p>
+<p>Portanto, a linha `<code>@Autowired ItemService service</code>;` está dizendo: &#34;<em>Spring, por favor, encontre uma bean do tipo `ItemService`, crie uma instância dela e coloque essa instância na variável `service</em>`&#34;.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Repository" duration="0">
+        <p>O Spring Framework fornece uma maneira abstrata de trabalhar com dados através do uso de repositórios. Um repositório no Spring é uma interface que permite realizar operações de banco de dados relacionadas a uma entidade específica de uma maneira mais abstrata e orientada a objetos. Resumo de como o Spring trabalha com repositórios:</p>
+<p>1. <strong>Interfaces de Repositório</strong>: O Spring Data fornece várias interfaces de repositório, como <code>CrudRepository</code>, <code>JpaRepository</code>, <code>PagingAndSortingRepository</code>. Você pode criar um repositório para uma entidade simplesmente criando uma interface que estende uma dessas interfaces de repositório. A interface do repositório deve ser parametrizada com o tipo de entidade e o tipo do ID da entidade.</p>
+<p>2. <strong>Métodos de Repositório</strong>: As interfaces de repositório vêm com muitos métodos úteis para operações CRUD (Criar, Ler, Atualizar, Deletar) e outras operações comuns de banco de dados. Você também pode definir seus próprios métodos na interface do repositório. O Spring Data será capaz de fornecer uma implementação desses métodos automaticamente, desde que eles sigam a convenção de nomenclatura correta.</p>
+<p>3. <strong>Injeção de Dependência</strong>: Você pode injetar um repositório em qualquer componente Spring (como um serviço ou controlador) usando a anotação <code>@Autowired</code>. O Spring irá automaticamente fornecer uma implementação do repositório e cuidar de todas as operações de banco de dados.</p>
+<p>4. <strong>Suporte para Diversos Bancos de Dados</strong>: O Spring Data oferece suporte para uma variedade de tecnologias de banco de dados, incluindo JPA, JDBC, MongoDB, Elasticsearch e muitas outras. Você pode escolher a tecnologia de banco de dados que melhor se adapta às suas necessidades.</p>
+<p>Neste codelab vamos usar a interface <code>CrudRepository</code> do Spring Data, que fornece vários métodos para operações CRUD genéricas em um repositório para um tipo específico. Aqui estão os métodos disponíveis:</p>
+<p>1. `<code>save(S entity)</code>`: Salva uma entidade dada.</p>
+<p>2. `<code>saveAll(Iterable<S> entities)</code>`: Salva todas as entidades dadas.</p>
+<p>3. `<code>findById(ID id)</code>`: Recupera uma entidade pelo seu id.</p>
+<p>4. `<code>existsById(ID id)</code>`: Retorna se uma entidade com o id dado existe.</p>
+<p>5. `<code>findAll()</code>`: Retorna todas as instâncias do tipo.</p>
+<p>6. `<code>findAllById(Iterable<ID> ids)</code>`: Retorna todas as instâncias do tipo com os IDs dados.</p>
+<p>7. `<code>count()</code>`: Retorna o número de entidades disponíveis.</p>
+<p>8. `<code>deleteById(ID id)</code>`: Exclui a entidade com o id dado.</p>
+<p>9. `<code>delete(T entity)</code>`: Exclui uma entidade dada.</p>
+<p>10. `<code>deleteAll(Iterable<? extends T> entities)</code>`: Exclui as entidades dadas.</p>
+<p>11. `<code>deleteAll()</code>`: Exclui todas as entidades gerenciadas pelo repositório.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Associação ManyToOne" duration="10">
+        <p><strong>JPA (Java Persistence API) </strong>é uma especificação do Java que é usada para persistir, gerenciar e recuperar dados entre classes Java / objetos e uma base de dados relacional. JPA atua como uma ponte entre esses dois. Ele permite que os desenvolvedores lidem com a camada de persistência de maneira eficiente e eles podem se concentrar mais na lógica do negócio.</p>
+<p>O JPA usa o conceito de ORM (Object-Relational Mapping) para mapear as tabelas do banco de dados para entidades Java e vice-versa. Ele fornece uma maneira de representar uma tabela de banco de dados como uma classe (entidade) e uma linha dessa tabela como uma instância dessa classe.</p>
+<p>O <strong>mapeamento </strong><code>@ManyToOne</code> é um dos vários tipos de mapeamentos disponíveis no JPA. Ele é usado para representar a relação entre tabelas onde uma entidade pode ser associada a várias entidades. Por exemplo, em um aplicativo de comércio eletrônico, uma categoria de itens de venda pode ter vários itens, mas cada item pertence a apenas uma categoria.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\12a2fed7674ff897.png"></p>
+<p>Neste exemplo, a classe `Item` tem uma relação `ManyToOne` com a classe `Categoria`. A anotação `@ManyToOne` é usada para indicar essa relação.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\5974629d7f67faae.png"></p>
+<ul>
+<li>A anotação @ManyToOne marca uma associação entre entidades. </li>
+<li>Uma associação muitos-para-um representa uma ligação com uma chave estrangeira.</li>
+<li>Você não precisa mapear o outro lado dessa relação.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Camada de domínio" duration="10">
+        <p><code>domain\Categoria.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Data
+@Entity
+public class Categoria {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        Long id;
+        String nome;
+}</code></pre>
+<p><code>domain\Item.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+
+@Data
+@Entity
+public class Item {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        Long id;
+        String nome;
+
+        @ManyToOne
+        Categoria categoria;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Camada de acesso a dados (repository)" duration="10">
+        <p><code>repository\CategoriaRepository.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import br.edu.iftm.manytoone.domain.Categoria;
+
+public interface CategoriaRepository extends CrudRepository&lt;Categoria,Long&gt; {
+    
+}</code></pre>
+<p><code>repository\ItemRepository.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import br.edu.iftm.manytoone.domain.Item;
+
+public interface ItemRepository extends CrudRepository&lt;Item,Long&gt; {
+    
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Camada de serviço" duration="10">
+        <p><code>service\CategoriaService.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.edu.iftm.manytoone.domain.Categoria;
+import br.edu.iftm.manytoone.repository.CategoriaRepository;
+
+// A anotação @Service é usada para indicar que uma classe é um &#34;Service&#34; (ou &#34;Service Layer&#34;).
+// A anotação @Service é um especialização da anotação @Component e é usada para anotar classes de serviço.
+// A anotação @Component é uma superclasse para outras anotações de componentes, como @Repository, @Service e @Controller.
+// Uma classe anotada com @Service é tipicamente uma classe que fornece serviços de negócios, como lógica de negócios e regras de negócios.
+@Service
+public class CategoriaService {
+
+        // A anotação @Autowired é usada para injetar dependências automaticamente.
+        // A anotação @Autowired pode ser usada para injetar beans em propriedades, métodos e construtores.
+        @Autowired
+        CategoriaRepository repository;
+
+        public List&lt;Categoria&gt; getAll() {
+                try {
+                        List&lt;Categoria&gt; items = new ArrayList&lt;Categoria&gt;();
+
+                        // O método findAll() retorna um Iterable que é percorrido com o método
+                        // forEach() que adiciona cada item à lista items.
+                        // O operador :: é usado para criar expressões lambda mais claras e concisas.
+                        // A expressão lambda items::add é usada para adicionar cada item retornado pelo
+                        // método findAll() à lista items.
+                        // A expressão lambda items::add é equivalente a: (item) -&gt; items.add(item)
+                        repository.findAll().forEach(items::add);
+                        return items;
+                } catch (Exception e) {
+                        return null;
+                }
+        }
+
+        public Categoria getById(Long id) {
+                Optional&lt;Categoria&gt; categoria = repository.findById(id);
+                if (categoria.isPresent()) {
+                        return categoria.get();
+                }
+                return null;
+        }
+
+        public Categoria create(Categoria categoria) {
+                return repository.save(categoria);
+        }
+
+        public Categoria update(Long id, Categoria item) {
+                Optional&lt;Categoria&gt; existingItemOptional = repository.findById(id);
+
+                if (existingItemOptional.isPresent()) {
+                        Categoria existingItem = existingItemOptional.get();
+                        existingItem.setNome(item.getNome());
+                        return repository.save(existingItem);
+                } else {
+                        return null;
+                }
+        }
+
+        public boolean delete(Long id) {
+                try {
+                        repository.deleteById(id);
+                        return true;
+                } catch (Exception e) {
+                        return false;
+                }
+        }
+}</code></pre>
+<p><code>service\ItemService.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.edu.iftm.manytoone.domain.Item;
+import br.edu.iftm.manytoone.repository.ItemRepository;
+
+// A anotação @Service é usada para indicar que uma classe é um &#34;Service&#34; (ou &#34;Service Layer&#34;).
+// A anotação @Service é um especialização da anotação @Component e é usada para anotar classes de serviço.
+// A anotação @Component é uma superclasse para outras anotações de componentes, como @Repository, @Service e @Controller.
+// Uma classe anotada com @Service é tipicamente uma classe que fornece serviços de negócios, como lógica de negócios e regras de negócios.
+@Service
+public class ItemService {
+
+        // A anotação @Autowired é usada para injetar dependências automaticamente.
+        // A anotação @Autowired pode ser usada para injetar beans em propriedades, métodos e construtores.
+        @Autowired
+        ItemRepository repository;
+
+        public List&lt;Item&gt; getAll() {
+                try {
+                        List&lt;Item&gt; items = new ArrayList&lt;Item&gt;();
+
+                        // O método findAll() retorna um Iterable que é percorrido com o método
+                        // forEach() que adiciona cada item à lista items.
+                        // O operador :: é usado para criar expressões lambda mais claras e concisas.
+                        // A expressão lambda items::add é usada para adicionar cada item retornado pelo
+                        // método findAll() à lista items.
+                        // A expressão lambda items::add é equivalente a: (item) -&gt; items.add(item)
+                        repository.findAll().forEach(items::add);
+                        return items;
+                } catch (Exception e) {
+                        return null;
+                }
+        }
+
+        public Item getById(Long id) {
+                Optional&lt;Item&gt; item = repository.findById(id);
+                if (item.isPresent()) {
+                        return item.get();
+                }
+                return null;
+        }
+
+        public Item create(Item item) {
+                return repository.save(item);
+        }
+
+        public Item update(Long id, Item item) {
+                Optional&lt;Item&gt; existingItemOptional = repository.findById(id);
+
+                if (existingItemOptional.isPresent()) {
+                        Item existingItem = existingItemOptional.get();
+                        existingItem.setNome(item.getNome());
+                        return repository.save(existingItem);
+                } else {
+                        return null;
+                }
+        }
+
+        public boolean delete(Long id) {
+                try {
+                        repository.deleteById(id);
+                        return true;
+                } catch (Exception e) {
+                        return false;
+                }
+        }
+
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Camada de controle" duration="10">
+        <p><code>controller\CategoriaController.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.edu.iftm.manytoone.domain.Categoria;
+import br.edu.iftm.manytoone.service.CategoriaService;
+
+@RestController
+@RequestMapping(&#34;/categoria&#34;)
+class CategoriaController {
+
+        @Autowired
+        CategoriaService service;
+
+        @GetMapping
+        public List&lt;Categoria&gt; getAll() {
+                // Vemos aqui uma chamada à camada de serviço para buscar as categorias.
+                // A camada de serviço não conhece o HTTP.
+                // A camada de serviço lida com questões de negócio, o que inclui acesso aos dados da aplicação
+                // A camada de controle lida com questões de HTTP
+                List&lt;Categoria&gt; items = service.getAll();
+                return items;
+        }
+
+        @GetMapping(&#34;{id}&#34;)
+        public Categoria getById(@PathVariable(&#34;id&#34;) Long id) {
+                return service.getById(id);
+        }
+
+        @PostMapping
+        public Categoria create(@RequestBody Categoria item) {
+                Categoria categoria = service.create(item);
+                return categoria;
+        }
+
+        @PutMapping(&#34;{id}&#34;)
+        public Categoria update(@PathVariable(&#34;id&#34;) Long id, @RequestBody Categoria item) {
+                return service.update(id, item);
+        }
+
+        @DeleteMapping(&#34;{id}&#34;)
+        public boolean delete(@PathVariable(&#34;id&#34;) Long id) {
+                return service.delete(id);
+        }
+}</code></pre>
+<p><code>controller\ItemController.java</code></p>
+<pre><code>package br.edu.iftm.manytoone.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.edu.iftm.manytoone.domain.Item;
+import br.edu.iftm.manytoone.service.ItemService;
+
+@RestController
+@RequestMapping(&#34;/item&#34;)
+class ItemController {
+
+        @Autowired
+        ItemService service;
+
+        @GetMapping
+        public List&lt;Item&gt; getAll() {
+                return service.getAll();
+        }
+
+        @GetMapping(&#34;{id}&#34;)
+        public Item getById(@PathVariable(&#34;id&#34;) Long id) {
+                return service.getById(id);
+        }
+
+        @PostMapping
+        public Item create(@RequestBody Item item) {
+                return service.create(item);
+        }
+
+        @PutMapping(&#34;{id}&#34;)
+        public Item update(@PathVariable(&#34;id&#34;) Long id, @RequestBody Item item) {
+                return service.update(id, item);
+        }
+
+        @DeleteMapping(&#34;{id}&#34;)
+        public boolean delete(@PathVariable(&#34;id&#34;) Long id) {
+                return service.delete(id);
+        }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Execução e testes de endpoints" duration="0">
+        <h2 is-upgraded>Console H2</h2>
+<p>O H2 é um banco de dados relacional escrito em Java que pode ser embarcado em aplicações Java ou executado no modo cliente-servidor. Uma das características mais notáveis do H2 é a sua opção de banco de dados em memória, o que significa que os dados são armazenados na memória RAM, em vez de serem persistentes em disco. </p>
+<p>Principais características do banco de dados em memória H2:</p>
+<p>1.<strong>Velocidade</strong>: Como os dados são armazenados na memória RAM, as operações de leitura e gravação são muito mais rápidas em comparação com os bancos de dados tradicionais que armazenam dados em disco.</p>
+<p>2. <strong>Volatilidade</strong>: Os dados em um banco de dados em memória são voláteis. Isso significa que se a aplicação ou o sistema for desligado, todos os dados armazenados na memória serão perdidos.</p>
+<p>3. <strong>Uso</strong>: Devido à sua velocidade e volatilidade, o H2 em memória é frequentemente usado para testes de unidade e integração, onde a velocidade é importante e os dados não precisam ser mantidos entre os testes.</p>
+<p>4. <strong>Simplicidade</strong>: O H2 é muito fácil de usar. Você pode iniciar um banco de dados H2 em memória com apenas algumas linhas de configuração.</p>
+<p>Note que enquanto os bancos de dados em memória são incrivelmente rápidos, eles também são limitados pela quantidade de memória disponível. Portanto, eles podem não ser adequados para conjuntos de dados muito grandes.</p>
+<p>Verifique as configurações do H2 neste projeto. Para acessar o console do H2, use a URL localhost:8080/h2-console e informe as configurações do seu projeto na tela abaixo:</p>
+<p class="image-container"><img style="width: 567.00px" src="img\\32a250179032797a.png"></p>
+<h2 is-upgraded>Rest Client</h2>
+<p>O arquivo abaixo deve ser criado na raiz do projeto e contem código para realizar todas as requisições dos CRUDs implementados.</p>
+<p>cliente.http</p>
+<pre>###
+### Recurso Categoria
+###
+
+### Listar todas as categorias
+GET http://localhost:8080/categoria HTTP/1.1
+
+### Obter uma categoria específica por ID
+GET http://localhost:8080/categoria/1 HTTP/1.1
+
+### Criar uma nova categoria
+POST http://localhost:8080/categoria HTTP/1.1
+Content-Type: application/json
+
+{
+        &#34;nome&#34;: &#34;Nome da Categoria&#34;
+}
+
+### Atualizar uma categoria existente
+PUT http://localhost:8080/categoria/1 HTTP/1.1
+Content-Type: application/json
+
+{
+        &#34;nome&#34;: &#34;Novo Nome da Categoria&#34;
+}
+
+### Deletar uma categoria
+DELETE http://localhost:8080/categoria/1 HTTP/1.1
+
+
+###
+### Recurso Item
+###
+
+### Get all items
+GET http://localhost:8080/item
+
+### Get item by id
+GET http://localhost:8080/item/1
+
+### Create a new item
+POST http://localhost:8080/item
+Content-Type: application/json
+
+{
+        &#34;nome&#34;: &#34;Item Name&#34;,
+        &#34;categoria&#34;: {
+                &#34;id&#34;: 1
+        }
+}
+
+### Update an existing item
+PUT http://localhost:8080/item/1
+Content-Type: application/json
+
+{
+        &#34;nome&#34;: &#34;Updated Item Name&#34;,
+        &#34;categoria&#34;: {
+                &#34;id&#34;: 1
+        }
+}
+
+### Delete an item
+DELETE http://localhost:8080/item/1
+</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exercícios propostos" duration="0">
+        <h2 is-upgraded>Lista de tarefas</h2>
+<p>A seguir temos um diagrama UML com duas classes e uma associação bidirecional. Implemente o mapeamento objeto relacional correspondente usando Spring Boot e JPA. Considere os seguintes atributos existentes em cada classe:</p>
+<p><strong>Classe TodoList</strong>: atributo <code>nome</code> do tipo String e atributo <code>id</code> do tipo Integer para representar a identidade do registro na tabela</p>
+<p><strong>Classe TodoListItem</strong>: atributo <code>nomeDoItem</code> do tipo String e atributo <code>id</code> do tipo Integer para representar a identidade do registro na tabela</p>
+<p class="image-container"><img style="width: 571.66px" src="img\\c529caf154507bc2.png"></p>
+<h2 is-upgraded>Biblioteca</h2>
+<p>Abaixo temos um diagrama DER. Implemente o mapeamento objeto relacional ManyToOne usando Spring Boot e JPA.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\2cc2b1aed74e04a5.png"></p>
+<h2 is-upgraded>Postagens e comentários</h2>
+<p>Abaixo temos um diagrama UML com duas classes e uma associação bidirecional. Implemente o mapeamento objeto relacional correspondente usando Spring Boot e JPA. Implemente os métodos <code>addComment()</code> e <code>removeComment().</code></p>
+<p class="image-container"><img style="width: 552.09px" src="img\\e019a5dd0d128314.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
