@@ -152,17 +152,17 @@ class ItemController {
 <p>3. <strong>Injeção de Dependência</strong>: Você pode injetar um repositório em qualquer componente Spring (como um serviço ou controlador) usando a anotação <code>@Autowired</code>. O Spring irá automaticamente fornecer uma implementação do repositório e cuidar de todas as operações de banco de dados.</p>
 <p>4. <strong>Suporte para Diversos Bancos de Dados</strong>: O Spring Data oferece suporte para uma variedade de tecnologias de banco de dados, incluindo JPA, JDBC, MongoDB, Elasticsearch e muitas outras. Você pode escolher a tecnologia de banco de dados que melhor se adapta às suas necessidades.</p>
 <p>Neste codelab vamos usar a interface <code>CrudRepository</code> do Spring Data, que fornece vários métodos para operações CRUD genéricas em um repositório para um tipo específico. Aqui estão os métodos disponíveis:</p>
-<p>1. <code>save(S entity)</code>: Salva uma entidade dada.</p>
-<p>2. <code>saveAll(Iterable</code>&lt;S&gt; <code>entities)</code>: Salva todas as entidades dadas.</p>
-<p>3. <code>findById(ID id)</code>: Recupera uma entidade pelo seu id.</p>
-<p>4. <code>existsById(ID id)</code>: Retorna se uma entidade com o id dado existe.</p>
-<p>5. <code>findAll()</code>: Retorna todas as instâncias do tipo.</p>
-<p>6. <code>findAllById(Iterable<ID> ids)</code>: Retorna todas as instâncias do tipo com os IDs dados.</p>
-<p>7. <code>count()</code>: Retorna o número de entidades disponíveis.</p>
-<p>8. <code>deleteById(ID id)</code>: Exclui a entidade com o id dado.</p>
-<p>9. <code>delete(T entity)</code>: Exclui uma entidade dada.</p>
-<p>10. <code>deleteAll(Iterable<? extends T> entities)</code>: Exclui as entidades dadas.</p>
-<p>11. <code>deleteAll()</code>: Exclui todas as entidades gerenciadas pelo repositório.</p>
+<p>1. <strong>save(S entity)</strong>: Salva uma entidade dada.</p>
+<p>2. <strong>saveAll(Iterable&lt;S&gt; entities)</strong>: Salva todas as entidades dadas.</p>
+<p>3. <strong>findById(ID id)</strong>: Recupera uma entidade pelo seu id.</p>
+<p>4. <strong>existsById(ID id)</strong>: Retorna se uma entidade com o id dado existe.</p>
+<p>5. <strong>findAll()</strong>: Retorna todas as instâncias do tipo.</p>
+<p>6. <strong>findAllById(Iterable&lt;ID&gt; ids)</strong>: Retorna todas as instâncias do tipo com os IDs dados.</p>
+<p>7. <strong>count()</strong>: Retorna o número de entidades disponíveis.</p>
+<p>8. <strong>deleteById(ID id)</strong>: Exclui a entidade com o id dado.</p>
+<p>9. <strong>delete(T entity)</strong>: Exclui uma entidade dada.</p>
+<p>10. <strong>deleteAll(Iterable&lt;? extends T&gt; entities)</strong>: Exclui as entidades dadas.</p>
+<p>11. <strong>deleteAll()</strong>: Exclui todas as entidades gerenciadas pelo repositório.</p>
 
 
       </google-codelab-step>
