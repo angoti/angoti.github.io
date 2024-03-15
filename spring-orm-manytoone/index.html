@@ -88,35 +88,13 @@ spring.datasource.url=jdbc:h2:mem:itemcat
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=12345
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
 # configurações do log
-
-# Esta linha define o nível de log para as operações SQL do Hibernate como &#39;trace&#39;. 
-# &#39;TRACE&#39; é o nível mais detalhado de log. Quando o nível de log está definido como &#39;trace&#39;, 
-# a aplicação irá registrar todos os detalhes de cada operação SQL do Hibernate, incluindo 
-# os parâmetros envolvidos na operação e o conjunto de resultados retornados pela operação. 
-# Isso pode ser útil para depuração, mas também pode gerar muita saída de log, 
-# o que pode desacelerar sua aplicação e preencher rapidamente seus arquivos de log.
-logging.level.org.hibernate.SQL=trace
-
-# Esta linha define o nível de log para as operações web do Spring Framework como &#39;trace&#39;. 
-# &#39;TRACE&#39; é o nível mais detalhado de log. Quando o nível de log está definido como &#39;trace&#39;, 
-# a aplicação irá registrar todos os detalhes de cada operação realizada pela camada web do Spring Framework. 
-# Isso inclui detalhes sobre solicitações HTTP recebidas, o tratamento dessas solicitações e as respostas enviadas de volta ao cliente. 
-# Isso pode ser útil para depuração, especialmente quando você está tentando rastrear o fluxo de solicitações e respostas através de sua aplicação. 
-# No entanto, também pode gerar muita saída de log, o que pode desacelerar sua aplicação e preencher rapidamente seus arquivos de log.
 logging.level.org.springframework.web=trace
-
-# Ativar o console H2 para que você possa visualizar e interagir com o banco de dados H2 a partir de um navegador da web. 
-# O console H2 é uma ferramenta de administração de banco de dados # que permite visualizar tabelas, executar consultas SQL e executar outras operações de banco de dados.
-# Você pode abrir um navegador web e ir para http://localhost:8080/h2-console
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
-
-# Configurar o Spring Boot para exibir detalhes completos de erro em respostas de erro HTTP
 server.error.include-stacktrace=always</code></pre>
 
 
@@ -614,6 +592,11 @@ DELETE http://localhost:8080/item/1
 <p>Abaixo temos um diagrama UML com duas classes e uma associação bidirecional. Implemente o mapeamento objeto relacional correspondente usando Spring Boot e JPA. Implemente os métodos <code>addComment()</code> e <code>removeComment().</code></p>
 <p class="image-container"><img style="width: 552.09px" src="img\\e019a5dd0d128314.png"></p>
 
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Glossário de anotações Spring" duration="0">
+        
 
       </google-codelab-step>
     
