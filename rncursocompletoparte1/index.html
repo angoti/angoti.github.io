@@ -22,7 +22,7 @@
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  id=""
+                  id="rncursocompletoparte1"
                   title="Curso React Native"
                   environment="web"
                   feedback-link="">
@@ -975,6 +975,89 @@ export default ListaItens;</code></pre>
 </aside>
 <aside class="special"><p>A prática constante ajudará você a se familiarizar e aperfeiçoar suas habilidades com a FlatList no React Native.</p>
 </aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Jogo da forca" duration="10">
+        <h2 is-upgraded><strong>Introdução</strong></h2>
+<p>Ao fim deste projeto teremos o famoso jogo da forca completamente desenvolvido. O projeto será realizado em quatro etapas, e vamos aprender conceitos importantes para a programação de aplicativos em React Native.</p>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Version 1: useState, componente Pressable, lógica para manipular exibição de imagens diferentes.</li>
+<li>Version 2: Componente TextInput. Renderização condicional. Implementação da lógica do jogo.</li>
+<li>Version 5: Lógica para exibir palavra adivinhada.</li>
+<li>Version 6: Exibe teclado de letras e componentização.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Jogo da forca - Version 1" duration="40">
+        <p><a href="https://snack.expo.dev/@professor-angoti/forca-version-1" target="_blank">Link Snack</a></p>
+<pre>import { View, Pressable, Image, StyleSheet, Text } from &#39;react-native&#39;;
+import { useState } from &#39;react&#39;;
+
+function App() {
+  const forca1 = require(&#39;./assets/forca.png&#39;);
+  const forca2 = require(&#39;./assets/cabeca.png&#39;);
+  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
+  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
+  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
+  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
+  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
+
+  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
+
+  const [situacao, setSituacao] = useState(0);
+
+  function onPress() {
+    if (situacao == 6) {
+      setSituacao(0);
+    } else {
+      setSituacao(situacao + 1);
+    }
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
+      &lt;Pressable style={styles.botao} onPress={onPress}&gt;
+        &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: &#39;center&#39;,
+    justifyContent: &#39;center&#39;,
+  },
+  imagem: {
+    width: &#39;50%&#39;,
+    height: &#39;50%&#39;,
+    borderWidth: 1,
+    marginBottom: 20,
+  },
+  botao: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: &#39;black&#39;,
+  },
+  texto: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: &#39;bold&#39;,
+    letterSpacing: 0.25,
+    color: &#39;white&#39;,
+  },
+});
+
+export default App;</pre>
 
 
       </google-codelab-step>
