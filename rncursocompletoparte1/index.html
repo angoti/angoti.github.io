@@ -1062,6 +1062,131 @@ export default App;</pre>
 
       </google-codelab-step>
     
+      <google-codelab-step label="Projeto Jogo da forca - Version 2" duration="40">
+        <p><a href="https://snack.expo.dev/@professor-angoti/forca-version-2" target="_blank">Link Snack</a></p>
+<pre>import {
+  View,
+  Pressable,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+} from &#39;react-native&#39;;
+import { useState } from &#39;react&#39;;
+
+function App() {
+  const forca1 = require(&#39;./assets/forca.png&#39;);
+  const forca2 = require(&#39;./assets/cabeca.png&#39;);
+  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
+  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
+  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
+  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
+  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
+
+  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
+  const letra = &#39;S&#39;;
+
+  const [situacao, setSituacao] = useState(0);
+  const [palpite, onChangePalpite] = useState(&#39;&#39;);
+  const [mensagem, setMensagem] = useState(&#39;&#39;);
+  const [fimDeJogo, setFimDeJogo] = useState(false);
+
+  function validarPalpite() {
+    console.log(&#39;---------&gt; &#39;, palpite.toUpperCase());
+    if (letra.toUpperCase() === palpite.toUpperCase()) {
+      setMensagem(&#39;acertou&#39;);
+      setFimDeJogo(true);
+      setSituacao(0);
+    } else if (situacao &lt; 6) {
+      setSituacao(situacao + 1);
+      onChangePalpite(&#39;&#39;);
+    } else {
+      setFimDeJogo(true);
+      setMensagem(&#39;perdeu&#39;);
+    }
+  }
+
+  function novo() {
+    setMensagem(&#39;&#39;);
+    setSituacao(0);
+    setFimDeJogo(false);
+    onChangePalpite(&#39;&#39;);
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.mensagem}&gt;{mensagem}&lt;/Text&gt;
+      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
+      &lt;TextInput
+        style={styles.input}
+        maxLength={1}
+        onChangeText={onChangePalpite}
+        value={palpite}
+        autoCapitalize=&#34;characters&#34;
+      /&gt;
+      {!fimDeJogo &amp;&amp; (
+        &lt;Pressable style={styles.botao} onPress={validarPalpite}&gt;
+          &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
+        &lt;/Pressable&gt;
+      )}
+      {fimDeJogo &amp;&amp; (
+        &lt;Pressable style={styles.botao} onPress={novo}&gt;
+          &lt;Text style={styles.texto}&gt;Novo jogo&lt;/Text&gt;
+        &lt;/Pressable&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: &#39;center&#39;,
+    justifyContent: &#39;center&#39;,
+  },
+  imagem: {
+    width: &#39;50%&#39;,
+    height: &#39;50%&#39;,
+    // borderWidth: 1,
+    resizeMode: &#39;contain&#39;,
+  },
+  botao: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: &#39;black&#39;,
+    margin: 12,
+    width: &#39;50%&#39;,
+  },
+  texto: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: &#39;bold&#39;,
+    letterSpacing: 0.25,
+    color: &#39;white&#39;,
+    alignSelf: &#39;center&#39;,
+  },
+  input: {
+    height: 40,
+    width: 40,
+    margin: 12,
+    borderWidth: 1,
+    textAlign: &#39;center&#39;,
+    fontSize: 20,
+  },
+  mensagem: {
+    fontSize: 50,
+    margin: 12,
+    color: &#39;red&#39;,
+  },
+});
+
+export default App;</pre>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
