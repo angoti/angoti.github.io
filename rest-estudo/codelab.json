@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2024-07-11T21:55:31Z",
+  "id": "rest-estudo",
+  "duration": 5,
+  "title": "Rest API - Estudo de Caso",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Demostração do uso",
+  "source": "1v5bCUaypl0NTb3t0J9rr5OuBQh3jvIl8d1FivD4Vers",
+  "theme": "reactnative",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "reactnative"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "rest-estudo"
+}

@@ -1,0 +1,203 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Rest API - Estudo de Caso</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="rest-estudo"
+                  title="Rest API - Estudo de Caso"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Objetivo" duration="5">
+        <aside class="special"><p>Última atualização: 11/07/2024</p>
+</aside>
+<p>Implementar um aplicativo back-end Rest API a partir de um modelo conceitual, usando padrões de mercado e boas práticas.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Modelo conceitual" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\d62ce341e73a3bae.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Planejamento de endpoints" duration="0">
+        <table>
+<tr><td colspan="1" rowspan="1"><p><strong>Endpoint</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Dados</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/categorias/{id}</p>
+</td><td colspan="1" rowspan="1"><p>Categoria e seus produtos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/clientes/{id}</p>
+</td><td colspan="1" rowspan="1"><p>Cliente, seus telefones e seus endereços</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>/pedidos/{id}</p>
+</td><td colspan="1" rowspan="1"><p>Pedido, seu cliente, seu pagamento, seus itens de pedido, seu endereço de entrega</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação do projeto" duration="0">
+        <p>·         Ctrl+shift+p para acionar o initializr</p>
+<p>·         Adicione as camadas ao projeto</p>
+<p>·         Configure as propriedades da aplicação</p>
+<p>·         Adicione um controlador</p>
+<p>·         Rodar o servidor</p>
+<p>·         Testar<a href="http://localhost:8080/categorias" target="_blank">http://localhost:8080/categorias</a></p>
+<p>·         Testar<a href="http://localhost:8080/h2-console" target="_blank">http://localhost:8080/h2-console</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação da entidade Categoria" duration="0">
+        <pre>@Entity
+public class Categoria implements Serializable {
+   private static final long serialVersionUID = 1L;
+ 
+   @Id
+   @GeneratedValue(strategy=GenerationType.IDENTITY)
+   private Integer id;
+}</pre>
+<p><strong>Criando repository e service para Categoria</strong></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Produto e associação muitos para muitos" duration="0">
+        <h2 is-upgraded><strong>Mapeamento na classe Produto</strong></h2>
+<pre>@ManyToMany
+ @JoinTable(name = &#34;PRODUTO_CATEGORIA&#34;,
+ joinColumns = @JoinColumn(name = &#34;produto_id&#34;),
+ inverseJoinColumns = @JoinColumn(name = &#34;categoria_id&#34;)
+ )
+private List&lt;Categoria&gt; categorias = new ArrayList&lt;&gt;();
+</pre>
+<h2 is-upgraded><strong> Mapeamento na classe Categoria</strong></h2>
+<pre>@ManyToMany(mappedBy=&#34;categorias&#34;)
+private List&lt;Produto&gt; produtos = new ArrayList&lt;&gt;();</pre>
+<h2 is-upgraded>Ajustes no endpoint <strong><code>/categorias/{id}</code></strong></h2>
+<p> Proteção para referência cíclica na serialização Json:</p>
+<p>@JsonManagedReference</p>
+<p>@JsonBackReference</p>
+<h2 is-upgraded><strong>Estado e Cidade</strong></h2>
+<pre>@Data
+@Entity
+public class Cidade{
+ 
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+private Integer id;
+private String nome;
+ 
+@ManyToOne
+@JoinColumn
+private Estado estado;</pre>
+<pre>@Data
+@Entity
+public class Estado {
+ 
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+private Integer id;
+private String nome;
+ 
+@OneToMany(mappedBy=&#34;estado&#34;)
+private List&lt;Cidade&gt; cidades;</pre>
+<h2 is-upgraded>Mapeamento dos telefones (ElementCollection)</h2>
+<pre>@ElementCollection
+@CollectionTable(name =&#34;TELEFONE&#34;)
+private Set&lt;String&gt; telefones = new HashSet&lt;&gt;();</pre>
+<h2 is-upgraded><strong>Endpoint /clientes/{id}</strong></h2>
+<p> Checklist:</p>
+<p>o Criar ClienteService</p>
+<p>o Criar ClienteController</p>
+<p>o Proteger contra serialização Json cíclica</p>
+<h2 is-upgraded>Classe Pedido</h2>
+<pre>@Data
+@Entity
+public class Pedido {
+ 
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+private Integer id;
+ 
+@Temporal(TemporalType.TIMESTAMP)
+private Date instante;
+ 
+@OneToOne(cascade = CascadeType.ALL, mappedBy=&#34;pedido&#34;)
+private Pagamento pagamento;
+ 
+@ManyToOne
+private Cliente cliente;
+@ManyToOne
+private Endereco enderecoDeEntrega;</pre>
+<h2 is-upgraded><strong>ItemPedido e ItemPedidoPK</strong></h2>
+<pre>Classe ItemPedidoPK
+@Embeddable
+public class ItemPedidoPK implements Serializable {
+private static final long serialVersionUID = 1L;
+ 
+@ManyToOne
+@JoinColumn(name=&#34;pedido_id&#34;)
+private Pedido pedido;
+@ManyToOne
+@JoinColumn(name=&#34;produto_id&#34;)
+private Produto produto;
+ 
+Classe ItemPedido
+@Entity
+public class ItemPedido {
+@EmbeddedId
+private ItemPedidoPK id = new ItemPedidoPK();
+ 
+private Double desconto;
+private Integer quantidade;
+private Double preco;
+public ItemPedido() {
+ }
+public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer
+quantidade, Double preco) {
+ super();
+ id.setPedido(pedido);
+ id.setProduto(produto);
+ this.desconto = desconto;
+ this.quantidade = quantidade;
+ this.preco = preco;
+ }</pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
