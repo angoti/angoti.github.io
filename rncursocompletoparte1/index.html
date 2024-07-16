@@ -685,6 +685,7 @@ export default App;</pre>
     
       <google-codelab-step label="Projeto Jogo da forca - V2" duration="40">
         <p><a href="https://snack.expo.dev/@professor-angoti/forca-v2" target="_blank">Link Snack</a></p>
+<p>Em 10/07/2024, eu solicitei ao ChatGPT que explicasse o seguinte código: </p>
 <pre>import {
   View,
   Pressable,
@@ -804,6 +805,94 @@ const styles = StyleSheet.create({
 });
 
 export default App;</pre>
+<p>E aqui está o resultado:</p>
+<aside class="special"><p>Este código React Native implementa um jogo de &#34;Forca&#34; básico, onde o jogador tenta adivinhar uma letra e, dependendo do seu palpite, o estado do jogo é atualizado.</p>
+<p>Aqui está um resumo detalhado de como o jogo funciona:</p>
+<h2 is-upgraded><strong>Estrutura do Código</strong></h2>
+<p>1. <strong>Importação de Componentes</strong></p>
+<p>    - Componentes do React Native como <code>View</code>, <code>Pressable</code>, <code>Image</code>, <code>StyleSheet</code>, <code>Text</code>, e <code>TextInput</code> são importados.</p>
+<p>    - O hook <code>useState</code> do React é usado para gerenciar o estado.</p>
+<p>2. <strong>Imagens</strong></p>
+<p>    - Sete imagens são importadas, representando as diferentes fases do boneco da forca.</p>
+<p>3. <strong>Constantes e Estados</strong></p>
+<p>    - <code>lista</code>: Uma lista contendo as imagens importadas.</p>
+<p>    - <code>letra</code>: A letra correta que o jogador deve adivinhar (neste caso, &#39;S&#39;).</p>
+<p>    - Três estados são definidos:</p>
+<p>      - <code>situacao</code>: Para rastrear o estado atual do boneco da forca.</p>
+<p>      - <code>palpite</code>: Para armazenar o palpite do jogador.</p>
+<p>      - <code>mensagem</code>: Para exibir uma mensagem de acerto ou erro.</p>
+<p>      - <code>fimDeJogo</code>: Para indicar se o jogo terminou.</p>
+<p>4. <strong>Funções</strong></p>
+<p>    - <code>validarPalpite</code>: Valida o palpite do jogador. Se o palpite estiver correto, o jogador vence; caso contrário, o boneco da forca é atualizado. Se o boneco atingir a última imagem, o jogador perde.</p>
+<p>    - <code>novo</code>: Reinicia o jogo, resetando todos os estados.</p>
+<p>5. <strong>Renderização</strong></p>
+<p>    - O componente <code>View</code> principal contém o layout do jogo.</p>
+<p>    - O componente <code>Text</code> exibe a mensagem de acerto ou erro.</p>
+<p>    - O componente <code>Image</code> exibe a imagem correspondente ao estado atual do jogo.</p>
+<p>    - O componente <code>TextInput</code> permite que o jogador insira uma letra.</p>
+<p>    - Os componentes <code>Pressable</code> são usados para os botões de tentativa e novo jogo.</p>
+<h2 is-upgraded><strong>Estilo</strong></h2>
+<p>Os estilos são definidos no objeto <code>styles</code> usando <code>StyleSheet.create</code> para configurar a aparência dos componentes, incluindo layout, cores, tamanhos e alinhamento.</p>
+<h2 is-upgraded><strong>Funcionamento do Jogo</strong></h2>
+<p>- O jogador insere uma letra no <code>TextInput</code> e pressiona o botão &#34;<code>Tentativa</code>&#34;.</p>
+<p>- A função <code>validarPalpite</code> é chamada para verificar se a letra está correta.</p>
+<p>  - Se correta, a mensagem &#34;acertou&#34; é exibida e o jogo termina.</p>
+<p>  - Se incorreta e o jogador ainda tiver tentativas, o estado do boneco da forca é atualizado.</p>
+<p>  - Se todas as tentativas forem usadas, a mensagem &#34;perdeu&#34; é exibida e o jogo termina.</p>
+<p>- O botão &#34;<code>Novo jogo</code>&#34; reinicia o jogo.</p>
+<p>Esse código oferece uma implementação simples e funcional do jogo da forca, fácil de entender e estender para adicionar mais funcionalidades, como adivinhar palavras completas ou alterar a letra correta dinamicamente.</p>
+</aside>
+<h2 is-upgraded><strong>Renderização condicional</strong></h2>
+<aside class="special"><p>Referência: https://react.dev/learn/conditional-rendering</p>
+</aside>
+<p>A renderização condicional é um recurso que permite exibir ou ocultar componentes. Com o uso do operador condicional ternário (veja a <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators#operador_condicional_tern%C3%A1rio" target="_blank">documentação</a>) podemos construir o seguinte código que exibirá uma mensagem específica conforme o valor da variável <code>isLoggedIn</code></p>
+<pre>import { Text, View, StyleSheet } from &#39;react-native&#39;;
+
+export default function App() {
+  const isLoggedIn = false;
+  return (
+    &lt;View style={styles.container}&gt;
+      {isLoggedIn ? (
+        &lt;Text style={styles.paragraph}&gt;Bem-vindo de volta!&lt;/Text&gt;
+      ) : (
+        &lt;Text style={styles.paragraph}&gt;Por favor, faça o login.&lt;/Text&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: &#39;center&#39;,
+    backgroundColor: &#39;#ecf0f1&#39;,
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: &#39;bold&#39;,
+    textAlign: &#39;center&#39;,
+  },
+});</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Jogo da forca - V3" duration="40">
+        
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Link Snack" duration="0">
+        <p>Nesta versão vamos adicionar uma lista de palavras para ser adivinhada pelo usuário.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Jogo da forca - V4" duration="40">
+        <p><a href="https://snack.expo.dev/@professor-angoti/forca-v4" target="_blank">Link Snack</a></p>
+<p>Na última versão do nosso projeto não vamos adicionar funcionalidades ao jogo. Nós vamos componentizar o código, ou seja, criar componentes de foram que o código fique melhor organizado.</p>
 
 
       </google-codelab-step>
