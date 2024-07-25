@@ -1,0 +1,264 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>ORM JPA</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="orm-jpa"
+                  title="ORM JPA"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Análise no domínio do negócio" duration="5">
+        <aside class="special"><p><strong>Referência: </strong>Chapter 3 - Domain models and metadata; Java Persistence with Hibernate;  SECOND EDITION; CHRISTIAN BAUER - GAVIN KING - GARY GREGORY</p>
+</aside>
+<ul>
+<li>O processo de análise procura entender o negócio e levantar as entidades relevantes no domínio do problema.</li>
+<li>Entidades são geralmente noções compreendidas pelos usuários do sistema: pagamento, cliente, pedido, item e assim por diante.</li>
+<li>Você pode encontrar todas essas entidades na visão conceitual do negócio, às vezes chamado de modelo de negócio.</li>
+<li>A partir deste modelo de negócio podemos criar um modelo orientado a objetos, ainda no nível conceitual (sem código Java).</li>
+</ul>
+<h2 is-upgraded>Modelo conceitual</h2>
+<p class="image-container"><img style="width: 651.20px" src="img\\9f81f8cbc91af0b5.png"></p>
+<p>O diagrama UML acima contém <strong>entidades</strong> que você encontra em qualquer sistema de comércio eletrônico: categoria, item e usuário. Este <strong>modelo </strong>representa todos as entidades e seus relacionamentos no <strong>domínio do negócio</strong>. É uma visão abstrata e conceitual do mundo real.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mapeamento de entidades com identidade" duration="30">
+        <p>Primeiro, é vital entender a diferença entre identidade e igualdade entre objetos Java. A identidade de objeto (==) é uma noção definida pela máquina virtual Java. Duas referências são idênticas se elas apontam para o mesmo local de memória. Usando <code>jshell</code> podemos verificar a identidade entre objetos.</p>
+<p><a href="https://drive.google.com/file/d/12Y_O4sXkac9Yan4M0NJWF1dyZ2t3mi3l/view?usp=sharing" target="_blank">ver video</a></p>
+<p>O vídeo mostra a criação de um objeto do tipo String e a ligação de duas variáveis ao mesmo objeto.</p>
+<p class="image-container"><img style="width: 1193.00px" src="img\\4c22835994e8c3c8.png"></p>
+<p>Por outro lado, a igualdade de objeto é uma noção definida pelo método equals(), às vezes também conhecido como equivalência. Equivalência significa duas diferentes instâncias (não idênticas) têm o mesmo valor. Duas diferentes instâncias de String são iguais se representam a mesma sequência de caracteres, mesmo embora cada um tenha seu próprio local no espaço de memória da máquina virtual.</p>
+<p><a href="https://drive.google.com/file/d/11ccyPtdz0WMlCfiLhNLJxDodtYINY_gs/view?usp=sharing" target="_blank">ver video</a></p>
+<p class="image-container"><img style="width: 1200.00px" src="img\\12c0cc95d558b6af.png"></p>
+<aside class="special"><p>Um <strong>objeto persistente</strong> é uma representação na memória de uma determinada linha de uma tabela de um banco de dados. </p>
+</aside>
+<p>Agora você tem três métodos para distinguir referências:</p>
+<ul>
+<li>Objetos são idênticos se ocuparem o mesmo local de memória na JVM e pode ser verificado com o operador a == b. Este conceito é conhecido como identidade do objeto.</li>
+<li>Os objetos são iguais se eles têm o mesmo estado, conforme definido pelo equals().</li>
+<li>Objetos armazenados em um banco de dados relacional são idênticos se compartilham a mesma tabela e valor da chave primária. Este conceito, mapeado no espaço Java, é conhecido como<strong> identidade do banco de dados</strong>.</li>
+</ul>
+<p>Esta é a classe de entidade mais básica, marcada como &#34;capaz de persistir&#34; com a anotação <code>@Entity</code> e com um mapeamento <code>@Id</code> para a propriedade do identificador do banco de dados. A classe mapeia por padrão para uma tabela chamada ITEM no esquema do banco de dados.</p>
+<pre><code>@Entity
+public class Item { 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  protected Long id;
+}</code></pre>
+<p>O identificador do banco de dados de uma entidade é mapeado para alguma chave primária da tabela. Vamos pensar como identificamos entidades. Uma candidata a chave é uma coluna que você pode usar para identificar uma determinada linha em uma tabela. Para se tornar a chave primária, uma chave candidata deve satisfazer os seguintes requisitos:</p>
+<p>○        Nunca é nulo.</p>
+<p>○        É um valor único. </p>
+<p>○        É imutável.</p>
+<p>Uma boa chave primária deve ser única, imutável e nunca nula.Existem várias abordagens bem conhecidas para gerar valores de chave primária. A anotação <code>@GeneratedValue</code> é como você configura isso. JPA padroniza várias estratégias de geração de valor com javax.persistence.GenerationType, que você seleciona com @GeneratedValue (strategy = ...):</p>
+<ul>
+<li>GenerationType.AUTO- Hibernate escolhe uma estratégia apropriada, perguntando ao dialeto SQL de seu banco de dados configurado qual é o melhor. Isso é equivalente a @GeneratedValue().</li>
+<li>GenerationType.SEQUENCE- Hibernate usa uma sequência chamada HIBERNATE_SEQUENCE em seu banco de dados. A sequência será chamada separadamente antes de cada INSERT, produzindo um número sequencial.</li>
+<li><strong>GenerationType.IDENTITY- Hibernate cria uma coluna de chave primária auto-incrementada especial que gera automaticamente um valor numérico a cada INSERT.</strong></li>
+<li>GenerationType.TABLE- O Hibernate usará uma tabela extra em seu banco de dados que contém o próximo valor da chave primária numérica, uma linha para cada entidade. Esta tabela será lida e atualizada antes dos INSERT.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Associação ManyToOne" duration="30">
+        <p class="image-container"><img style="width: 933.00px" src="img\\61c6558f7502a3cd.png"></p>
+<p>A anotação @ManyToOnemarca uma associação entre entidades. Uma associação muitos-para-um representa uma ligação com uma chave estrangeira. O nome padrão para a coluna de junção é categoria_id: o Hibernate usa automaticamente uma combinação do nome da entidade alvo e sua propriedade identificadora, separada por um sublinhado. Você não precisa mapear o outro lado dessa relação.</p>
+<pre><code>@Entity
+public class Item { ... @ManyToOne
+private Categoria categoria; ...</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Associação OneToMany" duration="30">
+        <p class="image-container"><img style="width: 878.72px" src="img\\a53e3789f15e8eb.png"></p>
+<p>Volte na imagem anterior e perceba o que mudou em relação à imagem acima.</p>
+<h2 is-upgraded>Declaração de uma coleção no modelo de domínio Java</h2>
+<pre><code>&lt;&lt;Interface&gt;&gt; nomeDaVariável = new &lt;&lt;Implementação&gt;&gt;();</code></pre>
+<p>Use uma interface para declarar o tipo da variável e escolha uma implementação correspondente. Você deve inicializar a coleção imediatamente. Não é recomendável inicializar coleções em construtores ou métodos setter. Exemplo:</p>
+<pre><code>@Entity
+public class Categoria {
+
+   ...
+
+   @OneToMany
+   private List&lt;Item&gt; items = new ArrayList&lt;Item&gt;();
+
+   ...
+}</code></pre>
+<p>A anotação @OneToMany aplicada ao atributo items da classe Categoria indica um relacionamento um para muitos, ou seja uma categoria possui muitos itens. Implica na criação, pelo Hibernate, de uma nova tabela para armazenar as ligações entre Categoria e Item.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><h2 is-upgraded><strong>DER</strong></h2>
+<h2 is-upgraded><img style="width: 744.64px" src="img\\f9f6870abaacde40.png"></h2>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><h2 is-upgraded><strong>UML</strong></h2>
+<p class="image-container"><img style="width: 662.40px" src="img\\78333bb6189a9071.png"></p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Associação bidirecional ManyToOne/OneToMany" duration="30">
+        <p>Nesse caso (associação bidirecional) você também deve definir o parâmetro mappedBy. O valor é o nome do atributo do &#34;outro lado&#34;</p>
+<pre><code>@Entity
+public class Categoria { ...
+    @OneToMany(mappedBy = &#34;categoria&#34;)
+    private List&lt;Item&gt; items = new ArrayList&lt;Item&gt;();
+
+    ...
+}</code></pre>
+<table>
+<tr><td colspan="1" rowspan="1"><h2 is-upgraded><strong>DER</strong></h2>
+<p class="image-container"><img style="width: 567.04px" src="img\\12d7ebba2909cf69.png"></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><h2 is-upgraded><strong>UML</strong></h2>
+<h2 is-upgraded><img style="width: 801.28px" src="img\\c51d3332af5ffcbf.png"></h2>
+</td></tr>
+</table>
+<p>Pode ocorrer um problema devido à serialização infinita entre as entidades relacionadas. Isso é comum quando se tem um relacionamento bidirecional entre as entidades. Para resolver esse problema, você pode usar a anotação <code>@JsonIgnore</code> na propriedade mapeada com <code>@ManyToOne</code>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Associação OneToOne" duration="30">
+        <aside class="special"><p><strong>Referência: </strong>Chapter 8 - Mapping collections and entity associations - Java Persistence with Hibernate - SECOND EDITION - CHRISTIAN BAUER - GAVIN KING - GARY GREGORY</p>
+</aside>
+<p>Considere o seguinte modelo</p>
+<p class="image-container"><img style="width: 932.97px" src="img\\3a511fddb8ae0381.png"></p>
+<h2 is-upgraded><strong>Estratégias</strong></h2>
+<ol type="1" start="1">
+<li>Entidade incorporada</li>
+<li>Chave primária compartilhada</li>
+<li>Usando chave estrangeira</li>
+</ol>
+<h2 is-upgraded>1. <strong>Entidade incorporada</strong></h2>
+<p class="image-container"><img style="width: 773.00px" src="img\\8007f361cdfa72af.png"></p>
+<h2 is-upgraded><strong>2. Compartilhando a chave primária</strong></h2>
+<p class="image-container"><img style="width: 781.50px" src="img\\2a575672d2639b63.png"></p>
+<p class="image-container"><img style="width: 777.50px" src="img\\658e832b3b65445d.png"></p>
+<h2 is-upgraded><strong> 3. Usando chave estrangeira</strong></h2>
+<p class="image-container"><img style="width: 613.00px" src="img\\5fce7de2522d1558.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Métodos de consulta JPA" duration="0">
+        <p><a href="https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html" target="_blank">JPA Query Methods</a></p>
+<p>Criação de uma consulta com derivação do nome do método. Exemplo:</p>
+<pre><code>List&lt;TodoListItem&gt; findByTarefa(TodoList tarefa);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mapeando coleções" duration="0">
+        <p class="image-container"><img style="width: 772.00px" src="img\\3ceacac20c1610c8.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exercícios" duration="0">
+        <p class="image-container"><img style="width: 713.00px" src="img\\8cd17333b88cb423.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Lombok e JPA" duration="0">
+        <p>A anotação <code>@Data</code> do Lombok é amplamente usada para gerar automaticamente métodos getters, setters, toString, equals e hashCode. Quando utilizada em classes que fazem uso do ORM Hibernate, algumas considerações e boas práticas devem ser levadas em conta para evitar problemas.</p>
+<h2 is-upgraded><strong>Considerações importantes</strong></h2>
+<p><strong>1. Métodos equals e hashCode</strong></p>
+<p>O Hibernate usa os métodos <code>equals</code> e <code>hashCode</code> para identificar entidades e gerenciar seu estado. Usar os IDs de banco de dados gerados automaticamente (@Id com @GeneratedValue) nesses métodos pode causar problemas, especialmente antes de a entidade ser persistida e receber um ID. É comum sobrescrever esses métodos para utilizar atributos naturais e imutáveis.</p>
+<p><strong>2. Lazy Loading</strong></p>
+<p>Em relacionamentos @OneToMany ou @ManyToMany, especialmente se o fetch type for LAZY, os métodos <code>toString</code>, <code>equals</code> e <code>hashCode</code> podem acionar carregamento (lazy loading) não intencional de coleções, levando a problemas de desempenho ou exceções <em>LazyInitializationException</em>.</p>
+<p><strong>3. Anotações específicas de Lombok</strong></p>
+<p>   - Em vez de @Data, considere usar @Getter e @Setter separadamente para evitar a geração de equals e hashCode indesejados.</p>
+<p>   - Use @ToString(exclude = {lista de coleções da entidade}) para evitar a inclusão de coleções lazy-loaded na representação string.</p>
+<p>Exemplo</p>
+<pre><code>@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = { &#34;senha&#34;, &#34;telefones&#34; })
+@EqualsAndHashCode(of = { &#34;email&#34; })
+@Entity
+public class Usuario {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;    
+    private String email;
+    private String senha;
+    private List&lt;telefone&gt; telefones = new ArrayList&lt;Telefone&gt;;
+
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Lista de anotações JPA" duration="0">
+        <h2 is-upgraded><strong>1. Anotações Básicas</strong></h2>
+<p>- <code>@Entity</code>: Indica que uma classe é uma entidade JPA.</p>
+<p>- <code>@Table</code>: Especifica a tabela primária da entidade.</p>
+<p>- <code>@Id</code>: Especifica o identificador primário da entidade.</p>
+<p>- <code>@GeneratedValue</code>: Especifica a estratégia de geração de valores para o identificador primário.</p>
+<p>- <code>@Column</code>: Especifica o mapeamento entre um atributo de entidade e uma coluna da tabela.</p>
+<h2 is-upgraded><strong>2. Relacionamentos</strong></h2>
+<p>- <code>@OneToOne</code>: Especifica um relacionamento de um-para-um.</p>
+<p>- <code>@OneToMany</code>: Especifica um relacionamento de um-para-muitos.</p>
+<p>- <code>@ManyToOne</code>: Especifica um relacionamento de muitos-para-um.</p>
+<p>- <code>@ManyToMany</code>: Especifica um relacionamento de muitos-para-muitos.</p>
+<p>- <code>@JoinColumn</code>: Especifica a coluna de junção para associações.</p>
+<p>- <code>@JoinTable</code>: Especifica a tabela de junção para associações.</p>
+<h2 is-upgraded><strong>3. Herança</strong></h2>
+<p>- <code>@Inheritance</code>: Define a estratégia de herança.</p>
+<p>- <code>@DiscriminatorColumn</code>: Especifica a coluna discriminadora para tabelas de herança.</p>
+<p>- <code>@DiscriminatorValue</code>: Especifica o valor discriminador para uma entidade na hierarquia de herança.</p>
+<h2 is-upgraded><strong>4. Consultas</strong></h2>
+<p>- <code>@NamedQuery</code>: Define uma consulta JPQL estática.</p>
+<p>- <code>@NamedQueries</code>: Define um conjunto de consultas JPQL estáticas.</p>
+<p>- <code>@Query</code>: Define uma consulta JPQL ou SQL nativa personalizada.</p>
+<p>- <code>@NamedNativeQuery</code>: Define uma consulta SQL nativa estática.</p>
+<p>- <code>@NamedNativeQueries</code>: Define um conjunto de consultas SQL nativas estáticas.</p>
+<h2 is-upgraded><strong>5. Transações e Concorrência</strong></h2>
+<p>- <code>@Transactional</code>: Especifica que um método ou classe deve ser executado em uma transação.</p>
+<p>- <code>@Lock</code>: Especifica o tipo de bloqueio a ser usado para consultas de entidades.</p>
+<h2 is-upgraded><strong>6. Outras Anotações</strong></h2>
+<p>- <code>@Embeddable</code>: Indica que uma classe pode ser embutida em uma entidade.</p>
+<p>- <code>@Embedded</code>: Especifica um campo ou propriedade embutida.</p>
+<p>- <code>@ElementCollection</code>: Define uma coleção de elementos embutidos ou básicos.</p>
+<p>- <code>@Transient</code>: Indica que um atributo não deve ser persistido.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

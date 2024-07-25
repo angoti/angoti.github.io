@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2024-07-25T18:30:14Z",
+  "id": "orm-jpa",
+  "duration": 155,
+  "title": "ORM JPA",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Apresentação de mapeamento objeto relacional com JPA",
+  "source": "1xEBQimVH3zQ_MMs5vL4cHWavwbl7BQcue2w6B5fNV00",
+  "theme": "springboot",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "springboot"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "orm-jpa"
+}
