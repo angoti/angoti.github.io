@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2024-08-08T21:57:07Z",
+  "id": "rest-api",
+  "duration": 265,
+  "title": "Codelab - REST API com Spring Boot",
+  "authors": "Edson Angoti Júnior",
+  "summary": "RESTful API com Spring Boot",
+  "source": "1_gLi0aZMl7xe3F2PZln9OPqjzbv9JMJTYE-SXItKxPg",
+  "theme": "web",
+  "status": [
+    "emconstrução"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "rest-api"
+}

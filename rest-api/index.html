@@ -1,0 +1,651 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - REST API com Spring Boot</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="rest-api"
+                  title="Codelab - REST API com Spring Boot"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <p class="image-container"><img style="width: 624.00px" src="img\\47e62796cee22f73.png"></p>
+<h2 is-upgraded><strong>Definições</strong></h2>
+<h3 is-upgraded><strong>REST</strong></h3>
+<p>O termo <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">REST</a> é um acrônimo e significa <strong>Representational State Transfer</strong>. Rest é um paradigma arquitetônico usado no desenvolvimento de <em>web services</em>. Criado por Roy Fielding em 2000 em sua tese de <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank">doutorado</a> defendida no ano de 2000 na Universidade da Califórnia, Irvine. </p>
+<h3 is-upgraded><strong>RESTful API </strong></h3>
+<p>Também conhecido como um web service RESTful. Web service construído em conformidade com o estilo de arquitetura REST e usa métodos HTTP.</p>
+<h3 is-upgraded><strong>API</strong></h3>
+<p>API é um conjunto de definições e protocolos usado no desenvolvimento e na integração de software de aplicações. API é um acrônimo em inglês que significa interface de programação de aplicações. As APIs costumam ser vistas como contratos, com documentações que representam um acordo entre as partes interessadas (<a href="https://www.redhat.com/pt-br/topics/api/what-are-application-programming-interfaces" target="_blank">referência</a>). Como exemplo podemos citar a API java (<a href="https://docs.oracle.com/en/java/javase/16/" target="_blank">referência</a>).</p>
+<h3 is-upgraded><strong>Endpoint</strong></h3>
+<p>Um endpoint de um web service é a URL onde seu serviço pode ser acessado por uma aplicação cliente (<a href="https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api" target="_blank">referência</a>).<img style="width: 296.00px" src="img\\6dea4a584f4d5054.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Cliente web service" duration="30">
+        <p class="image-container"><img style="width: 138.00px" src="img\\f59d8bbc744939aa.png"></p>
+<p>Aplicações que fornecem web services precisam de clientes que têm a capacidade de realizar requisições HTTP usando todos os tipos de métodos e, portanto, precisaremos de um cliente especial para testar nossas aplicações. Vamos usar uma extensão do VSCode chamada REST Client para testar nossos serviços.</p>
+<ul>
+<li><strong>Funcionalidades</strong>: O REST Client permite enviar requisições HTTP e visualizar as respostas diretamente no Visual Studio Code. Ele oferece suporte a múltiplas requisições em um único arquivo, variáveis personalizadas, e geração de snippets de código.</li>
+<li><strong>Uso</strong>: Para enviar uma requisição, clique em &#34;Send Request&#34; ou use atalhos como <code>Ctrl+Alt+R</code>. As respostas podem ser visualizadas em um painel separado ou como um documento sem título.</li>
+<li><strong>Variáveis</strong>: Suporta variáveis de ambiente, de arquivo, de requisição e prompt, permitindo a personalização flexível das requisições HTTP.</li>
+<li><strong>Autenticação</strong>: Fornece suporte para esquemas comuns de autenticação, como Basic Auth, Digest Auth e tokens do Azure Active Directory.</li>
+</ul>
+<p>A seguir mostramos exemplos de uso para cada um dos principais métodos de requisição HTTP:</p>
+<p><strong>1. GET</strong></p>
+<ul>
+<li>O método GET é usado para solicitar a representação de um recurso específico.</li>
+</ul>
+<pre><code>GET /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com</code></pre>
+<p>Neste exemplo, estamos buscando o post com ID 123 na API.</p>
+<p><strong>2. POST</strong></p>
+<ul>
+<li>O método POST é utilizado para submeter uma entidade a um recurso específico, frequentemente causando uma mudança no estado do recurso ou efeitos colaterais no servidor.</li>
+</ul>
+<pre><code>POST /posts HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: application/json
+
+{
+  &#34;title&#34;: &#34;foo&#34;,
+  &#34;body&#34;: &#34;bar&#34;,
+  &#34;userId&#34;: 1
+}</code></pre>
+<p> Aqui, estamos adicionando um novo usuário através de um modal de inscrição.</p>
+<p><strong>3.  PUT</strong></p>
+<ul>
+<li>O método PUT substitui todas as atuais representações do recurso de destino pela carga de dados da requisição.</li>
+</ul>
+<pre><code>PUT /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: application/json
+
+{
+  &#34;id&#34;: 1,
+  &#34;title&#34;: &#34;foo&#34;,
+  &#34;body&#34;: &#34;bar&#34;,
+  &#34;userId&#34;: 1
+}</code></pre>
+<p>Neste caso, estamos atualizando o post com ID 123.</p>
+<p><strong>4.  DELETE :</strong></p>
+<ul>
+<li>O método DELETE remove um recurso específico.</li>
+</ul>
+<pre><code>DELETE /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com</code></pre>
+<p> Aqui, estamos excluindo o post com ID 123.</p>
+<p><strong>5.  PATCH</strong></p>
+<ul>
+<li>O método PATCH é utilizado para aplicar modificações parciais em um recurso. </li>
+</ul>
+<pre><code>PATCH /posts/1 HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: application/json
+
+{
+  &#34;title&#34;: &#34;foo&#34;
+}</code></pre>
+<p>Neste exemplo, estamos alterando apenas a senha do usuário com ID 456.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Métodos HTTP" duration="30">
+        <p>Referências</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-framework/docs/5.3.16/reference/html/web.html#mvc-ann-requestmapping" target="_blank">Request Mapping</a></li>
+<li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" target="_blank">Class ResponseEntity&lt;T&gt;</a></li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img\\30bfa735c4166fa5.png"></p>
+<h2 is-upgraded><strong>Idempotente </strong></h2>
+<p>Um método HTTP é idempotente se uma requisição idêntica pode ser feita uma ou mais vezes em sequência com o mesmo efeito enquanto deixa o servidor no mesmo estado. Em outras palavras, um método idempotente não deveria possuir nenhum efeito colateral (exceto para manter estatísticas). Implementados corretamente, o GET, HEAD, PUT, e DELETE são métodos idempotentes, mas não o método POST. </p>
+<h2 is-upgraded><strong>Códigos de status de resposta HTTP</strong></h2>
+<p>Servem para informar ao cliente o status de suas requisições. O servidor retorna códigos de status genéricos. As categorias de código são:</p>
+<ul>
+<li>2xx - Sucesso - a requisição foi aceita com sucesso e executou a ação solicitada pelo cliente. </li>
+<li>3xx - Redirecionamento - informa que o recurso solicitado não está mais disponível no local esperado. Isso pode ter vários motivos, sejam temporários ou permanentes, mas o cliente deve fazer uma requisição para o novo local.</li>
+<li>4xx - Erro do cliente. O servidor não conseguiu entender a requisição, ou a requisição está incorreta. Existem várias causas para isso: timeout, URI errado, autenticação ausente, etc. </li>
+<li>5xx - Erro do servidor.  O servidor falhou em atender a uma requisição devido à condição inesperada, armazenamento insuficiente, o código gera uma exceção.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Boas práticas para projetar RESTful API" duration="30">
+        <p>Em REST, a representação de dados primária é chamada de recurso. Como boa prática de nomenclatura de recursos REST vamos seguir as seguintes diretivas.</p>
+<ul>
+<li>Não use verbos ou ações para descrever as APIs.</li>
+<li>Use substantivos no plural ou no singular, mas deve ser consistente em todas as APIs.</li>
+<li>O URL do endpoint deve conter métodos HTTP para descrever a funcionalidade da API. </li>
+<li>Métodos HTTP </li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p>POST</p>
+</td><td colspan="1" rowspan="1"><p> Criar dados</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>GET</p>
+</td><td colspan="1" rowspan="1"><p>Buscar dados</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>PUT</p>
+</td><td colspan="1" rowspan="1"><p>Atualizar dados</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>DELETE</p>
+</td><td colspan="1" rowspan="1"><p>Excluir dados</p>
+</td></tr>
+</table>
+<h2 is-upgraded>Buscar dados</h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>GET /buscaItem</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar todos os registros</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>GET /getTodosItens/12</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar registros específicos </p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>GET /itens</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar todos os registros</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>GET /itens/101</code></p>
+</td><td colspan="1" rowspan="1"><p>Para buscar registros específicos </p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Criar dados</strong></h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>POST /criaritem </code></p>
+</td><td colspan="1" rowspan="1"><p>Para criar um novo registro</p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>POST /itens</code></p>
+</td><td colspan="1" rowspan="1"><p>Para criar um novo registro</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Atualizar dados</strong></h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>PUT /atualizaritem/2</code></p>
+</td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>POST /2/atualizaritem</code></p>
+</td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>PUT /itens/2</code></p>
+</td><td colspan="1" rowspan="1"><p>Para atualizar um registro</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Excluir dados</strong></h2>
+<p>Não faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE /excluiritem/201</code></p>
+</td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>POST /201/removeitem</code></p>
+</td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
+</td></tr>
+</table>
+<p>Faça assim </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE /itens/201</code></p>
+</td><td colspan="1" rowspan="1"><p>Para excluir um registro</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Coleções de recursos </strong></h2>
+<p>Podemos identificar o recurso de coleção &#34;clientes&#34; usando o URI &#34;<code>/clientes</code>&#34;. Podemos identificar um único recurso &#34;cliente&#34; usando o URI &#34;<code>/clientes/{id do cliente}</code>&#34;. </p>
+<h2 is-upgraded><strong>Recursos de coleção e subcoleção </strong></h2>
+<p>Um recurso também pode conter recursos de subcoleção. Por exemplo, o recurso de subcoleção &#34;contas&#34; de um &#34;cliente&#34; específico pode ser identificado usando o URI &#34;<code>/clientes/{id do cliente}/contas</code>&#34; (em um domínio bancário). Da mesma forma, um recurso singleton &#34;conta&#34; dentro do recurso de subcoleção &#34;contas&#34; pode ser identificado da seguinte forma: &#34;<code>/clientes/{id do cliente}/contas/{id da conta}</code>&#34;.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Construindo serviços REST com Spring" duration="60">
+        <h2 is-upgraded><strong>Usando o modelo de camadas</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\71013e51f289c2d7.png"></p>
+<h2 is-upgraded><strong>Criando o projeto Spring </strong></h2>
+<ol type="1" start="1">
+<li>Para criar novo projeto usando o VSCode, use o atalho <code>Ctrl + Shift + P</code> e digite spring init e escolha a opção mostrada abaixo:</li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\a168f98d6957a605.png"></p>
+<ol type="1" start="2">
+<li>Siga as escolhas mostradas abaixo:</li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\3e950d7f44248e8a.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\f81a8ca797f9d8ba.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\88a3bccefe7d3be.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\5f9d7c439726be4a.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\35aa7af700e332c8.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\57f7e1bf20d3852e.png"></p>
+<ol type="1" start="3">
+<li>Escolher as dependências MySQL Driver, Spring Data JPA e Spring Web</li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\582bb57fe0f95fd6.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\9a15682a3978f320.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\f2d91d8b20637d07.png"></p>
+<ol type="1" start="4">
+<li>Pressione Enter para criar o projeto e escolha uma pasta no seu computador onde serão gravados os arquivos do projeto:</li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\28e066663d612608.png"></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\e9003e9b42266cb7.png"></p>
+<ol type="1" start="5">
+<li>No meu computador os projetos Spring ficam na pasta c:/Spring. Este projeto será gravado na pasta <code>C:\Spring\pessoa-api></code></li>
+<li>Criar os pacotes ‘controller&#39;, ‘domain&#39;, ‘repository&#39;,  ‘service&#39;</li>
+</ol>
+<p class="image-container"><img style="width: 335.00px" src="img\\2be11bbebaee25d3.png"></p>
+<ol type="1" start="7">
+<li>Entidade Pessoa</li>
+</ol>
+<pre><code>package br.iftm.edu.pessoaapi.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Pessoa {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String nome;
+
+    public Pessoa() {
+    }
+
+    public Pessoa(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+}</code></pre>
+<ol type="1" start="8">
+<li>Repositório para entidades do tipo Pessoa</li>
+</ol>
+<pre><code>package br.iftm.edu.pessoaapi.repository;
+
+import java.util.List;
+import org.springframework.data.repository.CrudRepository;
+import br.iftm.edu.pessoaapi.domain.Pessoa;
+
+public interface PessoaRepository extends CrudRepository&lt;Pessoa, Integer&gt; {
+    @Override
+    List&lt;Pessoa&gt; findAll();
+}</code></pre>
+<ol type="1" start="9">
+<li>Service</li>
+</ol>
+<pre><code>package br.iftm.edu.pessoaapi.service;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import br.iftm.edu.pessoaapi.domain.Pessoa;
+import br.iftm.edu.pessoaapi.repository.PessoaRepository;
+
+@Service
+public class PessoaService {
+
+    @Autowired
+    PessoaRepository repository;
+
+    public List&lt;Pessoa&gt; todos() {
+        return repository.findAll();
+    }
+
+    public Pessoa novo(Pessoa pessoa) {
+        return repository.save(pessoa);
+    }
+
+    public Optional&lt;Pessoa&gt; busca(Integer id) {
+        return repository.findById(id);
+    }
+
+    public Pessoa atualiza(Pessoa pessoa, Integer id) {
+        pessoa.setId(id);
+        return repository.save(pessoa);
+    }
+
+    public void exclui(@PathVariable Integer id) {
+        repository.deleteById(id);
+    }
+}</code></pre>
+<ol type="1" start="10">
+<li>Controlador REST</li>
+</ol>
+<pre><code>package br.iftm.edu.pessoaapi.controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import br.iftm.edu.pessoaapi.domain.Pessoa;
+import br.iftm.edu.pessoaapi.service.PessoaService;
+
+@RestController
+@RequestMapping(&#34;/pessoa&#34;)
+class PessoaController {
+
+    @Autowired
+    private PessoaService service;
+
+    @GetMapping
+    public List&lt;Pessoa&gt; recuperaTodosRegistros() {
+        return service.todos();
+    }
+
+    @PostMapping
+    public Pessoa criaNovoRegistro(@RequestBody Pessoa pessoa) {
+        return service.novo(pessoa);
+    }
+
+    @GetMapping(&#34;/{id}&#34;)
+    public Pessoa buscaUmRegistro(@PathVariable Integer id) {
+        return service.busca(id).orElseThrow(() -&gt; new PessoaNaoEncontradaException(id));
+    }
+
+    @PutMapping(&#34;/{id}&#34;)
+    public Pessoa atualizaRegistro(@RequestBody Pessoa pessoa, @PathVariable Integer id) {
+        return service.atualiza(pessoa, id);
+    }
+
+    @DeleteMapping(&#34;/{id}&#34;)
+    void excluiRegistro(@PathVariable Integer id) {
+        service.exclui(id);
+    }
+}</code></pre>
+<ol type="1" start="11">
+<li>Classe RuntimeException quando não encontrar uma pessoa no BD</li>
+</ol>
+<pre><code>package br.iftm.edu.pessoaapi.controller;
+
+public class PessoaNaoEncontradaException extends RuntimeException {
+
+    PessoaNaoEncontradaException(Integer id) {
+        super(&#34;Não encontrei pessoa &#34; + id);
+    }
+
+}</code></pre>
+<ol type="1" start="12">
+<li>Classe @ControllerAdvice</li>
+</ol>
+<pre><code>package br.iftm.edu.pessoaapi.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class PessoaNaoEncontradaAdvice {
+    
+    @ExceptionHandler
+    ResponseEntity&lt;String&gt; employeeNotFoundHandler(PessoaNaoEncontradaException ex) {
+        return new ResponseEntity&lt;String&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+}</code></pre>
+<ol type="1" start="13">
+<li>Altere o arquivo /src/main/resources/application.properties: (Você precisa criar um esquema no seu SGBD MySQL chamado teste)</li>
+</ol>
+<pre><code>spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/teste
+spring.datasource.username=root
+spring.datasource.password=
+
+spring.jpa.show-sql=true
+logging.level.org.springframework.web=trace</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Arquitetura em Camadas" duration="10">
+        <p class="image-container"><img style="width: 718.11px" src="img\\1bfa02d293763665.png"></p>
+<h2 is-upgraded><strong>Camadas e responsabilidades</strong></h2>
+<p>Em uma aplicação organizada em camadas, cada camada tem responsabilidades bem definidas, o que facilita a manutenção, a escalabilidade e a reutilização de código. </p>
+<p>Em uma API REST, as camadas principais geralmente são <strong>Controller</strong>, <strong>Service</strong> e <strong>Repository</strong>. Abaixo estão as responsabilidades de cada uma delas:</p>
+<h3 is-upgraded><strong>Controller</strong></h3>
+<p>Gerenciar as requisições HTTP recebidas e preparar as respostas HTTP para o cliente.</p>
+<p><strong>Tarefas Específicas</strong></p>
+<ul>
+<li>Receber e processar requisições HTTP (GET, POST, PUT, DELETE, etc.).</li>
+<li>Chamar a camada de serviço para realizar a lógica de negócio necessária.</li>
+<li>Converter dados entre formatos (JSON e DTO).</li>
+<li>Retornar a resposta adequada, incluindo códigos de status HTTP, e formatar a resposta no formato esperado pelo cliente.</li>
+<li>Lidar com validações de nível de requisição</li>
+</ul>
+<h3 is-upgraded><strong>Service</strong></h3>
+<p>Implementar a lógica de negócio da aplicação.</p>
+<p><strong>Tarefas Específicas</strong></p>
+<ul>
+<li>Definir e executar as regras de negócio.</li>
+<li>Orquestrar a interação entre as diferentes camadas e componentes, chamando métodos da camada de repositório para persistência de dados.</li>
+<li>Garantir a integridade e consistência dos dados através de validações de negócio.</li>
+<li>Tratar exceções e erros que podem ocorrer durante a execução da lógica de negócio.</li>
+<li>Implementar transações quando necessário (especialmente em operações que envolvem múltiplas operações de banco de dados).</li>
+</ul>
+<h3 is-upgraded><strong>Repository</strong></h3>
+<p>Gerenciar a persistência e recuperação de dados da base de dados.</p>
+<p><strong>Tarefas Específicas</strong></p>
+<ul>
+<li>Executar operações de CRUD (Create, Read, Update, Delete) no banco de dados.</li>
+<li>Mapear objetos de domínio para entidades de banco de dados e vice-versa.</li>
+<li>Gerenciar conexões com o banco de dados e garantir a eficiência das consultas.</li>
+<li>Isolar a lógica de acesso aos dados para que outras camadas não precisem lidar diretamente com o banco de dados.</li>
+<li>Fornecer métodos específicos para consultas complexas, como filtragem, ordenação e paginação.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Objeto de transferência de dados" duration="10">
+        <p>O DTO (<em>Data Transfer Object</em>) é um padrão de design utilizado para desacoplar a camada <strong>Controller </strong>da camada <strong>Service</strong>, permitindo a separação de responsabilidades entre camadas.</p>
+<p>É um objeto simples que não contém lógica de negócio, apenas dados que precisam ser transferidos. Ele é utilizado para encapsular e transportar dados de forma eficiente entre diferentes partes da aplicação.</p>
+<h2 is-upgraded><strong>Importância do DTO</strong></h2>
+<p>1. Isolamento de Camadas</p>
+<p>O DTO permite que a camada de Controller e a camada de Service sejam independentes das estruturas de dados internas. Isso significa que as mudanças na estrutura das entidades de domínio não afetam diretamente a API exposta.</p>
+<p>2. Segurança e Controle:</p>
+<p>   - Com DTOs, você pode controlar quais dados são expostos para fora da aplicação. Por exemplo, você pode evitar que informações sensíveis ou internas sejam acidentalmente retornadas na resposta HTTP.</p>
+<p>3. Facilidade de Manipulação:</p>
+<p>   - Os DTOs podem ser projetados para incluir apenas os campos necessários para uma determinada operação, simplificando a manipulação dos dados.</p>
+<p>4. Validação e Conversão:</p>
+<p>   - DTOs permitem a aplicação de validações específicas antes que os dados sejam processados na camada de Service. Além disso, eles podem ser usados para converter dados de entrada de um formato específico para o formato que o sistema espera.</p>
+<p>5. Manutenção e Evolução:</p>
+<p>   - Utilizar DTOs facilita a manutenção e a evolução da aplicação, pois permite que as camadas sejam alteradas ou expandidas sem quebrar a compatibilidade entre elas.</p>
+<p>Em resumo, os DTOs desempenham um papel crucial em arquiteturas de software organizadas em camadas, promovendo a modularidade, a segurança e a clareza no transporte de dados dentro da aplicação.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Códigos de status de respostas HTTP" duration="30">
+        <aside class="special"><p>Referência: <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status" target="_blank">Códigos de status de respostas HTTP</a></p>
+</aside>
+<p>Em uma API REST que implementa operações CRUD (Create, Read, Update, Delete), os códigos de status HTTP são usados para indicar o sucesso ou falha das operações realizadas. Aqui estão os códigos mais comuns usados para cada uma dessas operações:</p>
+<h2 is-upgraded><strong> 1. Create (POST)</strong></h2>
+<p>   - 201 Created: Indica que o recurso foi criado com sucesso.</p>
+<p>   - 400 Bad Request: A requisição é inválida, por exemplo, devido a dados malformados.</p>
+<p>   - 409 Conflict: Ocorre quando há um conflito, como tentar criar um recurso que já existe.</p>
+<h2 is-upgraded><strong> 2. Read (GET)</strong></h2>
+<p>   - 200 OK: O recurso foi encontrado e retornado no corpo da resposta.</p>
+<p>   - 404 Not Found: O recurso solicitado não foi encontrado.</p>
+<h2 is-upgraded><strong> 3. Update (PUT/PATCH)</strong></h2>
+<p>   - 200 OK: O recurso foi atualizado com sucesso e os dados atualizados são retornados.</p>
+<p>   - 204 No Content: O recurso foi atualizado com sucesso, mas sem retorno de dados.</p>
+<p>   - 400 Bad Request: A requisição é inválida, por exemplo, devido a dados malformados.</p>
+<p>   - 404 Not Found: O recurso que se tentou atualizar não foi encontrado.</p>
+<h2 is-upgraded><strong> 4. Delete (DELETE)</strong></h2>
+<p>   - 204 No Content: O recurso foi excluído com sucesso, sem necessidade de conteúdo na resposta.</p>
+<p>   - 404 Not Found: O recurso que se tentou excluir não foi encontrado.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exceções" duration="60">
+        <p>Uma característica comum em todos programas de computador é a necessidade de tratar exceções. Em Java as exceções são tratadas por um mecanismo de lançamento de exceções quando o erro é identificado. Spring Boot oferece diversas maneiras de tratar exceções. Uma forma simples e poderosa que usaremos aqui neste tutorial é a anotação <code>@ControllerAdvice</code>.</p>
+<p>Esta anotação facilita nossa vida para lidar com todos os tipos de exceções em um local central em nossa aplicação. A facilidade está em não precisar capturar exceções em cada método ou classe separadamente, bastando apenas lançar a exceção no método e, em seguida, ela será capturada na classe central de tratamento de exceções anotada por <code>@ControllerAdvice</code>. </p>
+<h2 is-upgraded><strong>Lançando exceções</strong></h2>
+<h3 is-upgraded><strong>Um exemplo de erro (exceção)</strong></h3>
+<p>Divisão por zero - java.lang.ArithmeticException: / by zero</p>
+<pre>public class Teste {
+  public static void main(String[] args) {
+    System.out.println(&#34;chamando m1()&#34;);
+    m1();
+    System.out.println(&#34;fim do método main&#34;);
+  }
+  
+  private static void m1() {
+    System.out.println(&#34;chamando m2()&#34;);
+    m2();
+    System.out.println(&#34;fim do método m1()&#34;);
+  }
+  
+  private static void m2() {
+    System.out.println(&#34;início do m2()&#34;);
+    int x = 1 / 0;
+    System.out.println(&#34;fim do método m2()&#34;);
+  }
+}</pre>
+<p>Depois de executar o programa acima teremos o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\373ec3d8cbb7402f.png"></p>
+<p>Como tratar este erro? Vamos modificar o código anterior para exemplificar</p>
+<pre>package com.professorangoti.condominio;
+
+public class Teste {
+  public static void main(String[] args) {
+    System.out.println(&#34;chamando m1()&#34;);
+    m1();
+    System.out.println(&#34;fim do método main&#34;);
+  }
+
+  private static void m1() {
+    System.out.println(&#34;chamando m2()&#34;);
+    m2();
+    System.out.println(&#34;fim do método m1()&#34;);
+  }
+  
+  private static void m2() {
+    System.out.println(&#34;início do m2()&#34;);
+    try {  // colocar o código com potencial de erro dentro do bloco try
+      int x = 1 / 0;
+    } catch (ArithmeticException e) { //capturar as exceções que podem ocorrer
+      System.out.println(&#34;Erro: &#34; + e.getMessage());
+    }
+    System.out.println(&#34;fim do método m2()&#34;);
+  }
+}</pre>
+<p>Depois de executar o programa acima teremos o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\8d0f85f8afbcdd7c.png"></p>
+<p>O bloco try/catch não deixa o programa parar, tratando o erro no local onde aconteceu. Se as exceções capturadas forem de mesma hierarquia, as classes mais especializadas devem aparecer primeiro. Para capturar qualquer exceção use a classe <code>Exception</code> (não indicado):</p>
+<p><code>catch (</code><strong><code>Exception</code></strong><code> e) {  ...  }</code></p>
+<p>Podemos também delegar o tratamento do erro para outro método na pilha de execução, para isso podemos lançar uma exceção .</p>
+<h2 is-upgraded><strong>A central de tratamento de exceções</strong></h2>
+<p>A classe que será criada para fazer o papel de central de tratamento de exceções deverá ser anotada com a anotação <code>@ControllerAdvice</code>. Nesta classe vamos usar a seguinte anotação em seus métodos:</p>
+<ul>
+<li><code>@ExceptionHandler</code>: você deverá fornecer as exceções tratadas pelo método</li>
+</ul>
+<p>Esta anotação vai funcionar como um filtro para capturar uma exceção específica, possibilitando o tratamento do erro.</p>
+<p>Classe <code>MyControllerAdvice</code></p>
+<pre>package br.edu.iftm.rastreamento.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import br.edu.iftm.rastreamento.service.exceptions.NaoAcheiException;
+
+@ControllerAdvice
+public class ExceptionsController {
+
+        @ExceptionHandler(NaoAcheiException.class)
+        public ResponseEntity&lt;?&gt; naoAchei(NaoAcheiException e) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+}
+
+
+-------------------------------------------------------------------
+
+package br.edu.iftm.rastreamento.service.exceptions;
+
+public class NaoAcheiException extends RuntimeException {
+                public NaoAcheiException(String message) {
+                                super(message);
+                }
+        
+}
+
+
+-------------------------------------------------------------------
+
+package br.edu.iftm.rastreamento.service;
+
+@Service
+public class EnderecoService {
+
+public EnderecoDTO getEnderecoById(Long id) {
+        Endereco endereco = enderecoRepository.findById(id).orElseThrow(() -&gt; new NaoAcheiException(&#34;Endereco não encontrado&#34;));
+                return converters.convertToDTO(endereco);
+}</pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
