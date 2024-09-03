@@ -62,7 +62,7 @@
 </ul>
 <p>Embora o Expo Go seja um ambiente de desenvolvimento muito útil e prático, é importante observar que ele possui algumas limitações em relação ao desenvolvimento nativo tradicional do React Native. Dependendo dos requisitos específicos do aplicativo, pode ser necessário fazer uso do React Native CLI e configurar um ambiente de desenvolvimento nativo completo.</p>
 <p>No entanto, para muitos casos de uso, o Expo Go oferece uma solução rápida e eficiente para o desenvolvimento React Native, permitindo que os desenvolvedores testem, iterem e compartilhem aplicativos em tempo real diretamente em dispositivos móveis.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\3f5460a70d1fec9c.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\ce0470e53aa28d75.png"></p>
 
 
       </google-codelab-step>
@@ -1268,7 +1268,128 @@ export default ListaItens;</code></pre>
 </aside>
 <aside class="special"><p>A prática constante ajudará você a se familiarizar e aperfeiçoar suas habilidades com a FlatList no React Native.</p>
 </aside>
-<h2 is-upgraded><strong>Gerenciador de tarefas</strong></h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Guia Completo de JavaScript para Iniciantes: Objetos, Arrays e Manipulação de Dados" duration="0">
+        <h2 is-upgraded><strong>Parte 1: Objetos</strong></h2>
+<h3 is-upgraded><strong>O que são Objetos?</strong></h3>
+<p>Em JavaScript, um objeto é um conjunto de valores que representam as características de alguma coisa. Cada característica é definida por um par chave-valor. Objetos são muito úteis para armazenar e organizar dados de forma estruturada.</p>
+<p>Exemplo:</p>
+<pre><code>const usuario = {
+  nome: &#39;João&#39;,
+  idade: 30,
+  email: &#39;joao@example.com&#39;,
+  ativo: true
+};</code></pre>
+<p>Aqui, o objeto <code>usuario</code> possui quatro características : `nome`, `idade`, `email`, e `ativo`.</p>
+<h3 is-upgraded><strong>Manipulação de Objetos</strong></h3>
+<p>Você pode acessar, adicionar ou modificar características de objetos de forma bastante simples:</p>
+<ul>
+<li>Acessando uma característica:</li>
+</ul>
+<pre><code>console.log(usuario.nome); // João</code></pre>
+<ul>
+<li>Adicionando uma nova característica:</li>
+</ul>
+<pre><code>usuario.endereco = &#39;Rua A, 123&#39;;</code></pre>
+<ul>
+<li>Modificando uma característica existente:</li>
+</ul>
+<pre><code>usuario.idade = 31;</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Objetos</strong></h3>
+<aside class="warning"><p>1. Crie um objeto chamado `carro` com as características: `marca`, `modelo`, `ano`, e `cor`.</p>
+<p>2. Adicione uma nova característica `proprietario` ao objeto `carro`.</p>
+<p>3. Modifique o valor da característica `cor` do objeto `carro`.</p>
+</aside>
+<h2 is-upgraded><strong>Parte 2: Arrays</strong></h2>
+<h3 is-upgraded><strong>O que são Arrays?</strong></h3>
+<p>Arrays são listas ordenadas de valores, que podem ser de qualquer tipo (números, strings, objetos, etc.). Eles são extremamente úteis para armazenar coleções de dados.</p>
+<p>Exemplo:</p>
+<pre><code>const frutas = [&#39;maçã&#39;, &#39;banana&#39;, &#39;laranja&#39;];</code></pre>
+<p>Aqui, `frutas` é um array que contém três strings.</p>
+<h3 is-upgraded><strong>Manipulação de Arrays</strong></h3>
+<p>Assim como em objetos, você pode acessar, adicionar e modificar elementos em um array:</p>
+<ul>
+<li>Acessando um elemento:</li>
+</ul>
+<pre><code>console.log(frutas[0]); // maçã</code></pre>
+<ul>
+<li>Adicionando um novo elemento:</li>
+</ul>
+<pre><code>frutas.push(&#39;uva&#39;);</code></pre>
+<ul>
+<li>Modificando um elemento existente:</li>
+</ul>
+<pre><code>frutas[1] = &#39;abacaxi&#39;;</code></pre>
+<h3 is-upgraded><strong>Métodos Comuns de Arrays</strong></h3>
+<p><code>forEach</code></p>
+<p>Executa uma função para cada elemento do array. Útil para iterar sobre arrays.</p>
+<pre><code>frutas.forEach(fruta =&gt; {
+  console.log(fruta);
+});</code></pre>
+<p><code>map</code></p>
+<p>Cria um novo array com os resultados de uma função aplicada a cada elemento do array original.</p>
+<pre><code>const frutasEmMaiusculas = frutas.map(fruta =&gt; fruta.toUpperCase());</code></pre>
+<p><code>filter</code></p>
+<p>Cria um novo array com todos os elementos que passam em um teste especificado por uma função.</p>
+<pre><code>const frutasComA = frutas.filter(fruta =&gt; fruta.includes(&#39;a&#39;));</code></pre>
+<p><code>reduce</code></p>
+<p>Reduz um array a um único valor, aplicando uma função cumulativa.</p>
+<pre><code>const totalCaracteres = frutas.reduce((total, fruta) =&gt; total + fruta.length, 0);</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Arrays</strong></h3>
+<aside class="warning"><p>1. Crie um array de números e use `map` para dobrar cada número.</p>
+<p>2. Crie um array de strings e use `filter` para selecionar apenas as strings que começam com a letra &#39;a&#39;.</p>
+<p>3. Crie um array de objetos representando produtos e use `reduce` para calcular o preço total dos produtos.</p>
+</aside>
+<h2 is-upgraded><strong>Parte 3: Combinação de Objetos e Arrays</strong></h2>
+<h3 is-upgraded><strong>Trabalhando com Arrays de Objetos</strong></h3>
+<p>Em muitos casos, você terá arrays que contêm objetos. Isso é comum ao lidar com dados mais complexos, como listas de produtos, usuários, ou itens de tarefas.</p>
+<p>Exemplo:</p>
+<pre><code>const produtos = [
+  { nome: &#39;Camiseta&#39;, preco: 25 },
+  { nome: &#39;Calça&#39;, preco: 50 },
+  { nome: &#39;Tênis&#39;, preco: 100 }
+];</code></pre>
+<p>Aqui, `produtos` é um array que contém três objetos, cada um representando um produto.</p>
+<h3 is-upgraded><strong>Manipulação de Arrays de Objetos</strong></h3>
+<p>Você pode usar os métodos de array discutidos anteriormente (`map`, `filter`, `reduce`, etc.) para manipular esses arrays.</p>
+<p>Exemplo usando `map`:</p>
+<pre><code>const nomesDosProdutos = produtos.map(produto =&gt; produto.nome);</code></pre>
+<p>Exemplo usando `filter`:</p>
+<pre><code>const produtosCaros = produtos.filter(produto =&gt; produto.preco &gt; 30);</code></pre>
+<p>Exemplo usando `reduce`:</p>
+<pre><code>const precoTotal = produtos.reduce((total, produto) =&gt; total + produto.preco, 0);</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Combinação de Objetos e Arrays</strong></h3>
+<aside class="warning"><p>1. Crie um array de objetos representando estudantes, cada um com as propriedades `nome` e `nota`. Use `map` para criar um novo array com apenas os nomes dos estudantes.</p>
+<p>2. Use `filter` para criar um array contendo apenas os estudantes que têm nota maior que 7.</p>
+<p>3. Use `reduce` para calcular a média das notas dos estudantes.</p>
+</aside>
+<h2 is-upgraded><strong>Parte 4: Destructuring e Spread/Rest Operators</strong></h2>
+<h3 is-upgraded><strong>Destructuring</strong></h3>
+<p><em>Destructuring </em>é uma maneira concisa de extrair valores de arrays ou propriedades de objetos e atribuí-los a variáveis.</p>
+<p>Exemplo com Objetos:</p>
+<pre><code>const usuario = { nome: &#39;João&#39;, idade: 30 };
+const { nome, idade } = usuario;</code></pre>
+<p>Exemplo com Arrays:</p>
+<pre><code>const numeros = [1, 2, 3];
+const [primeiro, segundo, terceiro] = numeros;</code></pre>
+<p><em>Spread </em>e <em>Rest </em>Operators</p>
+<p>O operador `spread` (`<strong><code>...</code></strong>`) permite expandir um array ou objeto em elementos individuais. O operador `rest` (`<strong><code>...</code></strong>`) permite agrupar um número indefinido de elementos em um array.</p>
+<p>Exemplo com Spread:</p>
+<pre><code>const numeros1 = [1, 2, 3];
+const numeros2 = [4, 5, 6];
+const todosNumeros = [...numeros1, ...numeros2];</code></pre>
+<p>Exemplo com Rest:</p>
+<pre><code>function soma(...numeros) {
+  return numeros.reduce((total, numero) =&gt; total + numero, 0);
+}</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Destructuring e Spread/Rest Operators</strong></h3>
+<aside class="warning"><p>1. Use destructuring para extrair as propriedades `nome` e `idade` de um objeto `usuario`.</p>
+<p>2. Use o operador spread para combinar dois arrays de números.</p>
+<p>3. Crie uma função que receba um número indeterminado de argumentos e retorne a soma deles usando o operador rest.</p>
+</aside>
 
 
       </google-codelab-step>
