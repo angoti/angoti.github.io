@@ -1394,6 +1394,719 @@ const todosNumeros = [...numeros1, ...numeros2];</code></pre>
 
       </google-codelab-step>
     
+      <google-codelab-step label="Navegação entre Telas" duration="120">
+        <aside class="special"><p>Última atualização: 23/09/2024</p>
+</aside>
+<p>Em um navegador da web, você pode criar links para várias páginas usando uma tag âncora &lt;a&gt;. Quando o usuário clica em um link, o URL é enviado para a pilha do histórico do navegador. Quando o usuário clica no botão voltar, o navegador exibe o item do topo da pilha do histórico, de modo que a página atual agora é a página visitada anteriormente. </p>
+<p>O React Native não possui um conceito embutido de uma pilha de histórico global como um navegador da web; é aqui que a biblioteca <strong>React Navigation</strong> é útil. O navegador de pilha do React Navigation implementa uma maneira de seu aplicativo fazer a transição entre as telas e manter o histórico de navegação. Uma variação significativa entre como isso é executado em um navegador da Web e o React Navigation é que o navegador de pilha do React Navigation produz os gestos e animações que você precisaria em dispositivos Android e iOS ao navegar entre rotas ou telas na pilha.</p>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/" target="_blank">Navigation</a></p>
+</aside>
+<h2 is-upgraded><strong>Navigator Components</strong></h2>
+<p>Existem 3 navegadores principais que acompanham o React Navigation, que são adequados para projetos baseados em iOS e Android.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\405c5fc2961a1da5.png"></p>
+<h2 is-upgraded><strong>Stack Navigator</strong></h2>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/stack-navigator" target="_blank">Stack Navigator</a></p>
+</aside>
+<p>Para configurar um navegador de pilha, declare um objeto de navegador de pilha por meio da função <code>createStackNavigator</code>. Depois os componentes <code>Navigator</code> e <code>Screen</code> podem ser usados ​​para incorporar e agrupar as telas desejadas.</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+
+function Home({ navigation }) {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Profile&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Profile&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Profile() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen name=&#34;Home&#34; component={Home} /&gt;
+        &lt;Stack.Screen name=&#34;Profile&#34; component={Profile} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+export default App;</pre>
+<h2 is-upgraded><strong>Bottom Tabs Navigator</strong></h2>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/bottom-tab-navigator" target="_blank">Bottom Tabs Navigator</a></p>
+</aside>
+<p>Possivelmente, o estilo mais comum de navegação em aplicativos móveis é a navegação baseada em guias. Podem ser guias na parte inferior da tela ou na parte superior da tela.</p>
+<p>O exemplo a seguir demonstra como construir um navegador de guias inferiores:</p>
+<pre>import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import MaterialCommunityIcons from &#39;react-native-vector-icons/MaterialCommunityIcons&#39;;
+import { View, Text } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+
+function HomeScreen() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home!&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function SettingsScreen() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Settings!&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator
+        initialRouteName=&#34;HomeScreen&#34;
+        screenOptions=&#123;&#123;
+          tabBarActiveTintColor: &#39;#e91e63&#39;,
+        }}&gt;
+        &lt;Tab.Screen
+          name=&#34;HomeScreen&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            tabBarLabel: &#39;Home&#39;,
+            tabBarIcon: ({ color, size }) =&gt; (
+              &lt;MaterialCommunityIcons name=&#34;home&#34; color={color} size={size} /&gt;
+            ),
+          }}
+        /&gt;
+
+        &lt;Tab.Screen
+          name=&#34;SettingsScreen&#34;
+          component={SettingsScreen}
+          options=&#123;&#123;
+            tabBarLabel: &#39;Profile&#39;,
+            tabBarIcon: ({ color, size }) =&gt; (
+              &lt;MaterialCommunityIcons
+                name=&#34;account&#34;
+                color={color}
+                size={size}
+              /&gt;
+            ),
+          }}
+        /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</pre>
+<h2 is-upgraded><strong>Navegador de gaveta</strong></h2>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/drawer-navigator" target="_blank">Drawer Navigator</a></p>
+</aside>
+<p>Outro navegador útil que permite que as telas sejam animadas de um lado da tela a ser revelada e animadas de volta quando fechadas. </p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+
+function Feed() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Feed Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Notifications() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Notifications Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Profile() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    &lt;Drawer.Navigator useLegacyImplementation initialRouteName=&#34;Feed&#34;&gt;
+      &lt;Drawer.Screen
+        name=&#34;Feed&#34;
+        component={Feed}
+        options=&#123;&#123; drawerLabel: &#39;Home&#39; }}
+      /&gt;
+      &lt;Drawer.Screen
+        name=&#34;Notifications&#34;
+        component={Notifications}
+        options=&#123;&#123; drawerLabel: &#39;Updates&#39; }}
+      /&gt;
+      &lt;Drawer.Screen
+        name=&#34;Profile&#34;
+        component={Profile}
+        options=&#123;&#123; drawerLabel: &#39;Profile&#39; }}
+      /&gt;
+    &lt;/Drawer.Navigator&gt;
+  );
+}
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;MyDrawer /&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tutoriais sobre navegação entre telas" duration="0">
+        <p>Nos capítulos seguintes temos tutorias com exercícios práticos para reforçar o aprendizado dos elementos utilizados para programar em React Native a navegação entre telas de apps.</p>
+<h2 is-upgraded><strong>Exercício 1: Stack Navigation</strong></h2>
+<p>Crie um aplicativo React Native com uma navegação em pilha. O aplicativo deve ter duas telas: Home e Detalhes. Na tela Home, exiba um botão &#34;Ir para Detalhes&#34;. Quando o botão for clicado, o aplicativo deve navegar para a tela Detalhes. Na tela Detalhes, exiba um botão &#34;Voltar para Home&#34;. Ao clicar no botão, o aplicativo deve voltar para a tela Home.</p>
+<h3 is-upgraded><strong>Passo 1: Configuração da navegação em pilha</strong></h3>
+<p>Abra o arquivo App.js e substitua o código existente pelo seguinte:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+import DetailsScreen from &#39;./src/screens/DetailsScreen&#39;;
+
+const Stack = createStackNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator initialRouteName=&#34;Home&#34;&gt;
+        &lt;Stack.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+        &lt;Stack.Screen name=&#34;Details&#34; component={DetailsScreen} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<h3 is-upgraded><strong>Passo 2: Criação das telas Home e Details</strong></h3>
+<p>Crie um diretório src/screens e adicione os seguintes arquivos:</p>
+<p>Arquivo <code>src/screens/HomeScreen.js</code>:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const HomeScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Ir para Detalhes&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Details&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>Arquivo <code>src/screens/DetailsScreen.js</code>:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const DetailsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Tela de Detalhes&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Voltar para Home&#34;
+        onPress={() =&gt; navigation.goBack()}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default DetailsScreen;</pre>
+<h3 is-upgraded><strong>Passo 3: Execução do aplicativo</strong></h3>
+<p>Execute o aplicativo no seu dispositivo usando Expo. </p>
+<p>Agora você deve ter um aplicativo React Native com navegação em pilha. A tela inicial exibirá o conteúdo da tela Home e um botão &#34;Ir para Detalhes&#34;. Ao clicar no botão, o aplicativo navegará para a tela Detalhes, onde será exibido o conteúdo da tela e um botão &#34;Voltar para Home&#34;. Ao clicar no botão, o aplicativo voltará</p>
+<h2 is-upgraded><strong>Exercício 2: Drawer Navigation</strong></h2>
+<p>Crie um aplicativo React Native com uma navegação em gaveta (drawer). O aplicativo deve ter três telas: Home, Perfil e Configurações. Na tela Home, exiba um botão de menu que, quando clicado, abre o drawer com as opções &#34;Perfil&#34; e &#34;Configurações&#34;. Ao selecionar uma opção no drawer, o aplicativo deve navegar para a tela correspondente. Adicione um botão &#34;Voltar para Home&#34; em cada tela para permitir a navegação de volta para a tela Home.</p>
+<h3 is-upgraded><strong>Passo 1: Importação dos componentes</strong></h3>
+<p>No arquivo App.js, adicione as seguintes linhas no topo do arquivo:</p>
+<pre>import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { HomeScreen } from &#39;./src/screens/HomeScreen&#39;
+import { ProfileScreen } from &#39;./src/screens/ProfileScreen&#39;
+import { SettingsScreen} from &#39;./src/screens/SettingsScreen&#39;</pre>
+<p>Neste passo, estamos importando os componentes necessários para configurar a navegação em gaveta no nosso aplicativo. O <code>createDrawerNavigator</code> é um componente fornecido pelo pacote @react-navigation/drawer, que nos permite criar um menu de navegação em gaveta. O <code>NavigationContainer</code> é o componente de nível superior fornecido pelo pacote @react-navigation/native que envolve toda a nossa navegação.</p>
+<h3 is-upgraded><strong>Passo 2: Configuração das telas</strong></h3>
+<p>Crie um diretório src/screens e adicione os seguintes arquivos:</p>
+<p>Arquivo <code>src/screens/HomeScreen</code> </p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; (
+  &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+    &lt;Text&gt;Home Screen&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+export default HomeScreen;</pre>
+<p>Arquivo <code>src/screens/ProfileScreen </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const ProfileScreen = () =&gt; (
+  &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+    &lt;Text&gt;Profile Screen&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+export default ProfileScreen;</pre>
+<p>Arquivo <code>src/screens/SettingsScreen </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const SettingsScreen = () =&gt; (
+  &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+    &lt;Text&gt;Settings Screen&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+
+export default SettingsScreen;</pre>
+<p>Neste passo, estamos criando três telas básicas: <code>HomeScreen</code>, <code>ProfileScreen</code> e <code>SettingsScreen</code>. Cada tela é um componente de função que retorna um JSX contendo um elemento View que exibe um texto.</p>
+<h3 is-upgraded><strong>Passo 3: Configuração do Drawer Navigator</strong></h3>
+<p>No arquivo App.js, adicione o seguinte código para criar o componente do Drawer Navigator:</p>
+<pre>const Drawer = createDrawerNavigator();
+
+const App = () =&gt; (
+  &lt;NavigationContainer&gt;
+    &lt;Drawer.Navigator useLegacyImplementation initialRouteName=&#34;Home&#34;&gt;
+      &lt;Drawer.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+      &lt;Drawer.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
+      &lt;Drawer.Screen name=&#34;Settings&#34; component={SettingsScreen} /&gt;
+    &lt;/Drawer.Navigator&gt;
+  &lt;/NavigationContainer&gt;
+);
+
+export default App;</pre>
+<p>Neste passo, estamos criando um componente Drawer usando <code>createDrawerNavigator()</code> e configurando o <code>initialRouteName</code> para &#34;Home&#34;. Em seguida, estamos adicionando as telas ao <code><Drawer.Navigator></code> usando <code>Drawer.Screen</code>. Cada tela é mapeada pelo nome da tela e seu respectivo componente.</p>
+<p>O NavigationContainer envolve o componente Drawer.Navigator e é responsável por fornecer o contexto de navegação para a nossa aplicação.</p>
+<h3 is-upgraded><strong>Passo 4: Execução do aplicativo</strong></h3>
+<p>Agora, você terá um aplicativo com navegação em gaveta (drawer navigation). A tela inicial exibirá o texto &#34;Home Screen&#34;. Ao tocar no ícone de menu no canto superior esquerdo, você verá as opções &#34;Profile&#34; e &#34;Settings&#34;. Ao selecionar uma opção, o aplicativo navegará para a tela correspondente.</p>
+<p>No início, o aplicativo exibe a tela &#34;Home Screen&#34;. Ao tocar no ícone do menu no canto superior esquerdo, o menu em gaveta é exibido, mostrando as opções &#34;Profile&#34; e &#34;Settings&#34;. Ao selecionar a opção &#34;Profile&#34;, o aplicativo navega para a tela &#34;Profile Screen&#34;. Da mesma forma, selecionar a opção &#34;Settings&#34; leva o aplicativo para a tela &#34;Settings Screen&#34;. O usuário pode navegar entre as telas tocando nas opções do menu ou usando o botão voltar do dispositivo para retornar à tela anterior. Experimente tocar nas diferentes opções do drawer para ver a navegação em ação.</p>
+<h2 is-upgraded><strong>Exercício 3: Tab Navigation</strong></h2>
+<p>Crie um aplicativo React Native com uma navegação em abas (tabs). O aplicativo deve ter três telas: Feed, Explorar e Notificações. Na parte inferior do aplicativo, exiba uma barra de navegação com as opções &#34;Feed&#34;, &#34;Explorar&#34; e &#34;Notificações&#34;. Ao selecionar uma opção na barra de navegação, o aplicativo deve exibir o conteúdo correspondente à tela selecionada. Adicione um botão &#34;Voltar para Feed&#34; em cada tela para permitir a navegação de volta para a tela Feed.</p>
+<h3 is-upgraded><strong>Passo 1: Configurando a navegação</strong></h3>
+<p>Vamos criar as telas e configurar a navegação em abas. Crie um diretório chamado src na raiz do projeto. Dentro do diretório src, crie um diretório chamado screens.</p>
+<p>Dentro do diretório screens, crie três arquivos: FeedScreen.js, ExploreScreen.js e NotificationsScreen.js. Esses arquivos conterão o código das respectivas telas.</p>
+<p>Abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<p>Arquivo <code>App.js </code></p>
+<pre>import React from &#39;react&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import FeedScreen from &#39;./src/screens/FeedScreen&#39;;
+import ExploreScreen from &#39;./src/screens/ExploreScreen&#39;;
+import NotificationsScreen from &#39;./src/screens/NotificationsScreen&#39;;
+
+const Tab = createBottomTabNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator&gt;
+        &lt;Tab.Screen name=&#34;Feed&#34; component={FeedScreen} /&gt;
+        &lt;Tab.Screen name=&#34;Explorar&#34; component={ExploreScreen} /&gt;
+        &lt;Tab.Screen name=&#34;Notificações&#34; component={NotificationsScreen} /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Aqui, importamos os componentes necessários do React Navigation e as telas que criamos. Em seguida, definimos um Tab.Navigator dentro do NavigationContainer. Dentro do Tab.Navigator, usamos Tab.Screen para definir as telas e seus respectivos nomes.</p>
+<h3 is-upgraded><strong>Passo 2: Implementando as telas</strong></h3>
+<p>Agora, vamos implementar o código das telas.</p>
+<p>Abra o arquivo FeedScreen.js dentro do diretório src/screens e adicione o seguinte código:</p>
+<p>Arquivo <code>src/screens/FeedScreen  </code></p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const FeedScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Feed Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Explorar&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Explorar&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default FeedScreen;</pre>
+<p>Aqui, importamos os componentes necessários do React Native. A tela FeedScreen é uma função de componente que recebe o parâmetro navigation (usado para navegar entre as telas). No retorno da função, exibimos um texto simples e um botão que navega para a tela &#34;Explorar&#34; ao ser pressionado.</p>
+<p>Repita o passo 2 para as telas ExploreScreen.js e NotificationsScreen.js. Use o código a seguir para as respectivas telas:</p>
+<p>Arquivo <code>src/screens/ExploreScreen.js</code></p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const ExploreScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Explore Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Voltar para Feed&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Feed&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default ExploreScreen;</pre>
+<p>Arquivo <code>src/screens/NotificationsScreen.js:</code></p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const NotificationsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Notifications Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Voltar para Feed&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Feed&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default NotificationsScreen;</pre>
+<h2 is-upgraded><strong>Exercício 4: Personalizando o cabeçalho em um navegador Stack</strong></h2>
+<p>Neste exercício, você irá personalizar o cabeçalho de um navegador Stack em um aplicativo React Native.</p>
+<p>Crie um arquivo chamado HomeScreen.js no diretório src/screens. Este será o componente de tela inicial para o exemplo.</p>
+<p>Arquivo <code>src/screens/HomeScreen  </code></p>
+<pre>import React from &#39;react&#39;;
+import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>Em seguida, abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<p>Arquivo <code>/App.js  </code></p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+
+const Stack = createStackNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen
+          name=&#34;Home&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            title: &#39;Página Inicial&#39;,
+            headerStyle: {
+              backgroundColor: &#39;#f4511e&#39;,
+            },
+            headerTintColor: &#39;#fff&#39;,
+            headerTitleStyle: {
+              fontWeight: &#39;bold&#39;,
+            },
+          }}
+        /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation e as telas. Em seguida, definimos um Stack.Navigator dentro do NavigationContainer. Dentro do Stack.Navigator, usamos Stack.Screen para definir a tela inicial, especificando opções de cabeçalho personalizadas.</p>
+<h2 is-upgraded><strong>Exercício 5: Personalizando o cabeçalho em um navegador Tab</strong></h2>
+<p>Neste exercício, você irá personalizar o cabeçalho de um navegador Tab em um aplicativo React Native. Crie um arquivo chamado HomeScreen.js no diretório src/screens. Este será o componente de tela inicial para o exemplo.</p>
+<p>Arquivo <code>src/screens/HomeScreen  </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>Em seguida, abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+
+const Tab = createBottomTabNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator
+        screenOptions=&#123;&#123;
+          headerStyle: {
+            backgroundColor: &#39;#f4511e&#39;,
+          },
+          headerTintColor: &#39;#fff&#39;,
+          headerTitleStyle: {
+            fontWeight: &#39;bold&#39;,
+          },
+        }}
+      &gt;
+        &lt;Tab.Screen
+          name=&#34;Home&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            title: &#39;Página Inicial&#39;,
+          }}
+        /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation e as telas. Em seguida, definimos um Tab.Navigator dentro do NavigationContainer. Definimos as opções de cabeçalho personalizadas no screenOptions do Tab.Navigator para serem aplicadas a todas as telas do navegador Tab.</p>
+<h2 is-upgraded><strong>Exercício 6: Personalizando o cabeçalho em um navegador Drawer</strong></h2>
+<p>Neste exercício, você irá personalizar o cabeçalho de um navegador Drawer em um aplicativo React Native.</p>
+<p>Crie um arquivo chamado HomeScreen.js no diretório src/screens. Este será o componente de tela inicial para o exemplo.</p>
+<p>Arquivo <code>src/screens/HomeScreen  </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>Em seguida, abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+
+const Drawer = createDrawerNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator
+        useLegacyImplementation
+        screenOptions=&#123;&#123;
+          headerStyle: {
+            backgroundColor: &#39;#f4511e&#39;,
+          },
+          headerTintColor: &#39;#fff&#39;,
+          headerTitleStyle: {
+            fontWeight: &#39;bold&#39;,
+          },
+        }}
+      &gt;
+        &lt;Drawer.Screen
+          name=&#34;Home&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            title: &#39;Página Inicial&#39;,
+          }}
+        /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation e as telas. Em seguida, definimos um Drawer.Navigator dentro do NavigationContainer. Definimos as opções de cabeçalho personalizadas no screenOptions do Drawer.Navigator para serem aplicadas a todas as telas do navegador Drawer.</p>
+<h2 is-upgraded><strong>Exercício 7: Navegação aninhada com Stack Navigator dentro de um Tab Navigator</strong></h2>
+<p>Neste exercício, você irá criar uma navegação aninhada com um Stack Navigator dentro de um Tab Navigator em um aplicativo React Native.</p>
+<h3 is-upgraded><strong>Passo 1: Criando as telas</strong></h3>
+<p>Crie os seguintes arquivos para as telas dentro do diretório src/screens:</p>
+<p>HomeScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const HomeScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Details&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Details&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>DetailsScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const DetailsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Details Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Profile&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Profile&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default DetailsScreen;</pre>
+<p>ProfileScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const ProfileScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go back to Home&#34;
+        onPress={() =&gt; navigation.goBack()}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default ProfileScreen;</pre>
+<h3 is-upgraded><strong>Passo 2: Configurando a navegação aninhada</strong></h3>
+<p>Abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+import DetailsScreen from &#39;./src/screens/DetailsScreen&#39;;
+import ProfileScreen from &#39;./src/screens/ProfileScreen&#39;;
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const HomeStack = () =&gt; {
+  return (
+    &lt;Stack.Navigator&gt;
+      &lt;Stack.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+      &lt;Stack.Screen name=&#34;Details&#34; component={DetailsScreen} /&gt;
+    &lt;/Stack.Navigator&gt;
+  );
+};
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator&gt;
+        &lt;Tab.Screen name=&#34;HomeStack&#34; component={HomeStack} /&gt;
+        &lt;Tab.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation, as telas e criamos os navegadores Tab e Stack. O navegador Stack contém as telas Home e Details, enquanto o navegador Tab contém o navegador Stack HomeStack e a tela Profile.</p>
+<h2 is-upgraded><strong>Exercício 8: Navegação aninhada com Stack Navigator dentro de um Drawer Navigator</strong></h2>
+<p>Neste exercício, você irá criar uma navegação aninhada com um Drawer Navigator dentro de um Stack Navigator em um aplicativo React Native.</p>
+<h3 is-upgraded><strong>Passo 1: Criando as telas</strong></h3>
+<p>Crie os seguintes arquivos para as telas dentro do diretório src/screens:</p>
+<p>HomeScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const HomeScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Details&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Details&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>DetailsScreen.js:</p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const DetailsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Details Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default DetailsScreen;</pre>
+<p>ProfileScreen.js:</p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const ProfileScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default ProfileScreen;</pre>
+<h3 is-upgraded><strong>Passo 2: Configurando a navegação aninhada</strong></h3>
+<p>Abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+import DetailsScreen from &#39;./src/screens/DetailsScreen&#39;;
+import ProfileScreen from &#39;./src/screens/ProfileScreen&#39;;
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const HomeStack = () =&gt; {
+  return (
+    &lt;Stack.Navigator&gt;
+      &lt;Stack.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+      &lt;Stack.Screen name=&#34;Details&#34; component={DetailsScreen} /&gt;
+    &lt;/Stack.Navigator&gt;
+  );
+};
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator useLegacyImplementation&gt;
+        &lt;Drawer.Screen name=&#34;HomeStack&#34; component={HomeStack} /&gt;
+        &lt;Drawer.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation, as telas e criamos os navegadores Stack e Drawer. O navegador Stack contém as telas Home e Details, enquanto o navegador Drawer contém o navegador Stack HomeStack e a tela Profile.</p>
+<h2 is-upgraded><strong>Exercicio 9</strong></h2>
+<p>Criar um app com o seguinte esquema de navegação</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\c62ee92a666fd373.png"></p>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
