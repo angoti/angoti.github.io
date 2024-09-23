@@ -1546,7 +1546,7 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
   return (
-    &lt;Drawer.Navigator useLegacyImplementation initialRouteName=&#34;Feed&#34;&gt;
+    &lt;Drawer.Navigator initialRouteName=&#34;Feed&#34;&gt;
       &lt;Drawer.Screen
         name=&#34;Feed&#34;
         component={Feed}
@@ -1690,7 +1690,7 @@ export default SettingsScreen;</pre>
 
 const App = () =&gt; (
   &lt;NavigationContainer&gt;
-    &lt;Drawer.Navigator useLegacyImplementation initialRouteName=&#34;Home&#34;&gt;
+    &lt;Drawer.Navigator initialRouteName=&#34;Home&#34;&gt;
       &lt;Drawer.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
       &lt;Drawer.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
       &lt;Drawer.Screen name=&#34;Settings&#34; component={SettingsScreen} /&gt;
