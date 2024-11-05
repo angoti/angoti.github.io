@@ -3,23 +3,22 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2024-09-24T21:06:26Z",
-  "id": "rncursocompletoparte1",
-  "duration": 445,
-  "title": "Curso React Native",
+  "updated": "2024-11-05T18:59:19Z",
+  "id": "",
+  "duration": 195,
+  "title": "Codelab - Expo RN - Autenticação Firebase/Google",
   "authors": "Edson Angoti Júnior",
-  "summary": "Demostração do uso",
-  "source": "17V0ueFIKhRPvJLr2_OirrZkp9xgmWwgwSlvx3alFFBM",
-  "theme": "reactnative",
+  "summary": "React native e firebase. Última atualização: 21/06/2023",
+  "source": "1AZW0nZbQD2RGNFvQP3z9dAlBU2Px8_qVZ0z0UGozqiI",
+  "theme": "mobile",
   "status": [
-    "published"
+    "emconstrução"
   ],
   "category": [
-    "reactnative"
+    "mobile"
   ],
   "tags": [
-    "construção",
-    "web"
+    "mobile"
   ],
-  "url": "rncursocompletoparte1"
+  "url": ""
 }
