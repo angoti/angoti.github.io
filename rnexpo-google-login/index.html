@@ -110,51 +110,70 @@ code .</code></pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="Instalando as bibliotecas Firebase, Google SignIn e React Navigation" duration="20">
-        <p>Antes de instalar as bibliotecas necessárias ao projeto suspenda o servidor de desenvolvimento com CTRL + C.</p>
-<ul>
-<li>Vamos usar o <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a>, que é uma coleção de pacotes oficialmente recomendada que oferece suporte ao React Native para todos os serviços do Firebase em aplicativos Android e iOS.</li>
-</ul>
-<pre><code>npx expo install @react-native-firebase/app</code></pre>
+      <google-codelab-step label="Instalando as bibliotecas" duration="20">
+        <aside class="special"><p>Referência: <a href="https://docs.expo.dev/guides/google-authentication/" target="_blank">Expo Google authentication</a></p>
+</aside>
+<p>Antes de instalar as bibliotecas necessárias ao projeto suspenda o servidor de desenvolvimento com CTRL + C.</p>
 <ul>
 <li>A biblioteca <a href="https://rnfirebase.io/auth/social-auth#google" target="_blank">React Native Google Signin</a> fornece um wrapper em torno da biblioteca oficial de login do Google, permitindo que você crie uma credencial e faça login no Firebase.</li>
 </ul>
 <pre><code>npx expo install @react-native-google-signin/google-signin</code></pre>
-<ul>
-<li>Adicione o pacote <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a>, composto de alguns utilitários responsáveis para criar a estrutura de navegação em seu aplicativo. No nosso app vamos usar navegação em pilha, que emula a navegação na web.</li>
-</ul>
-<pre><code>npm install @react-navigation/native @react-navigation/drawer @react-navigation/native-stack @react-native-firebase/auth</code></pre>
-<pre><code>npx expo install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Criando o módulo android no projeto" duration="40">
-        <p>Execute o seguinte comando no terminal na raiz do seu projeto. Quando for perguntado sobre o nome do pacote, responda com o nome fornecido no passo 4 deste tutorial.</p>
-<pre><code>npx expo prebuild --clean</code></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Configuração da biblioteca React Native Firebase" duration="20">
         <ol type="1" start="1">
-<li>O arquivo de configuração <code>google-services.json</code> que obtivemos no passo 4 deve ser copiado para dentro de seu projeto no seguinte local: /android/app/.</li>
+<li>O arquivo de configuração <code>google-services.json</code> que obtivemos no passo 4 deve ser copiado para a raiz de seu projeto.</li>
 </ol>
-<p class="image-container"><img style="width: 265.00px" src="img\\143f58def50dbddd.png"></p>
+<p class="image-container"><img style="width: 231.00px" src="img\\8940f81426200038.png"></p>
 <ol type="1" start="2">
+<li>Abra o arquivo <code>/app.json</code> e adicione o seguinte código:</li>
+</ol>
+<pre><code>{
+  &#34;expo&#34;: {
+
+    ...
+
+    &#34;plugins&#34;: [&#34;@react-native-google-signin/google-signin&#34;],
+    &#34;android&#34;: {
+
+      ...
+
+      &#34;googleServicesFile&#34;: &#34;./google-services.json&#34;
+    },
+    &#34;ios&#34;: {
+      &#34;googleServicesFile&#34;: &#34;./GoogleService-Info.plist&#34;
+    }
+  }
+}</code></pre>
+<ol type="1" start="3">
+<li>Execute o comando para criar  o projeto Android</li>
+</ol>
+<pre><code>npx expo prebuild</code></pre>
+<ol type="1" start="4">
 <li>Abra o arquivo <code>/android/app/build.gradle</code> e adicione o seguinte código:</li>
 </ol>
 <pre><code>apply plugin: &#39;com.google.gms.google-services&#39; // &lt;- Adicione na última linha</code></pre>
-<ol type="1" start="3">
+<ol type="1" start="5">
 <li>Adicione o plugin <code>google-services</code> como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
 </ol>
 <pre><code>buildscript {
-  dependencies {
-    // ... outras dependencias
-    classpath (&#39;com.google.gms:google-services:4.4.0&#39;)  // &lt;- Adicione esta linha
+    ext {
+        buildToolsVersion = &#34;a.b.c&#34;
+        minSdkVersion = x
+        compileSdkVersion = y
+        targetSdkVersion = z
+        googlePlayServicesAuthVersion = &#34;20.7.0&#34; // &lt;--- use esta versão ou mais recente
+    }
+// ...
+
+    dependencies {
+        // ... outras dependencias
+        classpath (&#39;com.google.gms:google-services:4.4.0&#39;)  // &lt;- adicione esta linha
   }
 }</code></pre>
-<ol type="1" start="4">
+<ol type="1" start="6">
 <li>Vamos gerar chaves para configurar o app no Firebase console. </li>
 </ol>
 <pre><code>cd android &amp;&amp; gradlew signingReport</code></pre>
@@ -165,7 +184,7 @@ code .</code></pre>
 <p>Role a página até aparecer o seu aplicativo Android</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\a955849ffe33ecf8.png"></p>
 <p>Copie as chaves geradas no campo <code>Impressão digital do certificado</code>. </p>
-<ol type="1" start="5">
+<ol type="1" start="7">
 <li>Edite o arquivo <code>app.json</code></li>
 </ol>
 <pre><code>{
