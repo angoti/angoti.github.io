@@ -142,9 +142,6 @@ code .</code></pre>
 
       &#34;googleServicesFile&#34;: &#34;./google-services.json&#34;
     },
-    &#34;ios&#34;: {
-      &#34;googleServicesFile&#34;: &#34;./GoogleService-Info.plist&#34;
-    }
   }
 }</code></pre>
 <ol type="1" start="3">
@@ -184,34 +181,6 @@ code .</code></pre>
 <p>Role a página até aparecer o seu aplicativo Android</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\a955849ffe33ecf8.png"></p>
 <p>Copie as chaves geradas no campo <code>Impressão digital do certificado</code>. </p>
-<ol type="1" start="7">
-<li>Edite o arquivo <code>app.json</code></li>
-</ol>
-<pre><code>{
-  &#34;expo&#34;: {
-    &#34;android&#34;: {
-      &#34;googleServicesFile&#34;: &#34;./android/app/google-services.json&#34; // &lt;- Adicione esta linha
-    },
-    
-    &#34;plugins&#34;: [ // &lt;- Adicione estas linhas
-      &#34;@react-native-firebase/app&#34;,
-      &#34;@react-native-google-signin/google-signin&#34;
-    ] // &lt;- até aqui
-  }
-}</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="babel.config.js" duration="0">
-        <pre><code>module.exports = function(api) {
-  api.cache(true);
-  return {
-    presets: [&#34;babel-preset-expo&#34;],
-    plugins: [&#34;react-native-reanimated/plugin&#34;],
-  };
-};
-</code></pre>
 
 
       </google-codelab-step>
@@ -238,55 +207,6 @@ code .</code></pre>
 <p>Quando a variável `<code>isAuthenticated</code>` é verdadeira, o React Navigation exibe apenas a tela HomeScreen. Quando é falsa, exibe a tela LoginScreen. Isso impede a navegação para a tela protegidas quando o usuário não está logado, e para a tela de login quando está logado. Esse padrão é conhecido como <strong>Rotas protegidas</strong>.</p>
 <p>As telas que requerem login estão &#34;protegidas&#34; e não podem ser acessadas se o usuário não estiver logado. Quando o valor de `<code>isAuthenticated</code>` muda, o comportamento do React Navigation também muda. </p>
 <p>Quando usamos este padrão podemos implementar o fluxo de autenticação de forma simples, sem lógica adicional para garantir que a tela correta seja exibida.</p>
-<p>Desta foram o código completo do app fica assim:</p>
-<p>Arquivo <code>App.js</code></p>
-<pre><code>import { StyleSheet, Text, View, Button } from &#34;react-native&#34;;
-import { useState } from &#34;react&#34;;
-
-// Telas
-const LoginScreen = ({ login }) =&gt; {
-  return (
-    &lt;View style={styles.layout}&gt;
-      &lt;Text style={styles.title}&gt;Login&lt;/Text&gt;
-      &lt;Button title=&#34;Entrar&#34; onPress={() =&gt; login(true)} /&gt;
-    &lt;/View&gt;
-  );
-};
-
-const HomeScreen = ({ login }) =&gt; (
-  &lt;View style={styles.layout}&gt;
-    &lt;Text style={styles.title}&gt;Home&lt;/Text&gt;
-    &lt;Button title=&#34;Sair&#34; onPress={() =&gt; login(false)} /&gt;
-  &lt;/View&gt;
-);
-
-const App = () =&gt; {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  return (
-    &lt;View style={styles.container}&gt;
-      {isAuthenticated
-        ? &lt;HomeScreen login={setIsAuthenticated} /&gt;
-        : &lt;LoginScreen login={setIsAuthenticated} /&gt;}
-    &lt;/View&gt;
-  );
-};
-
-export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  layout: {
-    flex: 1,
-    justifyContent: &#34;center&#34;,
-    alignItems: &#34;center&#34;,
-  },
-  title: {
-    fontSize: 32,
-    marginBottom: 16,
-  },
-});</code></pre>
 
 
       </google-codelab-step>
@@ -295,9 +215,16 @@ const styles = StyleSheet.create({
         <p>O trabalho de configuração e instalação de bibliotecas foi feito nos passos 6, 7 e 8 deste codelab. Desta foram podemos nos concentrar agora no código necessário para implem        entar a autenticação de usuário utilizando uma conta Google.</p>
 <p>Foram adicionadas as funções <code>onLogin</code> e <code>onLogout</code> e também adicionamos um código para configurar o objeto <code>GoogleSignin.</code></p>
 <p>Para obter o valor do atributo <code>webClientId</code> do objeto GoogleSigin, você deve consultar o arquivo google-services.json (conforme mencionado no passo 8). Neste arquivo, você encontrará o valor desejado navegando pela estrutura de chaves da seguinte maneira: &#34;client&#34; -&gt; &#34;oauth_client&#34; -&gt; &#34;client_id&#34;. Certifique-se de que o &#34;client_type&#34; associado a este &#34;client_id&#34; seja 3.</p>
-<pre><code>import { StyleSheet, Text, View, Button, ActivityIndicator } from &#34;react-native&#34;;
-import { useState } from &#34;react&#34;;
-import { GoogleSignin } from &#34;@react-native-google-signin/google-signin&#34;;
+<pre><code>import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ActivityIndicator,
+  Image,
+} from &#39;react-native&#39;;
+import { useState } from &#39;react&#39;;
+import { GoogleSignin } from &#39;@react-native-google-signin/google-signin&#39;;
 
 //funções de autenticação
 export const onLogin = async () =&gt; {
@@ -305,16 +232,17 @@ export const onLogin = async () =&gt; {
   return user;
 };
 
-export const onLogout = () =&gt; {
-  GoogleSignin.signOut();
+export const onLogout = async () =&gt; {
+  await GoogleSignin.signOut();
 };
 
 GoogleSignin.configure({
-  webClientId: &#34;676797397237-pjipptjgb1nuaomvcm6rd6dpt19jl06n.apps.googleusercontent.com&#34;,
+  webClientId:
+    &#39;Cole aqui o código obtido no arquivo google-services.json conforme orientado acima&#39;,
 });
 
 // Telas
-const LoginScreen = ({ login }) =&gt; {
+const LoginScreen = ({ login, setUser }) =&gt; {
   const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 
   return (
@@ -325,8 +253,9 @@ const LoginScreen = ({ login }) =&gt; {
         title=&#34;entrar&#34;
         onPress={() =&gt; {
           setIsSigninInProgress(true);
-          onLogin().then((user) =&gt; {
-            console.log(user);
+          onLogin().then(dadosAuth =&gt; {
+            console.log(dadosAuth);
+            setUser(dadosAuth.data.user);
             login(true);
           });
         }}
@@ -335,17 +264,30 @@ const LoginScreen = ({ login }) =&gt; {
   );
 };
 
-const HomeScreen = ({ login }) =&gt; (
+const HomeScreen = ({ login, user }) =&gt; (
   &lt;View style={styles.layout}&gt;
     &lt;Text style={styles.title}&gt;Home&lt;/Text&gt;
+    &lt;Text style={styles.text}&gt;Bem vindo {user.name}&lt;/Text&gt;
+    &lt;Image
+      source=&#123;&#123; uri: user.photo }}
+      style=&#123;&#123; width: 100, height: 100, borderRadius: 50, marginBottom: 16 }}
+    /&gt;
     &lt;Button title=&#34;Sair&#34; onPress={() =&gt; onLogout().then(() =&gt; login(false))} /&gt;
   &lt;/View&gt;
 );
 
 const App = () =&gt; {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+
   return (
-    &lt;View style={styles.container}&gt;{isAuthenticated ? &lt;HomeScreen login={setIsAuthenticated} /&gt; : &lt;LoginScreen login={setIsAuthenticated} /&gt;}&lt;/View&gt;
+    &lt;View style={styles.container}&gt;
+      {isAuthenticated ? (
+        &lt;HomeScreen login={setIsAuthenticated} user={user} /&gt;
+      ) : (
+        &lt;LoginScreen login={setIsAuthenticated} setUser={setUser} /&gt;
+      )}
+    &lt;/View&gt;
   );
 };
 
@@ -357,11 +299,15 @@ const styles = StyleSheet.create({
   },
   layout: {
     flex: 1,
-    justifyContent: &#34;center&#34;,
-    alignItems: &#34;center&#34;,
+    justifyContent: &#39;center&#39;,
+    alignItems: &#39;center&#39;,
   },
   title: {
     fontSize: 32,
+    marginBottom: 16,
+  },
+  text: {
+    fontSize: 14,
     marginBottom: 16,
   },
 });</code></pre>
