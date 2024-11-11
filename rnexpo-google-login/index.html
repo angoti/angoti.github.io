@@ -353,12 +353,12 @@ const styles = StyleSheet.create({
   );
 };</code></pre>
 <p>Considerando que este componente será chamada assim</p>
-<p><code><LoginScreen login={setUser} /></code></p>
+<p><code>‘<LoginScreen login={setUser} />'</code></p>
 <p>Vamos analisar o que cada parte deste código faz:</p>
-<p>- const LoginScreen = ({ login }) =&gt; {...}: Esta é a declaração do componente LoginScreen. Ele recebe <strong>login</strong> como uma propriedade.</p>
-<p>- const [isSigninInProgress, setIsSigninInProgress] = useState(false): Isso é um hook de estado do React. Ele declara uma variável de estado `isSigninInProgress` e uma função para atualizá-la `setIsSigninInProgress`. O estado inicial é `false`, indicando que o processo de login não está em andamento.</p>
-<p>- {isSigninInProgress &amp;&amp; &lt;ActivityIndicator /&gt;}: Renderiza um componente <code>ActivityIndicator</code> se isSigninInProgress for `true`. Isso pode ser usado para mostrar um indicador de carregamento enquanto o login está em andamento.</p>
-<p>- &lt;Button ... /&gt;: Este é um botão que, quando pressionado, inicia o processo de login. Ele primeiro define `isSigninInProgress` para `true`, depois chama a função `onLogin()`. Quando `onLogin()` é resolvido, ele registra o usuário no console e chama a função `login` com o usuário como argumento. </p>
+<p>- <code>const LoginScreen = ({ login }) => {...}:</code> Esta é a declaração do componente LoginScreen. Ele recebe <strong>login</strong> como uma propriedade.</p>
+<p>- <code>const [isSigninInProgress, setIsSigninInProgress] = useState(false):</code> Isso é um hook de estado do React. Ele declara uma variável de estado `isSigninInProgress` e uma função para atualizá-la `setIsSigninInProgress`. O estado inicial é `false`, indicando que o processo de login não está em andamento.</p>
+<p>- <code>{isSigninInProgress && <ActivityIndicator />}</code>: Renderiza um componente <code>ActivityIndicator</code> se isSigninInProgress for `true`. Isso pode ser usado para mostrar um indicador de carregamento enquanto o login está em andamento.</p>
+<p>- <code><Button ... />:</code> Este é um botão que, quando pressionado, inicia o processo de login. Ele primeiro define `isSigninInProgress` para `true`, depois chama a função `onLogin()`. Quando `onLogin()` é resolvido, ele registra o usuário no console e chama a função `login` com o usuário como argumento. </p>
 <p>Quando a função login é chamada dentro de LoginScreen (por exemplo, após um usuário fazer login com sucesso), ela na verdade está chamando a função setUser com o objeto do usuário como argumento. Isso atualiza o estado da variável user do componente App para refletir que um usuário fez login com sucesso.</p>
 <p>Para demonstrar o uso dos dados do usuário logado, o componente &lt;HomeScreen&gt; foi modificado para:</p>
 <pre><code>const HomeScreen = ({ user, login }) =&gt; (
