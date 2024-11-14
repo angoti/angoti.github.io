@@ -334,8 +334,8 @@ const styles = StyleSheet.create({
     &lt;/View&gt;
   );
 };</code></pre>
-<p>Considerando que este componente será chamada assim</p>
-<p><code>‘<LoginScreen login={setUser} />'</code></p>
+<p>Considerando que este componente será chamada assim:</p>
+<pre><code>&lt;LoginScreen login={setUser} /&gt;</code></pre>
 <p>Vamos analisar o que cada parte deste código faz:</p>
 <p>- <code>const LoginScreen = ({ login }) => {...}:</code> Esta é a declaração do componente LoginScreen. Ele recebe <strong>login</strong> como uma propriedade.</p>
 <p>- <code>const [isSigninInProgress, setIsSigninInProgress] = useState(false):</code> Isso é um hook de estado do React. Ele declara uma variável de estado `isSigninInProgress` e uma função para atualizá-la `setIsSigninInProgress`. O estado inicial é `false`, indicando que o processo de login não está em andamento.</p>
