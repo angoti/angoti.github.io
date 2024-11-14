@@ -3,10 +3,10 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2024-11-11T21:15:29Z",
-  "id": "",
+  "updated": "2024-11-14T16:46:09Z",
+  "id": "rnexpo-google-login",
   "duration": 155,
-  "title": "Codelab - Expo RN - Autenticação Firebase/Google",
+  "title": "Codelab - Autenticação Firebase/Google - projeto Firebase aula-log-google",
   "authors": "Edson Angoti Júnior",
   "summary": "React native e firebase. Última atualização: 21/06/2023",
   "source": "1Lukz6XQeVcYtn6UhYrpLiSq_NmDxht6KcnKlc0KjQNA",
@@ -20,5 +20,5 @@
   "tags": [
     "mobile"
   ],
-  "url": ""
+  "url": "rnexpo-google-login"
 }

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Codelab - Expo RN - Autenticação Firebase/Google</title>
+  <title>Codelab - Autenticação Firebase/Google - projeto Firebase aula-log-google</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
@@ -22,8 +22,8 @@
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  id=""
-                  title="Codelab - Expo RN - Autenticação Firebase/Google"
+                  id="rnexpo-google-login"
+                  title="Codelab - Autenticação Firebase/Google - projeto Firebase aula-log-google"
                   environment="web"
                   feedback-link="">
     
@@ -86,7 +86,7 @@
 <p>Role a tela até aparecer o seguinte:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\719c796e4cccd7d1.png"></p>
 <p>Clique no segundo ícone, que representa uma aplicação Android. Forneça um nome de pacote para o aplicativo e clique em <code>Registrar app</code>.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\990bd6eaf555d982.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\d00d27ac34775fb.png"></p>
 <p>Após você deverá fazer o download do arquivo de configuração:</p>
 <p class="image-container"><img style="width: 624.00px" src="img\\4c3ec8eb70de4103.png"></p>
 <p>Ignore todas as próximas etapas.</p>
@@ -99,13 +99,6 @@
 <pre><code>npx create-expo-app nome-da-aplicação --template blank
 cd nome-da-aplicação
 code .</code></pre>
-<p>Em seguida, no diretório do projeto, execute o seguinte comando para iniciar um servidor de desenvolvimento a partir do terminal.</p>
-<pre><code>npx expo start</code></pre>
-<p>Você verá as seguintes informações na tela:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\9d7b153e8d563885.png"></p>
-<p>Se o seu ambiente estiver corretamente configurado (este tutorial não inclui a configuração do ambiente de desenvolvimento), pressione a letra <code>a</code> no teclado do seu computador para abrir o app em um emulador Android. </p>
-<p>Em alguns instantes o app será executado e teremos então a seguinte tela:</p>
-<p class="image-container"><img style="width: 475.00px" src="img\\24654d1845688db4.png"></p>
 
 
       </google-codelab-step>
@@ -124,7 +117,7 @@ code .</code></pre>
     
       <google-codelab-step label="Configuração da biblioteca React Native Firebase" duration="20">
         <ol type="1" start="1">
-<li>O arquivo de configuração <code>google-services.json</code> que obtivemos no passo 4 deve ser copiado para a raiz de seu projeto.</li>
+<li>O arquivo de configuração <a href="https://drive.google.com/file/d/1Swy1c1RTRQe1stdgkGGxxyfpWGkFlJ2a/view?usp=sharing" target="_blank"><code>google-services.json</code></a> que obtivemos no passo 4 deve ser copiado para a raiz de seu projeto.</li>
 </ol>
 <p class="image-container"><img style="width: 231.00px" src="img\\8940f81426200038.png"></p>
 <ol type="1" start="2">
@@ -149,11 +142,7 @@ code .</code></pre>
 </ol>
 <pre><code>npx expo prebuild</code></pre>
 <ol type="1" start="4">
-<li>Abra o arquivo <code>/android/app/build.gradle</code> e adicione o seguinte código:</li>
-</ol>
-<pre><code>apply plugin: &#39;com.google.gms.google-services&#39; // &lt;- Adicione na última linha</code></pre>
-<ol type="1" start="5">
-<li>Adicione o plugin <code>google-services</code> como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
+<li>Adicione a linha indicada abaixo no arquivo <code>/android/build.gradle</code>:</li>
 </ol>
 <pre><code>buildscript {
     ext {
@@ -161,26 +150,19 @@ code .</code></pre>
         minSdkVersion = x
         compileSdkVersion = y
         targetSdkVersion = z
-        googlePlayServicesAuthVersion = &#34;20.7.0&#34; // &lt;--- use esta versão ou mais recente
+        googlePlayServicesAuthVersion = &#34;20.7.0&#34; // &lt;--- 
     }
 // ...
 
-    dependencies {
-        // ... outras dependencias
-        classpath (&#39;com.google.gms:google-services:4.4.0&#39;)  // &lt;- adicione esta linha
-  }
 }</code></pre>
-<ol type="1" start="6">
-<li>Vamos gerar chaves para configurar o app no Firebase console. </li>
+<ol type="1" start="5">
+<li>Adicione as linhas abaixo no fim do arquivo <code>/android/gradle.properties</code></li>
 </ol>
-<pre><code>cd android &amp;&amp; gradlew signingReport</code></pre>
-<p>Isso gera duas chaves. Você precisa copiar as chaves &#39;SHA1&#39; e &#39;SHA-256&#39; que pertencem à variante  &#39;<code>debugAndroidTest</code>&#39;  indicando o diretório de sua aplicação. </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\35561d7f023fcd61.png"></p>
-<p>Em seguida, você pode adicionar essas chaves às &#34;impressões digitais do certificado SHA&#34; em seu aplicativo no Firebase console. Veja sequencia de imagens a seguir:</p>
-<p class="image-container"><img style="width: 445.00px" src="img\\da8ad9d43113defc.png"></p>
-<p>Role a página até aparecer o seu aplicativo Android</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\a955849ffe33ecf8.png"></p>
-<p>Copie as chaves geradas no campo <code>Impressão digital do certificado</code>. </p>
+<pre><code># config para otimizar o build
+org.gradle.daemon=true
+org.gradle.configureondemand=true
+org.gradle.parallel=true
+org.gradle.caching=true</code></pre>
 
 
       </google-codelab-step>
@@ -236,9 +218,9 @@ export const onLogout = async () =&gt; {
   await GoogleSignin.signOut();
 };
 
+// valor obtido no arquivo google-services.json
 GoogleSignin.configure({
-  webClientId:
-    &#39;Cole aqui o código obtido no arquivo google-services.json conforme orientado acima&#39;,
+  webClientId: &#34;438872457138-miq1lm1c3cue420bg81k8erkqd9o3cij.apps.googleusercontent.com&#34;,
 });
 
 // Telas
