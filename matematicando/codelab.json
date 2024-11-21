@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2024-11-21T22:55:50Z",
+  "id": "matematicando",
+  "duration": 115,
+  "title": "Codelab - Ambiente de desenvolvimento React Native",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Preparação ambiente de desenvolvimento com vscode e expo com emulador android via linha de comando",
+  "source": "1-YEl9j6Hadg8heaXHrETBXJXLhM3XSNF7RrSDsrJeEg",
+  "theme": "web",
+  "status": [
+    "emconstrução"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "matematicando"
+}

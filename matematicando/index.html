@@ -1,0 +1,191 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Ambiente de desenvolvimento React Native</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="matematicando"
+                  title="Codelab - Ambiente de desenvolvimento React Native"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="45">
+        <table>
+<tr><td colspan="1" rowspan="1"><h2 is-upgraded><img style="width: 496.70px" src="img\\8f9f9e336f14e00e.png"></h2>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 197.70px" src="img\\3829c6ddb27e00c5.png"></p>
+</td></tr>
+</table>
+<p><code>Última atualização: 21/11/2024</code></p>
+<h2 is-upgraded><strong>O que você vai fazer</strong></h2>
+<p>Preparar o ambiente de desenvolvimento de aplicações React Native em um sistema operacional Windows 10</p>
+<h2 is-upgraded><strong>Referências</strong></h2>
+<ul>
+<li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
+<li><a href="https://www.oracle.com/java/technologies/downloads/#jdk21-windows" target="_blank">Java SE Development Kit JDK LTS</a></li>
+<li><a href="https://code.visualstudio.com/" target="_blank">Visual Studio</a></li>
+<li><a href="https://developer.android.com/studio?hl=pt-br" target="_blank">Android Studio</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Node.js" duration="10">
+        <p>Vamos usar a versão LTS (long-term support)  mais recente que é <code>v22.11.0</code>. Baixe o instalador direto do site <a href="https://nodejs.org/" target="_blank">site oficial</a>. Após a instalação, você poderá verificar a instalação com o comando:</p>
+<pre>node -v</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Java Development Kit" duration="5">
+        <p>O JDK 21 é a versão mais recente de Suporte de Longo Prazo (LTS) da Plataforma Java SE. O JDK 21 receberá atualizações sob o NFTC, até setembro de 2026. Baixe o <a href="https://www.oracle.com/java/technologies/downloads/#jdk21-windows" target="_blank">instalador</a> e instale o JDK para rodar o emulador Android.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Visual Studio e JavaScript extensions for VS Code" duration="15">
+        <p>Baixe o instalador do <a href="https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.msi" target="_blank">vscode</a> e instale.</p>
+<p>Apos a instalação do VS Code, adicione as seguintes extensões: </p>
+<p class="image-container"><img alt="Prettier - Code formatter" style="width: 99.54px" src="img\\a7b46d2484c340ed.png"></p>
+<p class="image-container"><img alt="JavaScript (ES6) code snippets" style="width: 102.46px" src="img\\22cfb3a0e21f9351.png"></p>
+<p class="image-container"><img alt="Node.js Modules Intellisense" style="width: 118.80px" src="img\\80b4db26d4c74d1.png"></p>
+<p class="image-container"><img style="width: 100.20px" src="img\\7321b1be144ba053.png"></p>
+<p class="image-container"><img style="width: 213.16px" src="img\\19685cab3ca66d60.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Android development environment" duration="0">
+        <h2 is-upgraded><strong>1. Instale o Android Studio</strong></h2>
+<p>Baixe o <a href="https://developer.android.com/studio/index.html" target="_blank">instalador</a>. Enquanto estiver no assistente de instalação do Android Studio, certifique-se de que as caixas ao lado de todos os itens a seguir estejam marcadas: </p>
+<ul>
+<li>Android SDK </li>
+<li>Android SDK Platform </li>
+<li>Android Virtual Device</li>
+<li>Se você ainda não estiver usando o Hyper-V: (<a href="https://android-developers.googleblog.com/2018/07/android-emulator-amd-processor-hyper-v.html" target="_blank">Veja aqui para AMD ou Hyper-V</a>) </li>
+</ul>
+<h2 is-upgraded><strong>2. Install the Android SDK</strong></h2>
+<p>O Android Studio instala o Android SDK mais recente por padrão. No entanto, construir um aplicativo React Native com código nativo requer o Android 14 (UpsideDownCake) SDK em particular. </p>
+<p>SDKs Android adicionais podem ser instalados por meio do SDK Manager no Android Studio. Para fazer isso, abra o Android Studio, clique no botão &#34;More Actions&#34; e selecione &#34;SDK Manager&#34;.</p>
+<p class="image-container"><img alt="Android Studio Welcome" style="width: 718.11px" src="img\\87414b34882c7bce.png"></p>
+<p>Selecione a aba &#34;SDK Platforms&#34; no SDK Manager, então marque a caixa ao lado de &#34;Show Package Details&#34; no canto inferior direito. Procure e expanda a entrada Android 14 (UpsideDownCake), então certifique-se de que os seguintes itens estejam marcados:</p>
+<ul>
+<li>Android SDK Platform 34</li>
+<li>Intel x86 Atom_64 System Image or Google APIs Intel x86 Atom System Image</li>
+</ul>
+<p>Em seguida, selecione a aba &#34;SDK Tools&#34; e marque a caixa ao lado de &#34;Show Package Details&#34; aqui também. Procure e expanda a entrada Android SDK Build-Tools, então certifique-se de que 34.0.0 esteja selecionado. Por fim, clique em &#34;Apply&#34; para baixar e instalar o Android SDK e as ferramentas de build relacionadas.</p>
+<h2 is-upgraded><strong>3. Configure a variável de ambiente ANDROID_HOME </strong></h2>
+<p>As ferramentas React Native exigem que algumas variáveis ​​de ambiente sejam configuradas para criar aplicativos com código nativo. Abra as configurações do windows e procure por &#34;variáveis de ambiente&#34;.  </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 345.00px" src="img\\1808e918c7c8666d.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 345.00px" src="img\\352155748b9414e4.png"></p>
+</td></tr>
+</table>
+<p>Clique em &#34;Variáveis de Ambiente&#34; e em &#34;Novo...&#34; (Variáveis do sistema) para criar uma nova variável de sistema ANDROID_HOME que aponta para o caminho para seu Android SDK:</p>
+<p class="image-container"><img style="width: 718.11px" src="img\\1b44c0c57962b744.png"></p>
+<p>O SDK é instalado, por padrão, no seguinte local: <code>C:\Users\nome_do_usuário\AppData\Local\Android\Sdk</code></p>
+<h2 is-upgraded><strong>4. Adicionar platform-tools ao Path</strong></h2>
+<p>Procure pela palavra Path na lista de variáveis do sistema e clique  no botão Editar... e na janela que aparecer clique no botão Novo. O caminho é <code>C:\Users\nome_do_usuário\AppData\Local\Android\Sdk\platform-tools.</code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Executando a aplicação" duration="0">
+        <ol type="1" start="1">
+<li><a href="https://developer.android.com/studio/debug/dev-options?hl=pt-br" target="_blank">Ativar</a> as opções de desenvolvedor do seu dispositivo Android</li>
+<li>Conectar o dispositivo ao computador com um cabo USB</li>
+<li>Baixe o aplicativo do github <a href="https://github.com/angoti/app-matematicando" target="_blank">https://github.com/angoti/app-matematicando</a></li>
+<li>Veja o vídeo abaixo.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configuração da biblioteca React Native Firebase" duration="20">
+        <ol type="1" start="1">
+<li>O arquivo de configuração <a href="https://drive.google.com/file/d/1Swy1c1RTRQe1stdgkGGxxyfpWGkFlJ2a/view?usp=sharing" target="_blank"><code>google-services.json</code></a> que obtivemos no passo 4 deve ser copiado para a raiz de seu projeto.</li>
+</ol>
+<p class="image-container"><img style="width: 231.00px" src="img\\8940f81426200038.png"></p>
+<ol type="1" start="2">
+<li>Abra o arquivo <code>/app.json</code> e adicione o seguinte código:</li>
+</ol>
+<pre><code>{
+  &#34;expo&#34;: {
+
+    ...
+
+    &#34;plugins&#34;: [&#34;@react-native-google-signin/google-signin&#34;],
+    &#34;android&#34;: {
+
+      ...
+
+      &#34;googleServicesFile&#34;: &#34;./google-services.json&#34;
+    },
+  }
+}</code></pre>
+<ol type="1" start="3">
+<li>Execute o comando para criar  o projeto Android</li>
+</ol>
+<pre><code>npx expo prebuild</code></pre>
+<ol type="1" start="4">
+<li>Adicione a linha indicada abaixo no arquivo <code>/android/build.gradle</code>:</li>
+</ol>
+<pre><code>buildscript {
+    ext {
+        buildToolsVersion = &#34;a.b.c&#34;
+        minSdkVersion = x
+        compileSdkVersion = y
+        targetSdkVersion = z
+        googlePlayServicesAuthVersion = &#34;20.7.0&#34; // &lt;--- 
+    }
+// ...
+
+}</code></pre>
+<ol type="1" start="5">
+<li>Adicione as linhas abaixo no fim do arquivo <code>/android/gradle.properties</code></li>
+</ol>
+<pre><code># config para otimizar o build
+org.gradle.daemon=true
+org.gradle.configureondemand=true
+org.gradle.parallel=true
+org.gradle.caching=true</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Execução do App" duration="20">
+        <p>Para executar o App temos que usar o seguinte comando:</p>
+<pre><code>npx expo run:android</code></pre>
+<p>Para limpar o cache:</p>
+<pre><code>npx expo run:android --no-build-cache</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
