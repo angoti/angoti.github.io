@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Codelab - Expo RN - Autenticação Firebase/Google</title>
+  <title>Curso React Native</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
@@ -22,468 +22,2071 @@
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  id=""
-                  title="Codelab - Expo RN - Autenticação Firebase/Google"
+                  id="rncursocompletoparte1"
+                  title="Curso React Native"
                   environment="web"
                   feedback-link="">
     
-      <google-codelab-step label="Introdução" duration="5">
-        <aside class="special"><p>Última atualização: 09/11/2023</p>
+      <google-codelab-step label="Introdução ao React Native" duration="5">
+        <aside class="special"><p>Última atualização: 05/06/2023</p>
 </aside>
-<p>Neste tutorial iremos desenvolver um aplicativo usando React Native. Este aplicativo terá como principal funcionalidade a autenticação de usuários através do Login do Google, utilizando o Firebase como nosso backend.</p>
-<p>React Native é uma framework que nos permite desenvolver aplicativos nativos para Android e iOS usando JavaScript e React. É uma ótima escolha para desenvolvedores que desejam criar aplicativos móveis de alta qualidade com agilidade e eficiência.</p>
-<p>Neste tutorial, vamos focar na criação de um sistema de autenticação de usuário. A autenticação é um aspecto crucial de muitos aplicativos modernos, e o Login do Google é uma das maneiras mais populares de realizar essa tarefa.</p>
-<p>Para tornar as coisas ainda melhores, vamos integrar nosso aplicativo React Native com o Firebase. O Firebase é uma plataforma de desenvolvimento de aplicativos da Google que fornece uma variedade de serviços, incluindo um sistema de autenticação robusto. Ao usar o Firebase, podemos facilmente configurar e gerenciar a autenticação do usuário em nosso aplicativo.</p>
-<h3 is-upgraded><strong>O que você vai fazer </strong></h3>
+<p>React Native é um framework que permite criar aplicativos Android e iOS. Você escreve seu código na linguagem de programação JavaScript e JSX. Ele foi desenvolvido pelo Facebook e foi lançado em março de 2015, durante a conferência F8 do Facebook. Foi nesse evento que o Facebook anunciou o React Native como um projeto de código aberto, permitindo que os desenvolvedores o utilizassem para criar aplicativos móveis multiplataforma. Desde então, o React Native tem passado por várias atualizações e continua a ser ativamente desenvolvido e mantido pela comunidade de código aberto e tem ganhado grande popularidade entre os desenvolvedores devido à sua abordagem inovadora e eficiente para o desenvolvimento multiplataforma.</p>
+<h2 is-upgraded><strong>Principais características do React Native</strong></h2>
+<p>O React Native possui várias características distintivas que o tornam uma escolha popular entre os desenvolvedores. Vamos explorar algumas das principais características e recursos que tornam o React Native uma estrutura de desenvolvimento móvel tão poderosa:</p>
 <ul>
-<li>Desenvolver um app com autenticação via Google </li>
+<li>Desenvolvimento Multiplataforma: O React Native permite que você desenvolva aplicativos móveis para iOS e Android usando uma base de código comum. Isso significa que você pode compartilhar a lógica de negócios, componentes e funcionalidades entre as duas plataformas, economizando tempo e esforço significativos no desenvolvimento.</li>
+<li>Componentes Reutilizáveis: O React Native oferece um conjunto rico de componentes pré-definidos, conhecidos como &#34;componentes básicos&#34; (core components). Esses componentes são construídos com base nos elementos nativos da interface do usuário das plataformas iOS e Android. Além disso, você também pode criar seus próprios componentes personalizados para reutilização em vários aplicativos e projetos.</li>
+<li>Abordagem Declarativa: O React Native segue uma abordagem declarativa, em que você descreve como a interface do usuário deve ser renderizada com base no estado atual do aplicativo. Com essa abordagem, você não precisa se preocupar em manipular diretamente as atualizações de interface do usuário. Em vez disso, você define como a interface deve ser exibida em diferentes estados e o React Native se encarrega de atualizá-la de forma eficiente.</li>
+<li>Hot Reload: O recurso de &#34;hot reload&#34; do React Native permite que você veja as alterações feitas no código instantaneamente no aplicativo em execução, sem precisar recompilar ou reiniciar o aplicativo. Isso acelera o processo de desenvolvimento, permitindo que você faça alterações e itere rapidamente na interface do usuário, estilos e lógica de negócios.</li>
+<li>Acesso a Recursos Nativos: Embora você desenvolva aplicativos usando JavaScript, o React Native oferece acesso a recursos e APIs nativas do dispositivo por meio de módulos JavaScript específicos. Isso significa que você pode acessar facilmente funcionalidades como câmera, GPS, sensores e notificações push, aproveitando as capacidades completas do dispositivo.</li>
+<li>Desempenho de Alto Nível: O React Native busca oferecer um desempenho de alto nível, garantindo que os aplicativos sejam executados suavemente e de forma responsiva. Ele utiliza uma arquitetura de thread separada para lidar com as operações de interface do usuário, garantindo uma experiência fluida para os usuários.</li>
+<li>Comunidade Ativa: O React Native possui uma comunidade de desenvolvedores ativa e em constante crescimento. Isso significa que há uma abundância de recursos, bibliotecas, exemplos e suporte disponíveis para ajudar os desenvolvedores a resolver problemas, encontrar soluções e acelerar o desenvolvimento de aplicativos.</li>
 </ul>
-<h3 is-upgraded><strong>O que você vai aprender</strong></h3>
+<p>Essas características tornam o React Native uma escolha popular entre os desenvolvedores, permitindo que eles criem aplicativos móveis de alta qualidade, eficientes e nativos para iOS e Android. Com a capacidade de compartilhar código, reutilizar componentes e aproveitar recursos nativos, o React Native oferece uma abordagem produtiva e eficaz para o desenvolvimento móvel.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ambiente de desenvolvimento" duration="10">
+        <p>Vamos utilizar no primeiro semestre do nosso curso uma plataforma chamada <a href="https://snack.expo.dev/" target="_blank"><paper-button class="colored" raised>Snack Expo</paper-button></a> </p>
+<p>É uma plataforma para construir e executar aplicativos React Native no navegador. Você pode escrever código React Native e executá-lo diretamente no navegador ou no app Expo Go. Para salvar seus códigos na plataforma Snack você deverá criar uma conta.</p>
+<p>A plataforma Expo Go é um ambiente de desenvolvimento para React Native que permite testar e executar aplicativos React Native diretamente em dispositivos móveis iOS e Android. Ele oferece uma maneira rápida e conveniente de visualizar o aplicativo em tempo real durante o processo de desenvolvimento.</p>
+<p>Ao usar o Expo Go, os desenvolvedores podem evitar a necessidade de configurar um ambiente de desenvolvimento específico para iOS e Android. Em vez disso, eles podem se concentrar no desenvolvimento do aplicativo em JavaScript usando o Expo CLI ou o Expo Snack.</p>
+<h2 is-upgraded><strong>Principais recursos e benefícios da plataforma Expo Go:</strong></h2>
 <ul>
-<li>Usar o FireBase com o pacote <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a> </li>
-<li>Usar Stack Navigation com o pacote <a href="https://reactnavigation.org/" target="_blank">React Navigation</a></li>
+<li>Experiência em tempo real: Com o Expo Go, é possível visualizar as alterações no aplicativo em tempo real, à medida que são feitas durante o desenvolvimento. Isso permite uma iteração rápida e uma experiência mais eficiente para ajustar a aparência e o comportamento do aplicativo.</li>
+<li>Suporte a hot reload: Assim como o React Native, o Expo Go suporta o recurso de <em>hot reload</em>, permitindo que você veja as alterações feitas no código instantaneamente no aplicativo em execução. Isso facilita a depuração e o ajuste de problemas sem a necessidade de reiniciar o aplicativo.</li>
+<li>Acesso a recursos nativos: O Expo Go oferece uma ampla gama de APIs e componentes nativos que podem ser usados em aplicativos React Native. Isso inclui recursos como câmera, GPS, notificações push, armazenamento local e muito mais. Esses recursos nativos podem ser facilmente acessados e utilizados no aplicativo sem a necessidade de configurar e integrar bibliotecas adicionais.</li>
+<li>Publicação e compartilhamento fácil: Com o Expo Go, é possível publicar o aplicativo para compartilhamento com outras pessoas de forma rápida e simples. Isso facilita a demonstração do aplicativo para clientes, testadores ou colegas de equipe, permitindo que eles visualizem o aplicativo diretamente em seus dispositivos móveis.</li>
+<li>Acesso a comunidade e recursos do Expo: A plataforma Expo Go é suportada pela comunidade Expo, que oferece uma ampla gama de recursos, como documentação, exemplos, bibliotecas adicionais e suporte da comunidade. Isso torna o desenvolvimento com o Expo Go ainda mais fácil e eficiente.</li>
 </ul>
-<h3 is-upgraded><strong>O que você precisa</strong></h3>
+<p>Embora o Expo Go seja um ambiente de desenvolvimento muito útil e prático, é importante observar que ele possui algumas limitações em relação ao desenvolvimento nativo tradicional do React Native. Dependendo dos requisitos específicos do aplicativo, pode ser necessário fazer uso do React Native CLI e configurar um ambiente de desenvolvimento nativo completo.</p>
+<p>No entanto, para muitos casos de uso, o Expo Go oferece uma solução rápida e eficiente para o desenvolvimento React Native, permitindo que os desenvolvedores testem, iterem e compartilhem aplicativos em tempo real diretamente em dispositivos móveis.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\ce0470e53aa28d75.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Fundamentos do React Native" duration="20">
+        <p>No React Native, os <strong>componentes </strong>são a unidade fundamental para a construção de interfaces de usuário. Um componente é uma parte autônoma e reutilizável do aplicativo que pode ser combinada com outros componentes para criar uma hierarquia de interface do usuário.</p>
+<p>Existem dois tipos principais de componentes no React Native:</p>
 <ul>
-<li>VSCode</li>
-<li>Uma conta Google</li>
+<li><strong>Componentes Funcionais</strong>: Também conhecidos como componentes &#34;stateless&#34; (sem estado), os componentes funcionais são funções JavaScript que recebem um conjunto de propriedades (props) como argumento e retornam elementos React (outra forma de componente).</li>
+<li>C<strong>omponentes de Classe</strong>: Também conhecidos como componentes &#34;stateful&#34; (com estado), os componentes de classe são classes JavaScript que estendem a classe React.Component. Eles possuem um estado interno e são capazes de gerenciar a lógica do aplicativo, além de renderizar elementos na interface do usuário.</li>
 </ul>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Configurando o Firebase" duration="10">
-        <p>O Firebase vai funcionar como back-end da aplicação. Vamos começar criando um projeto através do <a href="https://console.firebase.google.com/" target="_blank">console do Firebase</a>. </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\4b307fd6e94fa853.png"></p>
-<p>Insira um nome de projeto e pressione para continuar.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\6253aa488a949965.png"></p>
-<p>Agora você será perguntado se deseja habilitar o Google Analytics para seu projeto. Não habilite e continue.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\e1dbee0ce12f0343.png"></p>
-<p>Clique em <code>Criar Projeto</code>. Agora o Firebase alocará recursos para o projeto. </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\992f250b498cfaee.png"></p>
-<p>Quando terminar, pressione <code>Continuar</code> para prosseguir para o painel do projeto. Agora, vamos configurar a autenticação.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Ativando a autenticação" duration="10">
-        <p>Na barra de navegação lateral clique em <code>Criação/Autentication.</code></p>
-<p class="image-container"><img style="width: 255.00px" src="img\\d6c41ab4eb277486.png"></p>
-<p>e será apresentada a seguinte tela e você deverá clicar em <code>Vamos começar</code>.  Isso habilitará o módulo de autenticação:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\37f97bad6a89ddde.png"></p>
-<p>Vamos utilizar a autenticação do Google. Clique em <code>Google</code>: </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\5bf779bfbb0a79a0.png"></p>
-<p>Depois, na tela abaixo ative o provedor de login Google e informe o nome do projeto e e-mail:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\66695b784e780626.png"></p>
-<p>Salve para finalizar a configuração da autenticação do Google em seu projeto do Firebase.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Criando um app Android no Firebase" duration="10">
-        <p>Neste ponto vamos configurar o firebase para responder a um aplicativo Android. Clique no ícone de engrenagem na barra lateral e vá para as configurações do projeto. </p>
-<p class="image-container"><img style="width: 441.00px" src="img\\54dc6988930d57eb.png"></p>
-<p>Role a tela até aparecer o seguinte:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\719c796e4cccd7d1.png"></p>
-<p>Clique no segundo ícone, que representa uma aplicação Android. Forneça um nome de pacote para o aplicativo e clique em <code>Registrar app</code>.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\990bd6eaf555d982.png"></p>
-<p>Após você deverá fazer o download do arquivo de configuração:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\4c3ec8eb70de4103.png"></p>
-<p>Ignore todas as próximas etapas.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Criação do App React Native" duration="20">
-        <p>Vamos criar uma aplicação React native. Primeiro abra um terminal e use os seguintes comandos: </p>
-<pre><code>npx create-expo-app nome-da-aplicação --template blank
-cd nome-da-aplicação
-code .</code></pre>
-<p>Em seguida, no diretório do projeto, execute o seguinte comando para iniciar um servidor de desenvolvimento a partir do terminal.</p>
-<pre><code>npx expo start</code></pre>
-<p>Você verá as seguintes informações na tela:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\9d7b153e8d563885.png"></p>
-<p>Se o seu ambiente estiver corretamente configurado (este tutorial não inclui a configuração do ambiente de desenvolvimento), pressione a letra <code>a</code> no teclado do seu computador para abrir o app em um emulador Android. </p>
-<p>Em alguns instantes o app será executado e teremos então a seguinte tela:</p>
-<p class="image-container"><img style="width: 475.00px" src="img\\24654d1845688db4.png"></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Instalando as bibliotecas Firebase, Google SignIn e React Navigation" duration="20">
-        <p>Antes de instalar as bibliotecas necessárias ao projeto suspenda o servidor de desenvolvimento com CTRL + C.</p>
-<ul>
-<li>Vamos usar o <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a>, que é uma coleção de pacotes oficialmente recomendada que oferece suporte ao React Native para todos os serviços do Firebase em aplicativos Android e iOS.</li>
-</ul>
-<pre><code>npx expo install @react-native-firebase/app</code></pre>
-<ul>
-<li>A biblioteca <a href="https://rnfirebase.io/auth/social-auth#google" target="_blank">React Native Google Signin</a> fornece um wrapper em torno da biblioteca oficial de login do Google, permitindo que você crie uma credencial e faça login no Firebase.</li>
-</ul>
-<pre><code>npx expo install @react-native-google-signin/google-signin</code></pre>
-<ul>
-<li>Adicione o pacote <a href="https://reactnavigation.org/" target="_blank">React Native Navigation</a>, composto de alguns utilitários responsáveis para criar a estrutura de navegação em seu aplicativo. No nosso app vamos usar navegação em pilha, que emula a navegação na web.</li>
-</ul>
-<pre><code>npm install @react-navigation/native @react-navigation/drawer @react-navigation/native-stack @react-native-firebase/auth</code></pre>
-<pre><code>npx expo install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Criando o módulo android no projeto" duration="40">
-        <p>Execute o seguinte comando no terminal na raiz do seu projeto. Quando for perguntado sobre o nome do pacote, responda com o nome fornecido no passo 4 deste tutorial.</p>
-<pre><code>npx expo prebuild --clean</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Configuração da biblioteca React Native Firebase" duration="20">
-        <ol type="1" start="1">
-<li>O arquivo de configuração <code>google-services.json</code> que obtivemos no passo 4 deve ser copiado para dentro de seu projeto no seguinte local: /android/app/.</li>
+<p>Ao criar componentes no React Native, é importante considerar a reutilização e a modularidade. Componentes bem projetados e reutilizáveis podem acelerar o desenvolvimento, melhorar a manutenção do código e promover uma base de código limpa e organizada.</p>
+<p>Neste curso usaremos apenas componentes funcionais para construir nossas aplicações. Em javascript existem duas formas de definir uma função:</p>
+<ol type="1" start="1">
+<li>Declaração de função</li>
 </ol>
-<p class="image-container"><img style="width: 265.00px" src="img\\143f58def50dbddd.png"></p>
+<pre>function minhaFuncao(parametro1, parametro2) {
+  // corpo da função
+ }</pre>
+<p>Neste exemplo, usamos a palavra-chave <code>function</code> seguida pelo nome da função (<strong>minhaFuncao</strong>). Em seguida, entre parênteses, você pode listar os parâmetros separados por vírgula, se houver. Dentro das chaves {}, você escreve o corpo da função, onde o código a ser executado quando a função for chamada é definido.</p>
 <ol type="1" start="2">
-<li>Abra o arquivo <code>/android/app/build.gradle</code> e adicione o seguinte código:</li>
+<li>Arrow function</li>
 </ol>
-<pre><code>apply plugin: &#39;com.android.application&#39;
-apply plugin: &#39;com.google.gms.google-services&#39; // &lt;- Adicione esta linha</code></pre>
-<ol type="1" start="3">
-<li>Adicione o plugin <code>google-services</code> como uma dependência dentro do arquivo <code>/android/build.gradle</code>:</li>
-</ol>
-<pre><code>buildscript {
-  dependencies {
-    // ... outras dependencias
-    classpath (&#39;com.google.gms:google-services:4.4.0&#39;)  // &lt;- Adicione esta linha
-  }
-}</code></pre>
-<ol type="1" start="4">
-<li>Vamos gerar chaves para configurar o app no Firebase console. </li>
-</ol>
-<pre><code>cd android &amp;&amp; gradlew signingReport</code></pre>
-<p>Isso gera duas chaves. Você precisa copiar as chaves &#39;SHA1&#39; e &#39;SHA-256&#39; que pertencem à variante  &#39;<code>debugAndroidTest</code>&#39;  indicando o diretório de sua aplicação. </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\35561d7f023fcd61.png"></p>
-<p>Em seguida, você pode adicionar essas chaves às &#34;impressões digitais do certificado SHA&#34; em seu aplicativo no Firebase console. Veja sequencia de imagens a seguir:</p>
-<p class="image-container"><img style="width: 445.00px" src="img\\da8ad9d43113defc.png"></p>
-<p>Role a página até aparecer o seu aplicativo Android</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\a955849ffe33ecf8.png"></p>
-<p>Copie as chaves geradas no campo <code>Impressão digital do certificado</code>. </p>
-<ol type="1" start="5">
-<li>Edite o arquivo <code>app.json</code></li>
-</ol>
-<pre><code>{
-  &#34;expo&#34;: {
-    &#34;android&#34;: {
-      &#34;googleServicesFile&#34;: &#34;./android/app/google-services.json&#34; // &lt;- Adicione esta linha
-    },
-    
-    &#34;plugins&#34;: [ // &lt;- Adicione estas linhas
-      &#34;@react-native-firebase/app&#34;,
-      &#34;@react-native-google-signin/google-signin&#34;
-    ] // &lt;- até aqui
-  }
-}</code></pre>
+<pre>const minhaFuncao = (parametro1, parametro2) =&gt; {
+  // corpo da função
+};</pre>
+<p>As arrow functions (funções de seta) são uma sintaxe mais curta e concisa para definir funções em JavaScript. Neste exemplo, a seta ( =&gt; ) substitui a palavra-chave <em>function</em>, e os parâmetros e o corpo da função são especificados da mesma maneira que nas expressões de função.</p>
+<p>Independentemente do método escolhido, você pode chamar a função posteriormente usando seu nome e passando os argumentos necessários, se houver. Por exemplo:</p>
+<pre>minhaFuncao(argumento1, argumento2);</pre>
+<h2 is-upgraded><strong>Elementos no React Native e JSX</strong></h2>
+<p>No React Native, os <strong>elementos</strong> são as unidades básicas que compõem a interface do usuário. Eles representam os componentes em si ou outros elementos. Os elementos são semelhantes aos componentes funcionais e podem ser renderizados na interface do usuário.</p>
+<p>JSX (JavaScript XML) é uma extensão de sintaxe do JavaScript que permite a criação de <strong>elementos de interface de usuário</strong> (UI) de forma declarativa. JSX combina XML com JavaScript, permitindo que você escreva componentes de interface de usuário usando uma sintaxe semelhante ao HTML, mas com a capacidade de usar recursos poderosos do JavaScript. A sintaxe JSX torna a criação de elementos e a composição da interface do usuário mais expressiva e legível.</p>
+<p>Os elementos JSX são semelhantes aos elementos HTML, mas na verdade são objetos JavaScript. Eles contêm informações sobre o tipo de componente ou elemento que será renderizado, bem como as propriedades (props) associadas a ele. Os elementos também podem conter outros elementos como seus filhos, permitindo a criação de uma hierarquia de elementos/componentes.</p>
+<p>Com o JSX, você pode criar hierarquias de elementos UI, definir propriedades e manipular eventos de forma fácil e intuitiva. Ele é usado como uma linguagem de marcação para descrever como os componentes devem ser renderizados.</p>
+<p>Aqui está um exemplo de um elemento React Native escrito com a sintaxe JSX:</p>
+<pre>&lt;Text style=&#123;&#123; color: &#39;red&#39; }}&gt;Olá mundo&lt;/Text&gt;</pre>
+<p>Neste exemplo, o elemento é renderizado como um componente &lt;Text&gt; na interface do usuário, com o estilo definido e o texto &#34;Olá mundo&#34; é exibido na tela.</p>
+<p>O JSX é uma parte essencial do desenvolvimento com o React Native, pois simplifica a criação de interfaces de usuário, permitindo que os desenvolvedores escrevam código mais legível e expressivo.</p>
+<h2 is-upgraded><strong>Incorporando expressões JavaScript</strong></h2>
+<p>Uma das vantagens do JSX é que ele permite a incorporação de expressões JavaScript dentro do código. Isso significa que você pode usar variáveis, funções e até mesmo estruturas de controle para manipular a renderização da interface do usuário. Para escrever código JS dentro de um elemento JSX basta envolver o código JS entre chaves { }.</p>
+<p>Por exemplo, vamos supor que temos uma variável <em>isLoggedIn </em>que indica se um usuário está autenticado ou não. Podemos usar essa variável para condicionalmente renderizar diferentes elementos JSX:</p>
+<pre>{isLoggedIn ? &lt;WelcomeMessage /&gt; : &lt;LoginButton /&gt;}</pre>
+<h2 is-upgraded><strong>Ponto de entrada </strong></h2>
+<p>Todas as funcionalidades do aplicativo React Native devem ser incluídas em um único componente React, exportado como padrão (<code>export default</code>) do arquivo de ponto de entrada.</p>
+<pre>import * as React from &#39;react&#39;;
 
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="babel.config.js" duration="0">
-        <pre><code>module.exports = function(api) {
-  api.cache(true);
-  return {
-    presets: [&#34;babel-preset-expo&#34;],
-    plugins: [&#34;react-native-reanimated/plugin&#34;],
-  };
-};
-</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Execução do App" duration="20">
-        <p>Para executar o App temos que usar o seguinte comando:</p>
-<pre><code>npx expo run:android</code></pre>
-<p>Para limpar o cache:</p>
-<pre><code>npx expo run:android --no-build-cache</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Fluxo de login/logout" duration="40">
-        <p>Um fluxo de autenticação em um mobile app é um processo que permite ao usuário acessar recursos protegidos do aplicativo, como dados pessoais, configurações ou funcionalidades restritas. </p>
-<p>Para implementar um fluxo de autenticação em um app feito com React Native, é preciso usar bibliotecas específicas que facilitam a integração com serviços de autenticação externos, como Firebase, Auth0 ou AWS Amplify. Essas bibliotecas fornecem componentes e funções que permitem criar telas de login, cadastro, recuperação de senha e verificação de e-mail, além de gerenciar tokens, sessões e permissões de acesso. Alguns exemplos de bibliotecas que podem ser usadas para criar um fluxo de autenticação em um app React Native são: react-native-firebase, react-native-amplify e react-navigation.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\fd8a10e4866cf0eb.png"></p>
-<p><a href="https://www.figma.com/proto/7nO5K3GhHqSimjwF0ePwnM/Fluxo-de-autentica%C3%A7%C3%A3o?type=design&node-id=10-2&t=ASDKDF3BH9VCnPQL-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=10%3A2&mode=design" target="_blank">Fluxo de autenticação</a></p>
-<p>A renderização condicional é a técnica mais indicada para construir uma lógica que protege as telas do app com acesso restrito. Considere o código abaixo:</p>
-<pre><code>{isAuthenticated
-    ? (&lt;HomeScreen /&gt;)
-    : (&lt;LoginScreen /&gt;)
-}</code></pre>
-<p>Quando a variável `<code>isAuthenticated</code>` é verdadeira, o React Navigation exibe apenas a tela HomeScreen. Quando é falsa, exibe a tela LoginScreen. Isso impede a navegação para a tela protegidas quando o usuário não está logado, e para a tela de login quando está logado. Esse padrão é conhecido como <strong>Rotas protegidas</strong>.</p>
-<p>As telas que requerem login estão &#34;protegidas&#34; e não podem ser acessadas se o usuário não estiver logado. Quando o valor de `<code>isAuthenticated</code>` muda, o comportamento do React Navigation também muda. </p>
-<p>Quando usamos este padrão podemos implementar o fluxo de autenticação de forma simples, sem lógica adicional para garantir que a tela correta seja exibida.</p>
-<p>Desta foram o código completo do app fica assim:</p>
-<p>Arquivo <code>App.js</code></p>
-<pre><code>import { StyleSheet, Text, View, Button } from &#34;react-native&#34;;
-import { useState } from &#34;react&#34;;
-
-// Telas
-const LoginScreen = ({ login }) =&gt; {
-  return (
-    &lt;View style={styles.layout}&gt;
-      &lt;Text style={styles.title}&gt;Login&lt;/Text&gt;
-      &lt;Button title=&#34;Entrar&#34; onPress={() =&gt; login(true)} /&gt;
-    &lt;/View&gt;
-  );
-};
-
-const HomeScreen = ({ login }) =&gt; (
-  &lt;View style={styles.layout}&gt;
-    &lt;Text style={styles.title}&gt;Home&lt;/Text&gt;
-    &lt;Button title=&#34;Sair&#34; onPress={() =&gt; login(false)} /&gt;
-  &lt;/View&gt;
+const App = () =&gt; (
+  // todas as funcionalidades do aplicativo são inseridas aqui
 );
 
-const App = () =&gt; {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export default App;</pre>
+<h2 is-upgraded><strong>Pacotes </strong></h2>
+<p>Você pode importar diferentes pacotes para obter acesso a diferentes APIs ou funcionalidades nativas.</p>
+<pre>import { Camera } from &#39;expo-camera&#39;;
+import { Rext, ViewMapView } from &#39;react-native-maps&#39;;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Componentes básicos" duration="30">
+        <p>Temos um conjunto de componentes básicos que usaremos na maioria dos aplicativos:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>REACT NATIVE UI COMPONENTE</p>
+</td><td colspan="1" rowspan="1"><p>WEB ANÁLOGO</p>
+</td><td colspan="1" rowspan="1"><p>DESCRIÇÃO</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong><code>View</code></strong></p>
+</td><td colspan="1" rowspan="1"><p><code>div</code></p>
+</td><td colspan="1" rowspan="1"><p>O componente mais fundamental para a construção de uma interface do usuário. </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong><code>Text</code></strong></p>
+</td><td colspan="1" rowspan="1"><p><code>p</code></p>
+</td><td colspan="1" rowspan="1"><p>Um componente para exibir texto.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong><code>Image</code></strong></p>
+</td><td colspan="1" rowspan="1"><p><code>img</code></p>
+</td><td colspan="1" rowspan="1"><p>Um componente para exibir imagens.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong><code>TextInput</code></strong></p>
+</td><td colspan="1" rowspan="1"><p><code>input type="text"</code></p>
+</td><td colspan="1" rowspan="1"><p>Um componente para inserir texto no aplicativo por meio de um teclado.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong><code>ScrollView</code></strong></p>
+</td><td colspan="1" rowspan="1"><p><code>div</code></p>
+</td><td colspan="1" rowspan="1"><p>Fornece um contêiner de rolagem que pode hospedar vários componentes e exibições.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong><code>Button</code></strong></p>
+</td><td colspan="1" rowspan="1"><p>-</p>
+</td><td colspan="1" rowspan="1"><p>Um componente de botão básico para lidar com toques. </p>
+</td></tr>
+</table>
+<p>Todos componentes podem ser customizados por meio das propriedades (<strong>props</strong>). Por exemplo, o código abaixo define a quantidade de linhas do texto:</p>
+<pre>&lt;Text numberOfLines={1}&gt;Alea jacta est&lt;/Text&gt;</pre>
+<p>Para utilizar estes componentes é necessário declarar a sua importação no início do arquivo. Os componentes básicos são importados do pacote <code>'react-native'</code> :</p>
+<pre>import { Text } from &#39;react-native&#39;;</pre>
+<h2 is-upgraded><strong>Componente &lt;Text&gt; </strong></h2>
+<p>O componente &lt;Text&gt; é a única maneira de exibir texto em React Native. Esses componentes podem ser aninhados para herdar e modificar o estilo.</p>
+<pre>import { Text, View } from &#39;react-native&#39;;
+
+function App() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, margin: 28 }}&gt;
+      &lt;Text style=&#123;&#123; color: &#39;blue&#39; }}&gt;
+        Texto dentro do componente pai.
+        &lt;Text style=&#123;&#123;fontSize:10}}&gt; Texto dentro do componente filho. Herdou a cor do componente pai
+        &lt;/Text&gt;
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+export default App;</pre>
+<h2 is-upgraded><strong>Componente &lt;View&gt;  </strong></h2>
+<p>O componente &lt;View&gt; é um contêiner &#34;visível&#34; genérico sem qualquer significado semântico ou impacto perceptível no desempenho, melhor traduzido como &lt;div&gt; de web. Utilizado para criar uma UI composta por mais de um componente, quando é necessário envolver os componentes em um container &lt;View&gt;.</p>
+<pre>import {Text, View } from &#39;react-native&#39;;
+
+function App() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1 }}&gt;
+      &lt;View style=&#123;&#123; margin: 28, backgroundColor: &#39;red&#39;, color:&#39;#fff&#39; }}&gt;
+        &lt;Text style=&#123;&#123; color:&#39;#fff&#39; }}&gt;Texto em branco com fundo vermelho&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+<h2 is-upgraded><strong>Componente &lt;ScrollView&gt;  </strong></h2>
+<p>É um contêiner &#34;visível&#34; genérico com rolagem de tela com impacto no desempenho do aplicativo, tornando-o menos adequado para estilos simples e linhas curtas de texto.</p>
+<pre>import { ScrollView, Text, View } from &#39;react-native&#39;;
+
+function App() {
+  return (
+    &lt;ScrollView&gt;
+      &lt;Text style=&#123;&#123; padding: 8 }}&gt;Topo do conteúdo&lt;/Text&gt;
+      &lt;View style=&#123;&#123; marginTop: 2000 }} /&gt;
+      &lt;Text style=&#123;&#123; padding: 8 }}&gt;Made you look!&lt;/Text&gt;
+    &lt;/ScrollView&gt;
+  );
+}
+
+export default App;</pre>
+<h2 is-upgraded><strong>Componente &lt;Image&gt;  </strong></h2>
+<p>O componente &lt;Image&gt; é uma maneira otimizada de renderizar imagens de várias fontes, incluindo acesso HTTP remoto, arquivos locais importados com require e strings codificadas em base64. Consulte a <a href="https://reactnative.dev/docs/image#source" target="_blank">documentação</a> para saber mais.</p>
+<aside class="warning"><p>ATENÇÃO: para imagens de rede e dados, você precisará especificar manualmente as dimensões de sua imagem!</p>
+</aside>
+<p>Este exemplo mostra a busca e exibição de uma imagem do armazenamento local, bem como uma da rede e uma imagem codificada em base64&#39;:</p>
+<pre>import { View, Image, StyleSheet } from &#39;react-native&#39;;
+
+function App() {
   return (
     &lt;View style={styles.container}&gt;
-      {isAuthenticated
-        ? &lt;HomeScreen login={setIsAuthenticated} /&gt;
-        : &lt;LoginScreen login={setIsAuthenticated} /&gt;}
+      &lt;Image
+        source=&#123;&#123;
+          uri: &#39;https://assets.betalabs.net/production/flexform/item-images/99d132c62f29d957dae37e0ad4b9a95e.jpg&#39;,
+        }}
+        style={styles.imagem}
+        resizeMode=&#39;contain&#39;
+      /&gt;
+
+      &lt;Image
+        source={require(&#39;./assets/snack-icon.png&#39;)}
+        style={styles.imagem}
+        resizeMode=&#39;contain&#39;
+      /&gt;
+
+      &lt;Image
+        resizeMode=&#39;contain&#39;
+        style={styles.imagem}
+        source=&#123;&#123;
+          uri: &#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAAB4CAIAAAAVAgUGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAwaSURBVHhe7Z0fnCpdGMdfuHDhwsKFCxcWFlaCYCEIgiAIFoKBgYGBgYEgCJIgCIIgCIIgCIKFIAiChYUgCYIgCIIgCIL7/s6cmp051TR1pp06e/p84d731u4zz3ee5/yZad7/HjO6RGykY/GRjsVHOhYf6Vh8pGPxkY7FRzoWH+lYfKRj8ZGOxUc6Fh/pWHykY/GRjsVHOhYf6Vh8btTxk6I/qcazbkSMHbrxrBlPisG88+u55dgOcnOOkb6IacSLRqpuvrZNpWuqPVPpmZmOmW6aibLxkiMJfVTYD34BJDbDiCG2mju2Nyu2yjY2nATMB8PlhhyjDqKmkayS3OlD0xxnt0wsrD8bo6w2IAmN5b/UNLTBbrJqnI6tZcYKoZ2FB7kVx0hKvGSgIIzhLn2eIJsoJuT9Czokyhe1u41tZ9QDElvdRDe6kYK+CccQjPLV3q368JFEwoTUDRpmNHvdVEIwmvAFsWFwQeu+Bc3hO6aC9Q9HA/TJLpXX00wFk9h82nWDxn4LmkN2TJJYNnRaJQ6yk2xhWqzNas15qz3vtObt+qxRnpZzkxzzTlLNLRMzW+Yn8wM3mPqRCmYEI7ZJsbqLrT1vN+Y0trzrbRboNBhQmJ/8xYTpGEnEaY6pKZMXZLA1bw1Xw8Vmsf633vzbgOVmOVlPuotueVrJOk2jmodZVBtOF+bnc4IBlcTmFpyfFJrz5sdqOF9/xrbarKbraW/RqzCx4RQcmsmaGXhsZxGmY3TpVMNEITqTUpyW+ss+jP6zXpvdi/4VaR2vxrVZnUklFjDo2MzP5wHnH+ZNzl8BCpNCd9HziA1nYWPWYGJT+6RjMz//KwnPMS3ivqtQ0J8Hy8F6s0bKlstlv9+vVquFQqFUKrXb7el0ShOKokEbRz+3P4gTBQubJ3Xvt1wKVnGYHjtjQwX3ln0a22q1GgwGdmytVmsymdDYZusZhhX7UwCx4XQJsZRDc4w1D6w4VyMYazuLDvoeydRsViwWo9How8PDjx8/fv78+fj4qKrq+/s7TSU6OSreziNQ3oIcldH8mQaD4YPGNp/PK5XKy8uLHdvfv39fX197vR6NbbQas7F1yVKK+RVfRmiO0agxH3EmAtMW9DrkaLFYoD7+/Pnzn/uFbKbT6Y+PD7wH6UbSP0t5ksXsl05i+SGxtdwNZlIcr0hsqOByubwfG2QnEgkUN42tvejYnwWILVb4fo4xfDpnNLC1LZTNptPpoGq3yXO/oDmbzaKNI5Xvyw/0TzuPdIKN+uMnWWMbNUZZWsQYPp6enrbRuF+ITdM0GttwNWJiI0NJSBvaoTl+ybvyiEaN0Y7Mn5fLXC6HfG0zt/eKxWLD4RB5xKhcmpbtPAKkUh8GwP5e29uii9+IVowGg5LdhrL3ikQitM1gVMb83xxvGxUZkhuhDcmhOUbv2m4eEUwsLlGXJDuzWSaT8cgjShwjH96JlZWVx62GLThpAsH9Y/tL0oTX67WiKNs4Dr0wMKMJ0dgwK/x0PM6mmyaGACYJX0OYjh17W9TxewCOr4N0fAnxotMx7dU92qvz+bxHr47H47RXT0ivdk1fr4fdqzHb9+7VNDamVwPMFb67Y7TH5rxJtxe63e7z8/M2be7Xr1+/MCJicou3DZbv+UPbh9egPqvTORcWbx5zLtM0aWxY2jnnXOA7Oo4xjscmJlDj1RgJomun379/b5O3e6GAnGsnnBOOj18Xa+1EYju2doLgZDKJM4DG1p63mZ+Q/o6OXeMxITvJYflESxmjcqVSQVtGNh8eHuAblW0YBt0DQUvH4I28Oz9+bRrzJi1lnIK1Ws0ZGypb13U7Nmt/xhWbnHN9UpgU+ss+TSUqBmNbs9lE3SCnmGfN53OaxPFqUp1Vmc9eG4wLvUXP3sscjUY0tmq1isEFJyX+O2KbrA/EJh27KE5L3UUP81Lki2Rts8FsdrMmf8YL+lElVbJZzV5k/ALQObqL7rHY8KfRamTFxn5QOmZBxdRnDXRjzE7RuuEVILOj1biz6JCt4L0kfhlY49VmdUz3mNgwWr8t3pg9GRvp+AAoBcxLK7MqRsHWvN2ct7DchN1QyncfEtu0QmPDHALWEdv+/Qs20vExvP81XM6LTToWH+lYfKRj8ZGOxUc6Fh/pWHykY/GRjsVHOhYf6Vh8pGPxkY7FR0THuy8ckOclHPn2rXT8iY908RCkY/ItEl2PFrRYRY3X1ERdjVfVl5IWyWrPmnUMjjdLx0+q/mzoL4fSFeCX80BgjmHxpagmW0q6m3ntf5LuZdJvSrKpxEoqDsk2/X0do2Q1PZrX4DXVOZCu1JuCf4qYGlMVFxOMY5QvzkEmXAZEjzOAmNbJR76nY2iL5jSUrHeuAHKF8yAQzQE4xllJBPcyrwM2UBfWv+JtiYaC44yXDjwiQlSI45YZzepoyyhTOxvepNokUfwjNK9jnGgYUchZ6SNogvU2HGe6rZ2o40k2O81lZ/fA9MBXpBgyXSPZsiqBSYgnqHja9njgdYwhFmOtX8EOlHfVGB1xDLuzXH5ZyK/uhGUhN897a9Y+9NeBVcHngOJ5KfJ2bC7HpIiL2ukufQji+OBdUVTwqlBYF+8IBJxbeGg2taGeOd8xwNDGWcp8jjUdzeQCweCYY/RnlAWTwbsAmnF2Moez41LHAzKucY7KXI7RqDH7D9LxJIumd3dFbHO8lC93jDYZK6s87ZrDsbUMOHcSYXPU8SLPJO6OQAcK2LEFmiXPrsjljulgzETjH2EdY47NHBSBw/Egg1ktz5DM4VjV0UPYgHwjHfsFjttKxGDz7x8ux/GqdOziSo5TcGxqTP79w+e4Jh27uJbjjhLJSse3gYiOZa92I6DjWEU6diHceKzosZJ07OJKjpMt5TmcebV1xelV7oE4uJLjBNbHGpt//1zu+FHRMUjIfS4nV3HczyRqIe1zASzMyRXvYPerpWMn9n51WI6f9QsvHgPp2Bdw3M1gTAzpmoS9fJKOd1zDMVk4cUyqAZdjDMnkskSA9whIx3skw71HAGDaddklZOnYJ/EK12AMeB1jTn/5/VzS8SkwGEfzvLdm8jomOyH0CuOZmqXj01i7HzxXFSkBOCarZP/33u6Qjv2AKS1nowa8jgHadaJxdvTS8QmwanojqybORg0CcEw2NUtn3/QjHZ+E8xYfmwAcg4ipp9rnzbykYy/o9lYpgEYNgnG83QyxgnPFehzp2Avu64lOgnFMr0+ctVCWjr0JZLZFCcixs5T9IR0fhfvGD4bAHG9L2fdlKOn4MFb2AixiEJzjM0tZOj6MXcTcSyabIB2fNSpLx4fhvlq8T6COrVJGiOTmkFOapeODkM1Lk80qJwE7RilvbxzYi55BOmahtwNwf6N8n6AdW9te0byWPjX5ko5d0KlWTeW5N+8YwTsGZPJVOdGxhXV86XdTrS4d2HrJyVUck45tnLhQcdTx/P4eFGGDE/Qyx2h71+jSlOs4BvYce+94KIcdf8NnRdCtae6bPTy4mmNrYCZPhDkyMB9zjDqgD/VhMnjjkGe+eD3ax6uOA3lAkwfBOUafYYBmzVpKHXqm3FHHwNKMvofE3Qfk2U2544LBUcdkGM5aXXofJsOXwu1YITOsiEGeDYLp9D4oZRwGc2DAyzHlXp7BNrXsegkGhx3j7I9XVSZjW3KHnyV7AVyO8euxYMdYAovk0XnHOLeOBeSI4x4076VrB2YziQY5A8hQzWH6csdU8Ha7AyOuN+5jA9IxgcnSPnTKXeJ62jGH4/PvC3AiHfuF3i8QynfMyZ7lmff3OPlmjrNwfHGu0NIxrbm4XXM5PvceLifKu6KPDCYR4mKqH9rFuQJo1yE4Rq8mD8vci8YnaFw4tfdyISbGyETfYjLgF/Rqvkdmcs258Iu3O1k4Q88Hh/0dShlDkjbcFbE7A35Ao8a8J6TnCFDNeS3RsOb6WAacyWsP1axqHwZOcyTiE/x1hHP/HmEPRB8a6rv22r8kP1hzYjTE0pTsgoWydqJAMyKA6VhJjZXPp6LGK1qyrqeaRnpHqmGk6kaqZt4ZdfB5FPRAElVyCY49an9gnhUxeRfHgNfxlt3/oShQjHuDiT8A2DxfRECOJTeMdCw+0rH4SMfiIx2Lj3QsPtKx+EjH4iMdi05G/x+H7Z1CncEg0QAAAABJRU5ErkJggg==&#39;,
+        }}
+      /&gt;
     &lt;/View&gt;
   );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    margin: 8,
+    marginTop: 30,
+    // justifyContent:&#39;center&#39;,
+    alignItems:&#39;center&#39;
+  },
+  imagem: {
+    width:&#39;50%&#39;,
+    height:&#39;50%&#39;,
+    flex:1
+  },
+});
+
+export default App;</pre>
+<h2 is-upgraded><strong>Componentes personalizados</strong></h2>
+<p>Componentes personalizados desempenham um papel fundamental no desenvolvimento de aplicativos React Native, permitindo que você crie elementos reutilizáveis e modularize seu código. Nesta seção, vamos explorar como criar e utilizar componentes personalizados, juntamente com exemplos para ilustrar sua aplicação.</p>
+<h3 is-upgraded><strong>Criando Componentes Personalizados</strong></h3>
+<p>Para criar um componente personalizado, você pode utilizar a funcionalidade de criação de componentes do React Native. Isso envolve a definição de uma função que retorna o JSX desejado. Aqui está um exemplo básico de um componente personalizado de texto:</p>
+<pre>import { Text } from &#39;react-native&#39;;
+
+const Texto = () =&gt; {
+  return &lt;Text&gt;Alô mundo&lt;/Text&gt;;
 };
 
+export default Texto;</pre>
+<p>Neste exemplo criamos um componente chamado <code>Texto</code> que renderiza na tela o texto ‘Alô mundo&#39;. Observe que para criar uma componente basta definir uma nova função, neste caso usamos a sintaxe <em>arrow function</em>. Importante notar que o nome da função deve ser escrito com a primeira letra em maiúscula.</p>
+<p>Podemos também adicionar a este componente propriedades para, por exemplo, passar para o componente o texto a ser exibido no lugar do texto ‘Alô mundo&#39;:</p>
+<pre>import { Text } from &#39;react-native&#39;;
+
+const Texto = ({texto}) =&gt; {
+  return &lt;Text&gt;{texto}&lt;/Text&gt;;
+};
+
+export default Texto;</pre>
+<p>No exemplo acima adicionamos o parâmetro <code>texto</code> à função. Observe que o nome do parâmetro está entre {} na entrada da função e na sua utilização dentro do código JSX (Relembre sobre expressões JavaScript dentro de código JSX na seção <strong>Incorporando expressões JavaScript</strong> do capítulo anterior).</p>
+<h3 is-upgraded><strong>Utilizando Componentes Personalizados</strong></h3>
+<p>Após criar um componente personalizado, você pode utilizá-lo em qualquer lugar do seu aplicativo React Native. Basta importar o componente e renderizá-lo como faria com qualquer outro componente nativo. Aqui está um exemplo de como usar o componente Texto criado anteriormente:</p>
+<pre>import { Text, View } from &#39;react-native&#39;;
+
+export const Texto = ({texto}) =&gt; {
+  return &lt;Text&gt;{texto}&lt;/Text&gt;;
+};
+
+function App() {
+  return (
+    &lt;View style=&#123;&#123; margin: 28 }}&gt;
+      &lt;Texto texto=&#34;exemplo de criação de componente&#34;/&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+<p>Ao utilizar componentes personalizados, você pode reutilizá-los em diferentes partes do seu aplicativo, simplificando o código e promovendo a consistência visual. Além disso, você pode estilizar e adicionar funcionalidades adicionais aos componentes personalizados para atender às necessidades específicas do seu projeto.</p>
+<p>Componentes personalizados são uma parte essencial do desenvolvimento de aplicativos React Native. Eles permitem que você crie elementos reutilizáveis, modularize seu código e promova a consistência visual em seu aplicativo. Ao criar e utilizar componentes personalizados, você pode simplificar o desenvolvimento, melhorar a manutenibilidade do código e criar interfaces de usuário mais flexíveis.</p>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<aside class="warning"><ol type="1" start="1">
+<li>Escreva um app que exibe na tela o texto: ‘Alô mundo&#39;.</li>
+<li>Reescreva o exercício 1 agora definindo um novo componente para exibir na tela uma frase qualquer passada ao componente como propriedade.</li>
+<li>Crie um componente <code>Titulo</code> que exiba o título ‘Introdução&#39; grande e em negrito na tela</li>
+<li>Crie um componente <code>Imagem</code> que exiba a imagem de uma casa na tela.</li>
+<li>Crie um componente <code>Paragrafo</code> com uma propriedade chamada <code>texto</code> e exiba este texto justificado na tela.</li>
+<li>Crie um componente <code>Card</code> que aceita os parâmetros (props) <code>titulo</code>, <code>texto</code> e <code>imagem</code> e exibe um cartão na tela com as informações fornecidas.</li>
+</ol>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Estilização de componentes" duration="30">
+        <p>Uma parte importante do desenvolvimento de aplicativos React Native é a estilização de componentes. Nesta seção, exploraremos como aplicar estilos aos componentes e personalizar sua aparência para criar interfaces de usuário atraentes e responsivas.</p>
+<h2 is-upgraded><strong>Estilos inline</strong></h2>
+<p>No React Native é possível definir estilos embutidos diretamente nos componentes usando a propriedade <code>style</code>. Os estilos embutidos são semelhantes aos estilos em CSS, mas com algumas diferenças sintáticas.</p>
+<p>Aqui está um exemplo de como aplicar estilos embutidos a um componente &lt;Text&gt;:</p>
+<pre>&lt;Text style=&#123;&#123; fontSize: 16, color: &#39;blue&#39; }}&gt;Hello, World!&lt;/Text&gt;</pre>
+<p>Nesse exemplo, definimos um objeto JavaScript (<code>{ fontSize: 16, color: 'blue' })</code> dentro da propriedade <code>style</code>. As propriedades desse objeto representam as regras de estilo, como <code>fontSize</code> e <code>color</code>, seguidas por seus valores correspondentes.</p>
+<p>Observe que as propriedades CSS são escritas em <strong>camelCase</strong> (por exemplo, backgroundColor em vez de background-color). Além disso, algumas propriedades podem ter valores diferentes ou limitações em comparação com o CSS padrão, devido às peculiaridades do ambiente de renderização do React Native.</p>
+<p>Os estilos embutidos permitem que você defina propriedades de estilo específicas para cada componente individualmente. No entanto, quando você precisa aplicar estilos a vários componentes com propriedades semelhantes, pode ser mais eficiente e organizado o objeto <code>StyleSheet</code>.</p>
+<h2 is-upgraded><strong>Componente StyleSheet</strong></h2>
+<p>StyleSheet é uma abstração que substitui CSS aceitando regras de estilo CSS usando um objeto JavaScript bidimensional e permite definir estilos separadamente em um objeto JavaScript e aplicá-los a vários componentes. Isso promove a reutilização e a organização do código de estilo. Veja o exemplo abaixo:</p>
+<pre> import { Text, View, StyleSheet } from &#39;react-native&#39;;
+
+function App() {
+  return (
+&lt;View style={styles.container}&gt;
+  &lt;Text style={styles.text}&gt;Exemplo de StyleSheet&lt;/Text&gt;
+&lt;/View&gt;
+  );
+}
 export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: &#39;gray&#39;,
+    alignItems: &#39;center&#39;,
+    justifyContent: &#39;center&#39;,
+    margin:28
   },
-  layout: {
-    flex: 1,
-    justifyContent: &#34;center&#34;,
-    alignItems: &#34;center&#34;,
+  text: {
+    fontSize: 18,
+    color: &#39;black&#39;,
   },
-  title: {
-    fontSize: 32,
-    marginBottom: 16,
-  },
-});</code></pre>
+});</pre>
+<p>Nesse exemplo, usamos o método <code>StyleSheet.create()</code> para criar um objeto de estilo chamado styles. Dentro deste objeto, definimos várias regras de estilo para os componentes.</p>
+<p>Usar o objeto <code>StyleSheet</code> é particularmente útil quando você precisa reutilizar estilos em vários componentes ou quando deseja manter a separação de preocupações entre a lógica e a aparência do aplicativo.</p>
+<h2 is-upgraded><strong>Estilização avançada</strong></h2>
+<p>O React Native oferece recursos avançados de estilização para atender a necessidades mais complexas de interface do usuário. Alguns desses recursos incluem:</p>
+<ul>
+<li>Uso de flexbox: O flexbox é um modelo de layout poderoso que permite criar layouts flexíveis e responsivos. No React Native, você pode usar propriedades como <code>flexDirection</code>, <code>justifyContent</code> e <code>alignItems</code> para controlar o posicionamento e o dimensionamento dos componentes.</li>
+<li>Estilos condicionais: Você pode usar expressões JavaScript dentro de estilos embutidos ou folhas de estilo externas para aplicar estilos condicionalmente com base em determinadas condições. Isso permite que você altere a aparência do componente com base em estados ou dados específicos. Exemplo: <code>style={[styles.paragraph, props.isActive && styles.selected]}</code></li>
+<li>Estilização de componentes personalizados: Além de aplicar estilos aos componentes fornecidos pelo React Native, você também pode criar seus próprios componentes personalizados e estilizá-los conforme necessário. Isso permite que você crie uma biblioteca de componentes reutilizáveis e mantenha uma aparência consistente em todo o aplicativo.</li>
+</ul>
+<h2 is-upgraded><strong>Altura e Largura</strong></h2>
+<p>No desenvolvimento de aplicativos React Native, a altura e a largura dos componentes desempenham um papel fundamental na criação de interfaces de usuário responsivas e visualmente agradáveis. Temos três maneiras de trabalhar com a altura e a largura dos componentes: dimensões fixas, dimensões percentuais e dimensões flexíveis.</p>
+<h3 is-upgraded><strong>Dimensões fixas</strong></h3>
+<p>A maneira geral de definir as dimensões de um componente é atribuindo um valor fixo para a largura (width) e altura (height) ao estilo do componente. Todas as dimensões no React Native não têm unidade e representam pixels independentes de densidade. </p>
+<pre>import { View } from &#39;react-native&#39;;
 
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Implementando o login com Google" duration="0">
-        <p>O trabalho de configuração e instalação de bibliotecas foi feito nos passos 6, 7 e 8 deste codelab. Desta foram podemos nos concentrar agora no código necessário para implem        entar a autenticação de usuário utilizando uma conta Google.</p>
-<p>Foram adicionadas as funções <code>onLogin</code> e <code>onLogout</code> e também adicionamos um código para configurar o objeto <code>GoogleSignin.</code></p>
-<p>Para obter o valor do atributo <code>webClientId</code> do objeto GoogleSigin, você deve consultar o arquivo google-services.json (conforme mencionado no passo 8). Neste arquivo, você encontrará o valor desejado navegando pela estrutura de chaves da seguinte maneira: &#34;client&#34; -&gt; &#34;oauth_client&#34; -&gt; &#34;client_id&#34;. Certifique-se de que o &#34;client_type&#34; associado a este &#34;client_id&#34; seja 3.</p>
-<pre><code>import { StyleSheet, Text, View, Button, ActivityIndicator } from &#34;react-native&#34;;
-import { useState } from &#34;react&#34;;
-import { GoogleSignin } from &#34;@react-native-google-signin/google-signin&#34;;
-
-//funções de autenticação
-export const onLogin = async () =&gt; {
-  const user = await GoogleSignin.signIn();
-  return user;
-};
-
-export const onLogout = () =&gt; {
-  GoogleSignin.signOut();
-};
-
-GoogleSignin.configure({
-  webClientId: &#34;676797397237-pjipptjgb1nuaomvcm6rd6dpt19jl06n.apps.googleusercontent.com&#34;,
-});
-
-// Telas
-const LoginScreen = ({ login }) =&gt; {
-  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
-
+function App() {
   return (
-    &lt;View style={styles.layout}&gt;
-      {isSigninInProgress &amp;&amp; &lt;ActivityIndicator /&gt;}
-      &lt;Text style={styles.title}&gt;Login&lt;/Text&gt;
-      &lt;Button
-        title=&#34;entrar&#34;
-        onPress={() =&gt; {
-          setIsSigninInProgress(true);
-          onLogin().then((user) =&gt; {
-            console.log(user);
-            login(true);
-          });
-        }}
-      /&gt;
+    &lt;View style=&#123;&#123;margin:28}}&gt;
+      &lt;View style=&#123;&#123;
+        width: 50, height: 50, backgroundColor: &#39;powderblue&#39;
+      }} /&gt;
+      &lt;View style=&#123;&#123;
+        width: 100, height: 100, backgroundColor: &#39;skyblue&#39;
+      }} /&gt;
+      &lt;View style=&#123;&#123;
+        width: 150, height: 150, backgroundColor: &#39;steelblue&#39;
+      }} /&gt;
     &lt;/View&gt;
   );
 };
 
-const HomeScreen = ({ login }) =&gt; (
-  &lt;View style={styles.layout}&gt;
-    &lt;Text style={styles.title}&gt;Home&lt;/Text&gt;
-    &lt;Button title=&#34;Sair&#34; onPress={() =&gt; onLogout().then(() =&gt; login(false))} /&gt;
+export default App;</pre>
+<h3 is-upgraded><strong>Dimensões flexíveis</strong></h3>
+<p>Use flex no estilo de um componente para que o componente seja expandido e reduzido dinamicamente com base no espaço disponível. Normalmente você usará flex: 1, que diz a um componente para preencher todo o espaço disponível, compartilhado igualmente entre outros componentes com o mesmo pai. Quanto maior o flex dado, maior a proporção de espaço que um componente ocupará em comparação com seus irmãos.</p>
+<pre>import { View } from &#39;react-native&#39;;
+
+function App() {
+  return (
+    &lt;View style=&#123;&#123; margin: 28, flex: 1 }}&gt;
+      &lt;View style=&#123;&#123; flex: 1 }}&gt;
+        &lt;View style=&#123;&#123; flex: 1, backgroundColor: &#39;powderblue&#39; }} /&gt;
+        &lt;View style=&#123;&#123; flex: 2, backgroundColor: &#39;skyblue&#39; }} /&gt;
+        &lt;View style=&#123;&#123; flex: 3, backgroundColor: &#39;steelblue&#39; }} /&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+<h3 is-upgraded><strong>Dimensões Percentuais</strong></h3>
+<p>Se você deseja preencher uma determinada parte da tela, mas não deseja usar o flex layout, pode usar valores percentuais no estilo do componente. Semelhante às dimensões flexíveis, as dimensões percentuais requerem um pai com um tamanho definido.</p>
+<pre>import { View } from &#39;react-native&#39;;
+
+function App() {
+  return (
+    &lt;View style=&#123;&#123; height: &#39;100%&#39;,margin:28 }}&gt;
+      &lt;View style=&#123;&#123;
+        height: &#39;15%&#39;, backgroundColor: &#39;powderblue&#39;
+      }} /&gt;
+      &lt;View style=&#123;&#123;
+        width: &#39;66%&#39;, height: &#39;35%&#39;, backgroundColor: &#39;skyblue&#39;
+      }} /&gt;
+      &lt;View style=&#123;&#123;
+        width: &#39;33%&#39;, height: &#39;50%&#39;, backgroundColor: &#39;steelblue&#39;
+      }} /&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<p>Para o exercício 2 use o código  a seguir como modelo.</p>
+<pre>import { View, StyleSheet } from &#39;react-native&#39;;
+import { SafeAreaView } from &#39;react-native-safe-area-context&#39;;
+
+function App() {
+  return (
+    &lt;SafeAreaView style={styles.container}&gt;
+      &lt;View style={[styles.quadrado, styles.cor1]} /&gt;
+      &lt;View style={[styles.quadrado, styles.cor2]} /&gt;
+      &lt;View style={[styles.quadrado, styles.cor3]} /&gt;
+      &lt;View style={[styles.quadrado, styles.cor4]} /&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  quadrado: {
+    width: 100,
+    height: 100,
+  },
+  cor1: {
+    backgroundColor: &#39;#50E3C2&#39;,
+  },
+  cor2: {
+    backgroundColor: &#39;#4A90E2&#39;,
+  },
+  cor3: {
+    backgroundColor: &#39;#9013FE&#39;,
+  },
+  cor4: {
+    backgroundColor: &#39;#F5A623&#39;,
+  },
+  container: {
+    margin: 8,
+  },
+});
+
+export default App;</pre>
+<p>Este código gera a tela:</p>
+<p class="image-container"><img style="width: 285.00px" src="img\\a65185f96f765000.png"></p>
+<aside class="warning"><ol type="1" start="1">
+<li>Resolver os 24 exercícios sobre <a href="https://flexboxfroggy.com/" target="_blank">Flexbox </a></li>
+<li>Para os próximos exercícios use Flexbox e o exemplo abaixo para exibir quadrados na tela:</li>
+</ol>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 215.18px" src="img\\c856f20938b8a811.png"></p>
+<p>2.1</p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 197.32px" src="img\\8dfe582f6a78da3e.png"></p>
+<p>2.2</p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 194.09px" src="img\\1a3460506817d4d0.png"></p>
+<p>2.3</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 194.00px" src="img\\409ca8bee5740b99.png"></p>
+<p>2.4</p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 200.50px" src="img\\f0a9fc5e5cc2d7a.png"></p>
+<p>2.5</p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 200.50px" src="img\\c252fd3471106f95.png"></p>
+<p>2.6</p>
+</td></tr>
+</table>
+<ol type="1" start="3">
+<li>Construir um app que exibe uma tela conforme a imagem abaixo.</li>
+</ol>
+<p class="image-container"><img style="width: 252.00px" src="img\\6ffc3e03cfa74eeb.png"></p>
+<p>- as imagens das placas estão nos links abaixo:</p>
+<ul>
+<li><a href="https://drive.google.com/file/d/1oBWOvPzrmciTgwtmSCjXtj7VTzHlbmwL/view?usp=drive_web&authuser=0" target="_blank">placa1</a></li>
+<li><a href="https://drive.google.com/file/d/1QCe1_ifHq8FVf5al8H7ZHMWFU-3qmILy/view?usp=drive_web&authuser=0" target="_blank">placa2</a></li>
+<li><a href="https://drive.google.com/file/d/1eCcNPxB4aXldWePXGMkmXpjZ1Se77zTI/view?usp=drive_web&authuser=0" target="_blank">placa3</a></li>
+<li><a href="https://drive.google.com/file/d/1elINhin-0FaBpXrYucOckKQRYWWQHub7/view?usp=drive_web&authuser=0" target="_blank">placa4</a></li>
+</ul>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Entrada de dados" duration="30">
+        <p>Neste capítulo, vamos explorar como lidar com a entrada de dados em um aplicativo React Native usando os componentes <code>TextInput</code>, <code>Button</code> e <code>Pressable</code>. A entrada de dados é uma parte essencial de muitos aplicativos, permitindo que os usuários interajam e forneçam informações ao aplicativo.</p>
+<h2 is-upgraded><strong>Componentes &lt;TextInput&gt; e &lt;Button&gt;</strong></h2>
+<p>O componente <code>TextInput</code> é usado para receber entrada de texto do usuário. Ele permite que os usuários digitem texto em um campo de entrada de texto e interajam com ele. Vamos dar uma olhada no código visto anteriormente e trocar o componente <code>Button</code> pelo componente <code>Pressable</code>:</p>
+<pre>import { useState } from &#39;react&#39;;
+import { View, TextInput, Button, Alert } from &#39;react-native&#39;;
+
+function App() {
+  const [texto, setTexto] = useState(&#39;&#39;);
+  
+  const handleButtonPress = () =&gt; {
+    Alert.alert(&#39;Texto digitado:&#39;, texto);
+  };
+  
+  return (
+    &lt;View style=&#123;&#123; marginTop: 40, margin: 8, flex: 1 }}&gt;
+      &lt;TextInput
+        style=&#123;&#123;
+          fontSize: 20,
+          height: 40,
+          borderColor: &#39;gray&#39;,
+          borderWidth: 1,
+          padding: 8,
+          marginBottom:8
+        }}
+        onChangeText={setTexto}
+        value={texto}
+      /&gt;
+      &lt;Button title=&#34;Enviar&#34; onPress={handleButtonPress} /&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+<p>Neste exemplo, importamos o &lt;TextInput&gt; da biblioteca react-native e usamos o componente dentro do componente &lt;View&gt;. O &lt;TextInput&gt; tem duas propriedades importantes: onChangeText e value.</p>
+<p>A propriedade onChangeText recebe uma função que será chamada sempre que o texto no &lt;TextInput&gt; for alterado. Neste exemplo, usamos a função <code>setTexto</code>, fornecida pelo hook useState(), que atualiza o estado da variável <code>texto</code> a cada momento que o usuário digita dentro do campo de entrada &lt;TextInput&gt;.</p>
+<p>A propriedade value define o valor do &lt;TextInput&gt;. Neste caso, estamos definindo o valor como <code>texto</code>, que é variável de estado que controla o valor do campo de entrada do componente &lt;TextInput&gt;.</p>
+<p>Em seguida, temos o componente &lt;Button&gt; que renderiza um botão &#34;Enviar&#34;. Quando o botão é pressionado, a função <code>handleButtonPress</code> é chamada. Essa função exibe um alerta com o texto digitado pelo usuário usando Alert.alert. Este componente não permite estilização, ou seja, mudar cor ou texto ou qualquer outra característica. É usado principalmente para prototipação rápida.</p>
+<aside class="special"><p>Os hooks são uma adição poderosa ao React que permitem que os componentes funcionais tenham recursos de estado e ciclo de vida. Eles foram introduzidos na versão 16.8 do React e fornecem uma forma mais concisa e intuitiva de escrever componentes complexos.</p>
+<p>Os hooks são funções especiais que podem ser usadas em componentes funcionais do React. Eles permitem que você adicione recursos como estado, efeitos colaterais e outros comportamentos ao seu componente sem a necessidade de converter o componente para uma classe.</p>
+<p>Existem alguns hooks principais no React, sendo os mais comuns:</p>
+<p><strong><code>useState</code></strong>: permite adicionar estado a um componente funcional. Ele retorna um par de valores: o estado atual e uma função para atualizar esse estado. Por exemplo, const [count, setCount] = useState(0) cria uma variável count que é inicializada com o valor 0 e uma função setCount que pode ser usada para atualizar o valor de count.</p>
+<p><strong><code>useEffect</code></strong>: permite executar efeitos colaterais em um componente funcional. Ele é executado após cada renderização e pode ser usado para buscar dados, manipular o DOM, registrar eventos e muito mais. Por exemplo, useEffect(() =&gt; { console.log(&#39;Componente montado&#39;) }, []) executa a função de retorno quando o componente é montado, pois passamos um array vazio como segundo argumento para indicar que não há dependências.</p>
+<p>Existem também outros hooks personalizados que você pode criar ou usar a partir de bibliotecas de terceiros. Esses hooks permitem encapsular lógicas específicas do componente para reutilização em diferentes partes do aplicativo.</p>
+<p>Em resumo, os hooks fornecem uma maneira eficiente e declarativa de adicionar recursos a componentes funcionais do React. Eles ajudam a manter o código mais legível, modular e fácil de testar. Com a combinação correta de hooks, você pode criar componentes complexos com menos código e maior flexibilidade.</p>
+</aside>
+<p>A necessidade de usar um hook, como o useState, para controlar o estado de uma variável em um componente funcional se deve a como o React gerencia a renderização e atualização desses componentes.</p>
+<p>Quando um componente funcional é renderizado, ele é executado novamente sempre que há uma mudança em qualquer uma de suas dependências, como props ou estado. Isso significa que uma nova instância da função do componente é criada e todos os cálculos dentro dela são refeitos.</p>
+<p>Se atribuíssemos um valor diretamente a uma variável no corpo do componente, toda vez que o componente fosse renderizado novamente, essa atribuição seria refeita e a variável seria reinicializada com seu valor original. Dessa forma, perderíamos a capacidade de manter o estado entre as renderizações e todas as alterações feitas anteriormente seriam perdidas.</p>
+<p>Além disso, ao usar o useState, o React também otimiza o desempenho, permitindo que ele identifique apenas as partes do componente que realmente precisam ser atualizadas na tela, em vez de renderizar todo o componente novamente.</p>
+<p>Em resumo, ao utilizar um hook como o useState, estamos aproveitando a capacidade do React de gerenciar o estado e garantir que as alterações sejam preservadas entre as renderizações do componente. Isso nos permite criar componentes mais dinâmicos e interativos, mantendo um bom desempenho em nossos aplicativos React.</p>
+<h2 is-upgraded><strong>Componente &lt;Pressable&gt;</strong></h2>
+<p>O componente <code>Pressable</code> é usado para detectar toques ou pressões do usuário em uma área específica. Podemos aproveitar esse componente para criar interações com a entrada de dados. Este componente permite estilização, ao contrário do componente <code>Button</code>. Vamos ver um exemplo de uso do <code>Pressable</code>:</p>
+<pre>import { useState } from &#39;react&#39;;
+import { Pressable, Text, View, TextInput, Button, Alert } from &#39;react-native&#39;;
+
+function App() {
+  const [texto, setTexto] = useState(&#39;&#39;);
+
+  const handleButtonPress = () =&gt; {
+    Alert.alert(&#39;Texto digitado:&#39;, texto);
+  };
+
+  return (
+    &lt;View style=&#123;&#123; marginTop: 40, margin: 8, flex: 1 }}&gt;
+      &lt;TextInput
+        style=&#123;&#123;
+          fontSize: 20,
+          height: 40,
+          borderColor: &#39;gray&#39;,
+          borderWidth: 1,
+          padding: 8,
+          marginBottom: 8,
+        }}
+        onChangeText={setTexto}
+        value={texto}
+      /&gt;
+      &lt;Pressable onPress={handleButtonPress}&gt;
+        &lt;Text
+          style=&#123;&#123;
+            padding: 8,
+            width: &#39;100%&#39;,
+            color: &#39;blue&#39;,
+            fontSize: 20,
+            textAlign: &#39;center&#39;,
+            backgroundColor: &#39;#8b5&#39;,
+            borderRadius:12
+          }}&gt;
+          Enviar
+        &lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+}
+
+export default App;</pre>
+<p>Neste exemplo, além do componente <code>TextInput</code>, adicionamos o <code>Pressable</code> em vez do <code>Button</code>. O <code>Pressable</code> envolve um texto &#34;Enviar&#34; e, quando é pressionado, a função <strong>handleButtonPress </strong>é chamada. Observe a estilização do componente <code>Pressable</code>, que não é possível no componente <code>Button</code>.</p>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<aside class="warning"><ol type="1" start="1">
+<li>Crie um aplicativo React Native com um &lt;TextInput&gt; e um &lt;Button&gt;. Ao pressionar o botão, exiba um alerta com o texto digitado pelo usuário.</li>
+<li>Modifique o aplicativo anterior para adicionar validação, onde o usuário só pode enviar o texto se tiver mais de 5 caracteres.</li>
+<li>Adicione um novo componente &lt;Pressable&gt; ao aplicativo anterior, ao lado do &lt;Button&gt;, para exibir o texto digitado quando for pressionado.</li>
+<li>Crie um novo aplicativo onde o usuário possa digitar um nome em um &lt;TextInput&gt; e, ao pressionar um &lt;Button&gt;, o nome digitado seja exibido em um &lt;Text&gt; abaixo do campo de entrada.</li>
+</ol>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Jogo da forca" duration="40">
+        <h2 is-upgraded><strong>Introdução</strong></h2>
+<p>Ao fim deste projeto teremos o famoso jogo da forca completamente desenvolvido. O projeto será realizado em quatro etapas, e vamos aprender conceitos importantes para a programação de aplicativos em React Native.</p>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Versão 1: Lógica para manipular exibição de imagens diferentes.</li>
+<li>Versão 2: Renderização condicional. Implementação da lógica do jogo para adivinhar uma letra usando &lt;TextInput&gt;.</li>
+<li>Versão 3: Implementação da lógica do jogo para adivinhar uma palavra sorteada usando &lt;TextInput&gt;.</li>
+<li>Versão 4: Componentização e exibição de teclado.</li>
+</ul>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V1</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v1" target="_blank">Link Snack</a></p>
+<pre>import { View, Pressable, Image, StyleSheet, Text } from &#39;react-native&#39;;
+import { useState } from &#39;react&#39;;
+
+function App() {
+  const forca1 = require(&#39;./assets/forca.png&#39;);
+  const forca2 = require(&#39;./assets/cabeca.png&#39;);
+  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
+  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
+  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
+  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
+  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
+
+  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
+
+  const [situacao, setSituacao] = useState(0);
+
+  function onPress() {
+    if (situacao == 6) {
+      setSituacao(0);
+    } else {
+      setSituacao(situacao + 1);
+    }
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
+      &lt;Pressable style={styles.botao} onPress={onPress}&gt;
+        &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: &#39;center&#39;,
+    justifyContent: &#39;center&#39;,
+  },
+  imagem: {
+    width: &#39;50%&#39;,
+    height: &#39;50%&#39;,
+    borderWidth: 1,
+    marginBottom: 20,
+  },
+  botao: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: &#39;black&#39;,
+  },
+  texto: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: &#39;bold&#39;,
+    letterSpacing: 0.25,
+    color: &#39;white&#39;,
+  },
+});
+
+export default App;</pre>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V2</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v2" target="_blank">Link Snack</a></p>
+<p>Em 10/07/2024, eu solicitei ao ChatGPT que explicasse o seguinte código: </p>
+<pre>import {
+  View,
+  Pressable,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+} from &#39;react-native&#39;;
+import { useState } from &#39;react&#39;;
+
+function App() {
+  const forca1 = require(&#39;./assets/forca.png&#39;);
+  const forca2 = require(&#39;./assets/cabeca.png&#39;);
+  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
+  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
+  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
+  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
+  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
+
+  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
+  const letra = &#39;S&#39;;
+
+  const [situacao, setSituacao] = useState(0);
+  const [palpite, onChangePalpite] = useState(&#39;&#39;);
+  const [mensagem, setMensagem] = useState(&#39;&#39;);
+  const [fimDeJogo, setFimDeJogo] = useState(false);
+
+  function validarPalpite() {
+    console.log(&#39;---------&gt; &#39;, palpite.toUpperCase());
+    if (letra.toUpperCase() === palpite.toUpperCase()) {
+      setMensagem(&#39;acertou&#39;);
+      setFimDeJogo(true);
+      setSituacao(0);
+    } else if (situacao &lt; 6) {
+      setSituacao(situacao + 1);
+      onChangePalpite(&#39;&#39;);
+    } else {
+      setFimDeJogo(true);
+      setMensagem(&#39;perdeu&#39;);
+    }
+  }
+
+  function novo() {
+    setMensagem(&#39;&#39;);
+    setSituacao(0);
+    setFimDeJogo(false);
+    onChangePalpite(&#39;&#39;);
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.mensagem}&gt;{mensagem}&lt;/Text&gt;
+      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
+      &lt;TextInput
+        style={styles.input}
+        maxLength={1}
+        onChangeText={onChangePalpite}
+        value={palpite}
+        autoCapitalize=&#34;characters&#34;
+      /&gt;
+      {!fimDeJogo &amp;&amp; (
+        &lt;Pressable style={styles.botao} onPress={validarPalpite}&gt;
+          &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
+        &lt;/Pressable&gt;
+      )}
+      {fimDeJogo &amp;&amp; (
+        &lt;Pressable style={styles.botao} onPress={novo}&gt;
+          &lt;Text style={styles.texto}&gt;Novo jogo&lt;/Text&gt;
+        &lt;/Pressable&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: &#39;center&#39;,
+    justifyContent: &#39;center&#39;,
+  },
+  imagem: {
+    width: &#39;50%&#39;,
+    height: &#39;50%&#39;,
+    // borderWidth: 1,
+    resizeMode: &#39;contain&#39;,
+  },
+  botao: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: &#39;black&#39;,
+    margin: 12,
+    width: &#39;50%&#39;,
+  },
+  texto: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: &#39;bold&#39;,
+    letterSpacing: 0.25,
+    color: &#39;white&#39;,
+    alignSelf: &#39;center&#39;,
+  },
+  input: {
+    height: 40,
+    width: 40,
+    margin: 12,
+    borderWidth: 1,
+    textAlign: &#39;center&#39;,
+    fontSize: 20,
+  },
+  mensagem: {
+    fontSize: 50,
+    margin: 12,
+    color: &#39;red&#39;,
+  },
+});
+
+export default App;</pre>
+<p>E aqui está o resultado:</p>
+<aside class="special"><p>Este código React Native implementa um jogo de &#34;Forca&#34; básico, onde o jogador tenta adivinhar uma letra e, dependendo do seu palpite, o estado do jogo é atualizado.</p>
+<p>Aqui está um resumo detalhado de como o jogo funciona:</p>
+<h2 is-upgraded><strong>Estrutura do Código</strong></h2>
+<p>1. <strong>Importação de Componentes</strong></p>
+<p>    - Componentes do React Native como <code>View</code>, <code>Pressable</code>, <code>Image</code>, <code>StyleSheet</code>, <code>Text</code>, e <code>TextInput</code> são importados.</p>
+<p>    - O hook <code>useState</code> do React é usado para gerenciar o estado.</p>
+<p>2. <strong>Imagens</strong></p>
+<p>    - Sete imagens são importadas, representando as diferentes fases do boneco da forca.</p>
+<p>3. <strong>Constantes e Estados</strong></p>
+<p>    - <code>lista</code>: Uma lista contendo as imagens importadas.</p>
+<p>    - <code>letra</code>: A letra correta que o jogador deve adivinhar (neste caso, &#39;S&#39;).</p>
+<p>    - Três estados são definidos:</p>
+<p>      - <code>situacao</code>: Para rastrear o estado atual do boneco da forca.</p>
+<p>      - <code>palpite</code>: Para armazenar o palpite do jogador.</p>
+<p>      - <code>mensagem</code>: Para exibir uma mensagem de acerto ou erro.</p>
+<p>      - <code>fimDeJogo</code>: Para indicar se o jogo terminou.</p>
+<p>4. <strong>Funções</strong></p>
+<p>    - <code>validarPalpite</code>: Valida o palpite do jogador. Se o palpite estiver correto, o jogador vence; caso contrário, o boneco da forca é atualizado. Se o boneco atingir a última imagem, o jogador perde.</p>
+<p>    - <code>novo</code>: Reinicia o jogo, resetando todos os estados.</p>
+<p>5. <strong>Renderização</strong></p>
+<p>    - O componente <code>View</code> principal contém o layout do jogo.</p>
+<p>    - O componente <code>Text</code> exibe a mensagem de acerto ou erro.</p>
+<p>    - O componente <code>Image</code> exibe a imagem correspondente ao estado atual do jogo.</p>
+<p>    - O componente <code>TextInput</code> permite que o jogador insira uma letra.</p>
+<p>    - Os componentes <code>Pressable</code> são usados para os botões de tentativa e novo jogo.</p>
+<h2 is-upgraded><strong>Estilo</strong></h2>
+<p>Os estilos são definidos no objeto <code>styles</code> usando <code>StyleSheet.create</code> para configurar a aparência dos componentes, incluindo layout, cores, tamanhos e alinhamento.</p>
+<h2 is-upgraded><strong>Funcionamento do Jogo</strong></h2>
+<p>- O jogador insere uma letra no <code>TextInput</code> e pressiona o botão &#34;<code>Tentativa</code>&#34;.</p>
+<p>- A função <code>validarPalpite</code> é chamada para verificar se a letra está correta.</p>
+<p>  - Se correta, a mensagem &#34;acertou&#34; é exibida e o jogo termina.</p>
+<p>  - Se incorreta e o jogador ainda tiver tentativas, o estado do boneco da forca é atualizado.</p>
+<p>  - Se todas as tentativas forem usadas, a mensagem &#34;perdeu&#34; é exibida e o jogo termina.</p>
+<p>- O botão &#34;<code>Novo jogo</code>&#34; reinicia o jogo.</p>
+<p>Esse código oferece uma implementação simples e funcional do jogo da forca, fácil de entender e estender para adicionar mais funcionalidades, como adivinhar palavras completas ou alterar a letra correta dinamicamente.</p>
+</aside>
+<h2 is-upgraded><strong>Renderização condicional</strong></h2>
+<aside class="special"><p>Referência: https://react.dev/learn/conditional-rendering</p>
+</aside>
+<p>A renderização condicional é um recurso que permite exibir ou ocultar componentes. Com o uso do operador condicional ternário (veja a <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators#operador_condicional_tern%C3%A1rio" target="_blank">documentação</a>) podemos construir o seguinte código que exibirá uma mensagem específica conforme o valor da variável <code>isLoggedIn</code></p>
+<pre>import { Text, View, StyleSheet } from &#39;react-native&#39;;
+
+export default function App() {
+  const isLoggedIn = false;
+  return (
+    &lt;View style={styles.container}&gt;
+      {isLoggedIn ? (
+        &lt;Text style={styles.paragraph}&gt;Bem-vindo de volta!&lt;/Text&gt;
+      ) : (
+        &lt;Text style={styles.paragraph}&gt;Por favor, faça o login.&lt;/Text&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: &#39;center&#39;,
+    backgroundColor: &#39;#ecf0f1&#39;,
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: &#39;bold&#39;,
+    textAlign: &#39;center&#39;,
+  },
+});</pre>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V3</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v3" target="_blank">Link Snack</a></p>
+<p>Nesta versão vamos adicionar uma lista de palavras para ser adivinhada pelo usuário.</p>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V4</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v4" target="_blank">Link Snack</a></p>
+<p>Na última versão do nosso projeto não vamos adicionar funcionalidades ao jogo. Nós vamos componentizar o código, ou seja, criar componentes de foram que o código fique melhor organizado.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Flatlist" duration="30">
+        <h2 is-upgraded><strong>Introdução ao componente FlatList</strong></h2>
+<p>O FlatList é um componente do React Native que permite exibir listas de elementos de forma eficiente, independentemente do tamanho da lista. Ele é especialmente útil para listas longas e dinâmicas que podem ser renderizadas sob demanda, melhorando o desempenho e a experiência do usuário. Veja exemplo:</p>
+<p class="image-container"><img style="width: 426.00px" src="img\\e4cd5b8913a9f26b.gif"></p>
+<aside class="special"><p>Referência: <a href="https://reactnative.dev/docs/flatlist" target="_blank">FlatList · React Native</a></p>
+</aside>
+<h2 is-upgraded>Como usar o componente FlatList</h2>
+<p>Para usar o componente FlatList, você precisa primeiro importá-lo do pacote react-native. Em seguida, você pode renderizar uma lista de elementos com o FlatList passando as seguintes propriedades:</p>
+<p><code>data</code>: um array de objetos que serão exibidos na lista.</p>
+<p><code>renderItem</code>: uma função que recebe cada item do array e retorna um componente React que será exibido na lista.</p>
+<p>A lista deve ser composta por objetos e cada objeto deve ter uma propriedade chamada <code>id</code> com valor único para cada objeto.</p>
+<p>Aqui está um exemplo básico de como usar o FlatList:</p>
+<pre>import { View, FlatList, StyleSheet, Text } from &#39;react-native&#39;;
+
+const DATA = [
+  { id: &#39;1&#39;, title: &#39;Item 1&#39; },
+  { id: &#39;2&#39;, title: &#39;Item 2&#39; },
+  { id: &#39;3&#39;, title: &#39;Item 3&#39; },
+  { id: &#39;4&#39;, title: &#39;Item 4&#39; },
+  { id: &#39;5&#39;, title: &#39;Item 5&#39; },
+  { id: &#39;6&#39;, title: &#39;Item 6&#39; },
+  { id: &#39;7&#39;, title: &#39;Item 7&#39; },
+  { id: &#39;8&#39;, title: &#39;Item 8&#39; },
+  { id: &#39;9&#39;, title: &#39;Item 9&#39; },
+  { id: &#39;10&#39;, title: &#39;Item 10&#39; },
+  { id: &#39;11&#39;, title: &#39;Item 11&#39; },
+  { id: &#39;12&#39;, title: &#39;Item 12&#39; },
+  { id: &#39;13&#39;, title: &#39;Item 13&#39; },
+  { id: &#39;14&#39;, title: &#39;Item 14&#39; },
+  { id: &#39;15&#39;, title: &#39;Item 15&#39; },
+  { id: &#39;16&#39;, title: &#39;Item 16&#39; },
+  { id: &#39;17&#39;, title: &#39;Item 17&#39; },
+  { id: &#39;18&#39;, title: &#39;Item 18&#39; },
+  { id: &#39;19&#39;, title: &#39;Item 19&#39; },
+  { id: &#39;20&#39;, title: &#39;Item 20&#39; },
+];
+
+const App = () =&gt; {
+  const renderizarItem = ({ item }) =&gt; (
+    &lt;View style={styles.item}&gt;
+      &lt;Text style={styles.title}&gt;{item.title}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;FlatList data={DATA} renderItem={renderizarItem} /&gt;
+    &lt;/View&gt;
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: 10,
+    marginTop: 50,
+  },
+  item: {
+    borderWidth: 1,
+    borderColor: &#39;red&#39;,
+    padding: 10,
+  },
+  title: {
+    fontSize: 30,
+  },
+});
+
+export default App;</pre>
+<p>Neste exemplo, estamos renderizando uma lista simples de vinte itens. Cada item é representado por um objeto que contém uma chave <code>id</code> e um título <code>title</code>. O componente FlatList recebe o array de objetos DATA, que é renderizado com a função <code>renderizarItem</code>, que retorna um componente <code>View</code> com o título do item.</p>
+<aside class="warning"><p>Exercício: Altere o código para mostrar também a chave id de cada item da lista</p>
+</aside>
+<h2 is-upgraded><strong>Propriedades do componente FlatList</strong></h2>
+<p>O FlatList possui várias propriedades que permitem personalizar sua aparência e comportamento. Algumas das propriedades mais comuns incluem:</p>
+<p><code>ItemSeparatorComponent</code>: um componente React que é renderizado entre cada item da lista. Isso permite adicionar um separador visual entre os itens.</p>
+<p><code>ListHeaderComponent</code>: um componente React que é renderizado no topo da lista. Isso permite adicionar um cabeçalho à lista.</p>
+<p><code>ListFooterComponent</code>: um componente React que é renderizado no final da lista. Isso permite adicionar um rodapé à lista.</p>
+<p>onEndReached: uma função que é chamada quando o usuário chega ao final da lista. Isso é útil para carregar mais itens dinamicamente à medida que o usuário rola a lista.</p>
+<p><code>onRefresh</code>: é uma função que é chamada quando o usuário realiza uma ação de &#34;puxar para atualizar&#34; na lista. Isso é útil para atualizar os dados da lista com informações mais recentes.</p>
+<p>Concluindo, o componente FlatList é uma ferramenta poderosa para renderizar listas de elementos em um aplicativo React Native. Com ele, é possível exibir listas dinâmicas e longas de forma eficiente, melhorando a experiência do usuário. É importante entender as propriedades do FlatList e como usá-las para personalizar a aparência e o comportamento da lista. Com o conhecimento adequado, os alunos de ensino técnico podem criar aplicativos móveis sofisticados e funcionais usando o FlatList.</p>
+<h2 is-upgraded><strong>Exemplos de uso da o componente FlatList</strong></h2>
+<p>O FlatList é um dos componentes mais versáteis do React Native e pode ser usado de várias maneiras para renderizar listas de dados. Aqui estão alguns exemplos diversificados de como utilizar o FlatList:</p>
+<h3 is-upgraded><strong>Exemplo 1: Listagem de Produtos</strong></h3>
+<p>Suponha que você tenha uma lista de produtos e queira exibi-los em uma tela. Você pode utilizar o FlatList para renderizar esses produtos da seguinte maneira:</p>
+<pre>import { FlatList, View, Text, Image, StyleSheet } from &#39;react-native&#39;;
+
+const products = [
+  {
+    id: 1,
+    name: &#39;Product 1&#39;,
+    price: 9.99,
+    image: { uri: &#39;https://picsum.photos/id/1024/400/400&#39; },
+  },
+  {
+    id: 2,
+    name: &#39;Product 2&#39;,
+    price: 14.99,
+    image: { uri: &#39;https://picsum.photos/id/1026/400/400&#39; },
+  },
+  {
+    id: 3,
+    name: &#39;Product 3&#39;,
+    price: 19.99,
+    image: { uri: &#39;https://picsum.photos/id/1043/400/400&#39; },
+  },
+  {
+    id: 4,
+    name: &#39;Product 4&#39;,
+    price: 24.99,
+    image: { uri: &#39;https://picsum.photos/id/1062/400/400&#39; },
+  },
+  {
+    id: 5,
+    name: &#39;Product 5&#39;,
+    price: 29.99,
+    image: { uri: &#39;https://picsum.photos/id/1074/400/400&#39; },
+  },
+];
+
+const renderItem = ({ item }) =&gt; (
+  &lt;View style={styles.item}&gt;
+    &lt;Image source={item.image} style={styles.image} /&gt;
+    &lt;Text style={styles.title}&gt;{item.name}&lt;/Text&gt;
+    &lt;Text style={styles.price}&gt;${item.price}&lt;/Text&gt;
   &lt;/View&gt;
 );
 
-const App = () =&gt; {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  return (
-    &lt;View style={styles.container}&gt;{isAuthenticated ? &lt;HomeScreen login={setIsAuthenticated} /&gt; : &lt;LoginScreen login={setIsAuthenticated} /&gt;}&lt;/View&gt;
-  );
-};
-
-export default App;
+const App = () =&gt; (
+  &lt;FlatList
+    data={products}
+    renderItem={renderItem}
+    keyExtractor={(item) =&gt; item.id.toString()}
+    style={styles.container}
+  /&gt;
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop:40
   },
-  layout: {
-    flex: 1,
-    justifyContent: &#34;center&#34;,
-    alignItems: &#34;center&#34;,
+  item: {
+    backgroundColor: &#39;#f9c2ff&#39;,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
   title: {
     fontSize: 32,
-    marginBottom: 16,
   },
-});</code></pre>
-<p>A função <code>onLogin</code> faz o seguinte:</p>
-<ol type="1" start="1">
-<li>Chama a função <code>GoogleSignin.signIn(</code>), que inicia o processo de login do Google. Esta função retorna um objeto promise que resolve para um objeto `user` quando o login é bem-sucedido.</li>
-<li>A palavra-chave <code>await</code> é usada para pausar a execução da função `onLogin` até que a promessa seja resolvida. Isso significa que a função <code>onLogin</code> retorna o objeto <strong>user</strong> somente depois que o login do Google é concluído.</li>
-<li>3. O objeto user contém informações sobre o usuário que fez login, como nome de usuário, e-mail, foto de perfil, etc.</li>
-</ol>
-<p>Portanto, você pode usar esta função <code>onLogin</code> para iniciar o processo de login do Google e obter informações sobre o usuário que fez login. Por ser uma função assíncrona, você deve usar a palavra-chave `await` ao chamar `onLogin` ou usar a função dentro de uma cadeia de promessas com `.then()` e `.catch()`.</p>
-<p>Quando o usuário clica no botão <img style="width: 59.66px" src="img\\e7e8a2c38af468a5.png">é acionada a função em <code>onPress</code> que faz o seguinte:</p>
-<ol type="1" start="1">
-<li>setIsSigninInProgress(true): Altera o estado da variável para indicar que o processo de login está em andamento e então a tela mostra um <code><ActivityIndicator /></code></li>
-<li>onLogin().then((user) =&gt; {...}): Aqui, a função onLogin() é chamada. Como onLogin() é uma função assíncrona que retorna uma promessa (objeto javascript do tipo Promise), <strong>.then()</strong> é usado para especificar o que deve acontecer quando a promessa for resolvida. A função dentro de then() recebe o valor resolvido da promessa (neste caso, um objeto de usuário) como seu argumento.</li>
-<li>console.log(user): Isso registra as informações do usuário no console. Isso é útil para fins de depuração.</li>
-<li>login(true): Altera o estado de login do usuário para &#34;true&#34;, indicando que o usuário está logado.</li>
-</ol>
+  price: {
+    fontSize: 24,
+  },
+  image: {
+    width: &#39;100%&#39;,
+    height: 200,
+  },
+});
 
+export default App;</pre>
+<h3 is-upgraded><strong>Exemplo 2: Listagem de Imagens com Paginação</strong></h3>
+<p>Suponha que você queira exibir uma lista de imagens que estão armazenadas em um servidor e quer exibir apenas algumas imagens por vez, permitindo ao usuário navegar entre as páginas para ver mais imagens. Você pode utilizar o FlatList com a propriedade <code>pagingEnabled</code> para exibir a lista de imagens com paginação. Para paginar faça o gesto de arrastar para cima:</p>
+<pre>import { useState, useEffect } from &#39;react&#39;;
+import { FlatList, Image, View, StyleSheet } from &#39;react-native&#39;;
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Armazenando o objeto ‘user&#39; com as informações do usuário logado" duration="0">
-        <p>Vamos trocar o nome da variável de estado que estávamos usando para controlar se o usuário estava logado, que antes chamávamos de <code>isAuthenticated</code>, para <strong>user</strong>. </p>
-<p>Quando o usuário realizar o login, devemos agora armazenar o objeto retornado, e assim o novo código do componente LoginScreen fica assim:</p>
-<pre><code>const LoginScreen = ({ login }) =&gt; {
-  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
+const App = () =&gt; {
+  const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
 
-  return (
-    &lt;View style={styles.layout}&gt;
-      {isSigninInProgress &amp;&amp; &lt;ActivityIndicator /&gt;}
-      &lt;Text style={styles.title}&gt;Login&lt;/Text&gt;
-      &lt;Button
-        title=&#34;entrar&#34;
-        onPress={() =&gt; {
-          setIsSigninInProgress(true);
-          onLogin().then((user) =&gt; {
-            console.log(user);
-            login(user);
-          });
-        }}
-      /&gt;
+  useEffect(() =&gt; {
+    fetch(`https://picsum.photos/v2/list?page=${page}&amp;limit=10`)
+      .then((response) =&gt; response.json())
+      .then((data) =&gt; setImages(data))
+      .catch((error) =&gt; console.error(error));
+  }, [page]);
+
+  const renderItem = ({ item }) =&gt; (
+    &lt;View style={styles.item}&gt;
+      &lt;Image source=&#123;&#123; uri: item.download_url }} style={styles.image} /&gt;
     &lt;/View&gt;
   );
-};</code></pre>
-<p>Considerando que este componente será chamada assim</p>
-<p><code><LoginScreen login={setUser} /></code></p>
-<p>Vamos analisar o que cada parte deste código faz:</p>
-<p>- const LoginScreen = ({ login }) =&gt; {...}: Esta é a declaração do componente LoginScreen. Ele recebe <strong>login</strong> como uma propriedade.</p>
-<p>- const [isSigninInProgress, setIsSigninInProgress] = useState(false): Isso é um hook de estado do React. Ele declara uma variável de estado `isSigninInProgress` e uma função para atualizá-la `setIsSigninInProgress`. O estado inicial é `false`, indicando que o processo de login não está em andamento.</p>
-<p>- {isSigninInProgress &amp;&amp; &lt;ActivityIndicator /&gt;}: Renderiza um componente <code>ActivityIndicator</code> se isSigninInProgress for `true`. Isso pode ser usado para mostrar um indicador de carregamento enquanto o login está em andamento.</p>
-<p>- &lt;Button ... /&gt;: Este é um botão que, quando pressionado, inicia o processo de login. Ele primeiro define `isSigninInProgress` para `true`, depois chama a função `onLogin()`. Quando `onLogin()` é resolvido, ele registra o usuário no console e chama a função `login` com o usuário como argumento. </p>
-<p>Quando a função login é chamada dentro de LoginScreen (por exemplo, após um usuário fazer login com sucesso), ela na verdade está chamando a função setUser com o objeto do usuário como argumento. Isso atualiza o estado da variável user do componente App para refletir que um usuário fez login com sucesso.</p>
-<p>Para demonstrar o uso dos dados do usuário logado, o componente &lt;HomeScreen&gt; foi modificado para:</p>
-<pre><code>const HomeScreen = ({ user, login }) =&gt; (
-  &lt;View style={styles.layout}&gt;
-    &lt;Text style={styles.title}&gt;Home&lt;/Text&gt;
-    &lt;Image
-      style=&#123;&#123; width: 300, height: 300 }}
-      source=&#123;&#123;
-        uri: user.user.photo,
-      }}
+
+  const handleEndReached = () =&gt; {
+    setPage(page + 1);
+  };
+
+  return (
+    &lt;FlatList
+      data={images}
+      renderItem={renderItem}
+      keyExtractor={(item) =&gt; item.id.toString()}
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+      numColumns={2}
+      // habilita a paginação
+      pagingEnabled={true}
+      // define a função &#39;onEndReached&#39; para carregar mais imagens quando o usuário chegar ao final da lista
+      onEndReached={handleEndReached}
+      // define a quantidade de pixels que o usuário precisa rolar a lista para que a função &#39;onEndReached&#39; seja disparada
+      onEndReachedThreshold={0.1}
     /&gt;
-    &lt;Button title=&#34;Sair&#34; onPress={() =&gt; onLogout().then(() =&gt; login(false))} /&gt;
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: &#39;#f1f1f1&#39;,
+  },
+  contentContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  item: {
+    flex: 1,
+    marginHorizontal: 5,
+    marginVertical: 10,
+    aspectRatio: 1,
+  },
+  image: {
+    flex: 1,
+    borderRadius: 5,
+  },
+});
+
+export default App;</pre>
+<h3 is-upgraded><strong>Exemplo 3: Listagem de Notícias</strong></h3>
+<p>Suponha que você tenha uma lista de notícias e queira exibi-las em uma tela. Você pode utilizar o FlatList para renderizar essas notícias da seguinte maneira:</p>
+<pre>import { FlatList, View, Text, Image, StyleSheet } from &#39;react-native&#39;;
+
+const news = [
+  {
+    id: 1,
+    title:
+      &#39;Casos de covid no mundo ultrapassam 400 milhões com domínio global da ômicron&#39;,
+    summary:
+      &#39;A Organização Mundial da Saúde (OMS) alertou nesta segunda-feira que o número de casos de covid-19 no mundo ultrapassou a marca de 400 milhões, com o domínio global da variante ômicron do vírus.&#39;,
+  },
+
+  {
+    id: 2,
+    title:
+      &#39;França decreta novo confinamento para conter segunda onda da Covid-19&#39;,
+    summary:
+      &#39;A França decretou novo confinamento a partir desta quinta-feira (10) para conter a segunda onda da Covid-19 que, segundo o primeiro-ministro francês, Jean Castex, é mais forte que as anteriores.&#39;,
+  },
+
+  {
+    id: 3,
+    title: &#39;Nasa acha componente do plástico em lua de Saturno&#39;,
+    summary:
+      &#39;A sonda espacial Cassini encontrou fragmentos de plástico em Titã, uma das luas de Saturno, mostrando que a poluição causada pelo homem pode chegar a lugares muito distantes.&#39;,
+  },
+
+  {
+    id: 4,
+    title: &#39;Nasa pousa sonda em asteroide e coleta amostras da rocha&#39;,
+    summary:
+      &#39;A sonda OSIRIS-REx da Nasa pousou no asteroide Bennu na noite desta terça-feira (20) e coletou amostras da rocha espacial. Esta é a primeira vez que uma missão da Nasa tenta coletar amostras de um asteroide.&#39;,
+  },
+];
+
+const renderItem = ({ item }) =&gt; (
+  &lt;View style={styles.item}&gt;
+    &lt;Text style={styles.title}&gt;{item.title}&lt;/Text&gt;
+    &lt;Text style={styles.summary}&gt;{item.summary}&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+const App = () =&gt; (
+  &lt;FlatList
+    data={news}
+    renderItem={renderItem}
+    keyExtractor={(item) =&gt; item.id.toString()}
+    style={styles.container}
+  /&gt;
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop:30
+  },
+  item: {
+    backgroundColor: &#39;#fff&#39;,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 10,
+    shadowColor: &#39;#000&#39;,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: &#39;bold&#39;,
+    marginBottom: 10,
+  },
+  summary: {
+    fontSize: 18,
+  },
+  image: {
+    width: &#39;100%&#39;,
+    height: 200,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+});
+
+export default App;</pre>
+<h2 is-upgraded><strong>Exercícios com solução</strong></h2>
+<pre><code>const data = [
+  { id: &#39;1&#39;, title: &#39;Item 1&#39; },
+  { id: &#39;2&#39;, title: &#39;Item 2&#39; },
+  { id: &#39;3&#39;, title: &#39;Item 3&#39; },
+];</code></pre>
+<p>Listagem 1</p>
+<pre><code>import { View, FlatList, Text } from &#39;react-native&#39;;
+function ListaItens() {
+  const data = [
+    { id: &#39;1&#39;, title: &#39;Item 1&#39; },
+    { id: &#39;2&#39;, title: &#39;Item 2&#39; },
+    { id: &#39;3&#39;, title: &#39;Item 3&#39; },
+  ];
+
+  const renderItem = ({ item }) =&gt; (
+    &lt;View&gt;
+      &lt;Text&gt;{item.title}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+
+  return (
+    &lt;FlatList
+      data={data}
+      renderItem={renderItem}
+    /&gt;
+  );
+}
+export default ListaItens;</code></pre>
+<p>Listagem 2</p>
+<pre><code>const renderItem = ({ item }) =&gt; (
+  &lt;View style=&#123;&#123; backgroundColor: &#39;lightblue&#39;, marginVertical: 5, padding: 10, borderRadius: 5 }}&gt;
+    &lt;Text&gt;{item.title}&lt;/Text&gt;
   &lt;/View&gt;
 );</code></pre>
-<p>E o código completo fica assim:</p>
-<pre><code>import { StyleSheet, Text, View, Button, ActivityIndicator, Image } from &#34;react-native&#34;;
-import { useState } from &#34;react&#34;;
-import { GoogleSignin } from &#34;@react-native-google-signin/google-signin&#34;;
+<p>Listagem 3</p>
+<pre>const renderItem = ({ item }) =&gt; (
+  &lt;Pressable onPress={() =&gt; Alert.alert(&#39;Item Pressionado&#39;, `ID: ${item.id}, Título: ${item.title}`)}&gt;
+    &lt;View style=&#123;&#123; backgroundColor: &#39;lightblue&#39;, marginVertical: 5, padding: 10, borderRadius: 5 }}&gt;
+      &lt;Text&gt;{item.title}&lt;/Text&gt;
+    &lt;/View&gt;
+  &lt;/Pressable&gt;
+);</pre>
+<p>Listagem 4</p>
+<aside class="warning"><h3 is-upgraded><strong>Exercício 1: Renderizando uma lista simples</strong></h3>
+<p>Crie um array de objetos, por exemplo:</p>
+<p><strong>ver listagem 1 acima</strong></p>
+<p>Crie um componente funcional chamado ListaItens que renderize um FlatList com os dados fornecidos. Utilize a propriedade <code>data</code> para passar o array de objetos e a propriedade <code>renderItem</code> para renderizar cada item da lista.</p>
+<p><strong>ver Listagem 2 acima</strong></p>
+<p>Renderize o componente ListaItens em seu aplicativo para visualizar a lista simples sendo exibida.</p>
+<h3 is-upgraded><strong>Exercício 2: Personalizando o estilo dos itens da lista</strong></h3>
+<p>Modifique o componente renderItem para personalizar o estilo dos itens da lista. Por exemplo, adicione uma cor de fundo, margens, bordas, etc.</p>
+<p><strong>ver Listagem 3 acima</strong></p>
+<p>Verifique a aparência atualizada dos itens da lista.</p>
+<h3 is-upgraded><strong>Exercício 3: Lidando com eventos nos itens da lista</strong></h3>
+<p>Modifique o componente renderItem para adicionar um evento de pressionar nos itens da lista. Por exemplo, exiba um alerta quando um item for pressionado.</p>
+<p><strong>ver Listagem 4 acima</strong></p>
+<p>Verifique se o alerta é exibido corretamente ao pressionar um item da lista.</p>
+</aside>
+<aside class="special"><p>A prática constante ajudará você a se familiarizar e aperfeiçoar suas habilidades com a FlatList no React Native.</p>
+</aside>
 
-//funções de autenticação
-export const onLogin = async () =&gt; {
-  const user = await GoogleSignin.signIn();
-  return user;
-};
 
-export const onLogout = async () =&gt; {
-  return await GoogleSignin.signOut();
-};
+      </google-codelab-step>
+    
+      <google-codelab-step label="Guia Completo de JavaScript para Iniciantes: Objetos, Arrays e Manipulação de Dados" duration="0">
+        <h2 is-upgraded><strong>Parte 1: Objetos</strong></h2>
+<h3 is-upgraded><strong>O que são Objetos?</strong></h3>
+<p>Em JavaScript, um objeto é um conjunto de valores que representam as características de alguma coisa. Cada característica é definida por um par chave-valor. Objetos são muito úteis para armazenar e organizar dados de forma estruturada.</p>
+<p>Exemplo:</p>
+<pre><code>const usuario = {
+  nome: &#39;João&#39;,
+  idade: 30,
+  email: &#39;joao@example.com&#39;,
+  ativo: true
+};</code></pre>
+<p>Aqui, o objeto <code>usuario</code> possui quatro características : `nome`, `idade`, `email`, e `ativo`.</p>
+<h3 is-upgraded><strong>Manipulação de Objetos</strong></h3>
+<p>Você pode acessar, adicionar ou modificar características de objetos de forma bastante simples:</p>
+<ul>
+<li>Acessando uma característica:</li>
+</ul>
+<pre><code>console.log(usuario.nome); // João</code></pre>
+<ul>
+<li>Adicionando uma nova característica:</li>
+</ul>
+<pre><code>usuario.endereco = &#39;Rua A, 123&#39;;</code></pre>
+<ul>
+<li>Modificando uma característica existente:</li>
+</ul>
+<pre><code>usuario.idade = 31;</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Objetos</strong></h3>
+<aside class="warning"><p>1. Crie um objeto chamado `carro` com as características: `marca`, `modelo`, `ano`, e `cor`.</p>
+<p>2. Adicione uma nova característica `proprietario` ao objeto `carro`.</p>
+<p>3. Modifique o valor da característica `cor` do objeto `carro`.</p>
+</aside>
+<h2 is-upgraded><strong>Parte 2: Arrays</strong></h2>
+<h3 is-upgraded><strong>O que são Arrays?</strong></h3>
+<p>Arrays são listas ordenadas de valores, que podem ser de qualquer tipo (números, strings, objetos, etc.). Eles são extremamente úteis para armazenar coleções de dados.</p>
+<p>Exemplo:</p>
+<pre><code>const frutas = [&#39;maçã&#39;, &#39;banana&#39;, &#39;laranja&#39;];</code></pre>
+<p>Aqui, `frutas` é um array que contém três strings.</p>
+<h3 is-upgraded><strong>Manipulação de Arrays</strong></h3>
+<p>Assim como em objetos, você pode acessar, adicionar e modificar elementos em um array:</p>
+<ul>
+<li>Acessando um elemento:</li>
+</ul>
+<pre><code>console.log(frutas[0]); // maçã</code></pre>
+<ul>
+<li>Adicionando um novo elemento:</li>
+</ul>
+<pre><code>frutas.push(&#39;uva&#39;);</code></pre>
+<ul>
+<li>Modificando um elemento existente:</li>
+</ul>
+<pre><code>frutas[1] = &#39;abacaxi&#39;;</code></pre>
+<h3 is-upgraded><strong>Métodos Comuns de Arrays</strong></h3>
+<p><code>forEach</code></p>
+<p>Executa uma função para cada elemento do array. Útil para iterar sobre arrays.</p>
+<pre><code>frutas.forEach(fruta =&gt; {
+  console.log(fruta);
+});</code></pre>
+<p><code>map</code></p>
+<p>Cria um novo array com os resultados de uma função aplicada a cada elemento do array original.</p>
+<pre><code>const frutasEmMaiusculas = frutas.map(fruta =&gt; fruta.toUpperCase());</code></pre>
+<p><code>filter</code></p>
+<p>Cria um novo array com todos os elementos que passam em um teste especificado por uma função.</p>
+<pre><code>const frutasComA = frutas.filter(fruta =&gt; fruta.includes(&#39;a&#39;));</code></pre>
+<p><code>reduce</code></p>
+<p>Reduz um array a um único valor, aplicando uma função cumulativa.</p>
+<pre><code>const totalCaracteres = frutas.reduce((total, fruta) =&gt; total + fruta.length, 0);</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Arrays</strong></h3>
+<aside class="warning"><p>1. Crie um array de números e use `map` para dobrar cada número.</p>
+<p>2. Crie um array de strings e use `filter` para selecionar apenas as strings que começam com a letra &#39;a&#39;.</p>
+<p>3. Crie um array de objetos representando produtos e use `reduce` para calcular o preço total dos produtos.</p>
+</aside>
+<h2 is-upgraded><strong>Parte 3: Combinação de Objetos e Arrays</strong></h2>
+<h3 is-upgraded><strong>Trabalhando com Arrays de Objetos</strong></h3>
+<p>Em muitos casos, você terá arrays que contêm objetos. Isso é comum ao lidar com dados mais complexos, como listas de produtos, usuários, ou itens de tarefas.</p>
+<p>Exemplo:</p>
+<pre><code>const produtos = [
+  { nome: &#39;Camiseta&#39;, preco: 25 },
+  { nome: &#39;Calça&#39;, preco: 50 },
+  { nome: &#39;Tênis&#39;, preco: 100 }
+];</code></pre>
+<p>Aqui, `produtos` é um array que contém três objetos, cada um representando um produto.</p>
+<h3 is-upgraded><strong>Manipulação de Arrays de Objetos</strong></h3>
+<p>Você pode usar os métodos de array discutidos anteriormente (`map`, `filter`, `reduce`, etc.) para manipular esses arrays.</p>
+<p>Exemplo usando `map`:</p>
+<pre><code>const nomesDosProdutos = produtos.map(produto =&gt; produto.nome);</code></pre>
+<p>Exemplo usando `filter`:</p>
+<pre><code>const produtosCaros = produtos.filter(produto =&gt; produto.preco &gt; 30);</code></pre>
+<p>Exemplo usando `reduce`:</p>
+<pre><code>const precoTotal = produtos.reduce((total, produto) =&gt; total + produto.preco, 0);</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Combinação de Objetos e Arrays</strong></h3>
+<aside class="warning"><p>1. Crie um array de objetos representando estudantes, cada um com as propriedades `nome` e `nota`. Use `map` para criar um novo array com apenas os nomes dos estudantes.</p>
+<p>2. Use `filter` para criar um array contendo apenas os estudantes que têm nota maior que 7.</p>
+<p>3. Use `reduce` para calcular a média das notas dos estudantes.</p>
+</aside>
+<h2 is-upgraded><strong>Parte 4: Destructuring e Spread/Rest Operators</strong></h2>
+<h3 is-upgraded><strong>Destructuring</strong></h3>
+<p><em>Destructuring </em>é uma maneira concisa de extrair valores de arrays ou propriedades de objetos e atribuí-los a variáveis.</p>
+<p>Exemplo com Objetos:</p>
+<pre><code>const usuario = { nome: &#39;João&#39;, idade: 30 };
+const { nome, idade } = usuario;</code></pre>
+<p>Exemplo com Arrays:</p>
+<pre><code>const numeros = [1, 2, 3];
+const [primeiro, segundo, terceiro] = numeros;</code></pre>
+<p><em>Spread </em>e <em>Rest </em>Operators</p>
+<p>O operador `spread` (`<strong><code>...</code></strong>`) permite expandir um array ou objeto em elementos individuais. O operador `rest` (`<strong><code>...</code></strong>`) permite agrupar um número indefinido de elementos em um array.</p>
+<p>Exemplo com Spread:</p>
+<pre><code>const numeros1 = [1, 2, 3];
+const numeros2 = [4, 5, 6];
+const todosNumeros = [...numeros1, ...numeros2];</code></pre>
+<p>Exemplo com Rest:</p>
+<pre><code>function soma(...numeros) {
+  return numeros.reduce((total, numero) =&gt; total + numero, 0);
+}</code></pre>
+<h3 is-upgraded><strong>Exercícios sobre Destructuring e Spread/Rest Operators</strong></h3>
+<aside class="warning"><p>1. Use destructuring para extrair as propriedades `nome` e `idade` de um objeto `usuario`.</p>
+<p>2. Use o operador spread para combinar dois arrays de números.</p>
+<p>3. Crie uma função que receba um número indeterminado de argumentos e retorne a soma deles usando o operador rest.</p>
+</aside>
 
-GoogleSignin.configure({
-  webClientId: &#34;676797397237-pjipptjgb1nuaomvcm6rd6dpt19jl06n.apps.googleusercontent.com&#34;,
-});
 
-// Telas
-const LoginScreen = ({ login }) =&gt; {
-  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
+      </google-codelab-step>
+    
+      <google-codelab-step label="Navegação entre Telas" duration="120">
+        <aside class="special"><p>Última atualização: 23/09/2024</p>
+</aside>
+<p>Em um navegador da web, você pode criar links para várias páginas usando uma tag âncora &lt;a&gt;. Quando o usuário clica em um link, o URL é enviado para a pilha do histórico do navegador. Quando o usuário clica no botão voltar, o navegador exibe o item do topo da pilha do histórico, de modo que a página atual agora é a página visitada anteriormente. </p>
+<p>O React Native não possui um conceito embutido de uma pilha de histórico global como um navegador da web; é aqui que a biblioteca <strong>React Navigation</strong> é útil. O navegador de pilha do React Navigation implementa uma maneira de seu aplicativo fazer a transição entre as telas e manter o histórico de navegação. Uma variação significativa entre como isso é executado em um navegador da Web e o React Navigation é que o navegador de pilha do React Navigation produz os gestos e animações que você precisaria em dispositivos Android e iOS ao navegar entre rotas ou telas na pilha.</p>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/" target="_blank">Navigation</a></p>
+</aside>
+<h2 is-upgraded><strong>Navigator Components</strong></h2>
+<p>Existem 3 navegadores principais que acompanham o React Navigation, que são adequados para projetos baseados em iOS e Android.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\405c5fc2961a1da5.png"></p>
+<h2 is-upgraded><strong>Stack Navigator</strong></h2>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/stack-navigator" target="_blank">Stack Navigator</a></p>
+</aside>
+<p>Para configurar um navegador de pilha, declare um objeto de navegador de pilha por meio da função <code>createStackNavigator</code>. Depois os componentes <code>Navigator</code> e <code>Screen</code> podem ser usados ​​para incorporar e agrupar as telas desejadas.</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
 
+function Home({ navigation }) {
   return (
-    &lt;View style={styles.layout}&gt;
-      {isSigninInProgress &amp;&amp; &lt;ActivityIndicator /&gt;}
-      &lt;Text style={styles.title}&gt;Login&lt;/Text&gt;
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home screen&lt;/Text&gt;
       &lt;Button
-        title=&#34;entrar&#34;
-        onPress={() =&gt; {
-          setIsSigninInProgress(true);
-          onLogin().then((user) =&gt; {
-            console.log(user);
-            login(user);
-          });
-        }}
+        title=&#34;Go to Profile&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Profile&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Profile() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen name=&#34;Home&#34; component={Home} /&gt;
+        &lt;Stack.Screen name=&#34;Profile&#34; component={Profile} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+export default App;</pre>
+<h2 is-upgraded><strong>Bottom Tabs Navigator</strong></h2>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/bottom-tab-navigator" target="_blank">Bottom Tabs Navigator</a></p>
+</aside>
+<p>Possivelmente, o estilo mais comum de navegação em aplicativos móveis é a navegação baseada em guias. Podem ser guias na parte inferior da tela ou na parte superior da tela.</p>
+<p>O exemplo a seguir demonstra como construir um navegador de guias inferiores:</p>
+<pre>import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import MaterialCommunityIcons from &#39;react-native-vector-icons/MaterialCommunityIcons&#39;;
+import { View, Text } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+
+function HomeScreen() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home!&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function SettingsScreen() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Settings!&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator
+        initialRouteName=&#34;HomeScreen&#34;
+        screenOptions=&#123;&#123;
+          tabBarActiveTintColor: &#39;#e91e63&#39;,
+        }}&gt;
+        &lt;Tab.Screen
+          name=&#34;HomeScreen&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            tabBarLabel: &#39;Home&#39;,
+            tabBarIcon: ({ color, size }) =&gt; (
+              &lt;MaterialCommunityIcons name=&#34;home&#34; color={color} size={size} /&gt;
+            ),
+          }}
+        /&gt;
+
+        &lt;Tab.Screen
+          name=&#34;SettingsScreen&#34;
+          component={SettingsScreen}
+          options=&#123;&#123;
+            tabBarLabel: &#39;Profile&#39;,
+            tabBarIcon: ({ color, size }) =&gt; (
+              &lt;MaterialCommunityIcons
+                name=&#34;account&#34;
+                color={color}
+                size={size}
+              /&gt;
+            ),
+          }}
+        /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</pre>
+<h2 is-upgraded><strong>Navegador de gaveta</strong></h2>
+<aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/drawer-navigator" target="_blank">Drawer Navigator</a></p>
+</aside>
+<p>Outro navegador útil que permite que as telas sejam animadas de um lado da tela a ser revelada e animadas de volta quando fechadas. </p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+
+function Feed() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Feed Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Notifications() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Notifications Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+function Profile() {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    &lt;Drawer.Navigator initialRouteName=&#34;Feed&#34;&gt;
+      &lt;Drawer.Screen
+        name=&#34;Feed&#34;
+        component={Feed}
+        options=&#123;&#123; drawerLabel: &#39;Home&#39; }}
+      /&gt;
+      &lt;Drawer.Screen
+        name=&#34;Notifications&#34;
+        component={Notifications}
+        options=&#123;&#123; drawerLabel: &#39;Updates&#39; }}
+      /&gt;
+      &lt;Drawer.Screen
+        name=&#34;Profile&#34;
+        component={Profile}
+        options=&#123;&#123; drawerLabel: &#39;Profile&#39; }}
+      /&gt;
+    &lt;/Drawer.Navigator&gt;
+  );
+}
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;MyDrawer /&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tutoriais sobre navegação entre telas" duration="0">
+        <p>Nos capítulos seguintes temos tutorias com exercícios práticos para reforçar o aprendizado dos elementos utilizados para programar em React Native a navegação entre telas de apps.</p>
+<h2 is-upgraded><strong>Exercício 1: Stack Navigation</strong></h2>
+<p>Crie um aplicativo React Native com uma navegação em pilha. O aplicativo deve ter duas telas: Home e Detalhes. Na tela Home, exiba um botão &#34;Ir para Detalhes&#34;. Quando o botão for clicado, o aplicativo deve navegar para a tela Detalhes. Na tela Detalhes, exiba um botão &#34;Voltar para Home&#34;. Ao clicar no botão, o aplicativo deve voltar para a tela Home.</p>
+<h3 is-upgraded><strong>Passo 1: Configuração da navegação em pilha</strong></h3>
+<p>Abra o arquivo App.js e substitua o código existente pelo seguinte:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+import DetailsScreen from &#39;./src/screens/DetailsScreen&#39;;
+
+const Stack = createStackNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator initialRouteName=&#34;Home&#34;&gt;
+        &lt;Stack.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+        &lt;Stack.Screen name=&#34;Details&#34; component={DetailsScreen} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<h3 is-upgraded><strong>Passo 2: Criação das telas Home e Details</strong></h3>
+<p>Crie um diretório src/screens e adicione os seguintes arquivos:</p>
+<p>Arquivo <code>src/screens/HomeScreen.js</code>:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const HomeScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Ir para Detalhes&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Details&#39;)}
       /&gt;
     &lt;/View&gt;
   );
 };
 
-const HomeScreen = ({ user, login }) =&gt; (
-  &lt;View style={styles.layout}&gt;
-    &lt;Text style={styles.title}&gt;Home&lt;/Text&gt;
-    &lt;Image
-      style=&#123;&#123; width: 300, height: 300 }}
-      source=&#123;&#123;
-        uri: user.user.photo,
-      }}
-    /&gt;
-    &lt;Button title=&#34;Sair&#34; onPress={() =&gt; onLogout().then(() =&gt; login(false))} /&gt;
+export default HomeScreen;</pre>
+<p>Arquivo <code>src/screens/DetailsScreen.js</code>:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const DetailsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Tela de Detalhes&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Voltar para Home&#34;
+        onPress={() =&gt; navigation.goBack()}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default DetailsScreen;</pre>
+<h3 is-upgraded><strong>Passo 3: Execução do aplicativo</strong></h3>
+<p>Execute o aplicativo no seu dispositivo usando Expo. </p>
+<p>Agora você deve ter um aplicativo React Native com navegação em pilha. A tela inicial exibirá o conteúdo da tela Home e um botão &#34;Ir para Detalhes&#34;. Ao clicar no botão, o aplicativo navegará para a tela Detalhes, onde será exibido o conteúdo da tela e um botão &#34;Voltar para Home&#34;. Ao clicar no botão, o aplicativo voltará</p>
+<h2 is-upgraded><strong>Exercício 2: Drawer Navigation</strong></h2>
+<p>Crie um aplicativo React Native com uma navegação em gaveta (drawer). O aplicativo deve ter três telas: Home, Perfil e Configurações. Na tela Home, exiba um botão de menu que, quando clicado, abre o drawer com as opções &#34;Perfil&#34; e &#34;Configurações&#34;. Ao selecionar uma opção no drawer, o aplicativo deve navegar para a tela correspondente. Adicione um botão &#34;Voltar para Home&#34; em cada tela para permitir a navegação de volta para a tela Home.</p>
+<h3 is-upgraded><strong>Passo 1: Importação dos componentes</strong></h3>
+<p>No arquivo App.js, adicione as seguintes linhas no topo do arquivo:</p>
+<pre>import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { HomeScreen } from &#39;./src/screens/HomeScreen&#39;
+import { ProfileScreen } from &#39;./src/screens/ProfileScreen&#39;
+import { SettingsScreen} from &#39;./src/screens/SettingsScreen&#39;</pre>
+<p>Neste passo, estamos importando os componentes necessários para configurar a navegação em gaveta no nosso aplicativo. O <code>createDrawerNavigator</code> é um componente fornecido pelo pacote @react-navigation/drawer, que nos permite criar um menu de navegação em gaveta. O <code>NavigationContainer</code> é o componente de nível superior fornecido pelo pacote @react-navigation/native que envolve toda a nossa navegação.</p>
+<h3 is-upgraded><strong>Passo 2: Configuração das telas</strong></h3>
+<p>Crie um diretório src/screens e adicione os seguintes arquivos:</p>
+<p>Arquivo <code>src/screens/HomeScreen</code> </p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; (
+  &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+    &lt;Text&gt;Home Screen&lt;/Text&gt;
   &lt;/View&gt;
 );
 
+export default HomeScreen;</pre>
+<p>Arquivo <code>src/screens/ProfileScreen </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const ProfileScreen = () =&gt; (
+  &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+    &lt;Text&gt;Profile Screen&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+export default ProfileScreen;</pre>
+<p>Arquivo <code>src/screens/SettingsScreen </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const SettingsScreen = () =&gt; (
+  &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+    &lt;Text&gt;Settings Screen&lt;/Text&gt;
+  &lt;/View&gt;
+);
+
+
+export default SettingsScreen;</pre>
+<p>Neste passo, estamos criando três telas básicas: <code>HomeScreen</code>, <code>ProfileScreen</code> e <code>SettingsScreen</code>. Cada tela é um componente de função que retorna um JSX contendo um elemento View que exibe um texto.</p>
+<h3 is-upgraded><strong>Passo 3: Configuração do Drawer Navigator</strong></h3>
+<p>No arquivo App.js, adicione o seguinte código para criar o componente do Drawer Navigator:</p>
+<pre>const Drawer = createDrawerNavigator();
+
+const App = () =&gt; (
+  &lt;NavigationContainer&gt;
+    &lt;Drawer.Navigator initialRouteName=&#34;Home&#34;&gt;
+      &lt;Drawer.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+      &lt;Drawer.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
+      &lt;Drawer.Screen name=&#34;Settings&#34; component={SettingsScreen} /&gt;
+    &lt;/Drawer.Navigator&gt;
+  &lt;/NavigationContainer&gt;
+);
+
+export default App;</pre>
+<p>Neste passo, estamos criando um componente Drawer usando <code>createDrawerNavigator()</code> e configurando o <code>initialRouteName</code> para &#34;Home&#34;. Em seguida, estamos adicionando as telas ao <code><Drawer.Navigator></code> usando <code>Drawer.Screen</code>. Cada tela é mapeada pelo nome da tela e seu respectivo componente.</p>
+<p>O NavigationContainer envolve o componente Drawer.Navigator e é responsável por fornecer o contexto de navegação para a nossa aplicação.</p>
+<h3 is-upgraded><strong>Passo 4: Execução do aplicativo</strong></h3>
+<p>Agora, você terá um aplicativo com navegação em gaveta (drawer navigation). A tela inicial exibirá o texto &#34;Home Screen&#34;. Ao tocar no ícone de menu no canto superior esquerdo, você verá as opções &#34;Profile&#34; e &#34;Settings&#34;. Ao selecionar uma opção, o aplicativo navegará para a tela correspondente.</p>
+<p>No início, o aplicativo exibe a tela &#34;Home Screen&#34;. Ao tocar no ícone do menu no canto superior esquerdo, o menu em gaveta é exibido, mostrando as opções &#34;Profile&#34; e &#34;Settings&#34;. Ao selecionar a opção &#34;Profile&#34;, o aplicativo navega para a tela &#34;Profile Screen&#34;. Da mesma forma, selecionar a opção &#34;Settings&#34; leva o aplicativo para a tela &#34;Settings Screen&#34;. O usuário pode navegar entre as telas tocando nas opções do menu ou usando o botão voltar do dispositivo para retornar à tela anterior. Experimente tocar nas diferentes opções do drawer para ver a navegação em ação.</p>
+<h2 is-upgraded><strong>Exercício 3: Tab Navigation</strong></h2>
+<p>Crie um aplicativo React Native com uma navegação em abas (tabs). O aplicativo deve ter três telas: Feed, Explorar e Notificações. Na parte inferior do aplicativo, exiba uma barra de navegação com as opções &#34;Feed&#34;, &#34;Explorar&#34; e &#34;Notificações&#34;. Ao selecionar uma opção na barra de navegação, o aplicativo deve exibir o conteúdo correspondente à tela selecionada. Adicione um botão &#34;Voltar para Feed&#34; em cada tela para permitir a navegação de volta para a tela Feed.</p>
+<h3 is-upgraded><strong>Passo 1: Configurando a navegação</strong></h3>
+<p>Vamos criar as telas e configurar a navegação em abas. Crie um diretório chamado src na raiz do projeto. Dentro do diretório src, crie um diretório chamado screens.</p>
+<p>Dentro do diretório screens, crie três arquivos: FeedScreen.js, ExploreScreen.js e NotificationsScreen.js. Esses arquivos conterão o código das respectivas telas.</p>
+<p>Abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<p>Arquivo <code>App.js </code></p>
+<pre>import React from &#39;react&#39;;
+import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import FeedScreen from &#39;./src/screens/FeedScreen&#39;;
+import ExploreScreen from &#39;./src/screens/ExploreScreen&#39;;
+import NotificationsScreen from &#39;./src/screens/NotificationsScreen&#39;;
+
+const Tab = createBottomTabNavigator();
+
 const App = () =&gt; {
-  const [user, setUser] = useState(false);
-  return &lt;View style={styles.container}&gt;{user ? &lt;HomeScreen user={user} login={setUser} /&gt; : &lt;LoginScreen login={setUser} /&gt;}&lt;/View&gt;;
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator&gt;
+        &lt;Tab.Screen name=&#34;Feed&#34; component={FeedScreen} /&gt;
+        &lt;Tab.Screen name=&#34;Explorar&#34; component={ExploreScreen} /&gt;
+        &lt;Tab.Screen name=&#34;Notificações&#34; component={NotificationsScreen} /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
 };
 
-export default App;
+export default App;</pre>
+<p>Aqui, importamos os componentes necessários do React Navigation e as telas que criamos. Em seguida, definimos um Tab.Navigator dentro do NavigationContainer. Dentro do Tab.Navigator, usamos Tab.Screen para definir as telas e seus respectivos nomes.</p>
+<h3 is-upgraded><strong>Passo 2: Implementando as telas</strong></h3>
+<p>Agora, vamos implementar o código das telas.</p>
+<p>Abra o arquivo FeedScreen.js dentro do diretório src/screens e adicione o seguinte código:</p>
+<p>Arquivo <code>src/screens/FeedScreen  </code></p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  layout: {
-    flex: 1,
-    justifyContent: &#34;center&#34;,
-    alignItems: &#34;center&#34;,
-  },
-  title: {
-    fontSize: 32,
-    marginBottom: 16,
-  },
-});</code></pre>
+const FeedScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Feed Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Explorar&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Explorar&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default FeedScreen;</pre>
+<p>Aqui, importamos os componentes necessários do React Native. A tela FeedScreen é uma função de componente que recebe o parâmetro navigation (usado para navegar entre as telas). No retorno da função, exibimos um texto simples e um botão que navega para a tela &#34;Explorar&#34; ao ser pressionado.</p>
+<p>Repita o passo 2 para as telas ExploreScreen.js e NotificationsScreen.js. Use o código a seguir para as respectivas telas:</p>
+<p>Arquivo <code>src/screens/ExploreScreen.js</code></p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const ExploreScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Explore Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Voltar para Feed&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Feed&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default ExploreScreen;</pre>
+<p>Arquivo <code>src/screens/NotificationsScreen.js:</code></p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const NotificationsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Notifications Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Voltar para Feed&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Feed&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default NotificationsScreen;</pre>
+<h2 is-upgraded><strong>Exercício 4: Personalizando o cabeçalho em um navegador Stack</strong></h2>
+<p>Neste exercício, você irá personalizar o cabeçalho de um navegador Stack em um aplicativo React Native.</p>
+<p>Crie um arquivo chamado HomeScreen.js no diretório src/screens. Este será o componente de tela inicial para o exemplo.</p>
+<p>Arquivo <code>src/screens/HomeScreen  </code></p>
+<pre>import React from &#39;react&#39;;
+import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>Em seguida, abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<p>Arquivo <code>/App.js  </code></p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+
+const Stack = createStackNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen
+          name=&#34;Home&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            title: &#39;Página Inicial&#39;,
+            headerStyle: {
+              backgroundColor: &#39;#f4511e&#39;,
+            },
+            headerTintColor: &#39;#fff&#39;,
+            headerTitleStyle: {
+              fontWeight: &#39;bold&#39;,
+            },
+          }}
+        /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation e as telas. Em seguida, definimos um Stack.Navigator dentro do NavigationContainer. Dentro do Stack.Navigator, usamos Stack.Screen para definir a tela inicial, especificando opções de cabeçalho personalizadas.</p>
+<h2 is-upgraded><strong>Exercício 5: Personalizando o cabeçalho em um navegador Tab</strong></h2>
+<p>Neste exercício, você irá personalizar o cabeçalho de um navegador Tab em um aplicativo React Native. Crie um arquivo chamado HomeScreen.js no diretório src/screens. Este será o componente de tela inicial para o exemplo.</p>
+<p>Arquivo <code>src/screens/HomeScreen  </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>Em seguida, abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+
+const Tab = createBottomTabNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator
+        screenOptions=&#123;&#123;
+          headerStyle: {
+            backgroundColor: &#39;#f4511e&#39;,
+          },
+          headerTintColor: &#39;#fff&#39;,
+          headerTitleStyle: {
+            fontWeight: &#39;bold&#39;,
+          },
+        }}
+      &gt;
+        &lt;Tab.Screen
+          name=&#34;Home&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            title: &#39;Página Inicial&#39;,
+          }}
+        /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation e as telas. Em seguida, definimos um Tab.Navigator dentro do NavigationContainer. Definimos as opções de cabeçalho personalizadas no screenOptions do Tab.Navigator para serem aplicadas a todas as telas do navegador Tab.</p>
+<h2 is-upgraded><strong>Exercício 6: Personalizando o cabeçalho em um navegador Drawer</strong></h2>
+<p>Neste exercício, você irá personalizar o cabeçalho de um navegador Drawer em um aplicativo React Native.</p>
+<p>Crie um arquivo chamado HomeScreen.js no diretório src/screens. Este será o componente de tela inicial para o exemplo.</p>
+<p>Arquivo <code>src/screens/HomeScreen  </code></p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const HomeScreen = () =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>Em seguida, abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+
+const Drawer = createDrawerNavigator();
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator
+        useLegacyImplementation
+        screenOptions=&#123;&#123;
+          headerStyle: {
+            backgroundColor: &#39;#f4511e&#39;,
+          },
+          headerTintColor: &#39;#fff&#39;,
+          headerTitleStyle: {
+            fontWeight: &#39;bold&#39;,
+          },
+        }}
+      &gt;
+        &lt;Drawer.Screen
+          name=&#34;Home&#34;
+          component={HomeScreen}
+          options=&#123;&#123;
+            title: &#39;Página Inicial&#39;,
+          }}
+        /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation e as telas. Em seguida, definimos um Drawer.Navigator dentro do NavigationContainer. Definimos as opções de cabeçalho personalizadas no screenOptions do Drawer.Navigator para serem aplicadas a todas as telas do navegador Drawer.</p>
+<h2 is-upgraded><strong>Exercício 7: Navegação aninhada com Stack Navigator dentro de um Tab Navigator</strong></h2>
+<p>Neste exercício, você irá criar uma navegação aninhada com um Stack Navigator dentro de um Tab Navigator em um aplicativo React Native.</p>
+<h3 is-upgraded><strong>Passo 1: Criando as telas</strong></h3>
+<p>Crie os seguintes arquivos para as telas dentro do diretório src/screens:</p>
+<p>HomeScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const HomeScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Details&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Details&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>DetailsScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const DetailsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Details Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Profile&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Profile&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default DetailsScreen;</pre>
+<p>ProfileScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const ProfileScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go back to Home&#34;
+        onPress={() =&gt; navigation.goBack()}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default ProfileScreen;</pre>
+<h3 is-upgraded><strong>Passo 2: Configurando a navegação aninhada</strong></h3>
+<p>Abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+import DetailsScreen from &#39;./src/screens/DetailsScreen&#39;;
+import ProfileScreen from &#39;./src/screens/ProfileScreen&#39;;
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const HomeStack = () =&gt; {
+  return (
+    &lt;Stack.Navigator&gt;
+      &lt;Stack.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+      &lt;Stack.Screen name=&#34;Details&#34; component={DetailsScreen} /&gt;
+    &lt;/Stack.Navigator&gt;
+  );
+};
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator&gt;
+        &lt;Tab.Screen name=&#34;HomeStack&#34; component={HomeStack} /&gt;
+        &lt;Tab.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation, as telas e criamos os navegadores Tab e Stack. O navegador Stack contém as telas Home e Details, enquanto o navegador Tab contém o navegador Stack HomeStack e a tela Profile.</p>
+<h2 is-upgraded><strong>Exercício 8: Navegação aninhada com Stack Navigator dentro de um Drawer Navigator</strong></h2>
+<p>Neste exercício, você irá criar uma navegação aninhada com um Drawer Navigator dentro de um Stack Navigator em um aplicativo React Native.</p>
+<h3 is-upgraded><strong>Passo 1: Criando as telas</strong></h3>
+<p>Crie os seguintes arquivos para as telas dentro do diretório src/screens:</p>
+<p>HomeScreen.js:</p>
+<pre>import { View, Text, Button } from &#39;react-native&#39;;
+
+const HomeScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Home Screen&lt;/Text&gt;
+      &lt;Button
+        title=&#34;Go to Details&#34;
+        onPress={() =&gt; navigation.navigate(&#39;Details&#39;)}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default HomeScreen;</pre>
+<p>DetailsScreen.js:</p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const DetailsScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Details Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default DetailsScreen;</pre>
+<p>ProfileScreen.js:</p>
+<pre>import { View, Text } from &#39;react-native&#39;;
+
+const ProfileScreen = ({ navigation }) =&gt; {
+  return (
+    &lt;View style=&#123;&#123; flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39; }}&gt;
+      &lt;Text&gt;Profile Screen&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default ProfileScreen;</pre>
+<h3 is-upgraded><strong>Passo 2: Configurando a navegação aninhada</strong></h3>
+<p>Abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+import { createStackNavigator } from &#39;@react-navigation/stack&#39;;
+import { createDrawerNavigator } from &#39;@react-navigation/drawer&#39;;
+import HomeScreen from &#39;./src/screens/HomeScreen&#39;;
+import DetailsScreen from &#39;./src/screens/DetailsScreen&#39;;
+import ProfileScreen from &#39;./src/screens/ProfileScreen&#39;;
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const HomeStack = () =&gt; {
+  return (
+    &lt;Stack.Navigator&gt;
+      &lt;Stack.Screen name=&#34;Home&#34; component={HomeScreen} /&gt;
+      &lt;Stack.Screen name=&#34;Details&#34; component={DetailsScreen} /&gt;
+    &lt;/Stack.Navigator&gt;
+  );
+};
+
+const App = () =&gt; {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator useLegacyImplementation&gt;
+        &lt;Drawer.Screen name=&#34;HomeStack&#34; component={HomeStack} /&gt;
+        &lt;Drawer.Screen name=&#34;Profile&#34; component={ProfileScreen} /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+};
+
+export default App;</pre>
+<p>Neste código, importamos os componentes necessários do React Navigation, as telas e criamos os navegadores Stack e Drawer. O navegador Stack contém as telas Home e Details, enquanto o navegador Drawer contém o navegador Stack HomeStack e a tela Profile.</p>
+<h2 is-upgraded><strong>Exercicio 9</strong></h2>
+<p>Criar um app com o seguinte esquema de navegação</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\c62ee92a666fd373.png"></p>
 
 
       </google-codelab-step>
