@@ -118,33 +118,12 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Configuração da biblioteca React Native Firebase" duration="20">
+      <google-codelab-step label="Configuração" duration="20">
         <ol type="1" start="1">
-<li>O arquivo de configuração <a href="https://drive.google.com/file/d/1Swy1c1RTRQe1stdgkGGxxyfpWGkFlJ2a/view?usp=sharing" target="_blank"><code>google-services.json</code></a> que obtivemos no passo 4 deve ser copiado para a raiz de seu projeto.</li>
-</ol>
-<p class="image-container"><img style="width: 231.00px" src="img\\8940f81426200038.png"></p>
-<ol type="1" start="2">
-<li>Abra o arquivo <code>/app.json</code> e adicione o seguinte código:</li>
-</ol>
-<pre><code>{
-  &#34;expo&#34;: {
-
-    ...
-
-    &#34;plugins&#34;: [&#34;@react-native-google-signin/google-signin&#34;],
-    &#34;android&#34;: {
-
-      ...
-
-      &#34;googleServicesFile&#34;: &#34;./google-services.json&#34;
-    },
-  }
-}</code></pre>
-<ol type="1" start="3">
 <li>Execute o comando para criar  o projeto Android</li>
 </ol>
 <pre><code>npx expo prebuild</code></pre>
-<ol type="1" start="4">
+<ol type="1" start="2">
 <li>Adicione a linha indicada abaixo no arquivo <code>/android/build.gradle</code>:</li>
 </ol>
 <pre><code>buildscript {
@@ -158,7 +137,7 @@
 // ...
 
 }</code></pre>
-<ol type="1" start="5">
+<ol type="1" start="3">
 <li>Adicione as linhas abaixo no fim do arquivo <code>/android/gradle.properties</code></li>
 </ol>
 <pre><code># config para otimizar o build
