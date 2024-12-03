@@ -72,8 +72,11 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Android development environment" duration="0">
-        <h2 is-upgraded><strong>1. Instale o Android Studio</strong></h2>
+      <google-codelab-step label="Android SDK" duration="0">
+        <p>Neste momento podemos optar por instalar a IDE Android Studio ou utilizar as ferramentas de linha de comando para instalar o Android SDK. Vamos abordar os dois caminhos. </p>
+<h2 is-upgraded><strong>1. Android Studio</strong></h2>
+<p>A instalação do IDE será apenas para aproveitar a interface gráfica para realizar a instalação do Android SDK. Neste curso não usaremos a IDE para edição de código. Se quiser poderá utilizar a instalação usando as ferramentas de linha de comando e passar para o item 2.</p>
+<h3 is-upgraded><strong>1.1 Instalar o IDE </strong></h3>
 <p>Baixe o <a href="https://developer.android.com/studio/index.html" target="_blank">instalador</a>. Enquanto estiver no assistente de instalação do Android Studio, certifique-se de que as caixas ao lado de todos os itens a seguir estejam marcadas: </p>
 <ul>
 <li>Android SDK </li>
@@ -81,7 +84,7 @@
 <li>Android Virtual Device</li>
 <li>Se você ainda não estiver usando o Hyper-V: (<a href="https://android-developers.googleblog.com/2018/07/android-emulator-amd-processor-hyper-v.html" target="_blank">Veja aqui para AMD ou Hyper-V</a>) </li>
 </ul>
-<h2 is-upgraded><strong>2. Install the Android SDK</strong></h2>
+<h3 is-upgraded><strong>12. Instalar o Android SDK</strong></h3>
 <p>O Android Studio instala o Android SDK mais recente por padrão. No entanto, construir um aplicativo React Native com código nativo requer o Android 14 (UpsideDownCake) SDK em particular. </p>
 <p>SDKs Android adicionais podem ser instalados por meio do SDK Manager no Android Studio. Para fazer isso, abra o Android Studio, clique no botão &#34;More Actions&#34; e selecione &#34;SDK Manager&#34;.</p>
 <p class="image-container"><img alt="Android Studio Welcome" style="width: 718.11px" src="img\\87414b34882c7bce.png"></p>
@@ -91,6 +94,30 @@
 <li>Intel x86 Atom_64 System Image or Google APIs Intel x86 Atom System Image</li>
 </ul>
 <p>Em seguida, selecione a aba &#34;SDK Tools&#34; e marque a caixa ao lado de &#34;Show Package Details&#34; aqui também. Procure e expanda a entrada Android SDK Build-Tools, então certifique-se de que 34.0.0 esteja selecionado. Por fim, clique em &#34;Apply&#34; para baixar e instalar o Android SDK e as ferramentas de build relacionadas.</p>
+<h2 is-upgraded><strong>2. Instalando o Android SDK com ferramentas de linha de comando</strong></h2>
+<ol type="1" start="1">
+<li>Faça o download do <a href="https://developer.android.com/studio?hl=pt-br#somente-ferramentas-de-linha-de-comando" target="_blank">pacote de ferramentas de linha de comando</a> </li>
+<li>Mova a pasta cmdline-tools descompactado para a pasta <code>C:\Users\<nome de usuário>\AppData\Local\Android\Sdk.</code></li>
+<li>Defina a seguinte variável de ambiente (veja como fazer no passo 3 a seguir)</li>
+</ol>
+<p><code>ANDROID_SDK_ROOT="C:\Users\<nome de usuário>\AppData\Local\Android\Sdk"</code></p>
+<ol type="1" start="4">
+<li>Adicione à variável de ambiente <code>PATH</code>, os seguintes caminhos:</li>
+</ol>
+<p><code>"C:\Users\<nome de usuário>\AppData\Local\Android\Sdk\cmdline-tools\latest\bin"</code></p>
+<p><code>"C:\Users\<nome de usuário>\AppData\Local\Android\Sdk\emulator"</code></p>
+<ol type="1" start="5">
+<li>Instalar a versão mais nova das cmdline-tools</li>
+</ol>
+<p>entre na pasta <code>C:\Users\<nome de usuário>\AppData\Local\Android\Sdk\cmdline-tools\bin</code> e execute o comando:</p>
+<p><code>sdkmanager --sdk_root=%ANDROID_SDK_ROOT% "cmdline-tools;latest"</code></p>
+<ol type="1" start="6">
+<li>Instale as plataformas, ferramentas de compilação e extras</li>
+</ol>
+<p><code>sdkmanager "platforms;android-33" "build-tools;33.0.2"</code></p>
+<p><code>sdkmanager "extras;google;m2repository" "extras;android;m2repository"</code></p>
+<p><code>sdkmanager "platform-tools" "tools"</code></p>
+<p><code>sdkmanager --licenses</code></p>
 <h2 is-upgraded><strong>3. Configure a variável de ambiente ANDROID_HOME </strong></h2>
 <p>As ferramentas React Native exigem que algumas variáveis ​​de ambiente sejam configuradas para criar aplicativos com código nativo. Abra as configurações do windows e procure por &#34;variáveis de ambiente&#34;.  </p>
 <table>
@@ -101,7 +128,7 @@
 <p>Clique em &#34;Variáveis de Ambiente&#34; e em &#34;Novo...&#34; (Variáveis do sistema) para criar uma nova variável de sistema ANDROID_HOME que aponta para o caminho para seu Android SDK:</p>
 <p class="image-container"><img style="width: 718.11px" src="img\\1b44c0c57962b744.png"></p>
 <p>O SDK é instalado, por padrão, no seguinte local: <code>C:\Users\nome_do_usuário\AppData\Local\Android\Sdk</code></p>
-<h2 is-upgraded><strong>4. Adicionar platform-tools ao Path</strong></h2>
+<h2 is-upgraded>4<strong>. Adicionar platform-tools ao Path</strong></h2>
 <p>Procure pela palavra Path na lista de variáveis do sistema e clique  no botão Editar... e na janela que aparecer clique no botão Novo. O caminho é <code>C:\Users\nome_do_usuário\AppData\Local\Android\Sdk\platform-tools.</code></p>
 
 
