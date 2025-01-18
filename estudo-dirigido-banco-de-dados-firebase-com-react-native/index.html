@@ -391,9 +391,12 @@ const styles = StyleSheet.create({
 <ul>
 <li><strong>c</strong>riar o projeto inicial a partir do código fornecido neste estudo dirigido</li>
 </ul>
-<pre>git add .
+<pre>git init
+git add .
 git commit -m &#34;código inicial&#34;
-git push</pre>
+git branch -M main
+git remote add origin &lt;repositório criado pelo github classroom&gt;
+git push -u origin main</pre>
 <h3 is-upgraded><strong>Tarefa 2 (6 pontos) - excluir documento</strong></h3>
 <ul>
 <li>crie um botão de exclusão ao lado de cada pessoa na lista</li>
