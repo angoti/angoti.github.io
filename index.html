@@ -1,204 +1,447 @@
-<!DOCTYPE html>
-<html lang="pt">
 
+<!doctype html>
+
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Coleção de Codelabs desenvolvidos pelo professor Angoti - programação web e mobile">
-  <meta name=" author" content="Edson Angoti Júnior">
-  <title>Codelabs do professor Angoti</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-    crossorigin="anonymous">
-
-
-  <!-- Favicons -->
-  <link rel="icon" href="index_files/computer_black_24dp.svg">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <!-- JQuery -->
-  <Script src="https://code.jquery.com/jquery-3.6.1.js"></Script>
-
-  <!-- Excel-like Bootstrap Table Sorting And Filtering Plugin -->
-  <script src="/excel-bootstrap-table-filter-bundle.js"></script>
-  <link rel="stylesheet" href="/excel-bootstrap-table-filter-style.css">
-
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Estudo dirigido - Banco de dados Firebase com React Native</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-      width: 100%;
-      height: 15vw;
-      object-fit: scale-down;
+    .success {
+      color: #1e8e3e;
     }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
+    .error {
+      color: red;
     }
   </style>
-
-
 </head>
-
-<body cz-shortcut-listen="true">
-  <a name="topo"></a>
-  <header>
-
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <div class="navbar-brand d-flex flex-grow-1 justify-content-between">
-          <div class="d-flex flex-grow-1 align-items-center justify-content-around">
-            <img width="300" class="rounded" style="background-color:white; padding: 10px;" src="./logo2.png" />
-            <div class="d-flex align-items-center">
-              <span class="material-icons mx-2">computer</span>
-              <strong>Codelabs do professor Angoti</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <div class="container mt-4">
-      <div class="row align-items-start">
-        <div class="col">
-          <!-- Programação Orientada a Objetos
-          <h5>Programação Orientada a Objetos</h5>
-          <ol class="list-group list-group-numbered">
-            <a href="poo/interface/index.html" class="list-group-item list-group-item-action">Interface</a>
-          </ol> -->
-          <!-- Spring boot -->
-          <h5>Spring Boot</h5>
-          <ol class="list-group list-group-numbered">
-            <a href="spring1/index.html" class="list-group-item list-group-item-action">Tutorial para orientar o processo de criação de um serviço da Web RESTful e Spring Boot</a>
-            <a href="spring2/index.html" class="list-group-item list-group-item-action">Desenvolvendo uma aplicação CRUD usando MySQL e JPA - uma entidade</a>
-            <a href="orm/index.html" class="list-group-item list-group-item-action">Projeto Spring com persistência JPA</a>
-            <a href="spring4/index.html" class="list-group-item list-group-item-action">Tratamento de exceções e a anotação @ControllerAdvice</a>
-            <a href="spring3/index.html" class="list-group-item list-group-item-action">Aplicação Web MVC com JdbcTemplate, Thymeleaf, Security e hospedagem no
-              Heroku</a>
-            <a href="/spring-validation/index.html" class="list-group-item list-group-item-action">Validação de formulário</a>
-            <a href="/springboot-exceptionhandling/index.html" class="list-group-item list-group-item-action">Tratamento de exceções</a>
-            <a href="/springboot-auth/index.html" class="list-group-item list-group-item-action">Autenticação e autorização</a>
-          </ol>
-          <!-- React -->
-          <h5>React</h5>
-          <div class="list-group list-group-numbered">
-            <a href=" react/index.html" class="list-group-item list-group-item-action">Introdução ao React</a>
-          </div>
-        </div>
-        <div class="col">
-
-          <!-- React Native -->
-          <h5>React Native</h5>
-          <div class="list-group list-group-numbered">
-            <a href="/matematicando/index.html" class="list-group-item list-group-item-action">Ambiente de desenvolvimento</a>
-            <a href="rn-introduction/index.html" class="list-group-item list-group-item-action">Introdução à React Native</a>
-            <a href="/react-native-componentes/index.html" class="list-group-item list-group-item-action">Componentes</a>
-            <a href="/react-native-flatlist/index.html" class="list-group-item list-group-item-action">FlatList</a>
-            <a href="/react-native-navigation/index.html" class="list-group-item list-group-item-action">Navegação</a>
-            <a href="/react-native-network/index.html" class="list-group-item list-group-item-action">Networking</a>
-            <a href="rncursocompletoparte1/index.html" class="list-group-item list-group-item-action">Curso completo - 1ª parte</a>
-            <a href="reactnative/index.html" class="list-group-item list-group-item-action">App chat usando o FireBase, React Navigation e Hooks useReducer e useMemo</a>
-            <a href="/oficina/index.html" class="list-group-item list-group-item-action">Oficina SNCT Jogo React Native</a>
-            <a href="rnexpo-google-login/index.html" class="list-group-item list-group-item-action">Autenticação com Google (expo)</a>
-            <a href="/reactnative-login-google/index.html" class="list-group-item list-group-item-action">Autenticação com Google</a>
-            <a href="/estudo-dirigido-banco-de-dados-firebase-com-react-native/index.html#0" class="list-group-item list-group-item-action">Estudo dirigido - Banco de dados Firebase com React Native</a>
-          </div>
-        </div>
-      </div>
-    </div>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="estudo-dirigido-banco-de-dados-firebase-com-react-native"
+                  title="Estudo dirigido - Banco de dados Firebase com React Native"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="0">
+        <p class="image-container"><img style="width: 670.00px" src="img\\aef026de8ef22b03.png"></p>
+<h2 is-upgraded><strong>Objetivo</strong></h2>
+<ul>
+<li>Aprender os conceitos de leitura e gravação de dados em um servidor usando a função fetch.</li>
+<li>Aplicar esses conceitos em um projeto React Native com Firebase.</li>
+<li>Aprender a configurar o Firebase em um projeto React Native.</li>
+<li>Implementar funções para ler e salvar dados no Firebase usando fetch.</li>
+</ul>
+<h2 is-upgraded><strong>Conceitos importantes</strong></h2>
+<table>
+<tr><td colspan="1" rowspan="1"><h3 is-upgraded><strong>O que é fetch?</strong></h3>
+<p>Explicação sobre a função fetch e como ela é usada para fazer requisições HTTP.</p>
+<p>Métodos HTTP: GET, POST, PUT, DELETE.</p>
+<p>Exemplo básico de uso do fetch para buscar dados de uma API pública.</p>
+<p>Ver <a href="https://angoti.github.io/react-native-network/index.html?authuser=0#0" target="_blank">aula</a></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><h3 is-upgraded><strong>O que é o Firebase e suas funcionalidades</strong></h3>
+<p>O Firebase é uma plataforma de desenvolvimento de aplicativos criada pelo Google. Ele é especialmente popular para o desenvolvimento de aplicativos móveis (iOS e Android).</p>
+<p>O Firebase é dividido em várias categorias de funcionalidades, que podem ser usadas de forma combinada ou individual, dependendo das necessidades do projeto. As principais são: </p>
+<ul>
+<li>Authentication: autenticação com suporte a métodos como e-mail/senha, autenticação por telefone, Google, Facebook, Twitter, GitHub e outros provedores de identidade.</li>
+<li>Firestore: banco de dados NoSQL mais flexível e escalável, com consultas avançadas e suporte a estruturas de dados hierárquicas.</li>
+<li>Hosting: Hospedagem para aplicativos web.</li>
+<li>Functions: Permite executar código back-end em resposta a eventos do Firebase ou solicitações HTTP, sem a necessidade de gerenciar servidores. O código pode ser escrito em JavaScript, TypeScript ou Python. É necessário configurar plano de faturamento.</li>
+<li> Storage: Permite armazenar e recuperar arquivos como imagens, áudio e vídeos. É necessário configurar plano de faturamento.</li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><h3 is-upgraded><strong>Firestore</strong></h3>
+<p>Banco de dados NoSQL orientado a documentos, onde os dados são armazenados em documentos (semelhantes a objetos JSON) que são organizados em coleções. Isso permite uma estrutura hierárquica e flexível para armazenar dados.</p>
+<p>Estrutura de dados no Firestore</p>
+<p>O Firestore organiza os dados em uma estrutura hierárquica composta por:</p>
+<ul>
+<li>Coleções: São contêineres para documentos. Por exemplo, uma coleção chamada users pode armazenar documentos que representam usuários individuais.</li>
+<li>Documentos: São unidades básicas de armazenamento, semelhantes a objetos JSON. Cada documento contém pares de chave-valor e pode referenciar subcoleções.</li>
+<li>Subcoleções: Coleções aninhadas dentro de documentos. Por exemplo, um documento na coleção users pode ter uma subcoleção chamada posts para armazenar as postagens de um usuário.</li>
+</ul>
+<p>Exemplo de estrutura</p>
+<p class="image-container"><img style="width: 699.70px" src="img\\33e6fa51b28fe0cb.png"></p>
+</td></tr>
+</table>
 
 
-    <!-- <table class="table" id="lista-de-codelabs">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Asunto</th>
-            <th scope="col">Nome</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>React</td>
-            <td><a href="react/index.html">Introdução ao React</a></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>React Native</td>
-            <td><a href="reactnative/index.html">App chat usando o FireBase, React Navigation e Hooks useReducer e useMemo</a></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Spring Boot</td>
-            <td><a href="spring1/index.html">Tutorial para orientar o processo de criação de um serviço da Web RESTful com Spring Boot</a></td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Spring Boot</td>
-            <td><a href="spring2/index.html">Desenvolvendo uma aplicação CRUD usando MySQL e JPA - uma entidade</a></td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Spring Boot</td>
-            <td><a href="orm/index.html">Projeto Spring com persistência JPA</a></td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>Spring Boot</td>
-            <td><a href="spring4/index.html">Tratamento de exceções e a anotação @ControllerAdvice</a></td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>Spring Boot</td>
-            <td><a href="spring3/index.html">Aplicação Web MVC com JdbcTemplate, Thymeleaf, Security e hospedagem no Heroku</a></td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>Programação Orientada a Objetos</td>
-            <td><a href="poo/interface/index.html">Interface</a></td>
-          </tr>
-          <tr>
-            <th scope="row">9</th>
-            <td>React Native</td>
-            <td><a href="rn-introduction/index.html">Introdução à React Native</a></td>
-          </tr>
-          <tr>
-            <th scope="row">10</th>
-            <td>React Native</td>
-            <td><a href="/reactnative-ambiente-de-desenvolvimento/index.html">Ambiente de desenvolvimento</a></td>
-          </tr>
-          <tr>
-            <th scope="row">11</th>
-            <td>React Native</td>
-            <td><a href="/oficina/index.html">Oficina SNCT Jogo React Native</a></td>
-          </tr>
-          <tr>
-            <th scope="row">12</th>
-            <td>React Native</td>
-            <td><a href="/reactnative-login-google/index.html">Autenticação com Google</a></td>
-          </tr>
-          <tr>
-            <th scope="row">13</th>
-            <td>Spring Boot</td>
-            <td><a href="/spring-validation/index.html">Validação de formulário</a></td>
-          </tr>
-        </tbody>
-      </table> -->
-    </div>
-  </main>
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Firebase" duration="0">
+        <ul>
+<li>Acesse o Firebase <a href="https://console.firebase.google.com/" target="_blank">Console</a> e crie um projeto.</li>
+</ul>
+<p class="image-container"><img style="width: 597.00px" src="img\\153cf6cdc5ac6410.png"></p>
+<ul>
+<li>Informe o nome do projeto e selecione o recurso pai e clique em <img style="width: 210.00px" src="img\\1d9ace5a504f4733.png"></li>
+</ul>
+<p class="image-container"><img style="width: 718.11px" src="img\\298162da42de1252.png"></p>
+<ul>
+<li>Desative o Google Analytics e clique em <img style="width: 185.45px" src="img\\c322392b21263b34.png"></li>
+</ul>
+<p class="image-container"><img style="width: 602.85px" src="img\\6138b663639fe88e.png"></p>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-    crossorigin="anonymous"></script>
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adicionando o Firebase ao seu aplicativo" duration="0">
+        <ul>
+<li>No Firebase Console, clique no ícone de engrenagem (⚙️) ao lado de &#34;Visão geral do projeto&#34; e selecione &#34;Configurações do projeto&#34;.</li>
+</ul>
+<p class="image-container"><img style="width: 565.00px" src="img\\1cb8199a31106cc3.png"></p>
+<ul>
+<li>Rolar a página até aparecer ‘Seus aplicativos&#39; e clique no ícone destacado em vermelho</li>
+</ul>
+<p class="image-container"><img style="width: 718.11px" src="img\\ac79f3e88fa66af0.png"></p>
+<ul>
+<li>Forneça o nome do aplicativo e clique no botão <img style="width: 115.00px" src="img\\d45f78792e192069.png"> e na tela seguinte pressione <img style="width: 161.00px" src="img\\8f21a742a03df14b.png"></li>
+</ul>
+<p class="image-container"><img style="width: 718.11px" src="img\\d54cc6ff98106637.png"></p>
+<ul>
+<li>Obter a URL base</li>
+</ul>
+<p class="image-container"><img style="width: 718.11px" src="img\\95161d6f972609d3.png"></p>
+<p>A URL base para acessar os documentos será: <code>https://firestore.googleapis.com/v1/projects/<Código do projeto>/databases/(default)/documents/<sua-coleção></code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ativando o banco de dados NoSQL" duration="0">
+        <p>Para ativar o Firestore Database, expanda o menu Criação e selecione a opção <img style="width: 191.00px" src="img\\3564e1c21781b5c3.png">  </p>
+<p>clique no botão <img style="width: 181.00px" src="img\\2a9c9bf07afe00bf.png"> e depois clique em  <img style="width: 78.00px" src="img\\8624baeed959bc74.png"></p>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 243.59px" src="img\\1c18edd5a63f9417.png"></p>
+<p>→</p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 856.81px" src="img\\91915f4e0ccf4a78.png"></p>
+<p>↓</p>
+<p class="image-container"><img style="width: 439.00px" src="img\\63eedac3cddca147.png"></p>
+</td></tr>
+</table>
+<ul>
+<li>Escolha o modo de teste para simplificar o desenvolvimento</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Gravando documentos" duration="0">
+        <p>Abra o <a href="https://snack.expo.dev/" target="_blank">Snack</a> e cole o código abaixo. Copie a URL construída no final da parte 3. O nome da coleção será <code>pessoas</code>. Insira a URL no local indicado no código.</p>
+<pre><code>import React, { useState } from &#39;react&#39;;
+import { View, Text, TextInput, Button, StyleSheet } from &#39;react-native&#39;;
+
+export default function App() {
+  const [nome, setNome] = useState(&#39;&#39;);
+  const [email, setEmail] = useState(&#39;&#39;);
+  const [message, setMessage] = useState(&#39;&#39;);
+
+  const saveData = async () =&gt; {
+    try {
+      const newData = { 
+        fields: { 
+          nome: { stringValue: nome }, 
+          email: { stringValue: email } 
+        } 
+      };
+      const response = await fetch(&#39;insira a URL aqui&#39;, // &lt;-----
+        {
+          method: &#39;POST&#39;,
+          headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+          body: JSON.stringify(newData),
+        }
+      );
+
+      if (response.ok) {
+        setMessage(&#39;Usuário salvo com sucesso!&#39;);
+        setNome(&#39;&#39;);
+        setEmail(&#39;&#39;);
+      } else {
+        setMessage(&#39;Erro ao salvar usuário.&#39;);
+      }
+    } catch (err) {
+      setMessage(&#39;Erro ao salvar usuário.&#39;);
+      console.error(err);
+    }
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Adicionar Usuário&lt;/Text&gt;
+      &lt;TextInput
+        style={styles.input}
+        placeholder=&#34;Nome&#34;
+        value={nome}
+        onChangeText={setNome}
+      /&gt;
+      &lt;TextInput
+        style={styles.input}
+        placeholder=&#34;Email&#34;
+        value={email}
+        onChangeText={setEmail}
+      /&gt;
+      &lt;Button title=&#34;Salvar&#34; onPress={saveData} /&gt;
+      {message &amp;&amp; &lt;Text&gt;{message}&lt;/Text&gt;}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39;, padding: 16 },
+  title: { fontSize: 18, fontWeight: &#39;bold&#39;, marginBottom: 16 },
+  input: { borderWidth: 1, padding: 8, marginBottom: 8, width: &#39;80%&#39; },
+});</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Lendo documentos" duration="0">
+        <p>Copie a URL construída no final da parte 3. O nome da coleção será <code>pessoas</code>. Insira a URL no local indicado no código.</p>
+<pre><code>import React, { useState, useEffect } from &#39;react&#39;;
+import { View, Text, StyleSheet, Button } from &#39;react-native&#39;;
+
+export default function App() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [error, setError] = useState(null);
+  
+  const fetchData = async () =&gt; {
+    try {
+      const response = await fetch(&#39;insira a URL aqui&#39;); // &lt;-----
+      const data = await response.json();
+      if (data.documents) {
+        const usuariosFormatados = data.documents.map((doc) =&gt; {
+          const fields = doc.fields;
+          return {
+            id: doc.name.split(&#39;/&#39;).pop(),
+            nome: fields.nome.stringValue,
+            email: fields.email.stringValue,
+          };
+        });
+        setUsuarios(usuariosFormatados);
+      } else {
+        setUsuarios([]);
+      }
+    } catch (err) {
+      setError(&#39;Erro ao buscar dados do servidor.&#39;);
+      console.error(err);
+    }
+  };
+
+  useEffect(() =&gt; {
+    fetchData();
+  }, []);
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;Lista de Usuários&lt;/Text&gt;
+      {error &amp;&amp; &lt;Text style={styles.error}&gt;{error}&lt;/Text&gt;}
+      {usuarios.length &gt; 0 ? (
+        usuarios.map((usuario) =&gt; (
+          &lt;Text key={usuario.id}&gt;
+            {usuario.nome} - {usuario.email}
+          &lt;/Text&gt;
+        ))
+      ) : (
+        &lt;Text&gt;Nenhum usuário encontrado.&lt;/Text&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: &#39;center&#39;, alignItems: &#39;center&#39;,
+               padding: 16 },
+  title: { fontSize: 18, fontWeight: &#39;bold&#39;, marginBottom: 16 },
+  error: { color: &#39;red&#39;, marginBottom: 16 },
+});</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Código completo" duration="0">
+        <pre><code>import React, { useState, useEffect } from &#39;react&#39;;
+import { View, Text, StyleSheet, Button, TextInput } from &#39;react-native&#39;;
+
+export default function App() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [error, setError] = useState(null);
+  const [nome, setNome] = useState(&#39;&#39;);
+  const [email, setEmail] = useState(&#39;&#39;);
+  const [message, setMessage] = useState(&#39;&#39;);
+  const firestoreURL = &#39;https://firestore.googleapis.com/v1/projects/teste-6ef30/databases/(default)/documents/pessoas&#39;
+
+  const fetchData = async () =&gt; {
+    try {
+      const response = await fetch(firestoreURL);
+      const data = await response.json();
+
+      if (data.documents) {
+        const usuariosFormatados = data.documents.map((doc) =&gt; {
+          const fields = doc.fields;
+          return {
+            id: doc.name.split(&#39;/&#39;).pop(),
+            nome: fields.nome.stringValue,
+            email: fields.email.stringValue,
+          };
+        });
+        setUsuarios(usuariosFormatados);
+      } else {
+        setUsuarios([]);
+      }
+    } catch (err) {
+      setError(&#39;Erro ao buscar dados do servidor.&#39;);
+      console.error(err);
+    }
+  };
+
+  useEffect(() =&gt; {
+    fetchData();
+  }, []);
+
+  const saveData = async () =&gt; {
+    try {
+      const newData = {
+        fields: {
+          nome: { stringValue: nome },
+          email: { stringValue: email },
+        },
+      };
+      const response = await fetch(firestoreURL,
+        {
+          method: &#39;POST&#39;,
+          headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+          body: JSON.stringify(newData),
+        }
+      );
+
+      if (response.ok) {
+        setMessage(&#39;Usuário salvo com sucesso!&#39;);
+        setNome(&#39;&#39;);
+        setEmail(&#39;&#39;);
+      } else {
+        setMessage(&#39;Erro ao salvar usuário.&#39;);
+      }
+    } catch (err) {
+      setMessage(&#39;Erro ao salvar usuário.&#39;);
+      console.error(err);
+    }
+    fetchData()
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+    &lt;Text style={styles.title}&gt;Adicionar Usuário&lt;/Text&gt;
+      &lt;TextInput
+        style={styles.input}
+        placeholder=&#34;Nome&#34;
+        value={nome}
+        onChangeText={setNome}
+      /&gt;
+      &lt;TextInput
+        style={styles.input}
+        placeholder=&#34;Email&#34;
+        value={email}
+        onChangeText={setEmail}
+      /&gt;
+      &lt;Button title=&#34;Salvar&#34; onPress={saveData} /&gt;
+      {message &amp;&amp; &lt;Text style={styles.message}&gt;{message}&lt;/Text&gt;}
+
+      &lt;Text style={styles.title}&gt;Lista de Usuários&lt;/Text&gt;
+      {error &amp;&amp; &lt;Text style={styles.error}&gt;{error}&lt;/Text&gt;}
+      {usuarios.length &gt; 0 ? (
+        usuarios.map((usuario) =&gt; (
+          &lt;Text key={usuario.id}&gt;
+            {usuario.nome} - {usuario.email}
+          &lt;/Text&gt;
+        ))
+      ) : (
+        &lt;Text&gt;Nenhum usuário encontrado.&lt;/Text&gt;
+      )}
+      
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop:40,
+    flex: 1,
+    padding: 16,
+  },
+  title: { fontSize: 18, fontWeight: &#39;bold&#39;, marginBottom: 16 },
+  error: { color: &#39;red&#39;, marginBottom: 16 },
+  input:{ borderWidth:1, padding:4, marginBottom:8, borderRadius:4},
+  message:{ color:&#39;red&#39;, fontSize: 8, textAlign:&#39;center&#39;,  padding:4, marginBottom:8}
+});</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Atividades avaliativas" duration="0">
+        <ol type="1" start="1">
+<li><a href="https://classroom.github.com/a/tLDOJr5_" target="_blank">Acesse o link do Github Classroom</a>.</li>
+<li>Siga as instruções para aceitar a tarefa.</li>
+<li>Um repositório será criado automaticamente para você no GitHub, onde os códigos das tarefas serão hospedados. </li>
+<li>Ao terminar cada tarefa, você deve realizar o commit e push para o repositório criado quando você acessou o link da tarefa.</li>
+</ol>
+<h3 is-upgraded><strong>Tarefa 1 (3 pontos) - código inicial</strong></h3>
+<ul>
+<li><strong>c</strong>riar o projeto inicial a partir do código fornecido neste estudo dirigido</li>
+</ul>
+<pre>git init
+git add .
+git commit -m &#34;código inicial&#34;
+git branch -M main
+git remote add origin &lt;repositório criado pelo github classroom&gt;
+git push -u origin main</pre>
+<h3 is-upgraded><strong>Tarefa 2 (6 pontos) - excluir documento</strong></h3>
+<ul>
+<li>crie um botão de exclusão ao lado de cada pessoa na lista</li>
+<li>Implemente a função `<code>deleteUser</code>` para excluir o documento do banco de dados</li>
+</ul>
+<pre>git add .
+git commit -m &#34;funcionalidade de exclusão de documento implementada&#34;
+git push</pre>
+<h3 is-upgraded><strong>Tarefa 3 (6 pontos) - alterar documento</strong></h3>
+<ul>
+<li>crie um botão de edição ao lado de cada pessoa na lista</li>
+<li>implemente a função `<code>editUser</code>` para permitir a alteração dos dados do documento</li>
+</ul>
+<pre>git add .
+git commit -m &#34;funcionalidade de alteração de documento implementada&#34;
+git push</pre>
+<h3 is-upgraded><strong>Tarefa 4 (6 pontos) - adicionar campos ao documento </strong></h3>
+<ul>
+<li>adicione os campos: ‘endereço&#39;, ‘telefone&#39; e ‘observações&#39; ao formulário de cadastro e edição de usuários.</li>
+<li>atualize o banco de dados para incluir esses novos campos</li>
+</ul>
+<pre>git add .
+git commit -m &#34;novos campos adicionados ao documento&#34;
+git push</pre>
+<h3 is-upgraded><strong>Tarefa 5 (10 pontos) - tela de detalhes</strong></h3>
+<ul>
+<li>crie uma nova tela (`<code>DetailsScreen</code>`) para exibir todos os detalhes do documento</li>
+<li>adicione um botão para navegar até a tela de detalhes</li>
+<li>use o `react-navigation` para configurar a navegação entre as telas</li>
+</ul>
+<pre>git add .
+git commit -m &#34;funcionalidade de alteração de documento implementada&#34;
+git push origin main</pre>
+<p><strong>Bom trabalho! 🚀</strong></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
-
 </html>
