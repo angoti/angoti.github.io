@@ -28,7 +28,7 @@
                   feedback-link="">
     
       <google-codelab-step label="Introdução ao React Native" duration="5">
-        <aside class="special"><p>Última atualização: 05/06/2023</p>
+        <aside class="special"><p>Última atualização: 25/03/2025</p>
 </aside>
 <p>React Native é um framework que permite criar aplicativos Android e iOS. Você escreve seu código na linguagem de programação JavaScript e JSX. Ele foi desenvolvido pelo Facebook e foi lançado em março de 2015, durante a conferência F8 do Facebook. Foi nesse evento que o Facebook anunciou o React Native como um projeto de código aberto, permitindo que os desenvolvedores o utilizassem para criar aplicativos móveis multiplataforma. Desde então, o React Native tem passado por várias atualizações e continua a ser ativamente desenvolvido e mantido pela comunidade de código aberto e tem ganhado grande popularidade entre os desenvolvedores devido à sua abordagem inovadora e eficiente para o desenvolvimento multiplataforma.</p>
 <h2 is-upgraded><strong>Principais características do React Native</strong></h2>
@@ -417,16 +417,15 @@ export default App;</pre>
 <h2 is-upgraded><strong>Exercícios</strong></h2>
 <p>Para o exercício 2 use o código  a seguir como modelo.</p>
 <pre>import { View, StyleSheet } from &#39;react-native&#39;;
-import { SafeAreaView } from &#39;react-native-safe-area-context&#39;;
 
 function App() {
   return (
-    &lt;SafeAreaView style={styles.container}&gt;
+    &lt;View style={styles.container}&gt;
       &lt;View style={[styles.quadrado, styles.cor1]} /&gt;
       &lt;View style={[styles.quadrado, styles.cor2]} /&gt;
       &lt;View style={[styles.quadrado, styles.cor3]} /&gt;
       &lt;View style={[styles.quadrado, styles.cor4]} /&gt;
-    &lt;/SafeAreaView&gt;
+    &lt;/View&gt;
   );
 }
 
