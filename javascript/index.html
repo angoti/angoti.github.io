@@ -1,0 +1,475 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Curso JavaScript</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="javascript"
+                  title="Curso JavaScript"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução ao JavaScript" duration="0">
+        <h2 is-upgraded><strong>Características da javascript</strong></h2>
+<ul>
+<li>Todas as linguagens de script são linguagens interpretadas.</li>
+<li>Scrips JavaScript podem ser interpretados pelo navegador.</li>
+<li>São capazes de controlar não somente o conteúdo de documentos HTML, mas também o comportamento.</li>
+</ul>
+<h2 is-upgraded>Exemplo javascript</h2>
+<pre><code>&lt;html&gt;
+        &lt;head&gt;
+                &lt;meta http-equiv=&#34;Content-Type&#34; 
+                 content=&#34;text/html; charset=iso-8859-1&#34;&gt;
+                &lt;title&gt;javaScript&lt;/title&gt;
+                &lt;script&gt;
+                        alert(&#39;Hello World!&#39;);
+                &lt;/script&gt;
+        &lt;/head&gt;
+&lt;body&gt;
+        Exemplo 01
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p class="image-container"><img style="width: 363.27px" src="img\\5546ab5ed695e0e.png"></p>
+<h2 is-upgraded>Exemplo 2 javascript</h2>
+<p>O próximo exemplo apresenta a interação entre as estruturas de HTML, CSS e JavaScript.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+  &lt;meta charset=&#34;UTF-8&#34;&gt;
+  &lt;title&gt;Document&lt;/title&gt;
+  &lt;style&gt;
+    .box {
+      display: flex;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+      width: 400px;
+      height: 400px;
+      background-color: yellow;
+      border: 1px solid red;
+    }
+  &lt;/style&gt;
+&lt;script&gt;
+    function mudarCor() {
+      document.getElementById(&#34;caixa&#34;).style.backgroundColor = document.getElementById(&#34;fundo&#34;).value;
+      document.getElementById(&#34;caixa&#34;).style.color = &#34;white&#34;;
+      document.getElementById(&#34;caixa&#34;).style.width = &#34;300px&#34;;
+    }
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;form&gt;
+    Cor do fundo: &lt;input type=&#34;color&#34; id=&#34;fundo&#34; name=&#34;fundo2&#34;&gt;
+    &lt;input type=&#34;button&#34; value=&#34;Mudar cor&#34; onclick=&#34;mudarCor()&#34;&gt;
+  &lt;/form&gt; 
+  &lt;div class=&#34;box&#34; id=&#34;caixa&#34;&gt;
+    Alô mundo
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Conseguimos acessar os elementos em HTML se dermos nomes a eles. E para acessar esses elementos precisamos então usar a linha de comando: document.getElementById(&#34;&lt;nome do elemento&gt;&#34;)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Javascript e Websites" duration="0">
+        <p>Não é necessário a instalação ou configuração de nenhuma biblioteca ou programa para a utilização e/ou interpretação de scripts no brower. Por default os browser interpretam linguagens em JavaScript.</p>
+<p>O bloco de &lt;script&gt; pode ser adicionado ao elemento &lt;head&gt; e/ou &lt;body&gt; porém deve-se tomar cuidado quando utilizar ele dentro do elemento body. Esses cuidados serão apresentados nos próximos tópicos.</p>
+<p>A representação de uma instrução em JavaScript segue a seguinte estrutura. </p>
+<pre><code>&lt;script type=&#34;text/javascript&#34;&gt;
+   //script
+&lt;/script&gt;</code></pre>
+<h2 is-upgraded><strong>Comentários em javascript</strong></h2>
+<p>Comentários são trechos de texto inseridos no código-fonte que não são interpretados pelo compilador ou interpretador, sendo destinados a fornecer explicações e informações adicionais para os programadores que irão ler e manter o código no futuro.</p>
+<p>No JavaScript existem dois tipos de comentários: linha e em bloco.</p>
+<p>Linha:</p>
+<p><code>        // Comentário</code></p>
+<p>Bloco:</p>
+<p><code>/* </code></p>
+<p><code>Comentário de bloco </code></p>
+<p><code>        Ai não precisa ficar colocando o </code></p>
+<p><code>// em cada linha.</code></p>
+<p><code>*/</code></p>
+<h2 is-upgraded><strong>Caixas de diálogo</strong></h2>
+<p>Em Javascript pode-se utilizar as caixas de diálogos padrões para que tenham uma interação pequena com o usuário.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+        &lt;body&gt;
+                &lt;h1&gt;My First Web Page&lt;/h1&gt;
+                &lt;p&gt;My first paragraph.&lt;/p&gt;
+                &lt;script&gt;
+                        window.alert(‘alô mundo&#39;);
+                &lt;/script&gt;
+        &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Caixa utilizada somente para apresentar uma mensagem para o usuário na tela,, mas nesse momento o usuário poderá responder sim ou não. Como por exemplo: Desejas continuar? </p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+        &lt;body&gt;
+        &lt;p&gt;Clique no botão: &lt;/p&gt;
+
+        &lt;button onclick=&#34;enviar()&#34;&gt;Enviar&lt;/button&gt;
+        &lt;p id=&#34;demo&#34;&gt;&lt;/p&gt;
+
+        &lt;script&gt;
+                function enviar() {
+                  let text;
+                  if (confirm(&#34;Deseja continuar&#34;) == true) {
+                        text = &#34;OK!&#34;;
+                  } else {
+                        text = &#34;Não OK&#34;;
+                  }
+                  document.getElementById(&#34;demo&#34;).innerHTML = text;
+                }
+        &lt;/script&gt;
+        &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Caixa utilizada permite a entrada de dados do usuário que poderá ser usada em outro momento no programa.  </p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+        &lt;body&gt;
+        &lt;p&gt;Clique no botão:&lt;/p&gt;
+        &lt;button onclick=&#34;bebida()&#34;&gt;Clique aqui&lt;/button&gt;
+        &lt;p id=&#34;demo&#34;&gt;&lt;/p&gt;
+
+        &lt;script&gt;
+                function bebida() {
+                  let text;
+                  let favorita = prompt(&#34;Qual a sua bebida favorita&#34;, &#34;Coca-Cola&#34;);
+                  switch(favorita) {
+                        case &#34;Coca-Cola&#34;:
+                          text = &#34;Você escolheu coca.&#34;;
+                          break;
+                        case &#34;Pepsi&#34;:
+                          text = &#34;Você escolheu Pepsi&#34;;
+                          break;
+                        case &#34;Sprite&#34;:
+                          text = &#34;Você escolheu Sprite&#34;;
+                          break;
+                        default:
+                          text = &#34;Você escolheu outra bebida&#34;;
+                  }
+                  document.getElementById(&#34;demo&#34;).innerHTML = text;
+                }
+        &lt;/script&gt;
+        &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded><strong>EXERCÍCIOS</strong></h2>
+<p>1. Crie uma página web de tal forma que, antes do carregamento da página a seguinte mensagem seja exibida ao usuário: &#34;Você gostaria de saber o nome desta disciplina?&#34;. Em caso afirmativo, a mensagem, dentro de uma caixa de diálogo, deverá ser exibida ao usuário &#34;JavaScript Básico&#34;. Caso contrário, a mensagem &#34;Caso queira visualizar o nome da disciplina, atualize a página novamente&#34;, deverá ser exibida ao usuário através de uma caixa de diálogo.</p>
+<p>2. Crie uma página web que solicita ao usuário dois valores numéricos separadamente, ou seja, cada valor deverá ser informado em uma caixa de diálogo diferente. Em seguida, exiba o resultado da multiplicação entre eles em uma caixa de diálogo.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Variáveis em Javascript" duration="0">
+        <p>Variáveis são contêineres para armazenar valores. Em Javascript temos duas características simplórias das utilizações das variáveis:</p>
+<ul>
+<li>Tipagem fraca: Não há declaração antecipada do tipo de dados.</li>
+<li>Tipagem dinâmica: variável Javascript pode armazenar diferentes tipos de dados em diferentes momentos dependendo do contexto do problema.</li>
+</ul>
+<p>Variáveis em JavaScript podem ser declaradas de 4 maneiras:</p>
+<ul>
+<li>Automaticamente</li>
+<li>Usando var</li>
+<li>Usando let</li>
+<li>Usando const</li>
+</ul>
+<h2 is-upgraded><strong>Automaticamente</strong></h2>
+<p>Neste primeiro exemplo, x, y e z são variáveis não declaradas. Eles são declarados automaticamente quando usados pela primeira vez:</p>
+<pre><code>&lt;script&gt;
+x = 5;
+y = 6;
+z = x + y;
+window.alert(&#34;o valor de z eh: &#34; + z);
+&lt;/script&gt;</code></pre>
+<pre><code>&lt;script&gt;
+var x = 5;
+var y = 6;
+var z = x + y;
+window.alert(&#34;o valor de z eh: &#34; + z);
+&lt;/script&gt;</code></pre>
+<p>Usando let e const</p>
+<p>Deve-se sempre declarar variáveis. Sempre use const se o valor não deve ser alterado ou se o tipo não deve ser alterado (Arrays e Objetos). E sempre use let quando não puder usar const.</p>
+<p>As duas variáveis price1 e price2 são declaradas com a palavra-chave const. Esses são valores constantes e não podem ser alterados. A variável total é declarada com a palavra-chave let. O valor total pode ser alterado.</p>
+<pre><code>&lt;script&gt;
+const price1 = 5;
+const price2 = 6;
+let total = price1 + price2;
+window.alert (o total eh: &#34; + total);
+&lt;/script&gt;</code></pre>
+<h2 is-upgraded><strong>Escopo de uma variável </strong></h2>
+<p class="image-container"><img style="width: 337.58px" src="img\\a00b296094307929.png"></p>
+<p>Variáveis declaradas dentro de um bloco { } não podem ser acessadas de fora do bloco:</p>
+<p class="image-container"><img style="width: 569.36px" src="img\\b7ad486b6b2b0382.png"></p>
+<p>Variáveis declaradas com var sempre possuem Escopo Global. Variáveis declaradas com a palavra-chave var NÃO podem ter escopo de bloco:</p>
+<p class="image-container"><img style="width: 465.36px" src="img\\63e5e1d9429f7f6f.png"></p>
+<h3 is-upgraded><strong>Exemplo var1.html</strong></h3>
+<pre><code>&lt;html&gt;
+        &lt;head&gt;
+                &lt;meta charset=&#34;utf-8&#34;&gt;
+                &lt;title&gt;javaScript&lt;/title&gt;
+                &lt;script type=&#34;text/javascript&#34;&gt;
+                        var x = 9;
+                        
+                        function valor(){
+                                x = 10;
+                        }
+                        
+                        function inicio2(){
+                                document.write(&#34;&lt;h1&gt;&#34; + x + &#34;&lt;/h1&gt;&#34;);
+                        }
+                &lt;/script&gt;
+        &lt;/head&gt;
+&lt;body onload=&#34;inicio2()&#34;&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 is-upgraded><strong>Exemplo var2.html</strong></h3>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&#34;utf-8&#34;&gt;
+&lt;title&gt;javaScript&lt;/title&gt;
+&lt;script type=&#34;text/javascript&#34;&gt;
+var v1 = 3; 
+var v2, v3, v4; 
+v2 = 3; 
+v2 = true; 
+v4 = false;
+alert(v1===v2); 
+alert(v2==v3);
+alert(v1%=v2); 
+alert(v1);
+                        
+alert(true &amp;&amp; true);
+alert(true &amp;&amp; false);
+alert(false &amp;&amp; true);
+alert(true || true);
+alert(false || true);
+alert(!false);
+alert(!&#34;Gato&#34;);
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body onload=&#34;inicio2()&#34;&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 is-upgraded><strong>Exemplo var3.html</strong></h2>
+<p>&lt;html&gt;</p>
+<p>        &lt;head&gt;</p>
+<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
+<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
+<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
+<p>                        var x;</p>
+<p>                        function valor(){</p>
+<p>                                var x = 10;</p>
+<p>                        }</p>
+<p>                        function inicio2(){</p>
+<p>                                valor();</p>
+<p>                                document.write(this.x);</p>
+<p>                        }</p>
+<p>                &lt;/script&gt;</p>
+<p>        &lt;/head&gt;</p>
+<p>&lt;body onload=&#34;inicio2()&#34;&gt;</p>
+<p>&lt;/body&gt;</p>
+<p>&lt;/html&gt;</p>
+<h3 is-upgraded><strong>Exemplo var4.html</strong></h3>
+<p>&lt;html&gt;</p>
+<p>        &lt;head&gt;</p>
+<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
+<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
+<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
+<p>                        var result;</p>
+<p>                        function soma(x, y){</p>
+<p>                            result = x + y;</p>
+<p>                                return result;</p>
+<p>                        }</p>
+<p>                        function soma2(x, y){</p>
+<p>                                var result = x + y;</p>
+<p>                                return result;</p>
+<p>                        }</p>
+<p>                &lt;/script&gt;</p>
+<p>        &lt;/head&gt;</p>
+<p>&lt;body onload=&#34;document.write(soma(3, 4))&#34;&gt;</p>
+<p>&lt;/body&gt;</p>
+<p>&lt;/html&gt;</p>
+<h3 is-upgraded><strong>Exemplo var5.html</strong></h3>
+<p>&lt;html&gt;</p>
+<p>        &lt;head&gt;</p>
+<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
+<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
+<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
+<p>                        var result;</p>
+<p>                        function soma(x, y){</p>
+<p>                            result = x + y;</p>
+<p>                                return result;</p>
+<p>                        }</p>
+<p>                        function soma2(x, y){</p>
+<p>                                var result = x + y;</p>
+<p>                                return result;</p>
+<p>                        }</p>
+<p>                &lt;/script&gt;</p>
+<p>        &lt;/head&gt;</p>
+<p>&lt;body onload=&#34;document.write(soma2(3, 4))&#34;&gt;</p>
+<p>&lt;/body&gt;</p>
+<p>&lt;/html&gt;</p>
+<h3 is-upgraded><strong>Exemplo var6.html</strong></h3>
+<p>&lt;html&gt;</p>
+<p>        &lt;head&gt;</p>
+<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
+<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
+<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
+<p>                        var x = 10;</p>
+<p>                        y = 20;</p>
+<p>                        z = 30;</p>
+<p>                        document.write(delete x); // as variáveis globais não podem aplicar a propriedade delete </p>
+<p>                        document.write(delete y);</p>
+<p>                        document.write(delete z);</p>
+<p>                &lt;/script&gt;</p>
+<p>        &lt;/head&gt;</p>
+<p>&lt;body&gt;</p>
+<p>&lt;/body&gt;</p>
+<p>&lt;/html&gt;</p>
+<h3 is-upgraded><strong>Exemplo var7.html</strong></h3>
+<p>&lt;html&gt;</p>
+<p>        &lt;head&gt;</p>
+<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
+<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
+<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
+<p>                        // var sum, b, i, j;</p>
+<p>                        // tem que colocar var em tudo</p>
+<p>                        function func(){</p>
+<p>                                var a = 1;</p>
+<p>                                b = 2;</p>
+<p>                                sum = a + b;</p>
+<p>                                i;</p>
+<p>                                j;</p>
+<p>                                document.write(sum);</p>
+<p>                        }</p>
+<p>                &lt;/script&gt;</p>
+<p>        &lt;/head&gt;</p>
+<p>&lt;body onload=&#34;func()&#34;&gt;</p>
+<p>&lt;/body&gt;</p>
+<p>&lt;/html&gt;</p>
+<h2 is-upgraded><strong>Tipos primitivos de dados </strong></h2>
+<p>O Javascript possui somente três tipos primitivos de dados: string, numeric e boolean. Portanto possui os mesmos objetos internos: String, Numeric e Boolean.</p>
+<p>O objeto String envolve o tipo primitivo string, assim como os objetos Number e Boolean o fazem com seus tipos de dados primitivos individuais, numeric e boolean, respectivamente.</p>
+<p>Para ficar mais claro vamos ao exemplo:</p>
+<ol type="1" start="1">
+<li>var nome = &#34;carlos&#34;;</li>
+<li>var nomeMaiusculas = nome.toUpperCase();</li>
+</ol>
+<p>No trecho de código acima, quando o método toUpperCase é chamado por &#34;nome.&#34;, um objeto é criado para envolver a string e a seguir processar a chamada do método antes que o objeto seja descartado. Para todos os propósitos, nome se parece com um objeto e atua como um objeto ao chamar o método, mas é um tipo primitivo.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank">Referência</a></p>
+<p>O tipo primitivo Boolean possui dois valores True e False, portanto temos a seguinte tabela de conversão.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Entrada (input)</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Resultado</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Undefined</p>
+</td><td colspan="1" rowspan="1"><p>false</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Null</p>
+</td><td colspan="1" rowspan="1"><p>false</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Boolean</p>
+</td><td colspan="1" rowspan="1"><p>Valor dele mesmo</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Number</p>
+</td><td colspan="1" rowspan="1"><p>False se o número for 0 ou NaN, caso contrário, true</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>String</p>
+</td><td colspan="1" rowspan="1"><p>False se a string for vazia, caso contrário, true</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Object</p>
+</td><td colspan="1" rowspan="1"><p>True</p>
+</td></tr>
+</table>
+<p class="image-container"><img style="width: 594.67px" src="img\\84acdb7d837ba836.png"></p>
+<h2 is-upgraded><strong>EXERCÍCIOS</strong></h2>
+<p>1. Crie uma variável contendo o seguinte texto: &#34;Instituto Federal do Triângulo Mineiro Uberlândia Centro&#34;. E então crie um script para imprimir em uma caixa de diálogo apenas a palavra Mineiro.</p>
+<p>2. Construa  uma  página web capaz  de  solicitar  o  nome  completo  do  usuário  e  em  seguida exiba,  através  de  uma MENSAGEM  DE  ALERTA,  o nome  informado contendo  apenas letras maiúsculas.</p>
+<p>3. Qual é o próximo número da sequência abaixo?</p>
+<p>                                    1  1  2  3  5  8  ...</p>
+<p>Construa um script em JavaScript para mostrar os N primeiros desta sequência. N deverá ser informado pelo usuário.</p>
+<p>4. Construa uma página HTML, utilizando JavaScript, capaz de mostrar a tabela abaixo (utilize a função de conversão de bases do JavaScript e a estrutura de repetição for para montar esta tabela):</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Decimal</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Octal</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Hexadecimal</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>0</p>
+</td><td colspan="1" rowspan="1"><p>0</p>
+</td><td colspan="1" rowspan="1"><p>0</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>1</p>
+</td><td colspan="1" rowspan="1"><p>1</p>
+</td><td colspan="1" rowspan="1"><p>1</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>2</p>
+</td><td colspan="1" rowspan="1"><p>2</p>
+</td><td colspan="1" rowspan="1"><p>2</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>3</p>
+</td><td colspan="1" rowspan="1"><p>3</p>
+</td><td colspan="1" rowspan="1"><p>3</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>...</p>
+</td><td colspan="1" rowspan="1"><p>...</p>
+</td><td colspan="1" rowspan="1"><p>...</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>10</p>
+</td><td colspan="1" rowspan="1"><p>12</p>
+</td><td colspan="1" rowspan="1"><p>A</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>11</p>
+</td><td colspan="1" rowspan="1"><p>13</p>
+</td><td colspan="1" rowspan="1"><p>B</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>12</p>
+</td><td colspan="1" rowspan="1"><p>14</p>
+</td><td colspan="1" rowspan="1"><p>C</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>13</p>
+</td><td colspan="1" rowspan="1"><p>15</p>
+</td><td colspan="1" rowspan="1"><p>D</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>14</p>
+</td><td colspan="1" rowspan="1"><p>16</p>
+</td><td colspan="1" rowspan="1"><p>E</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>15</p>
+</td><td colspan="1" rowspan="1"><p>17</p>
+</td><td colspan="1" rowspan="1"><p>F</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

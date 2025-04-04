@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2025-04-04T17:29:08Z",
+  "id": "javascript",
+  "duration": 0,
+  "title": "Curso JavaScript",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Demostração do uso",
+  "source": "1h7m2Dx1Opx1bw9riUKBbmFid1KyRJMUx1bZ6WpfU5X0",
+  "theme": "reactnative",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "reactnative"
+  ],
+  "tags": [
+    "construção",
+    "web"
+  ],
+  "url": "javascript"
+}
