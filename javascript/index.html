@@ -123,9 +123,39 @@ document.write(&#34;Escrevendo no corpo da página&#34;);</code></pre>
 </ul>
 </aside>
 <h3 is-upgraded><strong>Declaração de variáveis</strong></h3>
+<ul>
+<li>let: usada para declarar variáveis que podem ter seu valor alterado. Possui escopo de bloco.</li>
+<li>const: usada para declarar constantes, ou seja, variáveis cujo valor não pode ser reatribuído. Também possui escopo de bloco.</li>
+<li>var: forma mais antiga de declarar variáveis. Possui escopo de função e não respeita blocos. Pode causar comportamentos inesperados e deve ser evitada em código moderno.</li>
+</ul>
 <pre><code>let nome = &#34;Ana&#34;;
 const idade = 20;
 var cidade = &#34;São Paulo&#34;;</code></pre>
+<h3 is-upgraded><strong>Escopo em JavaScript</strong></h3>
+<p>Escopo é o local onde uma variável é válida e acessível no código. Existem três principais tipos:</p>
+<ol type="1" start="1">
+<li>Escopo Global: fora de qualquer função ou bloco.</li>
+</ol>
+<ul>
+<li>A variável pode ser acessada de qualquer lugar no código.</li>
+</ul>
+<ol type="1" start="2">
+<li>Escopo de Função: variáveis declaradas dentro de uma função com var, let ou const só existem dentro daquela função.</li>
+<li><strong>Escopo de Bloco</strong>: variáveis declaradas com let ou const dentro de {} (como if, for, etc.) só existem ali dentro.</li>
+</ol>
+<pre><code>let nome = &#34;Ana&#34;; // escopo global
+
+function saudacao() {
+  let mensagem = &#34;Olá&#34;; // escopo de função
+  if (true) {
+    const linguagem = &#34;JavaScript&#34;; // escopo de bloco
+    console.log(mensagem + &#34; &#34; + nome + &#34; que usa &#34; + linguagem);
+  }
+  // console.log(linguagem); // Erro: linguagem não está acessível aqui
+}
+
+saudacao();
+</code></pre>
 <h3 is-upgraded><strong>Tipos primitivos</strong></h3>
 <ul>
 <li>String, Number, Boolean, Null, Undefined</li>
@@ -141,15 +171,15 @@ var cidade = &#34;São Paulo&#34;;</code></pre>
 <p>console.log(&#34;Nome: &#34; + nome);</p>
 <h2 is-upgraded><strong>Exercícios práticos</strong></h2>
 <aside class="special"><h3 is-upgraded><strong>Exercício 1</strong></h3>
-<p>Soma de dois números</p>
+<p>Crie duas variáveis numéricas com valores diferentes, some esses valores e armazene o resultado em uma nova variável. Exiba o resultado da soma no console usando console.log().</p>
 <h3 is-upgraded><strong>Exercício 2</strong></h3>
-<p>Criação de variáveis com diferentes tipos de dados</p>
+<p>Crie ao menos três variáveis com tipos de dados diferentes (string, number e boolean). Exiba o conteúdo e o tipo de cada variável usando console.log() e o operador typeof.</p>
 <h3 is-upgraded><strong>Exercício 3</strong></h3>
-<p>Comparações utilizando estruturas condicionais</p>
+<p>Crie duas variáveis com valores numéricos. Em seguida, use uma estrutura condicional if...else para comparar os valores e exibir qual é o maior ou se são iguais.</p>
 <h3 is-upgraded><strong>Exercício 4</strong></h3>
-<p>Uso de operadores lógicos com variáveis booleanas</p>
+<p>Crie duas variáveis booleanas (por exemplo, temSol e fimDeSemana) e use operadores lógicos (&amp;&amp;, ||, !) para decidir se a pessoa pode ir à praia. Mostre o resultado no console.</p>
 <h3 is-upgraded><strong>Exercício 5</strong></h3>
-<p>Declaração de uma constante e exibição de mensagem no console</p>
+<p>Declare uma constante chamada curso com o nome de um curso fictício. Exiba no console a mensagem &#34;Você está matriculado no curso de [curso]&#34; usando concatenação ou template string.</p>
 </aside>
 
 
@@ -157,11 +187,11 @@ var cidade = &#34;São Paulo&#34;;</code></pre>
     
       <google-codelab-step label="Controle de Fluxo: if, else, switch" duration="0">
         <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
+<aside class="special"><ul>
 <li>Utilizar estruturas condicionais para controlar o fluxo do programa<br></li>
-<li>Compreender o uso de if, else if, else e switch<br></li>
+<li>Compreender o uso de if, else if, else e switch</li>
 </ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
+</aside>
 <h4 is-upgraded><strong>1. Condicional </strong><strong>if</strong></h4>
 <p>let idade = 18;</p>
 <p>if (idade &gt;= 18) {</p>
@@ -198,29 +228,29 @@ var cidade = &#34;São Paulo&#34;;</code></pre>
 <p>  default:</p>
 <p>    console.log(&#34;Outro dia&#34;);</p>
 <p>}</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Crie uma variável media. Se for maior ou igual a 7, exiba &#34;Aprovado&#34;, caso contrário, &#34;Reprovado&#34;.</p>
 <h3 is-upgraded>Exercícios práticos</h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Verificador de idade com if</p>
+<aside class="special"><h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Crie uma variável que armazene a idade de uma pessoa. Em seguida, utilize uma estrutura condicional if para verificar se a pessoa é maior de idade (18 anos ou mais) e exibir uma mensagem apropriada no console.</p>
 <h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Mensagem por horário (manhã/tarde/noite)</p>
+<p>Crie uma variável com um valor numérico representando uma hora do dia (entre 0 e 23). Use uma estrutura if...else if...else para exibir uma saudação no console de acordo com o horário (ex: &#34;Bom dia&#34; se for antes de 12, &#34;Boa tarde&#34; se entre 12 e 18, e &#34;Boa noite&#34; após 18).</p>
 <h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Classificação por nota (≥9, ≥7, ≥5, &lt;5)</p>
+<p>Crie uma variável com uma nota entre 0 e 10. Use uma estrutura if...else if...else para classificar essa nota como &#34;Excelente&#34; (≥9), &#34;Bom&#34; (≥7), &#34;Regular&#34; (≥5), ou &#34;Insuficiente&#34; (&lt;5), e exiba a classificação no console.</p>
 <h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Dias da semana com switch</p>
+<p>Crie uma variável dia com um número de 1 a 7. Use a estrutura switch para exibir no console o nome correspondente ao dia da semana (1 para Domingo, 2 para Segunda-feira, etc.).</p>
 <h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Número par ou ímpar com if</p>
+<p>Peça ao usuário que digite um número (use prompt() se desejar testar no navegador). Use a estrutura if para verificar se o número é par ou ímpar e exiba uma mensagem apropriada no console.</p>
+</aside>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Laços de Repetição: for, while, do...while" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
+        <h3 is-upgraded>Objetivos</h3>
+<aside class="special"><ul>
 <li>Utilizar laços de repetição para executar blocos de código múltiplas vezes<br></li>
-<li>Compreender o uso de for, while e do...while<br></li>
+<li>Compreender o uso de for, while e do...while</li>
 </ul>
+</aside>
 <h3 is-upgraded><strong>Conteúdo</strong></h3>
 <h4 is-upgraded><strong>1. Laço </strong><strong>for</strong></h4>
 <p>for (let i = 1; i &lt;= 5; i++) {</p>
@@ -238,30 +268,30 @@ var cidade = &#34;São Paulo&#34;;</code></pre>
 <p>  console.log(&#34;Do While: &#34; + i);</p>
 <p>  i++;</p>
 <p>} while (i &lt;= 5);</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Imprima os números de 1 a 10 usando for, while e do...while</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Tabuada do 5 com for</p>
+<h3 is-upgraded>Exercícios práticos</h3>
+<aside class="special"><h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Utilize um laço for para exibir a tabuada do 5 no console, de 1 a 10. Por exemplo: 5 x 1 = 5, 5 x 2 = 10, etc.</p>
 <h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Números pares até 20 com while</p>
+<p>Utilize um laço while para percorrer os números de 1 até 20. Durante o loop, verifique se o número atual é par e, se for, exiba-o no console.</p>
 <h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Contagem regressiva com do...while</p>
+<p>Utilize um laço do...while para contar de 10 até 1. Exiba cada número no console em ordem decrescente.</p>
 <h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Somar os números de 1 a 100</p>
+<p>Crie um laço de repetição que percorra os números de 1 a 100 e calcule a soma total. Exiba o resultado final no console.</p>
 <h4 is-upgraded><strong>Exercício 5 (extra)</strong></h4>
-<p>Pedir um número e mostrar a tabuada com for</p>
+<p>Solicite ao usuário que informe um número (você pode usar prompt() no navegador). Em seguida, use um laço for para exibir a tabuada desse número no console.</p>
+</aside>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Funções: declaração, parâmetros, retorno e escopo" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
+        <h3 is-upgraded>Objetivos</h3>
+<aside class="special"><ul>
 <li>Criar funções reutilizáveis com ou sem parâmetros<br></li>
 <li>Compreender o escopo de variáveis dentro de funções<br></li>
-<li>Utilizar return para retornar valores<br></li>
+<li>Utilizar return para retornar valores</li>
 </ul>
+</aside>
 <h3 is-upgraded><strong>Conteúdo</strong></h3>
 <h4 is-upgraded><strong>1. Função simples</strong></h4>
 <p>function saudacao() {</p>
@@ -287,353 +317,18 @@ var cidade = &#34;São Paulo&#34;;</code></pre>
 <p>  console.log(local);</p>
 <p>}</p>
 <p>testeEscopo();</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Crie uma função boasVindas que receba nome e exiba uma mensagem personalizada no console.</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Função dobrar que recebe um número e retorna o dobro</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Função que recebe dois números e retorna o maior</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Função que verifica se um número é par</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Função converterCelsiusParaFahrenheit</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Função que concatena nome e sobrenome</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Manipulação do DOM" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
-<li>Compreender o que é o DOM (Document Object Model)<br></li>
-<li>Selecionar e alterar elementos HTML via JavaScript<br></li>
-<li>Interagir dinamicamente com a página<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. Selecionar elementos</strong></h4>
-<p>const titulo = document.getElementById(&#34;titulo&#34;);</p>
-<p>const paragrafos = document.querySelectorAll(&#34;p&#34;);</p>
-<h4 is-upgraded><strong>2. Alterar conteúdo e estilo</strong></h4>
-<p>titulo.textContent = &#34;Novo título&#34;;</p>
-<p>titulo.style.color = &#34;blue&#34;;</p>
-<h4 is-upgraded><strong>3. Criar e adicionar elementos</strong></h4>
-<p>let novoItem = document.createElement(&#34;li&#34;);</p>
-<p>novoItem.textContent = &#34;Item novo&#34;;</p>
-<p>document.body.appendChild(novoItem);</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Altere o texto de um &lt;h1&gt; e crie dinamicamente um &lt;p&gt; com uma mensagem.</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Mudar o texto de um botão ao clicar</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Adicionar um item em uma lista &lt;ul&gt;</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Alterar o fundo da página ao clicar em um botão</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Criar uma &lt;div&gt; e preenchê-la com conteúdo dinâmico</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Contador visual que incrementa ao clicar em um botão</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Eventos e Interatividade" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
-<li>Capturar eventos do usuário como cliques, teclas e movimentos<br></li>
-<li>Usar addEventListener para tornar a página interativa<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. Ouvindo eventos com </strong><strong>addEventListener</strong></h4>
-<p>const botao = document.getElementById(&#34;meuBotao&#34;);</p>
-<p>botao.addEventListener(&#34;click&#34;, function () {</p>
-<p>  alert(&#34;Botão clicado!&#34;);</p>
-<p>});</p>
-<h4 is-upgraded><strong>2. Outros tipos de eventos</strong></h4>
-<ul>
-<li>mouseover, mouseout<br></li>
-<li>keydown, keyup<br></li>
-<li>submit, change<br></li>
-</ul>
-<h4 is-upgraded><strong>3. Evento com função separada</strong></h4>
-<p>function mostrarMensagem() {</p>
-<p>  alert(&#34;Evento separado!&#34;);</p>
-<p>}</p>
-<p>botao.addEventListener(&#34;click&#34;, mostrarMensagem);</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Crie um botão que, ao ser clicado, muda a cor de fundo da página.</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Mostrar mensagem ao clicar em um botão</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Mudar o texto de um parágrafo com mouseover</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Detectar tecla pressionada com keydown</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Ao submeter um formulário, impedir envio e mostrar mensagem</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Mudar dinamicamente a cor de um elemento com change</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Arrays e Objetos" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
-<li>Declarar e manipular arrays e objetos<br></li>
-<li>Acessar, adicionar, remover e percorrer dados estruturados<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. Arrays</strong></h4>
-<p>let frutas = [&#34;maçã&#34;, &#34;banana&#34;, &#34;uva&#34;];</p>
-<p>console.log(frutas[1]); // banana</p>
-<h4 is-upgraded><strong>2. Métodos de array</strong></h4>
-<p>frutas.push(&#34;laranja&#34;); // adiciona</p>
-<p>frutas.pop();            // remove último</p>
-<p>frutas.length;           // tamanho</p>
-<h4 is-upgraded><strong>3. Objetos</strong></h4>
-<p>let pessoa = {</p>
-<p>  nome: &#34;João&#34;,</p>
-<p>  idade: 25,</p>
-<p>  curso: &#34;Sistemas&#34;</p>
-<p>};</p>
-<p>console.log(pessoa.nome);</p>
-<h4 is-upgraded><strong>4. Array de objetos</strong></h4>
-<p>let alunos = [</p>
-<p>  { nome: &#34;Ana&#34;, idade: 20 },</p>
-<p>  { nome: &#34;Pedro&#34;, idade: 22 }</p>
-<p>];</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Crie um array com 5 cidades e mostre-as usando um for ou forEach.</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Criar array de 4 cores e exibir todas no console</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Criar objeto com nome, idade e curso, e exibir no console</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Adicionar e remover itens de um array</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Criar um array de objetos com 3 alunos e exibir os nomes</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Exibir todos os pares chave: valor de um objeto com for...in</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Funções de Ordem Superior: map, filter, reduce" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
-<li>Compreender e aplicar funções de ordem superior em arrays<br></li>
-<li>Utilizar map, filter e reduce para transformar, filtrar e agregar dados<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. </strong><strong>map()</strong></h4>
-<p>const numeros = [1, 2, 3];</p>
-<p>const dobrados = numeros.map(n =&gt; n * 2);</p>
-<p>console.log(dobrados); // [2, 4, 6]</p>
-<h4 is-upgraded><strong>2. </strong><strong>filter()</strong></h4>
-<p>const pares = numeros.filter(n =&gt; n % 2 === 0);</p>
-<p>console.log(pares); // [2]</p>
-<h4 is-upgraded><strong>3. </strong><strong>reduce()</strong></h4>
-<p>const soma = numeros.reduce((ac, n) =&gt; ac + n, 0);</p>
-<p>console.log(soma); // 6</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Dado um array de produtos, filtre os com preço &gt; 50 e use map para retornar apenas os nomes.</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Use map para transformar uma lista de nomes em letras maiúsculas</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Use filter para retornar apenas os números negativos</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Use reduce para somar os valores de um array</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Combine filter e map para retornar nomes de alunos aprovados (nota ≥ 7)</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Conte quantas vezes um valor aparece em um array com reduce</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Manipulação de Formulários" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
-<li>Capturar e validar dados inseridos em formulários HTML com JavaScript<br></li>
-<li>Impedir envio padrão de formulários e exibir mensagens personalizadas<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. Capturar dados</strong></h4>
-<p>document.getElementById(&#34;meuForm&#34;).addEventListener(&#34;submit&#34;, function(event) {</p>
-<p>  event.preventDefault();</p>
-<p>  const nome = document.getElementById(&#34;nome&#34;).value;</p>
-<p>  alert(&#34;Nome enviado: &#34; + nome);</p>
-<p>});</p>
-<h4 is-upgraded><strong>2. Validar campos</strong></h4>
-<p>if (nome.trim() === &#34;&#34;) {</p>
-<p>  alert(&#34;Preencha o nome corretamente&#34;);</p>
-<p>}</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Crie um formulário com nome, idade e curso, e exiba os dados com alert() ao enviar.</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Impedir envio de formulário e mostrar mensagem personalizada</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Validar se todos os campos estão preenchidos antes de enviar</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Mostrar os dados preenchidos no console</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Limpar os campos após o envio bem-sucedido</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Criar uma validação para aceitar apenas idade ≥ 18</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Programação Assíncrona: setTimeout, fetch, async/await" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
-<li>Compreender o conceito de operações assíncronas<br></li>
-<li>Utilizar setTimeout, fetch e async/await para chamadas não bloqueantes<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. Temporizador </strong><strong>setTimeout</strong></h4>
-<p>setTimeout(() =&gt; {</p>
-<p>  console.log(&#34;Executado após 2 segundos&#34;);</p>
-<p>}, 2000);</p>
-<h4 is-upgraded><strong>2. Requisição com </strong><strong>fetch</strong></h4>
-<p>fetch(&#34;https://jsonplaceholder.typicode.com/posts/1&#34;)</p>
-<p>  .then(res =&gt; res.json())</p>
-<p>  .then(dado =&gt; console.log(dado));</p>
-<h4 is-upgraded><strong>3. Usando </strong><strong>async/await</strong></h4>
-<p>async function carregarPost() {</p>
-<p>  const resposta = await fetch(&#34;https://jsonplaceholder.typicode.com/posts/1&#34;);</p>
-<p>  const dado = await resposta.json();</p>
-<p>  console.log(dado);</p>
-<p>}</p>
-<p>carregarPost();</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Buscar um post via API e exibir seu título na tela com fetch</p>
-<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Usar setTimeout para mostrar mensagem após 3 segundos</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Fazer uma requisição para API pública com fetch</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Exibir apenas o título do resultado da API</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Reescrever a requisição usando async/await</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Mostrar erro com catch() caso a API falhe</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Consumindo APIs REST" duration="0">
-        <h3 is-upgraded><strong>Objetivos</strong></h3>
-<ul>
-<li>Entender o conceito de API REST<br></li>
-<li>Fazer requisições GET e POST usando fetch<br></li>
-<li>Exibir dados externos na aplicação<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. O que é uma API REST?</strong></h4>
-<ul>
-<li>Interface para comunicação entre sistemas<br></li>
-<li>Usa métodos HTTP como GET, POST, PUT, DELETE<br></li>
-</ul>
-<h4 is-upgraded><strong>2. Exemplo de </strong><strong>GET</strong></h4>
-<p>fetch(&#34;https://api.exemplo.com/dados&#34;)</p>
-<p>  .then(res =&gt; res.json())</p>
-<p>  .then(data =&gt; console.log(data));</p>
-<h4 is-upgraded><strong>3. Exemplo de </strong><strong>POST</strong></h4>
-<p>fetch(&#34;https://api.exemplo.com/novo&#34;, {</p>
-<p>  method: &#34;POST&#34;,</p>
-<p>  headers: { &#34;Content-Type&#34;: &#34;application/json&#34; },</p>
-<p>  body: JSON.stringify({ nome: &#34;Maria&#34; })</p>
-<p>})</p>
-<p>.then(res =&gt; res.json())</p>
-<p>.then(dado =&gt; console.log(dado));</p>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Usar uma API gratuita (ex: JSONPlaceholder) para listar e adicionar dados.</p>
 <h3 is-upgraded>Exercícios práticos</h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Consumir uma API pública com fetch</p>
+<aside class="special"><h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Crie uma função chamada dobrar que receba um número como parâmetro e retorne o dobro desse número. Teste a função com diferentes valores e exiba os resultados no console.</p>
 <h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Listar dados recebidos no HTML</p>
+<p>Crie uma função que recebe dois números e retorna o maior. Teste a função com diferentes valores e exiba os resultados no console.</p>
 <h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Criar formulário que envia dados via POST</p>
+<p>Crie uma função que verifica se um número é par. Teste a função com diferentes valores e exiba os resultados no console.</p>
 <h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Exibir erro de requisição com catch</p>
+<p>Crie uma função chamada converterCelsiusParaFahrenheit. Teste a função com diferentes valores e exiba os resultados no console.</p>
 <h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Criar função assíncrona para encapsular a lógica da requisição</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Modularização e Boas Práticas" duration="0">
-        <h3 is-upgraded>Objetivos</h3>
-<ul>
-<li>Organizar o código JavaScript em arquivos e funções<br></li>
-<li>Aplicar boas práticas de escrita e estruturação<br></li>
-</ul>
-<h3 is-upgraded><strong>Conteúdo</strong></h3>
-<h4 is-upgraded><strong>1. Separar arquivos JS</strong></h4>
-<p>&lt;script src=&#34;funcoes.js&#34;&gt;&lt;/script&gt;</p>
-<p>&lt;script src=&#34;app.js&#34;&gt;&lt;/script&gt;</p>
-<h4 is-upgraded><strong>2. Boas práticas</strong></h4>
-<ul>
-<li>Nomes descritivos<br></li>
-<li>Comentários claros<br></li>
-<li>Funções pequenas e reutilizáveis<br></li>
-<li>Evitar código duplicado<br></li>
-</ul>
-<h3 is-upgraded><strong>Atividade prática</strong></h3>
-<p>Reescreva uma aplicação anterior separando as funções em outro arquivo JS.</p>
-<h3 is-upgraded>Exercícios práticos</h3>
-<h4 is-upgraded><strong>Exercício 1</strong></h4>
-<p>Separar código em dois arquivos JS (funções e execução)</p>
-<h4 is-upgraded><strong>Exercício 2</strong></h4>
-<p>Refatorar função grande em pequenas partes</p>
-<h4 is-upgraded><strong>Exercício 3</strong></h4>
-<p>Remover código duplicado com funções reutilizáveis</p>
-<h4 is-upgraded><strong>Exercício 4</strong></h4>
-<p>Renomear variáveis para nomes mais claros</p>
-<h4 is-upgraded><strong>Exercício 5</strong></h4>
-<p>Adicionar comentários explicativos em pontos estratégicos</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Projeto Final — Mini Aplicação Web Interativa" duration="0">
-        <h3 is-upgraded>Objetivos</h3>
-<ul>
-<li>Aplicar todos os conhecimentos aprendidos no curso<br></li>
-<li>Criar uma aplicação interativa completa<br></li>
-</ul>
-<h3 is-upgraded><strong>Descrição do Projeto</strong></h3>
-<p>Crie uma aplicação web que:</p>
-<ul>
-<li>Permita cadastrar usuários (nome e e-mail)<br></li>
-<li>Liste os usuários cadastrados<br></li>
-<li>Permita excluir um usuário<br></li>
-<li>Utilize DOM, eventos, arrays, funções e localStorage<br></li>
-</ul>
-<h3 is-upgraded><strong>Etapas sugeridas</strong></h3>
-<ol type="1" start="1">
-<li>Estruturar o HTML com formulário e lista<br></li>
-<li>Criar array para armazenar os dados<br></li>
-<li>Exibir os dados na tela com DOM<br></li>
-<li>Salvar e carregar dados do localStorage<br></li>
-<li>Permitir exclusão de itens da lista<br></li>
-</ol>
-<h3 is-upgraded><strong>Avaliação</strong></h3>
-<ul>
-<li>Organização do código<br></li>
-<li>Funcionalidade completa<br></li>
-<li>Clareza na estrutura e uso de boas práticas<br></li>
-<li>Apresentação final do projeto</li>
-</ul>
+<p>Crie uma função que concatena nome e sobrenome. Teste a função com diferentes valores e exiba os resultados no console.</p>
+</aside>
 
 
       </google-codelab-step>
