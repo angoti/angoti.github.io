@@ -27,438 +27,613 @@
                   environment="web"
                   feedback-link="">
     
-      <google-codelab-step label="Introdução ao JavaScript" duration="0">
-        <h2 is-upgraded><strong>Características da javascript</strong></h2>
+      <google-codelab-step label="Introdução à Programação JavaScript para Web" duration="20">
+        <aside class="special"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference" target="_blank">Referência</a></p>
+</aside>
+<p>JavaScript é uma linguagem de programação essencial no desenvolvimento web moderno. Criada inicialmente para adicionar interatividade a páginas HTML, ela evoluiu para se tornar uma linguagem poderosa, capaz de atuar tanto no frontend (lado do cliente) quanto no backend (lado do servidor, com Node.js).</p>
+<p>No contexto da web, o JavaScript permite que desenvolvedores manipulem a <strong>Árvore DOM (Document Object Model)</strong>, respondam a eventos do usuário (como cliques e digitação), e criem interfaces dinâmicas e reativas sem a necessidade de recarregar a página. É a linguagem responsável por transformar páginas estáticas em aplicações interativas e responsivas.</p>
+<h2 is-upgraded><strong>Por que aprender JavaScript?</strong></h2>
 <ul>
-<li>Todas as linguagens de script são linguagens interpretadas.</li>
-<li>Scrips JavaScript podem ser interpretados pelo navegador.</li>
-<li>São capazes de controlar não somente o conteúdo de documentos HTML, mas também o comportamento.</li>
+<li><strong>Padrão da indústria</strong>: todos os navegadores modernos suportam JavaScript nativamente;<br></li>
+<li><strong>Versatilidade</strong>: com o ecossistema atual, é possível desenvolver aplicações completas apenas com JavaScript (Full Stack);<br></li>
+<li><strong>Integração com APIs</strong>: é a linguagem ideal para consumir e manipular dados de serviços externos;<br></li>
+<li><strong>Base para frameworks modernos</strong>: bibliotecas como React, Vue e Angular são escritas em JavaScript e amplamente utilizadas no mercado.</li>
 </ul>
-<h2 is-upgraded>Exemplo javascript</h2>
-<pre><code>&lt;html&gt;
-        &lt;head&gt;
-                &lt;meta http-equiv=&#34;Content-Type&#34; 
-                 content=&#34;text/html; charset=iso-8859-1&#34;&gt;
-                &lt;title&gt;javaScript&lt;/title&gt;
-                &lt;script&gt;
-                        alert(&#39;Hello World!&#39;);
-                &lt;/script&gt;
-        &lt;/head&gt;
-&lt;body&gt;
-        Exemplo 01
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p class="image-container"><img style="width: 363.27px" src="img\\5546ab5ed695e0e.png"></p>
-<h2 is-upgraded>Exemplo 2 javascript</h2>
-<p>O próximo exemplo apresenta a interação entre as estruturas de HTML, CSS e JavaScript.</p>
+<p>JavaScript é baseado na especificação ECMAScript, que padroniza sua sintaxe e funcionalidades. Isso garante consistência e interoperabilidade entre diferentes implementações da linguagem. </p>
+<h2 is-upgraded><strong>Conceitos-chave iniciais</strong></h2>
+<ul>
+<li><strong>Variáveis e tipos de dados</strong>: let, const, strings, números, booleanos.<br></li>
+<li><strong>Controle de fluxo</strong>: if, else, switch, laços como for e while.<br></li>
+<li><strong>Funções e escopo</strong>: função tradicional e arrow functions (=&gt;).<br></li>
+<li><strong>Manipulação do DOM</strong>: acessar e alterar elementos HTML via document.getElementById, querySelector, etc.<br></li>
+<li><strong>Eventos</strong>: capturar interações do usuário com addEventListener.<br></li>
+<li><strong>Programação assíncrona</strong>: uso de setTimeout, fetch, async/await.</li>
+</ul>
+<h2 is-upgraded><strong>Exemplo prático: Interatividade com JavaScript</strong></h2>
+<h3 is-upgraded><strong>HTML</strong></h3>
 <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang=&#34;en&#34;&gt;
+&lt;html lang=&#34;pt-BR&#34;&gt;
 &lt;head&gt;
   &lt;meta charset=&#34;UTF-8&#34;&gt;
-  &lt;title&gt;Document&lt;/title&gt;
-  &lt;style&gt;
-    .box {
-      display: flex;
-      margin: auto;
-      justify-content: center;
-      align-items: center;
-      width: 400px;
-      height: 400px;
-      background-color: yellow;
-      border: 1px solid red;
-    }
-  &lt;/style&gt;
-&lt;script&gt;
-    function mudarCor() {
-      document.getElementById(&#34;caixa&#34;).style.backgroundColor = document.getElementById(&#34;fundo&#34;).value;
-      document.getElementById(&#34;caixa&#34;).style.color = &#34;white&#34;;
-      document.getElementById(&#34;caixa&#34;).style.width = &#34;300px&#34;;
-    }
-  &lt;/script&gt;
+  &lt;title&gt;Exemplo JS Interativo&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;form&gt;
-    Cor do fundo: &lt;input type=&#34;color&#34; id=&#34;fundo&#34; name=&#34;fundo2&#34;&gt;
-    &lt;input type=&#34;button&#34; value=&#34;Mudar cor&#34; onclick=&#34;mudarCor()&#34;&gt;
-  &lt;/form&gt; 
-  &lt;div class=&#34;box&#34; id=&#34;caixa&#34;&gt;
-    Alô mundo
-  &lt;/div&gt;
+  &lt;h1 id=&#34;titulo&#34;&gt;Olá, visitante!&lt;/h1&gt;
+  &lt;button id=&#34;btn&#34;&gt;Clique aqui&lt;/button&gt;
+
+  &lt;script src=&#34;script.js&#34;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p>Conseguimos acessar os elementos em HTML se dermos nomes a eles. E para acessar esses elementos precisamos então usar a linha de comando: document.getElementById(&#34;&lt;nome do elemento&gt;&#34;)</p>
+<h3 is-upgraded>JavaScript (script.js<strong>)</strong></h3>
+<pre><code>const titulo = document.getElementById(&#34;titulo&#34;);
+const botao = document.getElementById(&#34;btn&#34;);
+
+botao.addEventListener(&#34;click&#34;, () =&gt; {
+  titulo.textContent = &#34;Você clicou no botão!&#34;;
+});</code></pre>
+<p>Nesse exemplo, o JavaScript escuta o evento de clique no botão e altera dinamicamente o texto do título. Este é o primeiro passo para criar aplicações mais ricas, como jogos, simuladores, dashboards ou formulários inteligentes.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Javascript e Websites" duration="0">
-        <p>Não é necessário a instalação ou configuração de nenhuma biblioteca ou programa para a utilização e/ou interpretação de scripts no brower. Por default os browser interpretam linguagens em JavaScript.</p>
-<p>O bloco de &lt;script&gt; pode ser adicionado ao elemento &lt;head&gt; e/ou &lt;body&gt; porém deve-se tomar cuidado quando utilizar ele dentro do elemento body. Esses cuidados serão apresentados nos próximos tópicos.</p>
-<p>A representação de uma instrução em JavaScript segue a seguinte estrutura. </p>
-<pre><code>&lt;script type=&#34;text/javascript&#34;&gt;
-   //script
-&lt;/script&gt;</code></pre>
-<h2 is-upgraded><strong>Comentários em javascript</strong></h2>
-<p>Comentários são trechos de texto inseridos no código-fonte que não são interpretados pelo compilador ou interpretador, sendo destinados a fornecer explicações e informações adicionais para os programadores que irão ler e manter o código no futuro.</p>
-<p>No JavaScript existem dois tipos de comentários: linha e em bloco.</p>
-<p>Linha:</p>
-<p><code>        // Comentário</code></p>
-<p>Bloco:</p>
-<p><code>/* </code></p>
-<p><code>Comentário de bloco </code></p>
-<p><code>        Ai não precisa ficar colocando o </code></p>
-<p><code>// em cada linha.</code></p>
-<p><code>*/</code></p>
-<h2 is-upgraded><strong>Caixas de diálogo</strong></h2>
-<p>Em Javascript pode-se utilizar as caixas de diálogos padrões para que tenham uma interação pequena com o usuário.</p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-        &lt;body&gt;
-                &lt;h1&gt;My First Web Page&lt;/h1&gt;
-                &lt;p&gt;My first paragraph.&lt;/p&gt;
-                &lt;script&gt;
-                        window.alert(‘alô mundo&#39;);
-                &lt;/script&gt;
-        &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>Caixa utilizada somente para apresentar uma mensagem para o usuário na tela,, mas nesse momento o usuário poderá responder sim ou não. Como por exemplo: Desejas continuar? </p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-        &lt;body&gt;
-        &lt;p&gt;Clique no botão: &lt;/p&gt;
-
-        &lt;button onclick=&#34;enviar()&#34;&gt;Enviar&lt;/button&gt;
-        &lt;p id=&#34;demo&#34;&gt;&lt;/p&gt;
-
-        &lt;script&gt;
-                function enviar() {
-                  let text;
-                  if (confirm(&#34;Deseja continuar&#34;) == true) {
-                        text = &#34;OK!&#34;;
-                  } else {
-                        text = &#34;Não OK&#34;;
-                  }
-                  document.getElementById(&#34;demo&#34;).innerHTML = text;
-                }
-        &lt;/script&gt;
-        &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>Caixa utilizada permite a entrada de dados do usuário que poderá ser usada em outro momento no programa.  </p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-        &lt;body&gt;
-        &lt;p&gt;Clique no botão:&lt;/p&gt;
-        &lt;button onclick=&#34;bebida()&#34;&gt;Clique aqui&lt;/button&gt;
-        &lt;p id=&#34;demo&#34;&gt;&lt;/p&gt;
-
-        &lt;script&gt;
-                function bebida() {
-                  let text;
-                  let favorita = prompt(&#34;Qual a sua bebida favorita&#34;, &#34;Coca-Cola&#34;);
-                  switch(favorita) {
-                        case &#34;Coca-Cola&#34;:
-                          text = &#34;Você escolheu coca.&#34;;
-                          break;
-                        case &#34;Pepsi&#34;:
-                          text = &#34;Você escolheu Pepsi&#34;;
-                          break;
-                        case &#34;Sprite&#34;:
-                          text = &#34;Você escolheu Sprite&#34;;
-                          break;
-                        default:
-                          text = &#34;Você escolheu outra bebida&#34;;
-                  }
-                  document.getElementById(&#34;demo&#34;).innerHTML = text;
-                }
-        &lt;/script&gt;
-        &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<h2 is-upgraded><strong>EXERCÍCIOS</strong></h2>
-<p>1. Crie uma página web de tal forma que, antes do carregamento da página a seguinte mensagem seja exibida ao usuário: &#34;Você gostaria de saber o nome desta disciplina?&#34;. Em caso afirmativo, a mensagem, dentro de uma caixa de diálogo, deverá ser exibida ao usuário &#34;JavaScript Básico&#34;. Caso contrário, a mensagem &#34;Caso queira visualizar o nome da disciplina, atualize a página novamente&#34;, deverá ser exibida ao usuário através de uma caixa de diálogo.</p>
-<p>2. Crie uma página web que solicita ao usuário dois valores numéricos separadamente, ou seja, cada valor deverá ser informado em uma caixa de diálogo diferente. Em seguida, exiba o resultado da multiplicação entre eles em uma caixa de diálogo.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Variáveis em Javascript" duration="0">
-        <p>Variáveis são contêineres para armazenar valores. Em Javascript temos duas características simplórias das utilizações das variáveis:</p>
-<ul>
-<li>Tipagem fraca: Não há declaração antecipada do tipo de dados.</li>
-<li>Tipagem dinâmica: variável Javascript pode armazenar diferentes tipos de dados em diferentes momentos dependendo do contexto do problema.</li>
+      <google-codelab-step label="Sintaxe Básica e Primeiros Scripts" duration="0">
+        <h2 is-upgraded><strong>Objetivos</strong></h2>
+<aside class="special"><ul>
+<li>Compreender a estrutura básica da linguagem JavaScript</li>
+<li>Escrever os primeiros comandos em JS</li>
+<li>Executar scripts no navegador</li>
 </ul>
-<p>Variáveis em JavaScript podem ser declaradas de 4 maneiras:</p>
-<ul>
-<li>Automaticamente</li>
-<li>Usando var</li>
-<li>Usando let</li>
-<li>Usando const</li>
-</ul>
-<h2 is-upgraded><strong>Automaticamente</strong></h2>
-<p>Neste primeiro exemplo, x, y e z são variáveis não declaradas. Eles são declarados automaticamente quando usados pela primeira vez:</p>
+</aside>
+<h3 is-upgraded><strong>Inserindo JavaScript em uma página HTML</strong></h3>
 <pre><code>&lt;script&gt;
-x = 5;
-y = 6;
-z = x + y;
-window.alert(&#34;o valor de z eh: &#34; + z);
-&lt;/script&gt;</code></pre>
-<pre><code>&lt;script&gt;
-var x = 5;
-var y = 6;
-var z = x + y;
-window.alert(&#34;o valor de z eh: &#34; + z);
-&lt;/script&gt;</code></pre>
-<p>Usando let e const</p>
-<p>Deve-se sempre declarar variáveis. Sempre use const se o valor não deve ser alterado ou se o tipo não deve ser alterado (Arrays e Objetos). E sempre use let quando não puder usar const.</p>
-<p>As duas variáveis price1 e price2 são declaradas com a palavra-chave const. Esses são valores constantes e não podem ser alterados. A variável total é declarada com a palavra-chave let. O valor total pode ser alterado.</p>
-<pre><code>&lt;script&gt;
-const price1 = 5;
-const price2 = 6;
-let total = price1 + price2;
-window.alert (o total eh: &#34; + total);
-&lt;/script&gt;</code></pre>
-<h2 is-upgraded><strong>Escopo de uma variável </strong></h2>
-<p class="image-container"><img style="width: 337.58px" src="img\\a00b296094307929.png"></p>
-<p>Variáveis declaradas dentro de um bloco { } não podem ser acessadas de fora do bloco:</p>
-<p class="image-container"><img style="width: 569.36px" src="img\\b7ad486b6b2b0382.png"></p>
-<p>Variáveis declaradas com var sempre possuem Escopo Global. Variáveis declaradas com a palavra-chave var NÃO podem ter escopo de bloco:</p>
-<p class="image-container"><img style="width: 465.36px" src="img\\63e5e1d9429f7f6f.png"></p>
-<h3 is-upgraded><strong>Exemplo var1.html</strong></h3>
-<pre><code>&lt;html&gt;
-        &lt;head&gt;
-                &lt;meta charset=&#34;utf-8&#34;&gt;
-                &lt;title&gt;javaScript&lt;/title&gt;
-                &lt;script type=&#34;text/javascript&#34;&gt;
-                        var x = 9;
-                        
-                        function valor(){
-                                x = 10;
-                        }
-                        
-                        function inicio2(){
-                                document.write(&#34;&lt;h1&gt;&#34; + x + &#34;&lt;/h1&gt;&#34;);
-                        }
-                &lt;/script&gt;
-        &lt;/head&gt;
-&lt;body onload=&#34;inicio2()&#34;&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<h3 is-upgraded><strong>Exemplo var2.html</strong></h3>
-<pre><code>&lt;html&gt;
-&lt;head&gt;
-&lt;meta charset=&#34;utf-8&#34;&gt;
-&lt;title&gt;javaScript&lt;/title&gt;
-&lt;script type=&#34;text/javascript&#34;&gt;
-var v1 = 3; 
-var v2, v3, v4; 
-v2 = 3; 
-v2 = true; 
-v4 = false;
-alert(v1===v2); 
-alert(v2==v3);
-alert(v1%=v2); 
-alert(v1);
-                        
-alert(true &amp;&amp; true);
-alert(true &amp;&amp; false);
-alert(false &amp;&amp; true);
-alert(true || true);
-alert(false || true);
-alert(!false);
-alert(!&#34;Gato&#34;);
+  alert(&#34;Olá, mundo!&#34;);
 &lt;/script&gt;
-&lt;/head&gt;
-&lt;body onload=&#34;inicio2()&#34;&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<h2 is-upgraded><strong>Exemplo var3.html</strong></h2>
-<p>&lt;html&gt;</p>
-<p>        &lt;head&gt;</p>
-<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
-<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
-<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
-<p>                        var x;</p>
-<p>                        function valor(){</p>
-<p>                                var x = 10;</p>
-<p>                        }</p>
-<p>                        function inicio2(){</p>
-<p>                                valor();</p>
-<p>                                document.write(this.x);</p>
-<p>                        }</p>
-<p>                &lt;/script&gt;</p>
-<p>        &lt;/head&gt;</p>
-<p>&lt;body onload=&#34;inicio2()&#34;&gt;</p>
-<p>&lt;/body&gt;</p>
-<p>&lt;/html&gt;</p>
-<h3 is-upgraded><strong>Exemplo var4.html</strong></h3>
-<p>&lt;html&gt;</p>
-<p>        &lt;head&gt;</p>
-<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
-<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
-<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
-<p>                        var result;</p>
-<p>                        function soma(x, y){</p>
-<p>                            result = x + y;</p>
-<p>                                return result;</p>
-<p>                        }</p>
-<p>                        function soma2(x, y){</p>
-<p>                                var result = x + y;</p>
-<p>                                return result;</p>
-<p>                        }</p>
-<p>                &lt;/script&gt;</p>
-<p>        &lt;/head&gt;</p>
-<p>&lt;body onload=&#34;document.write(soma(3, 4))&#34;&gt;</p>
-<p>&lt;/body&gt;</p>
-<p>&lt;/html&gt;</p>
-<h3 is-upgraded><strong>Exemplo var5.html</strong></h3>
-<p>&lt;html&gt;</p>
-<p>        &lt;head&gt;</p>
-<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
-<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
-<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
-<p>                        var result;</p>
-<p>                        function soma(x, y){</p>
-<p>                            result = x + y;</p>
-<p>                                return result;</p>
-<p>                        }</p>
-<p>                        function soma2(x, y){</p>
-<p>                                var result = x + y;</p>
-<p>                                return result;</p>
-<p>                        }</p>
-<p>                &lt;/script&gt;</p>
-<p>        &lt;/head&gt;</p>
-<p>&lt;body onload=&#34;document.write(soma2(3, 4))&#34;&gt;</p>
-<p>&lt;/body&gt;</p>
-<p>&lt;/html&gt;</p>
-<h3 is-upgraded><strong>Exemplo var6.html</strong></h3>
-<p>&lt;html&gt;</p>
-<p>        &lt;head&gt;</p>
-<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
-<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
-<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
-<p>                        var x = 10;</p>
-<p>                        y = 20;</p>
-<p>                        z = 30;</p>
-<p>                        document.write(delete x); // as variáveis globais não podem aplicar a propriedade delete </p>
-<p>                        document.write(delete y);</p>
-<p>                        document.write(delete z);</p>
-<p>                &lt;/script&gt;</p>
-<p>        &lt;/head&gt;</p>
-<p>&lt;body&gt;</p>
-<p>&lt;/body&gt;</p>
-<p>&lt;/html&gt;</p>
-<h3 is-upgraded><strong>Exemplo var7.html</strong></h3>
-<p>&lt;html&gt;</p>
-<p>        &lt;head&gt;</p>
-<p>                &lt;meta charset=&#34;utf-8&#34;&gt;</p>
-<p>                &lt;title&gt;javaScript&lt;/title&gt;</p>
-<p>                &lt;script type=&#34;text/javascript&#34;&gt;</p>
-<p>                        // var sum, b, i, j;</p>
-<p>                        // tem que colocar var em tudo</p>
-<p>                        function func(){</p>
-<p>                                var a = 1;</p>
-<p>                                b = 2;</p>
-<p>                                sum = a + b;</p>
-<p>                                i;</p>
-<p>                                j;</p>
-<p>                                document.write(sum);</p>
-<p>                        }</p>
-<p>                &lt;/script&gt;</p>
-<p>        &lt;/head&gt;</p>
-<p>&lt;body onload=&#34;func()&#34;&gt;</p>
-<p>&lt;/body&gt;</p>
-<p>&lt;/html&gt;</p>
-<h2 is-upgraded><strong>Tipos primitivos de dados </strong></h2>
-<p>O Javascript possui somente três tipos primitivos de dados: string, numeric e boolean. Portanto possui os mesmos objetos internos: String, Numeric e Boolean.</p>
-<p>O objeto String envolve o tipo primitivo string, assim como os objetos Number e Boolean o fazem com seus tipos de dados primitivos individuais, numeric e boolean, respectivamente.</p>
-<p>Para ficar mais claro vamos ao exemplo:</p>
+&lt;script src=&#34;script.js&#34;&gt;&lt;/script&gt;</code></pre>
+<h3 is-upgraded><strong>Comandos básicos</strong></h3>
+<pre><code>console.log(&#34;Exibindo no console&#34;);
+alert(&#34;Mensagem de alerta&#34;);
+document.write(&#34;Escrevendo no corpo da página&#34;);</code></pre>
+<h3 is-upgraded><strong>Comentários</strong></h3>
+<pre><code>// Comentário de uma linha
+/* Comentário de múltiplas linhas */
+</code></pre>
+<h3 is-upgraded><strong>Regras de nomeação</strong></h3>
+<ul>
+<li>Devem começar com letra, _ ou $</li>
+<li>Não devem conter palavras reservadas</li>
+<li>nome ≠ Nome</li>
+</ul>
+<h2 is-upgraded><strong>Atividade prática</strong></h2>
+<p>Com base nos conceitos apresentados, desenvolva uma página HTML que:</p>
 <ol type="1" start="1">
-<li>var nome = &#34;carlos&#34;;</li>
-<li>var nomeMaiusculas = nome.toUpperCase();</li>
+<li>Mostre um alert</li>
+<li>Escreva no console</li>
+<li>Exiba texto com document.write()</li>
 </ol>
-<p>No trecho de código acima, quando o método toUpperCase é chamado por &#34;nome.&#34;, um objeto é criado para envolver a string e a seguir processar a chamada do método antes que o objeto seja descartado. Para todos os propósitos, nome se parece com um objeto e atua como um objeto ao chamar o método, mas é um tipo primitivo.</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank">Referência</a></p>
-<p>O tipo primitivo Boolean possui dois valores True e False, portanto temos a seguinte tabela de conversão.</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p><strong>Entrada (input)</strong></p>
-</td><td colspan="1" rowspan="1"><p><strong>Resultado</strong></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Undefined</p>
-</td><td colspan="1" rowspan="1"><p>false</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Null</p>
-</td><td colspan="1" rowspan="1"><p>false</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Boolean</p>
-</td><td colspan="1" rowspan="1"><p>Valor dele mesmo</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Number</p>
-</td><td colspan="1" rowspan="1"><p>False se o número for 0 ou NaN, caso contrário, true</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>String</p>
-</td><td colspan="1" rowspan="1"><p>False se a string for vazia, caso contrário, true</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Object</p>
-</td><td colspan="1" rowspan="1"><p>True</p>
-</td></tr>
-</table>
-<p class="image-container"><img style="width: 594.67px" src="img\\84acdb7d837ba836.png"></p>
-<h2 is-upgraded><strong>EXERCÍCIOS</strong></h2>
-<p>1. Crie uma variável contendo o seguinte texto: &#34;Instituto Federal do Triângulo Mineiro Uberlândia Centro&#34;. E então crie um script para imprimir em uma caixa de diálogo apenas a palavra Mineiro.</p>
-<p>2. Construa  uma  página web capaz  de  solicitar  o  nome  completo  do  usuário  e  em  seguida exiba,  através  de  uma MENSAGEM  DE  ALERTA,  o nome  informado contendo  apenas letras maiúsculas.</p>
-<p>3. Qual é o próximo número da sequência abaixo?</p>
-<p>                                    1  1  2  3  5  8  ...</p>
-<p>Construa um script em JavaScript para mostrar os N primeiros desta sequência. N deverá ser informado pelo usuário.</p>
-<p>4. Construa uma página HTML, utilizando JavaScript, capaz de mostrar a tabela abaixo (utilize a função de conversão de bases do JavaScript e a estrutura de repetição for para montar esta tabela):</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p><strong>Decimal</strong></p>
-</td><td colspan="1" rowspan="1"><p><strong>Octal</strong></p>
-</td><td colspan="1" rowspan="1"><p><strong>Hexadecimal</strong></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>0</p>
-</td><td colspan="1" rowspan="1"><p>0</p>
-</td><td colspan="1" rowspan="1"><p>0</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>1</p>
-</td><td colspan="1" rowspan="1"><p>1</p>
-</td><td colspan="1" rowspan="1"><p>1</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>2</p>
-</td><td colspan="1" rowspan="1"><p>2</p>
-</td><td colspan="1" rowspan="1"><p>2</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>3</p>
-</td><td colspan="1" rowspan="1"><p>3</p>
-</td><td colspan="1" rowspan="1"><p>3</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>...</p>
-</td><td colspan="1" rowspan="1"><p>...</p>
-</td><td colspan="1" rowspan="1"><p>...</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>10</p>
-</td><td colspan="1" rowspan="1"><p>12</p>
-</td><td colspan="1" rowspan="1"><p>A</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>11</p>
-</td><td colspan="1" rowspan="1"><p>13</p>
-</td><td colspan="1" rowspan="1"><p>B</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>12</p>
-</td><td colspan="1" rowspan="1"><p>14</p>
-</td><td colspan="1" rowspan="1"><p>C</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>13</p>
-</td><td colspan="1" rowspan="1"><p>15</p>
-</td><td colspan="1" rowspan="1"><p>D</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>14</p>
-</td><td colspan="1" rowspan="1"><p>16</p>
-</td><td colspan="1" rowspan="1"><p>E</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>15</p>
-</td><td colspan="1" rowspan="1"><p>17</p>
-</td><td colspan="1" rowspan="1"><p>F</p>
-</td></tr>
-</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Variáveis, Tipos de Dados e Operadores" duration="0">
+        <h2 is-upgraded><strong>Objetivos</strong></h2>
+<aside class="special"><ul>
+<li>Declarar variáveis com let, const e var</li>
+<li>Compreender os tipos de dados primitivos</li>
+<li>Utilizar operadores aritméticos, relacionais e lógicos</li>
+</ul>
+</aside>
+<h3 is-upgraded><strong>Declaração de variáveis</strong></h3>
+<pre><code>let nome = &#34;Ana&#34;;
+const idade = 20;
+var cidade = &#34;São Paulo&#34;;</code></pre>
+<h3 is-upgraded><strong>Tipos primitivos</strong></h3>
+<ul>
+<li>String, Number, Boolean, Null, Undefined</li>
+</ul>
+<h4 is-upgraded><strong>3. Operadores</strong></h4>
+<ul>
+<li>Aritméticos: +, -, *, /, %<br></li>
+<li>Relacionais: ==, !=, &gt;, &lt;, &gt;=, &lt;=<br></li>
+<li>Lógicos: &amp;&amp;, ||, !<br></li>
+</ul>
+<h2 is-upgraded><strong>Atividade prática</strong></h2>
+<p>Crie variáveis nome, idade e curso, e exiba as informações no console:</p>
+<p>console.log(&#34;Nome: &#34; + nome);</p>
+<h2 is-upgraded><strong>Exercícios práticos</strong></h2>
+<aside class="special"><h3 is-upgraded><strong>Exercício 1</strong></h3>
+<p>Soma de dois números</p>
+<h3 is-upgraded><strong>Exercício 2</strong></h3>
+<p>Criação de variáveis com diferentes tipos de dados</p>
+<h3 is-upgraded><strong>Exercício 3</strong></h3>
+<p>Comparações utilizando estruturas condicionais</p>
+<h3 is-upgraded><strong>Exercício 4</strong></h3>
+<p>Uso de operadores lógicos com variáveis booleanas</p>
+<h3 is-upgraded><strong>Exercício 5</strong></h3>
+<p>Declaração de uma constante e exibição de mensagem no console</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Controle de Fluxo: if, else, switch" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Utilizar estruturas condicionais para controlar o fluxo do programa<br></li>
+<li>Compreender o uso de if, else if, else e switch<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Condicional </strong><strong>if</strong></h4>
+<p>let idade = 18;</p>
+<p>if (idade &gt;= 18) {</p>
+<p>  console.log(&#34;Maior de idade&#34;);</p>
+<p>}</p>
+<h4 is-upgraded><strong>2. Condicional </strong><strong>if...else</strong></h4>
+<p>let hora = 10;</p>
+<p>if (hora &lt; 12) {</p>
+<p>  console.log(&#34;Bom dia!&#34;);</p>
+<p>} else {</p>
+<p>  console.log(&#34;Boa tarde!&#34;);</p>
+<p>}</p>
+<h4 is-upgraded><strong>3. Condicional </strong><strong>if...else if...else</strong></h4>
+<p>let nota = 7;</p>
+<p>if (nota &gt;= 9) {</p>
+<p>  console.log(&#34;Excelente&#34;);</p>
+<p>} else if (nota &gt;= 7) {</p>
+<p>  console.log(&#34;Bom&#34;);</p>
+<p>} else {</p>
+<p>  console.log(&#34;Precisa melhorar&#34;);</p>
+<p>}</p>
+<h4 is-upgraded><strong>4. Estrutura </strong><strong>switch</strong></h4>
+<p>let dia = 3;</p>
+<p>switch (dia) {</p>
+<p>  case 1:</p>
+<p>    console.log(&#34;Domingo&#34;);</p>
+<p>    break;</p>
+<p>  case 2:</p>
+<p>    console.log(&#34;Segunda-feira&#34;);</p>
+<p>    break;</p>
+<p>  case 3:</p>
+<p>    console.log(&#34;Terça-feira&#34;);</p>
+<p>    break;</p>
+<p>  default:</p>
+<p>    console.log(&#34;Outro dia&#34;);</p>
+<p>}</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Crie uma variável media. Se for maior ou igual a 7, exiba &#34;Aprovado&#34;, caso contrário, &#34;Reprovado&#34;.</p>
+<h3 is-upgraded>Exercícios práticos</h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Verificador de idade com if</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Mensagem por horário (manhã/tarde/noite)</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Classificação por nota (≥9, ≥7, ≥5, &lt;5)</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Dias da semana com switch</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Número par ou ímpar com if</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Laços de Repetição: for, while, do...while" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Utilizar laços de repetição para executar blocos de código múltiplas vezes<br></li>
+<li>Compreender o uso de for, while e do...while<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Laço </strong><strong>for</strong></h4>
+<p>for (let i = 1; i &lt;= 5; i++) {</p>
+<p>  console.log(&#34;Contando: &#34; + i);</p>
+<p>}</p>
+<h4 is-upgraded><strong>2. Laço </strong><strong>while</strong></h4>
+<p>let i = 1;</p>
+<p>while (i &lt;= 5) {</p>
+<p>  console.log(&#34;While: &#34; + i);</p>
+<p>  i++;</p>
+<p>}</p>
+<h4 is-upgraded><strong>3. Laço </strong><strong>do...while</strong></h4>
+<p>let i = 1;</p>
+<p>do {</p>
+<p>  console.log(&#34;Do While: &#34; + i);</p>
+<p>  i++;</p>
+<p>} while (i &lt;= 5);</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Imprima os números de 1 a 10 usando for, while e do...while</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Tabuada do 5 com for</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Números pares até 20 com while</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Contagem regressiva com do...while</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Somar os números de 1 a 100</p>
+<h4 is-upgraded><strong>Exercício 5 (extra)</strong></h4>
+<p>Pedir um número e mostrar a tabuada com for</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Funções: declaração, parâmetros, retorno e escopo" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Criar funções reutilizáveis com ou sem parâmetros<br></li>
+<li>Compreender o escopo de variáveis dentro de funções<br></li>
+<li>Utilizar return para retornar valores<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Função simples</strong></h4>
+<p>function saudacao() {</p>
+<p>  console.log(&#34;Olá!&#34;);</p>
+<p>}</p>
+<p>saudacao();</p>
+<h4 is-upgraded><strong>2. Função com parâmetros</strong></h4>
+<p>function somar(a, b) {</p>
+<p>  console.log(a + b);</p>
+<p>}</p>
+<p>somar(3, 5);</p>
+<h4 is-upgraded><strong>3. Função com retorno</strong></h4>
+<p>function multiplicar(x, y) {</p>
+<p>  return x * y;</p>
+<p>}</p>
+<p>let resultado = multiplicar(4, 6);</p>
+<p>console.log(resultado);</p>
+<h4 is-upgraded><strong>4. Escopo de variáveis</strong></h4>
+<p>let global = &#34;fora&#34;;</p>
+<p>function testeEscopo() {</p>
+<p>  let local = &#34;dentro&#34;;</p>
+<p>  console.log(global);</p>
+<p>  console.log(local);</p>
+<p>}</p>
+<p>testeEscopo();</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Crie uma função boasVindas que receba nome e exiba uma mensagem personalizada no console.</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Função dobrar que recebe um número e retorna o dobro</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Função que recebe dois números e retorna o maior</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Função que verifica se um número é par</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Função converterCelsiusParaFahrenheit</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Função que concatena nome e sobrenome</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Manipulação do DOM" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Compreender o que é o DOM (Document Object Model)<br></li>
+<li>Selecionar e alterar elementos HTML via JavaScript<br></li>
+<li>Interagir dinamicamente com a página<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Selecionar elementos</strong></h4>
+<p>const titulo = document.getElementById(&#34;titulo&#34;);</p>
+<p>const paragrafos = document.querySelectorAll(&#34;p&#34;);</p>
+<h4 is-upgraded><strong>2. Alterar conteúdo e estilo</strong></h4>
+<p>titulo.textContent = &#34;Novo título&#34;;</p>
+<p>titulo.style.color = &#34;blue&#34;;</p>
+<h4 is-upgraded><strong>3. Criar e adicionar elementos</strong></h4>
+<p>let novoItem = document.createElement(&#34;li&#34;);</p>
+<p>novoItem.textContent = &#34;Item novo&#34;;</p>
+<p>document.body.appendChild(novoItem);</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Altere o texto de um &lt;h1&gt; e crie dinamicamente um &lt;p&gt; com uma mensagem.</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Mudar o texto de um botão ao clicar</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Adicionar um item em uma lista &lt;ul&gt;</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Alterar o fundo da página ao clicar em um botão</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Criar uma &lt;div&gt; e preenchê-la com conteúdo dinâmico</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Contador visual que incrementa ao clicar em um botão</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Eventos e Interatividade" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Capturar eventos do usuário como cliques, teclas e movimentos<br></li>
+<li>Usar addEventListener para tornar a página interativa<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Ouvindo eventos com </strong><strong>addEventListener</strong></h4>
+<p>const botao = document.getElementById(&#34;meuBotao&#34;);</p>
+<p>botao.addEventListener(&#34;click&#34;, function () {</p>
+<p>  alert(&#34;Botão clicado!&#34;);</p>
+<p>});</p>
+<h4 is-upgraded><strong>2. Outros tipos de eventos</strong></h4>
+<ul>
+<li>mouseover, mouseout<br></li>
+<li>keydown, keyup<br></li>
+<li>submit, change<br></li>
+</ul>
+<h4 is-upgraded><strong>3. Evento com função separada</strong></h4>
+<p>function mostrarMensagem() {</p>
+<p>  alert(&#34;Evento separado!&#34;);</p>
+<p>}</p>
+<p>botao.addEventListener(&#34;click&#34;, mostrarMensagem);</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Crie um botão que, ao ser clicado, muda a cor de fundo da página.</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Mostrar mensagem ao clicar em um botão</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Mudar o texto de um parágrafo com mouseover</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Detectar tecla pressionada com keydown</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Ao submeter um formulário, impedir envio e mostrar mensagem</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Mudar dinamicamente a cor de um elemento com change</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Arrays e Objetos" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Declarar e manipular arrays e objetos<br></li>
+<li>Acessar, adicionar, remover e percorrer dados estruturados<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Arrays</strong></h4>
+<p>let frutas = [&#34;maçã&#34;, &#34;banana&#34;, &#34;uva&#34;];</p>
+<p>console.log(frutas[1]); // banana</p>
+<h4 is-upgraded><strong>2. Métodos de array</strong></h4>
+<p>frutas.push(&#34;laranja&#34;); // adiciona</p>
+<p>frutas.pop();            // remove último</p>
+<p>frutas.length;           // tamanho</p>
+<h4 is-upgraded><strong>3. Objetos</strong></h4>
+<p>let pessoa = {</p>
+<p>  nome: &#34;João&#34;,</p>
+<p>  idade: 25,</p>
+<p>  curso: &#34;Sistemas&#34;</p>
+<p>};</p>
+<p>console.log(pessoa.nome);</p>
+<h4 is-upgraded><strong>4. Array de objetos</strong></h4>
+<p>let alunos = [</p>
+<p>  { nome: &#34;Ana&#34;, idade: 20 },</p>
+<p>  { nome: &#34;Pedro&#34;, idade: 22 }</p>
+<p>];</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Crie um array com 5 cidades e mostre-as usando um for ou forEach.</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Criar array de 4 cores e exibir todas no console</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Criar objeto com nome, idade e curso, e exibir no console</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Adicionar e remover itens de um array</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Criar um array de objetos com 3 alunos e exibir os nomes</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Exibir todos os pares chave: valor de um objeto com for...in</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Funções de Ordem Superior: map, filter, reduce" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Compreender e aplicar funções de ordem superior em arrays<br></li>
+<li>Utilizar map, filter e reduce para transformar, filtrar e agregar dados<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. </strong><strong>map()</strong></h4>
+<p>const numeros = [1, 2, 3];</p>
+<p>const dobrados = numeros.map(n =&gt; n * 2);</p>
+<p>console.log(dobrados); // [2, 4, 6]</p>
+<h4 is-upgraded><strong>2. </strong><strong>filter()</strong></h4>
+<p>const pares = numeros.filter(n =&gt; n % 2 === 0);</p>
+<p>console.log(pares); // [2]</p>
+<h4 is-upgraded><strong>3. </strong><strong>reduce()</strong></h4>
+<p>const soma = numeros.reduce((ac, n) =&gt; ac + n, 0);</p>
+<p>console.log(soma); // 6</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Dado um array de produtos, filtre os com preço &gt; 50 e use map para retornar apenas os nomes.</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Use map para transformar uma lista de nomes em letras maiúsculas</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Use filter para retornar apenas os números negativos</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Use reduce para somar os valores de um array</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Combine filter e map para retornar nomes de alunos aprovados (nota ≥ 7)</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Conte quantas vezes um valor aparece em um array com reduce</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Manipulação de Formulários" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Capturar e validar dados inseridos em formulários HTML com JavaScript<br></li>
+<li>Impedir envio padrão de formulários e exibir mensagens personalizadas<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Capturar dados</strong></h4>
+<p>document.getElementById(&#34;meuForm&#34;).addEventListener(&#34;submit&#34;, function(event) {</p>
+<p>  event.preventDefault();</p>
+<p>  const nome = document.getElementById(&#34;nome&#34;).value;</p>
+<p>  alert(&#34;Nome enviado: &#34; + nome);</p>
+<p>});</p>
+<h4 is-upgraded><strong>2. Validar campos</strong></h4>
+<p>if (nome.trim() === &#34;&#34;) {</p>
+<p>  alert(&#34;Preencha o nome corretamente&#34;);</p>
+<p>}</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Crie um formulário com nome, idade e curso, e exiba os dados com alert() ao enviar.</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Impedir envio de formulário e mostrar mensagem personalizada</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Validar se todos os campos estão preenchidos antes de enviar</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Mostrar os dados preenchidos no console</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Limpar os campos após o envio bem-sucedido</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Criar uma validação para aceitar apenas idade ≥ 18</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Programação Assíncrona: setTimeout, fetch, async/await" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Compreender o conceito de operações assíncronas<br></li>
+<li>Utilizar setTimeout, fetch e async/await para chamadas não bloqueantes<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Temporizador </strong><strong>setTimeout</strong></h4>
+<p>setTimeout(() =&gt; {</p>
+<p>  console.log(&#34;Executado após 2 segundos&#34;);</p>
+<p>}, 2000);</p>
+<h4 is-upgraded><strong>2. Requisição com </strong><strong>fetch</strong></h4>
+<p>fetch(&#34;https://jsonplaceholder.typicode.com/posts/1&#34;)</p>
+<p>  .then(res =&gt; res.json())</p>
+<p>  .then(dado =&gt; console.log(dado));</p>
+<h4 is-upgraded><strong>3. Usando </strong><strong>async/await</strong></h4>
+<p>async function carregarPost() {</p>
+<p>  const resposta = await fetch(&#34;https://jsonplaceholder.typicode.com/posts/1&#34;);</p>
+<p>  const dado = await resposta.json();</p>
+<p>  console.log(dado);</p>
+<p>}</p>
+<p>carregarPost();</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Buscar um post via API e exibir seu título na tela com fetch</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Usar setTimeout para mostrar mensagem após 3 segundos</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Fazer uma requisição para API pública com fetch</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Exibir apenas o título do resultado da API</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Reescrever a requisição usando async/await</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Mostrar erro com catch() caso a API falhe</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Consumindo APIs REST" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<ul>
+<li>Entender o conceito de API REST<br></li>
+<li>Fazer requisições GET e POST usando fetch<br></li>
+<li>Exibir dados externos na aplicação<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. O que é uma API REST?</strong></h4>
+<ul>
+<li>Interface para comunicação entre sistemas<br></li>
+<li>Usa métodos HTTP como GET, POST, PUT, DELETE<br></li>
+</ul>
+<h4 is-upgraded><strong>2. Exemplo de </strong><strong>GET</strong></h4>
+<p>fetch(&#34;https://api.exemplo.com/dados&#34;)</p>
+<p>  .then(res =&gt; res.json())</p>
+<p>  .then(data =&gt; console.log(data));</p>
+<h4 is-upgraded><strong>3. Exemplo de </strong><strong>POST</strong></h4>
+<p>fetch(&#34;https://api.exemplo.com/novo&#34;, {</p>
+<p>  method: &#34;POST&#34;,</p>
+<p>  headers: { &#34;Content-Type&#34;: &#34;application/json&#34; },</p>
+<p>  body: JSON.stringify({ nome: &#34;Maria&#34; })</p>
+<p>})</p>
+<p>.then(res =&gt; res.json())</p>
+<p>.then(dado =&gt; console.log(dado));</p>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Usar uma API gratuita (ex: JSONPlaceholder) para listar e adicionar dados.</p>
+<h3 is-upgraded>Exercícios práticos</h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Consumir uma API pública com fetch</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Listar dados recebidos no HTML</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Criar formulário que envia dados via POST</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Exibir erro de requisição com catch</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Criar função assíncrona para encapsular a lógica da requisição</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Modularização e Boas Práticas" duration="0">
+        <h3 is-upgraded>Objetivos</h3>
+<ul>
+<li>Organizar o código JavaScript em arquivos e funções<br></li>
+<li>Aplicar boas práticas de escrita e estruturação<br></li>
+</ul>
+<h3 is-upgraded><strong>Conteúdo</strong></h3>
+<h4 is-upgraded><strong>1. Separar arquivos JS</strong></h4>
+<p>&lt;script src=&#34;funcoes.js&#34;&gt;&lt;/script&gt;</p>
+<p>&lt;script src=&#34;app.js&#34;&gt;&lt;/script&gt;</p>
+<h4 is-upgraded><strong>2. Boas práticas</strong></h4>
+<ul>
+<li>Nomes descritivos<br></li>
+<li>Comentários claros<br></li>
+<li>Funções pequenas e reutilizáveis<br></li>
+<li>Evitar código duplicado<br></li>
+</ul>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Reescreva uma aplicação anterior separando as funções em outro arquivo JS.</p>
+<h3 is-upgraded>Exercícios práticos</h3>
+<h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Separar código em dois arquivos JS (funções e execução)</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Refatorar função grande em pequenas partes</p>
+<h4 is-upgraded><strong>Exercício 3</strong></h4>
+<p>Remover código duplicado com funções reutilizáveis</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Renomear variáveis para nomes mais claros</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Adicionar comentários explicativos em pontos estratégicos</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Final — Mini Aplicação Web Interativa" duration="0">
+        <h3 is-upgraded>Objetivos</h3>
+<ul>
+<li>Aplicar todos os conhecimentos aprendidos no curso<br></li>
+<li>Criar uma aplicação interativa completa<br></li>
+</ul>
+<h3 is-upgraded><strong>Descrição do Projeto</strong></h3>
+<p>Crie uma aplicação web que:</p>
+<ul>
+<li>Permita cadastrar usuários (nome e e-mail)<br></li>
+<li>Liste os usuários cadastrados<br></li>
+<li>Permita excluir um usuário<br></li>
+<li>Utilize DOM, eventos, arrays, funções e localStorage<br></li>
+</ul>
+<h3 is-upgraded><strong>Etapas sugeridas</strong></h3>
+<ol type="1" start="1">
+<li>Estruturar o HTML com formulário e lista<br></li>
+<li>Criar array para armazenar os dados<br></li>
+<li>Exibir os dados na tela com DOM<br></li>
+<li>Salvar e carregar dados do localStorage<br></li>
+<li>Permitir exclusão de itens da lista<br></li>
+</ol>
+<h3 is-upgraded><strong>Avaliação</strong></h3>
+<ul>
+<li>Organização do código<br></li>
+<li>Funcionalidade completa<br></li>
+<li>Clareza na estrutura e uso de boas práticas<br></li>
+<li>Apresentação final do projeto</li>
+</ul>
 
 
       </google-codelab-step>
