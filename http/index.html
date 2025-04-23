@@ -1,0 +1,428 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Guia 1</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="guia-1"
+                  title="Guia 1"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Como os computadores conversam" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\4bddfb45fa7d5032.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TCP/IP" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\6c7b418926bed737.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="IP" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\ea43f096bf83e34f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Protocolos de transporte" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\8cc7273ee46c2bef.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Portas" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\cdab6109b1cdd1f6.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Sockets" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\9692640eb5c5758a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Endereçamento de aplicativos" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\6e27c0c393438b76.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="PRÁTICA 1" duration="0">
+        <p>Servidor.java</p>
+<p><code>package</code> <code>pratica1;</code></p>
+<p><code>import</code> <code>java.io.*;</code></p>
+<p><code>import</code> <code>java.net.*;</code></p>
+<p><code>public</code> <code>class</code> <code>Servidor {</code></p>
+<p><code>public</code> <code>static</code> <code>void</code> <code>main(String[] args) {</code></p>
+<p><code>try {</code></p>
+<p><code>// Configurar o console para UTF-8</code></p>
+<p><code>System.setOut(new</code> <code>PrintStream(System.out, true, "UTF-8"));</code></p>
+<p><code>try (ServerSocket</code> <code>serverSocket</code> <code>=</code> <code>new</code> <code>ServerSocket(1234)) {</code></p>
+<p><code>System.out.println("Servidor iniciado. Aguardando conexões...");</code></p>
+<p><code>while (true) {</code></p>
+<p><code>Socket</code> <code>socket</code> <code>=</code> <code>serverSocket.accept();</code></p>
+<p><code>System.out.println("Cliente conectado: "</code> <code>+</code> <code>socket.getInetAddress().getHostAddress());</code></p>
+<p><code>try {</code></p>
+<p><code>// Receber dados do cliente com UTF-8</code></p>
+<p><code>BufferedReader</code> <code>in</code> <code>=</code> <code>new</code> <code>BufferedReader(new</code> <code>InputStreamReader(socket.getInputStream(), "UTF-8"));</code></p>
+<p><code>String</code> <code>mensagem</code> <code>=</code> <code>in.readLine();</code></p>
+<p><code>System.out.println("Mensagem recebida do cliente: "</code> <code>+</code> <code>mensagem);</code></p>
+<p><code>// Enviar resposta ao cliente com UTF-8</code></p>
+<p><code>PrintWriter</code> <code>out</code> <code>=</code> <code>new</code> <code>PrintWriter(new</code> <code>OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);</code></p>
+<p><code>out.println("echo: "</code> <code>+</code> <code>mensagem);</code></p>
+<p><code>// Fechar a conexão</code></p>
+<p><code>socket.close();</code></p>
+<p><code>          } catch (IOException</code> <code>e) {</code></p>
+<p><code>e.printStackTrace();</code></p>
+<p><code>          }</code></p>
+<p><code>        }</code></p>
+<p><code>      }</code></p>
+<p><code>    } catch (IOException</code> <code>e) {</code></p>
+<p><code>e.printStackTrace();</code></p>
+<p><code>    }</code></p>
+<p><code>  }</code></p>
+<p><code>}</code></p>
+<p>Cliente.java</p>
+<p><code>package</code> <code>pratica1;</code></p>
+<p><code>import</code> <code>java.net.*;</code></p>
+<p><code>import</code> <code>java.io.*;</code></p>
+<p><code>public</code> <code>class</code> <code>Cliente {</code></p>
+<p><code>public</code> <code>static</code> <code>void</code> <code>main(String[] args) {</code></p>
+<p><code>try {</code></p>
+<p><code>Socket</code> <code>socket</code> <code>=</code> <code>new</code> <code>Socket("localhost", 1234);</code></p>
+<p><code>System.out.println("Conectado ao servidor: "</code> <code>+</code> <code>socket.getInetAddress().getHostAddress());</code></p>
+<p><code>// Enviar dados para o servidor com UTF-8</code></p>
+<p><code>PrintWriter</code> <code>out</code> <code>=</code> <code>new</code> <code>PrintWriter(new</code> <code>OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);</code></p>
+<p><code>out.println("opa");</code></p>
+<p><code>// Receber dados do servidor com UTF-8</code></p>
+<p><code>BufferedReader</code> <code>in</code> <code>=</code> <code>new</code> <code>BufferedReader(new</code> <code>InputStreamReader(socket.getInputStream(), "UTF-8"));</code></p>
+<p><code>String</code> <code>resposta</code> <code>=</code> <code>in.readLine();</code></p>
+<p><code>System.out.println("Resposta do servidor: "</code> <code>+</code> <code>resposta);</code></p>
+<p><code>// Fechar a conexão</code></p>
+<p><code>socket.close();</code></p>
+<p><code>    } catch (IOException</code> <code>e) {</code></p>
+<p><code>//e.printStackTrace();</code></p>
+<p><code>System.out.println("Servidor não disponivel");</code></p>
+<p><code>    }</code></p>
+<p><code>  }</code></p>
+<p><code>}</code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Fundamentos e Teoria" duration="0">
+        <h3 is-upgraded><strong>1. O que é comunicação via sockets?</strong></h3>
+<ul>
+<li>Sockets são pontos de comunicação entre dois dispositivos conectados por uma rede.<br></li>
+<li>Baseado no modelo Cliente-Servidor: um lado aguarda conexões (servidor), e o outro envia mensagens (cliente).<br></li>
+<li>Utiliza protocolos como TCP/IP para garantir confiabilidade na troca de dados.<br></li>
+</ul>
+<h3 is-upgraded><strong>2. Como funciona a comunicação com sockets?</strong></h3>
+<ul>
+<li>O servidor abre uma porta e fica ouvindo.<br></li>
+<li>O cliente conecta a essa porta e envia dados.<br></li>
+<li>A comunicação pode ser bidirecional e contínua.<br></li>
+</ul>
+<h3 is-upgraded><strong>3. Diferença entre sockets e HTTP:</strong></h3>
+<ul>
+<li>HTTP é um protocolo de aplicação que usa sockets por baixo.<br></li>
+<li>Trabalhar com sockets permite entender a base da troca de mensagens na rede.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Jogo &#34;EcoSocket&#34;" duration="0">
+        <h4 is-upgraded><strong>Objetivo:</strong></h4>
+<p>Fazer os alunos interagirem com o servidor, que devolve (eco) a mesma mensagem recebida, incentivando variações criativas.</p>
+<h4 is-upgraded><strong>Como funciona:</strong></h4>
+<ul>
+<li>O cliente envia uma mensagem qualquer.<br></li>
+<li>O servidor responde com a mesma mensagem, prefixada por &#34;Eco:&#34;.<br></li>
+</ul>
+<h4 is-upgraded><strong>Desafio:</strong></h4>
+<ul>
+<li>Modificar o servidor para responder com variações:<br></li>
+<li>Se a mensagem contém &#34;oi&#34;, responde &#34;Olá, aluno!&#34;.<br></li>
+<li>Se contém &#34;sair&#34;, fecha a conexão.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Chat em grupo com múltiplos clientes" duration="0">
+        <h4 is-upgraded><strong>Objetivo:</strong></h4>
+<p>Simular um chat entre múltiplos alunos conectados ao mesmo servidor.</p>
+<h4 is-upgraded><strong>Funcionamento:</strong></h4>
+<ul>
+<li>O servidor aceita várias conexões.<br></li>
+<li>Cada cliente pode enviar mensagens que são repassadas a todos os outros conectados.<br></li>
+<li><strong>Atividade com os alunos:<br></strong></li>
+<li>Dividir a turma em grupos.<br></li>
+<li>Cada grupo roda um cliente.</li>
+</ul>
+<h2 is-upgraded><strong>Atividades extras</strong></h2>
+<ul>
+<li><strong>Introdução a protocolos personalizados:</strong> cada grupo inventa um &#34;protocolo&#34; com comandos próprios para o servidor interpretar.</li>
+</ul>
+<h2 is-upgraded><strong>Sugestão de Avaliação</strong></h2>
+<ul>
+<li>Criar um cliente e um servidor que:<br></li>
+<li>Troquem mensagens formatadas (ex: JSON ou comandos customizados).<br></li>
+<li>Façam contagem de mensagens ou simulem cadastro simples.<br></li>
+<li>Implementem uma regra de segurança simples (senha).<br></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Arquitetura WEB" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\a67231a45439ee42.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Protocolo HTTP" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\7eb001442a9917e2.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Modelo requisição/resposta" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\3209e535589aa6d8.png"></p>
+<p class="image-container"><img style="width: 960.00px" src="img\\5b5eb36820ac1987.png"></p>
+<p class="image-container"><img style="width: 960.00px" src="img\\a56392c0e6290e99.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mensagens HTTP" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\202fc3574b9e86d9.png"></p>
+<p class="image-container"><img style="width: 960.00px" src="img\\60555c89031bd6a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Método de requisição - GET" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\676323d0795589e0.png"><img style="width: 960.00px" src="img\\47e466704d246113.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Método de requisição - POST" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\9909c315a0cce185.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Cabeçalhos da requisição" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\2110595b00f5734f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resposta HTTP" duration="0">
+        <p class="image-container"><img style="width: 960.00px" src="img\\3326664c20b86ab.png"><img style="width: 960.00px" src="img\\e2119d05c3d58ad6.png"><img style="width: 960.00px" src="img\\76ef1c2df8a468a8.png"><img style="width: 960.00px" src="img\\d303f9da03771e4a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="URL" duration="0">
+        <p>URL significa Uniform Resource Locator (Localizador Uniforme de Recursos). É o endereço de uma página da web ou recurso específico na internet, permitindo que navegadores encontrem e acessem o conteúdo desejado.</p>
+<h2 is-upgraded><strong>Estrutura de uma URL:</strong></h2>
+<p>Uma URL típica tem a seguinte forma:</p>
+<h4 is-upgraded><strong>https://www.exemplo.com:443/caminho/pagina?busca=termo#secao</strong></h4>
+<ol type="1" start="1">
+<li><h3 is-upgraded><strong>Protocolo (Esquema) – https://</strong></h3>
+</li>
+</ol>
+<ul>
+<li><h4 is-upgraded><strong>Define como o navegador se comunica com o servidor (ex: http, https, ftp).</strong></h4>
+</li>
+</ul>
+<ol type="1" start="2">
+<li><h3 is-upgraded><strong>Domínio (Host) – www.exemplo.com</strong></h3>
+</li>
+</ol>
+<ul>
+<li><h4 is-upgraded><strong>O endereço do site (pode ser um IP como 192.168.1.1).</strong></h4>
+</li>
+</ul>
+<ol type="1" start="3">
+<li><h3 is-upgraded><strong>Porta (Opcional) – :443</strong></h3>
+</li>
+</ol>
+<ul>
+<li><h4 is-upgraded><strong>A porta usada para a conexão (padrão: 80 para HTTP, 443 para HTTPS).</strong></h4>
+</li>
+</ul>
+<ol type="1" start="4">
+<li><h3 is-upgraded><strong>Caminho (Path) – /caminho/pagina</strong></h3>
+</li>
+</ol>
+<ul>
+<li><h4 is-upgraded><strong>Indica a localização do recurso no servidor.</strong></h4>
+</li>
+</ul>
+<ol type="1" start="5">
+<li><h3 is-upgraded><strong>Parâmetros (Query) – ?busca=termo</strong></h3>
+</li>
+</ol>
+<ul>
+<li><h4 is-upgraded><strong>Dados adicionais enviados ao servidor (ex: ?produto=camiseta&amp;cor=azul).</strong></h4>
+</li>
+</ul>
+<ol type="1" start="6">
+<li><h3 is-upgraded><strong>Fragmento (Âncora) – #secao</strong></h3>
+</li>
+</ol>
+<ul>
+<li><h4 is-upgraded><strong>Direciona para uma parte específica da página (ex: #contato).</strong></h4>
+</li>
+</ul>
+<p class="image-container"><img style="width: 960.00px" src="img\\f5bc2523472c13a6.png"><img style="width: 960.00px" src="img\\7ddca34ba057e122.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="HTTP na Prática com Sockets em Java" duration="0">
+        <p><strong>Objetivo:</strong> Mostrar como o HTTP funciona &#34;por baixo dos panos&#34; usando sockets TCP, criando um servidor e cliente do zero.</p>
+<h2 is-upgraded><strong>Parte 1: Fundamentos Teóricos (10-15 minutos)</strong></h2>
+<ol type="1" start="1">
+<li><strong>O que é um socket?</strong></li>
+<li>Ponto de comunicação entre cliente e servidor.</li>
+<li>Usa <strong>TCP/IP</strong> (conexão orientada a conexão).</li>
+<li>Analogia: Um socket é como um telefone que liga o cliente ao servidor.</li>
+<li><strong>Como o HTTP usa sockets?</strong></li>
+<li>HTTP é um protocolo de aplicação que roda sobre TCP.</li>
+<li>O cliente abre um socket, envia uma mensagem de texto (requisição HTTP), e o servidor responde.</li>
+<li><strong>Estrutura de uma mensagem HTTP crua:</strong></li>
+</ol>
+<h2 is-upgraded><strong>Requisição:</strong></h2>
+<p>GET /index.html HTTP/1.1</p>
+<p>Host: exemplo.com</p>
+<h2 is-upgraded><strong>Resposta:</strong></h2>
+<p>HTTP/1.1 200 OK</p>
+<p>Content-Type: text/html</p>
+<p>&lt;html&gt;...&lt;/html&gt;</p>
+<h2 is-upgraded><strong>Parte 2: Implementação Prática (30-40 minutos)</strong></h2>
+<p>Vamos criar um <strong>servidor HTTP simples</strong> e um <strong>cliente socket</strong> para enviar requisições manualmente.</p>
+<h4 is-upgraded><strong>Experimento 1: Servidor HTTP com Sockets</strong></h4>
+<p>Um servidor que escuta na porta 8080 e responde a requisições GET.</p>
+<pre><code>import java.io.*;
+import java.net.*;
+
+public class ServidorHTTPBasico {
+public static void main(String[] args) throws IOException {
+ServerSocket serverSocket = new ServerSocket(8080);
+System.out.println(&#34;Servidor ouvindo em http://localhost:8080&#34;);
+
+while (true) {
+Socket clientSocket = serverSocket.accept(); // Espera uma conexão
+BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+// Lê a requisição HTTP
+String linha;
+while ((linha = in.readLine()) != null &amp;&amp; !linha.isEmpty()) {
+System.out.println(&#34;Recebido: &#34; + linha);
+}
+
+// Envia uma resposta HTTP
+out.println(&#34;HTTP/1.1 200 OK&#34;);
+out.println(&#34;Content-Type: text/html&#34;);
+out.println();
+out.println(&#34;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Olá Mundo HTTP!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&#34;);
+
+clientSocket.close();
+}
+}
+}
+</code></pre>
+<p><strong>Como testar:</strong></p>
+<ol type="1" start="1">
+<li>Execute o servidor.</li>
+<li>Acesse http://localhost:8080 no navegador.</li>
+<li>Veja a resposta Olá Mundo HTTP!.</li>
+</ol>
+<h2 is-upgraded><strong>Experimento 2: Cliente Socket Manual (Enviando HTTP &#34;na Unha&#34;)</strong></h2>
+<p>Um cliente que envia uma requisição GET manualmente via socket.</p>
+<pre><code>import java.io.*;
+import java.net.*;
+
+public class ClienteSocketHTTP {
+public static void main(String[] args) throws IOException {
+Socket socket = new Socket(&#34;localhost&#34;, 8080);
+PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+// Envia uma requisição HTTP GET manual
+out.println(&#34;GET / HTTP/1.1&#34;);
+out.println(&#34;Host: localhost&#34;);
+out.println(); // Linha vazia indica fim do cabeçalho
+
+// Lê a resposta
+String linha;
+while ((linha = in.readLine()) != null) {
+System.out.println(&#34;Resposta: &#34; + linha);
+}
+
+socket.close();
+}
+}
+</code></pre>
+<p><strong>Saída esperada:</strong></p>
+<pre><code>Resposta: HTTP/1.1 200 OK
+Resposta: Content-Type: text/html
+Resposta:
+Resposta: &lt;html&gt;&lt;body&gt;&lt;h1&gt;Olá Mundo HTTP!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+<h3 is-upgraded>Parte 3: Prática de programação</h3>
+<h4 is-upgraded><strong>Simulador de Erros HTTP</strong></h4>
+<p>Implementar respostas com códigos diferentes:</p>
+<ol type="1" start="1">
+<li>200 OK (sucesso).</li>
+<li>404 Not Found (página não existe).</li>
+<li>500 Internal Server Error (erro no servidor).</li>
+</ol>
+<p><strong>Exemplo:</strong></p>
+<pre><code>out.println(&#34;HTTP/1.1 404 Not Found&#34;);
+out.println(&#34;Content-Type: text/html&#34;);
+out.println();
+out.println(&#34;&lt;h1&gt;Página não encontrada!&lt;/h1&gt;&#34;);</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
