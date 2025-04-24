@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2025-04-24T20:21:45Z",
+  "id": "Requisitos",
+  "duration": 0,
+  "title": "Curso Requisitos",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Fundamentos da Engenharia de Requisitos",
+  "source": "1akgdM5Xzvh62kB_tZCidPwcQdVeuCSGUFAeiRQQyec8",
+  "theme": "engenhariaderequisitos",
+  "status": [
+    "publicado"
+  ],
+  "category": [
+    "engenhariaderequisitos"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "Requisitos"
+}
