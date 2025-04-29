@@ -71,63 +71,95 @@
     
       <google-codelab-step label="PRÁTICA 1" duration="0">
         <p>Servidor.java</p>
-<p><code>package</code> <code>pratica1;</code></p>
-<p><code>import</code> <code>java.io.*;</code></p>
-<p><code>import</code> <code>java.net.*;</code></p>
-<p><code>public</code> <code>class</code> <code>Servidor {</code></p>
-<p><code>public</code> <code>static</code> <code>void</code> <code>main(String[] args) {</code></p>
-<p><code>try {</code></p>
-<p><code>// Configurar o console para UTF-8</code></p>
-<p><code>System.setOut(new</code> <code>PrintStream(System.out, true, "UTF-8"));</code></p>
-<p><code>try (ServerSocket</code> <code>serverSocket</code> <code>=</code> <code>new</code> <code>ServerSocket(1234)) {</code></p>
-<p><code>System.out.println("Servidor iniciado. Aguardando conexões...");</code></p>
-<p><code>while (true) {</code></p>
-<p><code>Socket</code> <code>socket</code> <code>=</code> <code>serverSocket.accept();</code></p>
-<p><code>System.out.println("Cliente conectado: "</code> <code>+</code> <code>socket.getInetAddress().getHostAddress());</code></p>
-<p><code>try {</code></p>
-<p><code>// Receber dados do cliente com UTF-8</code></p>
-<p><code>BufferedReader</code> <code>in</code> <code>=</code> <code>new</code> <code>BufferedReader(new</code> <code>InputStreamReader(socket.getInputStream(), "UTF-8"));</code></p>
-<p><code>String</code> <code>mensagem</code> <code>=</code> <code>in.readLine();</code></p>
-<p><code>System.out.println("Mensagem recebida do cliente: "</code> <code>+</code> <code>mensagem);</code></p>
-<p><code>// Enviar resposta ao cliente com UTF-8</code></p>
-<p><code>PrintWriter</code> <code>out</code> <code>=</code> <code>new</code> <code>PrintWriter(new</code> <code>OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);</code></p>
-<p><code>out.println("echo: "</code> <code>+</code> <code>mensagem);</code></p>
-<p><code>// Fechar a conexão</code></p>
-<p><code>socket.close();</code></p>
-<p><code>          } catch (IOException</code> <code>e) {</code></p>
-<p><code>e.printStackTrace();</code></p>
-<p><code>          }</code></p>
-<p><code>        }</code></p>
-<p><code>      }</code></p>
-<p><code>    } catch (IOException</code> <code>e) {</code></p>
-<p><code>e.printStackTrace();</code></p>
-<p><code>    }</code></p>
-<p><code>  }</code></p>
-<p><code>}</code></p>
+<pre><code>package pratica1;
+
+
+import java.io.*;
+import java.net.*;
+
+
+public class Servidor {
+
+
+  public static void main(String[] args) {
+
+
+    try {
+      // Configurar o console para UTF-8
+      System.setOut(new PrintStream(System.out, true, &#34;UTF-8&#34;));
+
+
+      try (ServerSocket serverSocket = new ServerSocket(1234)) {
+        System.out.println(&#34;Servidor iniciado. Aguardando conexões...&#34;);
+
+
+        while (true) {
+          Socket socket = serverSocket.accept();
+          System.out.println(&#34;Cliente conectado: &#34; + socket.getInetAddress().getHostAddress());
+
+
+          try {
+            // Receber dados do cliente com UTF-8
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), &#34;UTF-8&#34;));
+            String mensagem = in.readLine();
+            System.out.println(&#34;Mensagem recebida do cliente: &#34; + mensagem);
+
+
+            // Enviar resposta ao cliente com UTF-8
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), &#34;UTF-8&#34;), true);
+            out.println(&#34;echo: &#34; + mensagem);
+
+
+            // Fechar a conexão
+            socket.close();
+
+
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+}</code></pre>
 <p>Cliente.java</p>
-<p><code>package</code> <code>pratica1;</code></p>
-<p><code>import</code> <code>java.net.*;</code></p>
-<p><code>import</code> <code>java.io.*;</code></p>
-<p><code>public</code> <code>class</code> <code>Cliente {</code></p>
-<p><code>public</code> <code>static</code> <code>void</code> <code>main(String[] args) {</code></p>
-<p><code>try {</code></p>
-<p><code>Socket</code> <code>socket</code> <code>=</code> <code>new</code> <code>Socket("localhost", 1234);</code></p>
-<p><code>System.out.println("Conectado ao servidor: "</code> <code>+</code> <code>socket.getInetAddress().getHostAddress());</code></p>
-<p><code>// Enviar dados para o servidor com UTF-8</code></p>
-<p><code>PrintWriter</code> <code>out</code> <code>=</code> <code>new</code> <code>PrintWriter(new</code> <code>OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);</code></p>
-<p><code>out.println("opa");</code></p>
-<p><code>// Receber dados do servidor com UTF-8</code></p>
-<p><code>BufferedReader</code> <code>in</code> <code>=</code> <code>new</code> <code>BufferedReader(new</code> <code>InputStreamReader(socket.getInputStream(), "UTF-8"));</code></p>
-<p><code>String</code> <code>resposta</code> <code>=</code> <code>in.readLine();</code></p>
-<p><code>System.out.println("Resposta do servidor: "</code> <code>+</code> <code>resposta);</code></p>
-<p><code>// Fechar a conexão</code></p>
-<p><code>socket.close();</code></p>
-<p><code>    } catch (IOException</code> <code>e) {</code></p>
-<p><code>//e.printStackTrace();</code></p>
-<p><code>System.out.println("Servidor não disponivel");</code></p>
-<p><code>    }</code></p>
-<p><code>  }</code></p>
-<p><code>}</code></p>
+<pre><code>package pratica1;
+
+
+import java.net.*;
+import java.io.*;
+
+
+public class Cliente {
+
+
+  public static void main(String[] args) {
+    try {
+      Socket socket = new Socket(&#34;localhost&#34;, 1234);
+      System.out.println(&#34;Conectado ao servidor: &#34; + socket.getInetAddress().getHostAddress());
+
+
+      // Enviar dados para o servidor com UTF-8
+      PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), &#34;UTF-8&#34;), true);
+      out.println(&#34;opa&#34;);
+
+
+      // Receber dados do servidor com UTF-8
+      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), &#34;UTF-8&#34;));
+      String resposta = in.readLine();
+      System.out.println(&#34;Resposta do servidor: &#34; + resposta);
+
+
+      // Fechar a conexão
+      socket.close();
+    } catch (IOException e) {
+      //e.printStackTrace();
+      System.out.println(&#34;Servidor não disponivel&#34;);
+    }
+  }
+}</code></pre>
 
 
       </google-codelab-step>

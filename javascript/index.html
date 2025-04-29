@@ -333,6 +333,42 @@ saudacao();
 
       </google-codelab-step>
     
+      <google-codelab-step label="Manipulação do DOM" duration="0">
+        <h3 is-upgraded><strong>Objetivos</strong></h3>
+<aside class="special"><ul>
+<li>Compreender o que é o DOM (Document Object Model)</li>
+<li>Selecionar e alterar elementos HTML via JavaScript</li>
+<li>Interagir dinamicamente com a página</li>
+</ul>
+</aside>
+<p>1. Selecionar elementos</p>
+<pre><code>const titulo = document.getElementById(&#34;titulo&#34;);
+const paragrafos = document.querySelectorAll(&#34;p&#34;);</code></pre>
+<p>2. Alterar conteúdo e estilo</p>
+<pre><code>titulo.textContent = &#34;Novo título&#34;;
+titulo.style.color = &#34;blue&#34;;</code></pre>
+<p>3. Criar e adicionar elementos</p>
+<pre><code>let novoItem = document.createElement(&#34;li&#34;);
+novoItem.textContent = &#34;Item novo&#34;;
+document.body.appendChild(novoItem);</code></pre>
+<h3 is-upgraded><strong>Atividade prática</strong></h3>
+<p>Altere o texto de um &lt;h1&gt; e crie dinamicamente um &lt;p&gt; com uma mensagem.</p>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<aside class="special"><h4 is-upgraded><strong>Exercício 1</strong></h4>
+<p>Crie um botão com um identificador (id) no HTML. Em seguida, utilizando JavaScript, selecione esse botão e modifique seu texto ao clicar, usando textContent ou innerText dentro de um addEventListener.</p>
+<h4 is-upgraded><strong>Exercício 2</strong></h4>
+<p>Crie uma lista não ordenada (&lt;ul&gt;) com um id. Usando JavaScript, adicione um novo item à lista dinamicamente com createElement e appendChild.</p>
+<h4 is-upgraded>Exercício 3</h4>
+<p>Adicione um botão à sua página e escreva um script JavaScript que, ao clicar no botão, mude a cor de fundo do corpo da página (document.body.style.backgroundColor).</p>
+<h4 is-upgraded><strong>Exercício 4</strong></h4>
+<p>Crie dinamicamente uma &lt;div&gt; usando JavaScript e adicione-a ao corpo da página. Em seguida, preencha essa div com um texto ou outro elemento HTML usando innerHTML ou textContent.</p>
+<h4 is-upgraded><strong>Exercício 5</strong></h4>
+<p>Implemente um contador visual: adicione um número dentro de um elemento HTML (como um &lt;p&gt; ou &lt;span&gt;) e crie um botão que, ao ser clicado, incremente esse número usando JavaScript.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
