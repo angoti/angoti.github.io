@@ -318,7 +318,7 @@ export default App;</pre>
 <p>Nesse exemplo, definimos um objeto JavaScript (<code>{ fontSize: 16, color: 'blue' })</code> dentro da propriedade <code>style</code>. As propriedades desse objeto representam as regras de estilo, como <code>fontSize</code> e <code>color</code>, seguidas por seus valores correspondentes.</p>
 <p>Observe que as propriedades CSS são escritas em <strong>camelCase</strong> (por exemplo, backgroundColor em vez de background-color). Além disso, algumas propriedades podem ter valores diferentes ou limitações em comparação com o CSS padrão, devido às peculiaridades do ambiente de renderização do React Native.</p>
 <p>Os estilos embutidos permitem que você defina propriedades de estilo específicas para cada componente individualmente. No entanto, quando você precisa aplicar estilos a vários componentes com propriedades semelhantes, pode ser mais eficiente e organizado o objeto <code>StyleSheet</code>.</p>
-<h2 is-upgraded><strong>Componente StyleSheet</strong></h2>
+<h2 is-upgraded><strong>Objeto StyleSheet</strong></h2>
 <p>StyleSheet é uma abstração que substitui CSS aceitando regras de estilo CSS usando um objeto JavaScript bidimensional e permite definir estilos separadamente em um objeto JavaScript e aplicá-los a vários componentes. Isso promove a reutilização e a organização do código de estilo. Veja o exemplo abaixo:</p>
 <pre> import { Text, View, StyleSheet } from &#39;react-native&#39;;
 
@@ -1557,12 +1557,8 @@ export default function App() {
     &lt;/NavigationContainer&gt;
   );
 }</pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Tutoriais sobre navegação entre telas" duration="0">
-        <p>Nos capítulos seguintes temos tutorias com exercícios práticos para reforçar o aprendizado dos elementos utilizados para programar em React Native a navegação entre telas de apps.</p>
+<h2 is-upgraded><strong>Exercícios sobre navegação entre telas</strong></h2>
+<p>Nos tópicos seguintes temos tutorias com exercícios práticos para reforçar o aprendizado dos elementos utilizados para programar em React Native a navegação entre telas de apps.</p>
 <h2 is-upgraded><strong>Exercício 1: Stack Navigation</strong></h2>
 <p>Crie um aplicativo React Native com uma navegação em pilha. O aplicativo deve ter duas telas: Home e Detalhes. Na tela Home, exiba um botão &#34;Ir para Detalhes&#34;. Quando o botão for clicado, o aplicativo deve navegar para a tela Detalhes. Na tela Detalhes, exiba um botão &#34;Voltar para Home&#34;. Ao clicar no botão, o aplicativo deve voltar para a tela Home.</p>
 <h3 is-upgraded><strong>Passo 1: Configuração da navegação em pilha</strong></h3>
