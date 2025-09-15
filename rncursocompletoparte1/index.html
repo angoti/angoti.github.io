@@ -2085,6 +2085,161 @@ export default App;</pre>
 
       </google-codelab-step>
     
+      <google-codelab-step label="Consumo de APIs" duration="60">
+        <h2 is-upgraded><strong>Realização de requisições HTTP com Fetch API e Axios</strong></h2>
+<p>No desenvolvimento de apps, é muito comum consumir dados de servidores externos. Por exemplo: buscar uma lista de produtos, enviar um formulário ou autenticar usuários.</p>
+<p>No React Native, podemos usar duas abordagens principais:</p>
+<h3 is-upgraded><strong>1. Fetch API (nativa do JavaScript)</strong></h3>
+<ul>
+<li>   Já vem embutida no navegador e no React Native.</li>
+<li>   Permite realizar requisições `GET`, `POST`, `PUT`, `DELETE`, etc.</li>
+<li>   Exemplo simples (buscando dados de uma API pública):</li>
+</ul>
+<pre><code>import { useEffect, useState } from &#39;react&#39;;
+import { View, Text, StyleSheet } from &#39;react-native&#39;;
+
+export default function App() {
+     const [data, setData] = useState([]);
+
+     useEffect(() =&gt; {
+       fetch(&#39;https://jsonplaceholder.typicode.com/posts&#39;)
+         .then(response =&gt; response.json())
+         .then(json =&gt; setData(json.slice(0, 5))) // pega apenas 5 itens
+         .catch(error =&gt; console.error(error));
+     }, []);
+
+     return (
+       &lt;View style={styles.container}&gt;
+         {data.map(item =&gt; (
+           &lt;Text key={item.id} style={styles.item}&gt;{item.title}&lt;/Text&gt;
+         ))}
+       &lt;/View&gt;
+     );
+   }
+
+   const styles = StyleSheet.create({
+     container: { marginTop: 40, padding: 10 },
+     item: { marginBottom: 8, fontSize: 16 }
+});</code></pre>
+<h3 is-upgraded><strong>Separar a lógica de requisições em um arquivo utilitário</strong></h3>
+<pre><code>// Funções utilitárias para requisições HTTP usando Fetch API
+
+const BASE_URL = &#34;https://jsonplaceholder.typicode.com&#34;;
+
+// Função genérica para GET
+export async function getData(endpoint) {
+  try {
+    const response = await fetch(`${BASE_URL}/${endpoint}`);
+    if (!response.ok) {
+      throw new Error(&#34;Erro na requisição: &#34; + response.status);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(&#34;Erro ao buscar dados:&#34;, error);
+    throw error;
+  }
+}
+
+// Função genérica para POST
+export async function postData(endpoint, data) {
+  try {
+    const response = await fetch(`${BASE_URL}/${endpoint}`, {
+      method: &#34;POST&#34;,
+      headers: { &#34;Content-Type&#34;: &#34;application/json&#34; },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(&#34;Erro ao enviar dados:&#34;, error);
+    throw error;
+  }
+}</code></pre>
+<h3 is-upgraded>App.js</h3>
+<pre><code>import { useEffect, useState } from &#34;react&#34;;
+import { View, Text, StyleSheet } from &#34;react-native&#34;;
+import { getData } from &#34;./api&#34;; // importando função utilitária
+
+export default function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() =&gt; {
+    getData(&#34;users&#34;)
+      .then(data =&gt; setUsers(data.slice(0, 5))) // pega só 5 usuários
+      .catch(err =&gt; console.error(err));
+  }, []);
+
+  return (
+    &lt;View style={styles.container}&gt;
+      {users.map(user =&gt; (
+        &lt;Text key={user.id}&gt;{user.name} - {user.email}&lt;/Text&gt;
+      ))}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { marginTop: 40, padding: 10 }
+});</code></pre>
+<h3 is-upgraded><strong>2. Axios (biblioteca externa)</strong></h3>
+<ul>
+<li>Precisa ser instalada</li>
+</ul>
+<pre><code>npm install axios</code></pre>
+<ul>
+<li> Possui sintaxe mais simples para tratar erros, cabeçalhos e interceptadores.</li>
+</ul>
+<p>   Exemplo equivalente usando Axios:</p>
+<pre><code>import { useEffect, useState } from &#39;react&#39;;
+import { View, Text } from &#39;react-native&#39;;
+import axios from &#39;axios&#39;;
+
+export default function App() {
+     const [users, setUsers] = useState([]);
+
+     useEffect(() =&gt; {
+       axios.get(&#39;https://jsonplaceholder.typicode.com/users&#39;)
+         .then(response =&gt; setUsers(response.data))
+         .catch(error =&gt; console.error(error));
+     }, []);
+
+     return (
+       &lt;View style=&#123;&#123; marginTop: 40, padding: 10 }}&gt;
+         {users.map(user =&gt; (
+           &lt;Text key={user.id}&gt;{user.name} - {user.email}&lt;/Text&gt;
+         ))}
+       &lt;/View&gt;
+     );
+}</code></pre>
+<h3 is-upgraded><strong>Integração com APIs Populares</strong></h3>
+<p>Além de APIs REST, podemos integrar bibliotecas e serviços conhecidos.</p>
+<h3 is-upgraded><strong>Firebase</strong></h3>
+<p>Permite autenticação, banco de dados em tempo real e armazenamento de arquivos.</p>
+<p>Exemplo de instalação:</p>
+<pre><code>npm install firebase</code></pre>
+<p>Código básico para iniciar o Firebase:</p>
+<pre><code>import { initializeApp } from &#34;firebase/app&#34;;
+  const firebaseConfig = {
+    apiKey: &#34;SUA_CHAVE&#34;,
+    authDomain: &#34;seuapp.firebaseapp.com&#34;,
+    projectId: &#34;seuapp&#34;,
+    storageBucket: &#34;seuapp.appspot.com&#34;,
+    messagingSenderId: &#34;123456&#34;,
+    appId: &#34;1:123456:web:abc123&#34;
+  };
+const app = initializeApp(firebaseConfig);</code></pre>
+<h3 is-upgraded><strong>Exercícios práticos</strong></h3>
+<aside class="warning"><h3 is-upgraded><strong>1. Fetch API</strong></h3>
+<p>Crie um app que busque e exiba uma lista de usuários (`<a href="https://jsonplaceholder.typicode.com/users" target="_blank">https://jsonplaceholder.typicode.com/users</a>`).  Mostre apenas `nome` e `email`.</p>
+<h3 is-upgraded><strong>2. Axios</strong></h3>
+<p>Crie um app que busque posts (`/posts`) da mesma API.</p>
+<p>Exiba título e corpo em um estilo de &#34;cartão&#34;.</p>
+<h3 is-upgraded><strong>3. Integração com Firebase </strong></h3>
+<p>Configure um projeto Firebase. Crie uma tela de login simples (email + senha) que valide os usuários cadastrados.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
