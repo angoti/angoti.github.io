@@ -1,0 +1,666 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Frameworks CSS</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="frameworks-css"
+                  title="Frameworks CSS"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Frameworks CSS" duration="100">
+        <aside class="special"><p>Última atualização: 19/09/2025</p>
+</aside>
+<h2 is-upgraded><strong>Objetivos da Aula</strong></h2>
+<ul>
+<li>Compreender o que é o Bootstrap e sua importância no desenvolvimento web.</li>
+<li>Construir páginas responsivas usando o sistema de grid e componentes.</li>
+<li>Conhecer outros frameworks CSS e comparar suas características.</li>
+</ul>
+<h2 is-upgraded><strong>Introdução ao Bootstrap</strong></h2>
+<ul>
+<li>Framework CSS open source criado pelo Twitter.</li>
+<li>Facilita a criação de interfaces modernas e responsivas.</li>
+<li>Trabalha em conjunto com HTML, CSS e JS.</li>
+</ul>
+<p><a href="https://getbootstrap.com/" target="_blank">Hands on </a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Componentes principais" duration="0">
+        <p>O Bootstrap oferece uma ampla gama de componentes prontos para uso que aceleram o desenvolvimento:</p>
+<ul>
+<li>Botões: diversos estilos e cores, ex.:</li>
+</ul>
+<pre><code>&lt;button class=&#34;btn btn-primary&#34;&gt;Salvar&lt;/button&gt;
+&lt;button class=&#34;btn btn-outline-secondary&#34;&gt;Cancelar&lt;/button&gt;</code></pre>
+<ul>
+<li><strong>Cards</strong>: usados para exibir informações agrupadas (como produtos, artigos ou perfis).</li>
+</ul>
+<pre><code>&lt;div class=&#34;card&#34; style=&#34;width: 18rem;&#34;&gt;
+  &lt;img src=&#34;imagem.jpg&#34; class=&#34;card-img-top&#34; alt=&#34;...&#34;&gt;
+  &lt;div class=&#34;card-body&#34;&gt;
+    &lt;h5 class=&#34;card-title&#34;&gt;Título do Card&lt;/h5&gt;
+    &lt;p class=&#34;card-text&#34;&gt;Descrição rápida do item.&lt;/p&gt;
+    &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Detalhes&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<ul>
+<li><strong>Navbar</strong>: criação rápida de menus de navegação responsivos.</li>
+</ul>
+<pre><code>&lt;nav class=&#34;navbar navbar-expand-lg navbar-light bg-light&#34;&gt;
+  &lt;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&gt;Meu Site&lt;/a&gt;
+  &lt;div class=&#34;collapse navbar-collapse&#34;&gt;
+    &lt;ul class=&#34;navbar-nav mr-auto&#34;&gt;
+      &lt;li class=&#34;nav-item active&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+<ul>
+<li><strong>Alertas</strong>: mensagens de feedback para o usuário</li>
+</ul>
+<pre><code> &lt;div class=&#34;alert alert-success&#34; role=&#34;alert&#34;&gt;
+  Operação realizada com sucesso!
+&lt;/div&gt;</code></pre>
+<p>Esses componentes podem ser combinados com utilitários do Bootstrap (como d-flex, text-center, m-3) para ajustar layout e responsividade.</p>
+<h2 is-upgraded><strong>Mini-projeto Exemplo (HTML com Bootstrap)</strong></h2>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;pt-br&#34;&gt;
+&lt;head&gt;
+  &lt;meta charset=&#34;UTF-8&#34;&gt;
+  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+  &lt;title&gt;Mini-projeto Bootstrap&lt;/title&gt;
+  &lt;link href=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Navbar --&gt;
+  &lt;nav class=&#34;navbar navbar-expand-lg navbar-dark bg-dark&#34;&gt;
+    &lt;div class=&#34;container-fluid&#34;&gt;
+      &lt;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&gt;Minha Loja&lt;/a&gt;
+      &lt;div class=&#34;collapse navbar-collapse&#34;&gt;
+        &lt;ul class=&#34;navbar-nav me-auto&#34;&gt;
+          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link active&#34; href=&#34;#&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
+          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Contato&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- Alerta --&gt;
+  &lt;div class=&#34;alert alert-info text-center m-0&#34; role=&#34;alert&#34;&gt;
+    Promoção válida até o final do mês!
+  &lt;/div&gt;
+
+  &lt;!-- Container de Cards --&gt;
+  &lt;div class=&#34;container mt-4&#34;&gt;
+    &lt;div class=&#34;row&#34;&gt;
+      &lt;div class=&#34;col-md-4&#34;&gt;
+        &lt;div class=&#34;card&#34;&gt;
+          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 1&#34;&gt;
+          &lt;div class=&#34;card-body&#34;&gt;
+            &lt;h5 class=&#34;card-title&#34;&gt;Produto 1&lt;/h5&gt;
+            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 1.&lt;/p&gt;
+            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;col-md-4&#34;&gt;
+        &lt;div class=&#34;card&#34;&gt;
+          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 2&#34;&gt;
+          &lt;div class=&#34;card-body&#34;&gt;
+            &lt;h5 class=&#34;card-title&#34;&gt;Produto 2&lt;/h5&gt;
+            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 2.&lt;/p&gt;
+            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;col-md-4&#34;&gt;
+        &lt;div class=&#34;card&#34;&gt;
+          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 3&#34;&gt;
+          &lt;div class=&#34;card-body&#34;&gt;
+            &lt;h5 class=&#34;card-title&#34;&gt;Produto 3&lt;/h5&gt;
+            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 3.&lt;/p&gt;
+            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Rodapé --&gt;
+  &lt;footer class=&#34;bg-dark text-light text-center p-3 mt-4&#34;&gt;
+    &lt;p&gt;&amp;copy; 2025 Minha Loja - Todos os direitos reservados.&lt;/p&gt;
+  &lt;/footer&gt;
+
+  &lt;script src=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js&#34;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Outros Frameworks CSS" duration="0">
+        <h2 is-upgraded><strong>Bulma</strong></h2>
+<ul>
+<li>Baseado em Flexbox.</li>
+<li>Sintaxe simples.</li>
+<li>Leve e rápido para protótipos.</li>
+<li><a href="https://bulma.io/" target="_blank">https://bulma.io<br></a></li>
+</ul>
+<h2 is-upgraded><strong>Tailwind CSS</strong></h2>
+<ul>
+<li>Usa classes utilitárias ao invés de componentes prontos.</li>
+<li>Muito usado em projetos modernos com React e Vue.</li>
+<li><a href="https://tailwindcss.com/" target="_blank">https://tailwindcss.com</a></li>
+</ul>
+<h2 is-upgraded><strong>Foundation (Zurb)</strong></h2>
+<ul>
+<li>Foco em <strong>acessibilidade e responsividade avançada</strong>.</li>
+<li>Usado em projetos corporativos.</li>
+<li><a href="https://get.foundation/" target="_blank">https://get.foundation</a></li>
+</ul>
+<h2 is-upgraded><strong>Materialize CSS</strong></h2>
+<ul>
+<li>Baseado no Material Design do Google.</li>
+<li>Layouts prontos com visual padronizado.</li>
+<li>Muito usado em apps estilo Google.</li>
+<li><a href="https://materializecss.com/" target="_blank">https://materializecss.com</a></li>
+</ul>
+<h2 is-upgraded><strong>Comparação Rápida</strong></h2>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Framework</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Vantagens</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Limitações</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Ideal para</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Bootstrap</strong></p>
+</td><td colspan="1" rowspan="1"><p>Fácil, completo, comunidade grande</p>
+</td><td colspan="1" rowspan="1"><p>Código pesado</p>
+</td><td colspan="1" rowspan="1"><p>Projetos rápidos e generalistas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Bulma</strong></p>
+</td><td colspan="1" rowspan="1"><p>Leve, sintaxe simples</p>
+</td><td colspan="1" rowspan="1"><p>Menos recursos prontos</p>
+</td><td colspan="1" rowspan="1"><p>Protótipos e sites pequenos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Tailwind</strong></p>
+</td><td colspan="1" rowspan="1"><p>Altamente customizável, moderno</p>
+</td><td colspan="1" rowspan="1"><p>Curva de aprendizado</p>
+</td><td colspan="1" rowspan="1"><p>Projetos grandes, React/Vue</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Foundation</strong></p>
+</td><td colspan="1" rowspan="1"><p>Forte acessibilidade, robusto</p>
+</td><td colspan="1" rowspan="1"><p>Pouco popular no Brasil</p>
+</td><td colspan="1" rowspan="1"><p>Sistemas corporativos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Materialize</strong></p>
+</td><td colspan="1" rowspan="1"><p>Estilo Google pronto</p>
+</td><td colspan="1" rowspan="1"><p>Menos flexível</p>
+</td><td colspan="1" rowspan="1"><p>Apps estilo Material Design</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Grid System" duration="0">
+        <p>O sistema de grid do Bootstrap é baseado em 12 colunas e foi pensado para mobile‑first (você define o comportamento em telas pequenas e vai &#34;abrindo&#34; o layout conforme os breakpoints).</p>
+<h2 is-upgraded><strong>Conceitos‑chave</strong></h2>
+<ul>
+<li><code>Container</code>: área máxima do conteúdo. Use <code>.container</code> (largura máxima por breakpoint), <code>.container-fluid</code> (100% da largura) ou <code>.container-{breakpoint}</code> (fluido até certo ponto).</li>
+<li><code>Row</code>: agrupa colunas na horizontal e aplica gutters (espaços) automaticamente.</li>
+<li><code>Column</code>: define a largura do conteúdo. Pode ser automática (<code>.col</code>) ou explícita (<code>.col-6</code>, <code>.col-md-4</code>, etc.).<br></li>
+</ul>
+<h2 is-upgraded><strong>Exemplos</strong></h2>
+<h3 is-upgraded><strong>1) Container + linha + colunas (base)</strong></h3>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col&#34;&gt;A&lt;/div&gt;
+    &lt;div class=&#34;col&#34;&gt;B&lt;/div&gt;
+    &lt;div class=&#34;col&#34;&gt;C&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>.col divide o espaço restante igualmente entre as colunas.</p>
+<h2 is-upgraded><br><strong>2) Larguras fixas e responsivas</strong></h2>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-12 col-md-8&#34;&gt;Conteúdo principal&lt;/div&gt;
+    &lt;div class=&#34;col-12 col-md-4&#34;&gt;Barra lateral&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Em telas pequenas: stack (12/12). A partir de md: 8/12 + 4/12.<br></p>
+<h2 is-upgraded><strong>3) Gutters (espaçamentos entre colunas)</strong></h2>
+<p>Use g-* (ambos eixos), gx-* (horizontal) e gy-* (vertical).<br> Valores vão de 0 a 5.</p>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row g-3&#34;&gt;
+    &lt;div class=&#34;col-6 col-lg-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;1&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-6 col-lg-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;2&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-6 col-lg-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;3&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-6 col-lg-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;4&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h2 is-upgraded><strong>4) Alinhamento vertical e horizontal</strong></h2>
+<p>Na row: align-items-* (vertical), justify-content-* (horizontal). Em cada col: align-self-*.</p>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row align-items-center justify-content-between&#34; style=&#34;min-height: 160px;&#34;&gt;
+    &lt;div class=&#34;col-4&#34;&gt;&lt;div class=&#34;bg-light p-3&#34;&gt;Esquerda&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-4&#34;&gt;&lt;div class=&#34;bg-light p-3&#34;&gt;Centro&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h2 is-upgraded><strong>5) Ordenação e offsets</strong></h2>
+<p>Reordene visualmente com order-* e crie recuos com offset-*.</p>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-12 col-md-4 order-md-2&#34;&gt;Coluna 2 (aparece depois em md+)&lt;/div&gt;
+    &lt;div class=&#34;col-12 col-md-4 order-md-1&#34;&gt;Coluna 1&lt;/div&gt;
+    &lt;div class=&#34;col-12 col-md-4 offset-md-0&#34;&gt;Coluna 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Dica: order-0, order-1, order-2... e variantes por breakpoint (order-md-1).<br>Para recuos: offset-md-2 desloca a coluna em 2 colunas à direita no md.</p>
+<h2 is-upgraded><strong>6) Colunas automáticas e com conteúdo</strong></h2>
+<p>.col-auto faz a coluna &#34;abraçar&#34; o conteúdo, enquanto as demais ocupam o restante.</p>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-auto&#34;&gt;&lt;div class=&#34;bg-light p-2&#34;&gt;Label:&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col&#34;&gt;&lt;input class=&#34;form-control&#34; placeholder=&#34;campo amplo&#34;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h2 is-upgraded><strong>7) Aninhamento (rows dentro de colunas)</strong></h2>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-12 col-lg-8&#34;&gt;
+      &lt;div class=&#34;row g-2&#34;&gt;
+        &lt;div class=&#34;col-6&#34;&gt;&lt;div class=&#34;p-2 bg-light&#34;&gt;A1&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&#34;col-6&#34;&gt;&lt;div class=&#34;p-2 bg-light&#34;&gt;A2&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-12 col-lg-4&#34;&gt;&lt;div class=&#34;p-2 bg-light&#34;&gt;B&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h2 is-upgraded><strong>8) Containers: fixo vs fluido</strong></h2>
+<ul>
+<li>Fixo (<code>.container</code>): largura máxima muda por breakpoint (legível em telas grandes).</li>
+<li>Fluido (<code>.container-fluid</code>): sempre 100% (ótimo para apps que ocupam toda a largura).</li>
+</ul>
+<pre><code>&lt;div class=&#34;container-fluid&#34;&gt;
+  &lt;div class=&#34;row g-4&#34;&gt;
+    &lt;div class=&#34;col-12 col-md-6 col-xxl-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;Card 1&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-12 col-md-6 col-xxl-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;Card 2&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-12 col-md-6 col-xxl-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;Card 3&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-12 col-md-6 col-xxl-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;Card 4&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h2 is-upgraded><strong>9) Padrões de layout comuns</strong></h2>
+<p>Layout com sidebar dupla (mobile first):</p>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row g-4&#34;&gt;
+    &lt;aside class=&#34;col-12 col-lg-3&#34;&gt;Esquerda&lt;/aside&gt;
+    &lt;main  class=&#34;col-12 col-lg-6&#34;&gt;Conteúdo&lt;/main&gt;
+    &lt;aside class=&#34;col-12 col-lg-3&#34;&gt;Direita&lt;/aside&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Grade de produtos/cards responsiva:</p>
+<pre><code>&lt;div class=&#34;container&#34;&gt;
+  &lt;div class=&#34;row gy-4 gx-3&#34;&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h2 is-upgraded><strong>Boas práticas</strong></h2>
+<ul>
+<li>Pense primeiro no mobile (comece com .col-12 e vá refinando nos breakpoints).</li>
+<li>Prefira utilitários (g-*, p-*, m-*, text-*, d-flex) antes de criar CSS próprio.</li>
+<li>Use aninhamento para composições complexas e gx/gy para controlar espaços independentes.</li>
+<li>Evite linhas com soma de colunas &gt; 12 (quebra de linha inesperada).</li>
+<li>Teste em tamanhos reais (DevTools → Responsive Design Mode).</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exercício guiado" duration="0">
+        <ol type="1" start="1">
+<li>Construa a estrutura base: container → row → 3 col.</li>
+<li>Faça o layout stack no mobile e 3 colunas no lg (.col-12 .col-lg-4).</li>
+<li>Adicione gy-4 para espaçamento vertical e align-items-stretch para igualar alturas.</li>
+<li>Insira um sidebar (coluna extra) visível apenas em lg+ (d-none d-lg-block col-lg-3) e ajuste o conteúdo (col-lg-9).</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mini‑projeto: Loja Bootstrap (arquivo único HTML)" duration="0">
+        <p>Objetivo: fornecer um arquivo HTML completo para praticar Bootstrap em sala (navbar, hero, grid de cards, modal, formulário, toast e JS mínimo).</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang=&#34;pt-br&#34;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&#34;utf-8&#34;&gt;
+    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+    &lt;title&gt;Loja Bootstrap – Mini‑projeto&lt;/title&gt;
+    &lt;link href=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Navbar --&gt;
+    &lt;nav class=&#34;navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top&#34;&gt;
+      &lt;div class=&#34;container&#34;&gt;
+        &lt;a class=&#34;navbar-brand fw-bold&#34; href=&#34;#&#34;&gt;MinhaLoja&lt;/a&gt;
+        &lt;button class=&#34;navbar-toggler&#34; type=&#34;button&#34; data-bs-toggle=&#34;collapse&#34; data-bs-target=&#34;#nav&#34; aria-controls=&#34;nav&#34; aria-expanded=&#34;false&#34; aria-label=&#34;Alternar navegação&#34;&gt;
+          &lt;span class=&#34;navbar-toggler-icon&#34;&gt;&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;div class=&#34;collapse navbar-collapse&#34; id=&#34;nav&#34;&gt;
+          &lt;ul class=&#34;navbar-nav me-auto mb-2 mb-lg-0&#34;&gt;
+            &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link active&#34; href=&#34;#produtos&#34;&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#contato&#34;&gt;Contato&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+          &lt;button id=&#34;btnCarrinho&#34; class=&#34;btn btn-outline-primary&#34; type=&#34;button&#34; data-bs-toggle=&#34;offcanvas&#34; data-bs-target=&#34;#carrinhoOffcanvas&#34;&gt;
+            Carrinho &lt;span class=&#34;badge text-bg-primary&#34; id=&#34;badgeQtd&#34;&gt;0&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- Hero / Jumbotron --&gt;
+    &lt;header class=&#34;bg-light py-5 border-bottom&#34;&gt;
+      &lt;div class=&#34;container&#34;&gt;
+        &lt;div class=&#34;row align-items-center g-4&#34;&gt;
+          &lt;div class=&#34;col-lg-7&#34;&gt;
+            &lt;h1 class=&#34;display-5 fw-bold&#34;&gt;Bem‑vindo à MinhaLoja&lt;/h1&gt;
+            &lt;p class=&#34;lead&#34;&gt;Interface responsiva com Bootstrap 5: grid, cards, modal, toast e offcanvas.&lt;/p&gt;
+            &lt;a href=&#34;#produtos&#34; class=&#34;btn btn-primary btn-lg&#34;&gt;Ver produtos&lt;/a&gt;
+          &lt;/div&gt;
+          &lt;div class=&#34;col-lg-5 text-center&#34;&gt;
+            &lt;img class=&#34;img-fluid rounded shadow-sm&#34; src=&#34;https://picsum.photos/640/360&#34; alt=&#34;banner&#34;&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- Grid de Produtos --&gt;
+    &lt;main id=&#34;produtos&#34; class=&#34;py-5&#34;&gt;
+      &lt;div class=&#34;container&#34;&gt;
+        &lt;h2 class=&#34;mb-4&#34;&gt;Destaques&lt;/h2&gt;
+        &lt;div class=&#34;row g-4&#34;&gt;
+          &lt;!-- Card Template repetido --&gt;
+          &lt;div class=&#34;col-12 col-sm-6 col-lg-4&#34;&gt;
+            &lt;div class=&#34;card h-100&#34;&gt;
+              &lt;img src=&#34;https://picsum.photos/seed/p1/600/400&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 1&#34;&gt;
+              &lt;div class=&#34;card-body d-flex flex-column&#34;&gt;
+                &lt;h5 class=&#34;card-title&#34;&gt;Produto 1&lt;/h5&gt;
+                &lt;p class=&#34;card-text small text-body-secondary&#34;&gt;Descrição breve do produto.&lt;/p&gt;
+                &lt;p class=&#34;fw-semibold mb-3&#34;&gt;R$ 149,90&lt;/p&gt;
+                &lt;div class=&#34;mt-auto d-grid gap-2&#34;&gt;
+                  &lt;button class=&#34;btn btn-outline-secondary&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#modalDetalhes&#34; data-product=&#34;Produto 1&#34; data-price=&#34;149.90&#34;&gt;Detalhes&lt;/button&gt;
+                  &lt;button class=&#34;btn btn-primary btn-add&#34; data-product=&#34;Produto 1&#34; data-price=&#34;149.90&#34;&gt;Adicionar&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;col-12 col-sm-6 col-lg-4&#34;&gt;
+            &lt;div class=&#34;card h-100&#34;&gt;
+              &lt;img src=&#34;https://picsum.photos/seed/p2/600/400&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 2&#34;&gt;
+              &lt;div class=&#34;card-body d-flex flex-column&#34;&gt;
+                &lt;h5 class=&#34;card-title&#34;&gt;Produto 2&lt;/h5&gt;
+                &lt;p class=&#34;card-text small text-body-secondary&#34;&gt;Descrição breve do produto.&lt;/p&gt;
+                &lt;p class=&#34;fw-semibold mb-3&#34;&gt;R$ 199,90&lt;/p&gt;
+                &lt;div class=&#34;mt-auto d-grid gap-2&#34;&gt;
+                  &lt;button class=&#34;btn btn-outline-secondary&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#modalDetalhes&#34; data-product=&#34;Produto 2&#34; data-price=&#34;199.90&#34;&gt;Detalhes&lt;/button&gt;
+                  &lt;button class=&#34;btn btn-primary btn-add&#34; data-product=&#34;Produto 2&#34; data-price=&#34;199.90&#34;&gt;Adicionar&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;col-12 col-sm-6 col-lg-4&#34;&gt;
+            &lt;div class=&#34;card h-100&#34;&gt;
+              &lt;img src=&#34;https://picsum.photos/seed/p3/600/400&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 3&#34;&gt;
+              &lt;div class=&#34;card-body d-flex flex-column&#34;&gt;
+                &lt;h5 class=&#34;card-title&#34;&gt;Produto 3&lt;/h5&gt;
+                &lt;p class=&#34;card-text small text-body-secondary&#34;&gt;Descrição breve do produto.&lt;/p&gt;
+                &lt;p class=&#34;fw-semibold mb-3&#34;&gt;R$ 89,90&lt;/p&gt;
+                &lt;div class=&#34;mt-auto d-grid gap-2&#34;&gt;
+                  &lt;button class=&#34;btn btn-outline-secondary&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#modalDetalhes&#34; data-product=&#34;Produto 3&#34; data-price=&#34;89.90&#34;&gt;Detalhes&lt;/button&gt;
+                  &lt;button class=&#34;btn btn-primary btn-add&#34; data-product=&#34;Produto 3&#34; data-price=&#34;89.90&#34;&gt;Adicionar&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- mais 3 itens para completar 6 --&gt;
+          &lt;div class=&#34;col-12 col-sm-6 col-lg-4&#34;&gt;
+            &lt;div class=&#34;card h-100&#34;&gt;
+              &lt;img src=&#34;https://picsum.photos/seed/p4/600/400&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 4&#34;&gt;
+              &lt;div class=&#34;card-body d-flex flex-column&#34;&gt;
+                &lt;h5 class=&#34;card-title&#34;&gt;Produto 4&lt;/h5&gt;
+                &lt;p class=&#34;card-text small text-body-secondary&#34;&gt;Descrição breve do produto.&lt;/p&gt;
+                &lt;p class=&#34;fw-semibold mb-3&#34;&gt;R$ 129,90&lt;/p&gt;
+                &lt;div class=&#34;mt-auto d-grid gap-2&#34;&gt;
+                  &lt;button class=&#34;btn btn-outline-secondary&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#modalDetalhes&#34; data-product=&#34;Produto 4&#34; data-price=&#34;129.90&#34;&gt;Detalhes&lt;/button&gt;
+                  &lt;button class=&#34;btn btn-primary btn-add&#34; data-product=&#34;Produto 4&#34; data-price=&#34;129.90&#34;&gt;Adicionar&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;col-12 col-sm-6 col-lg-4&#34;&gt;
+            &lt;div class=&#34;card h-100&#34;&gt;
+              &lt;img src=&#34;https://picsum.photos/seed/p5/600/400&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 5&#34;&gt;
+              &lt;div class=&#34;card-body d-flex flex-column&#34;&gt;
+                &lt;h5 class=&#34;card-title&#34;&gt;Produto 5&lt;/h5&gt;
+                &lt;p class=&#34;card-text small text-body-secondary&#34;&gt;Descrição breve do produto.&lt;/p&gt;
+                &lt;p class=&#34;fw-semibold mb-3&#34;&gt;R$ 59,90&lt;/p&gt;
+                &lt;div class=&#34;mt-auto d-grid gap-2&#34;&gt;
+                  &lt;button class=&#34;btn btn-outline-secondary&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#modalDetalhes&#34; data-product=&#34;Produto 5&#34; data-price=&#34;59.90&#34;&gt;Detalhes&lt;/button&gt;
+                  &lt;button class=&#34;btn btn-primary btn-add&#34; data-product=&#34;Produto 5&#34; data-price=&#34;59.90&#34;&gt;Adicionar&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&#34;col-12 col-sm-6 col-lg-4&#34;&gt;
+            &lt;div class=&#34;card h-100&#34;&gt;
+              &lt;img src=&#34;https://picsum.photos/seed/p6/600/400&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 6&#34;&gt;
+              &lt;div class=&#34;card-body d-flex flex-column&#34;&gt;
+                &lt;h5 class=&#34;card-title&#34;&gt;Produto 6&lt;/h5&gt;
+                &lt;p class=&#34;card-text small text-body-secondary&#34;&gt;Descrição breve do produto.&lt;/p&gt;
+                &lt;p class=&#34;fw-semibold mb-3&#34;&gt;R$ 299,90&lt;/p&gt;
+                &lt;div class=&#34;mt-auto d-grid gap-2&#34;&gt;
+                  &lt;button class=&#34;btn btn-outline-secondary&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#modalDetalhes&#34; data-product=&#34;Produto 6&#34; data-price=&#34;299.90&#34;&gt;Detalhes&lt;/button&gt;
+                  &lt;button class=&#34;btn btn-primary btn-add&#34; data-product=&#34;Produto 6&#34; data-price=&#34;299.90&#34;&gt;Adicionar&lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/main&gt;
+
+    &lt;!-- Modal de detalhes (conteúdo preenchido dinamicamente) --&gt;
+    &lt;div class=&#34;modal fade&#34; id=&#34;modalDetalhes&#34; tabindex=&#34;-1&#34; aria-hidden=&#34;true&#34;&gt;
+      &lt;div class=&#34;modal-dialog&#34;&gt;
+        &lt;div class=&#34;modal-content&#34;&gt;
+          &lt;div class=&#34;modal-header&#34;&gt;
+            &lt;h5 class=&#34;modal-title&#34; id=&#34;tituloModal&#34;&gt;Detalhes do Produto&lt;/h5&gt;
+            &lt;button type=&#34;button&#34; class=&#34;btn-close&#34; data-bs-dismiss=&#34;modal&#34; aria-label=&#34;Fechar&#34;&gt;&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div class=&#34;modal-body&#34;&gt;
+            &lt;p id=&#34;descricaoModal&#34; class=&#34;mb-1&#34;&gt;Descrição do produto selecionado.&lt;/p&gt;
+            &lt;p class=&#34;fw-semibold&#34;&gt;Preço: R$ &lt;span id=&#34;precoModal&#34;&gt;0,00&lt;/span&gt;&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&#34;modal-footer&#34;&gt;
+            &lt;button type=&#34;button&#34; class=&#34;btn btn-secondary&#34; data-bs-dismiss=&#34;modal&#34;&gt;Fechar&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Offcanvas Carrinho --&gt;
+    &lt;div class=&#34;offcanvas offcanvas-end&#34; tabindex=&#34;-1&#34; id=&#34;carrinhoOffcanvas&#34;&gt;
+      &lt;div class=&#34;offcanvas-header&#34;&gt;
+        &lt;h5 class=&#34;offcanvas-title&#34;&gt;Carrinho&lt;/h5&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn-close&#34; data-bs-dismiss=&#34;offcanvas&#34; aria-label=&#34;Fechar&#34;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;offcanvas-body&#34; id=&#34;listaCarrinho&#34;&gt;
+        &lt;p class=&#34;text-body-secondary&#34;&gt;Seu carrinho está vazio.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;border-top p-3 d-flex justify-content-between&#34;&gt;
+        &lt;strong&gt;Total:&lt;/strong&gt; &lt;span id=&#34;totalCarrinho&#34;&gt;R$ 0,00&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Toast de feedback --&gt;
+    &lt;div class=&#34;position-fixed bottom-0 end-0 p-3&#34; style=&#34;z-index: 11&#34;&gt;
+      &lt;div id=&#34;toastOk&#34; class=&#34;toast&#34; role=&#34;status&#34; aria-live=&#34;polite&#34; aria-atomic=&#34;true&#34;&gt;
+        &lt;div class=&#34;toast-header&#34;&gt;
+          &lt;strong class=&#34;me-auto&#34;&gt;MinhaLoja&lt;/strong&gt;
+          &lt;small&gt;agora&lt;/small&gt;
+          &lt;button type=&#34;button&#34; class=&#34;btn-close&#34; data-bs-dismiss=&#34;toast&#34; aria-label=&#34;Fechar&#34;&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;toast-body&#34;&gt;Item adicionado ao carrinho.&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Contato / Newsletter --&gt;
+    &lt;section id=&#34;contato&#34; class=&#34;bg-body-tertiary py-5 mt-5 border-top&#34;&gt;
+      &lt;div class=&#34;container&#34;&gt;
+        &lt;div class=&#34;row g-4 align-items-center&#34;&gt;
+          &lt;div class=&#34;col-lg-6&#34;&gt;
+            &lt;h3&gt;Assine a newsletter&lt;/h3&gt;
+            &lt;p class=&#34;text-body-secondary&#34;&gt;Receba novidades e ofertas por e‑mail.&lt;/p&gt;
+            &lt;form class=&#34;row gy-2 gx-2&#34;&gt;
+              &lt;div class=&#34;col-12 col-sm-8&#34;&gt;
+                &lt;label for=&#34;email&#34; class=&#34;visually-hidden&#34;&gt;E‑mail&lt;/label&gt;
+                &lt;input id=&#34;email&#34; type=&#34;email&#34; class=&#34;form-control&#34; placeholder=&#34;seu@email.com&#34; required&gt;
+              &lt;/div&gt;
+              &lt;div class=&#34;col-12 col-sm-4 d-grid&#34;&gt;
+                &lt;button type=&#34;submit&#34; class=&#34;btn btn-success&#34;&gt;Inscrever&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/form&gt;
+          &lt;/div&gt;
+          &lt;div class=&#34;col-lg-6 text-sm-start text-center&#34;&gt;
+            &lt;div class=&#34;alert alert-info mb-0&#34; role=&#34;alert&#34;&gt;
+              Este é um mini‑projeto didático para praticar **Bootstrap 5** em sala.
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;footer class=&#34;py-4 text-center small text-body-secondary&#34;&gt;
+      &lt;div class=&#34;container&#34;&gt;© 2025 MinhaLoja – Feito com Bootstrap 5&lt;/div&gt;
+    &lt;/footer&gt;
+
+    &lt;script src=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script&gt;
+      // Estado simples do carrinho
+      const cart = [];
+
+      function atualizarBadge() {
+        document.getElementById(&#39;badgeQtd&#39;).textContent = cart.length;
+      }
+
+      function formatBRL(n) {
+        return n.toLocaleString(&#39;pt-BR&#39;, { style: &#39;currency&#39;, currency: &#39;BRL&#39; });
+      }
+
+      function atualizarCarrinhoUI() {
+        const lista = document.getElementById(&#39;listaCarrinho&#39;);
+        if (cart.length === 0) {
+          lista.innerHTML = &#39;&lt;p class=&#34;text-body-secondary&#34;&gt;Seu carrinho está vazio.&lt;/p&gt;&#39;;
+          document.getElementById(&#39;totalCarrinho&#39;).textContent = &#39;R$ 0,00&#39;;
+          return;
+        }
+        let total = 0;
+        lista.innerHTML = &#39;&lt;ul class=&#34;list-group mb-3&#34; id=&#34;ulCarrinho&#34;&gt;&lt;/ul&gt;&#39;;
+        const ul = document.getElementById(&#39;ulCarrinho&#39;);
+        cart.forEach((item, idx) =&gt; {
+          total += item.price;
+          const li = document.createElement(&#39;li&#39;);
+          li.className = &#39;list-group-item d-flex justify-content-between align-items-center&#39;;
+          li.innerHTML = `&lt;span&gt;${item.name}&lt;/span&gt;&lt;span class=&#34;fw-semibold&#34;&gt;${formatBRL(item.price)}&lt;/span&gt;`;
+          ul.appendChild(li);
+        });
+        document.getElementById(&#39;totalCarrinho&#39;).textContent = formatBRL(total);
+      }
+
+      function showToast() {
+        const toastEl = document.getElementById(&#39;toastOk&#39;);
+        const toast = new bootstrap.Toast(toastEl, { delay: 1500 });
+        toast.show();
+      }
+
+      // Adicionar ao carrinho
+      document.querySelectorAll(&#39;.btn-add&#39;).forEach(btn =&gt; {
+        btn.addEventListener(&#39;click&#39;, () =&gt; {
+          const name = btn.getAttribute(&#39;data-product&#39;);
+          const price = parseFloat(btn.getAttribute(&#39;data-price&#39;));
+          cart.push({ name, price });
+          atualizarBadge();
+          atualizarCarrinhoUI();
+          showToast();
+        });
+      });
+
+      // Preencher modal de detalhes dinamicamente
+      const modalDetalhes = document.getElementById(&#39;modalDetalhes&#39;);
+      modalDetalhes.addEventListener(&#39;show.bs.modal&#39;, event =&gt; {
+        const button = event.relatedTarget;
+        const name = button.getAttribute(&#39;data-product&#39;);
+        const price = parseFloat(button.getAttribute(&#39;data-price&#39;));
+        document.getElementById(&#39;tituloModal&#39;).textContent = name;
+        document.getElementById(&#39;descricaoModal&#39;).textContent = `O ${name} é excelente para demonstrar componentes do Bootstrap.`;
+        document.getElementById(&#39;precoModal&#39;).textContent = price.toFixed(2).replace(&#39;.&#39;, &#39;,&#39;);
+      });
+
+      // Offcanvas: atualizar UI ao abrir
+      const carrinho = document.getElementById(&#39;carrinhoOffcanvas&#39;);
+      carrinho.addEventListener(&#39;show.bs.offcanvas&#39;, atualizarCarrinhoUI);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Instruções</p>
+<ol type="1" start="1">
+<li>Copie o conteúdo acima para um arquivo index.html.</li>
+<li>Abra o arquivo no navegador (duplo clique ou via servidor estático).</li>
+<li>Altere o código para personalizar cores, textos, preços e adicionar mais cards.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
