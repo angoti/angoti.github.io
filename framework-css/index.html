@@ -47,10 +47,10 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Componentes principais" duration="0">
+      <google-codelab-step label="Primeiros componentes" duration="0">
         <p>O Bootstrap oferece uma ampla gama de componentes prontos para uso que aceleram o desenvolvimento:</p>
 <ul>
-<li>Botões: diversos estilos e cores, ex.:</li>
+<li><strong>Botões</strong>: diversos estilos e cores, ex.:</li>
 </ul>
 <pre><code>&lt;button class=&#34;btn btn-primary&#34;&gt;Salvar&lt;/button&gt;
 &lt;button class=&#34;btn btn-outline-secondary&#34;&gt;Cancelar&lt;/button&gt;</code></pre>
@@ -68,95 +68,111 @@
 <ul>
 <li><strong>Navbar</strong>: criação rápida de menus de navegação responsivos.</li>
 </ul>
-<pre><code>&lt;nav class=&#34;navbar navbar-expand-lg navbar-light bg-light&#34;&gt;
-  &lt;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&gt;Meu Site&lt;/a&gt;
-  &lt;div class=&#34;collapse navbar-collapse&#34;&gt;
-    &lt;ul class=&#34;navbar-nav mr-auto&#34;&gt;
-      &lt;li class=&#34;nav-item active&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
-      &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Produtos&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/div&gt;
-&lt;/nav&gt;</code></pre>
+<pre><code>&lt;nav class=&#34;navbar navbar-expand-sm navbar-light bg-light&#34;&gt;
+                        &lt;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&gt;Meu Site&lt;/a&gt;
+                        &lt;!-- Botão hamburger --&gt;
+                        &lt;button class=&#34;navbar-toggler&#34; type=&#34;button&#34; data-bs-toggle=&#34;collapse&#34; data-bs-target=&#34;#navbarConteudo&#34; aria-controls=&#34;navbarConteudo&#34; aria-expanded=&#34;false&#34; aria-label=&#34;Alternar navegação&#34;&gt;
+                                &lt;span class=&#34;navbar-toggler-icon&#34;&gt;&lt;/span&gt;
+                        &lt;/button&gt;
+                        &lt;div class=&#34;collapse navbar-collapse&#34; id=&#34;navbarConteudo&#34;&gt;
+                                &lt;ul class=&#34;navbar-nav mr-auto&#34;&gt;
+                                        &lt;li class=&#34;nav-item active&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                                        &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+                                &lt;/ul&gt;
+                        &lt;/div&gt;
+                &lt;/nav&gt;</code></pre>
 <ul>
 <li><strong>Alertas</strong>: mensagens de feedback para o usuário</li>
 </ul>
 <pre><code> &lt;div class=&#34;alert alert-success&#34; role=&#34;alert&#34;&gt;
   Operação realizada com sucesso!
 &lt;/div&gt;</code></pre>
-<p>Esses componentes podem ser combinados com utilitários do Bootstrap (como d-flex, text-center, m-3) para ajustar layout e responsividade.</p>
-<h2 is-upgraded><strong>Mini-projeto Exemplo (HTML com Bootstrap)</strong></h2>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang=&#34;pt-br&#34;&gt;
-&lt;head&gt;
-  &lt;meta charset=&#34;UTF-8&#34;&gt;
-  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
-  &lt;title&gt;Mini-projeto Bootstrap&lt;/title&gt;
-  &lt;link href=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;!-- Navbar --&gt;
-  &lt;nav class=&#34;navbar navbar-expand-lg navbar-dark bg-dark&#34;&gt;
-    &lt;div class=&#34;container-fluid&#34;&gt;
-      &lt;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&gt;Minha Loja&lt;/a&gt;
-      &lt;div class=&#34;collapse navbar-collapse&#34;&gt;
-        &lt;ul class=&#34;navbar-nav me-auto&#34;&gt;
-          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link active&#34; href=&#34;#&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
-          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Produtos&lt;/a&gt;&lt;/li&gt;
-          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Contato&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/nav&gt;
-
-  &lt;!-- Alerta --&gt;
-  &lt;div class=&#34;alert alert-info text-center m-0&#34; role=&#34;alert&#34;&gt;
-    Promoção válida até o final do mês!
+<ul>
+<li><strong>Formulários</strong></li>
+</ul>
+<pre><code>&lt;form&gt;
+  &lt;div class=&#34;mb-3&#34;&gt;
+    &lt;label for=&#34;nome&#34; class=&#34;form-label&#34;&gt;Nome&lt;/label&gt;
+    &lt;input type=&#34;text&#34; class=&#34;form-control&#34; id=&#34;nome&#34; placeholder=&#34;Digite seu nome&#34;&gt;
   &lt;/div&gt;
-
-  &lt;!-- Container de Cards --&gt;
-  &lt;div class=&#34;container mt-4&#34;&gt;
-    &lt;div class=&#34;row&#34;&gt;
-      &lt;div class=&#34;col-md-4&#34;&gt;
-        &lt;div class=&#34;card&#34;&gt;
-          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 1&#34;&gt;
-          &lt;div class=&#34;card-body&#34;&gt;
-            &lt;h5 class=&#34;card-title&#34;&gt;Produto 1&lt;/h5&gt;
-            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 1.&lt;/p&gt;
-            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+  &lt;div class=&#34;mb-3&#34;&gt;
+    &lt;label for=&#34;email&#34; class=&#34;form-label&#34;&gt;Email&lt;/label&gt;
+    &lt;input type=&#34;email&#34; class=&#34;form-control&#34; id=&#34;email&#34; placeholder=&#34;Digite seu email&#34;&gt;
+  &lt;/div&gt;
+  &lt;button type=&#34;submit&#34; class=&#34;btn btn-primary&#34;&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li><strong>Modal</strong></li>
+</ul>
+<pre><code>&lt;button type=&#34;button&#34; class=&#34;btn btn-primary&#34; data-bs-toggle=&#34;modal&#34; data-bs-target=&#34;#meuModal&#34;&gt;Abrir Modal&lt;/button&gt;
+&lt;div class=&#34;modal fade&#34; id=&#34;meuModal&#34; tabindex=&#34;-1&#34; aria-hidden=&#34;true&#34;&gt;
+  &lt;div class=&#34;modal-dialog&#34;&gt;
+    &lt;div class=&#34;modal-content&#34;&gt;
+      &lt;div class=&#34;modal-header&#34;&gt;
+        &lt;h5 class=&#34;modal-title&#34;&gt;Título do Modal&lt;/h5&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn-close&#34; data-bs-dismiss=&#34;modal&#34;&gt;&lt;/button&gt;
       &lt;/div&gt;
-      &lt;div class=&#34;col-md-4&#34;&gt;
-        &lt;div class=&#34;card&#34;&gt;
-          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 2&#34;&gt;
-          &lt;div class=&#34;card-body&#34;&gt;
-            &lt;h5 class=&#34;card-title&#34;&gt;Produto 2&lt;/h5&gt;
-            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 2.&lt;/p&gt;
-            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&#34;col-md-4&#34;&gt;
-        &lt;div class=&#34;card&#34;&gt;
-          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 3&#34;&gt;
-          &lt;div class=&#34;card-body&#34;&gt;
-            &lt;h5 class=&#34;card-title&#34;&gt;Produto 3&lt;/h5&gt;
-            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 3.&lt;/p&gt;
-            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+      &lt;div class=&#34;modal-body&#34;&gt;Conteúdo do modal.&lt;/div&gt;
+      &lt;div class=&#34;modal-footer&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-secondary&#34; data-bs-dismiss=&#34;modal&#34;&gt;Fechar&lt;/button&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-
-  &lt;!-- Rodapé --&gt;
-  &lt;footer class=&#34;bg-dark text-light text-center p-3 mt-4&#34;&gt;
-    &lt;p&gt;&amp;copy; 2025 Minha Loja - Todos os direitos reservados.&lt;/p&gt;
-  &lt;/footer&gt;
-
-  &lt;script src=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js&#34;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+&lt;/div&gt;</code></pre>
+<ul>
+<li><strong>Accordion</strong></li>
+</ul>
+<pre><code>&lt;div class=&#34;accordion&#34; id=&#34;accordionExemplo&#34;&gt;
+  &lt;div class=&#34;accordion-item&#34;&gt;
+    &lt;h2 class=&#34;accordion-header&#34;&gt;
+      &lt;button class=&#34;accordion-button&#34; type=&#34;button&#34; data-bs-toggle=&#34;collapse&#34; data-bs-target=&#34;#collapseUm&#34;&gt;Item 1&lt;/button&gt;
+    &lt;/h2&gt;
+    &lt;div id=&#34;collapseUm&#34; class=&#34;accordion-collapse collapse show&#34; data-bs-parent=&#34;#accordionExemplo&#34;&gt;
+      &lt;div class=&#34;accordion-body&#34;&gt;Conteúdo do item 1.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<ul>
+<li><strong>Carousel</strong></li>
+</ul>
+<pre><code>&lt;div id=&#34;carouselExemplo&#34; class=&#34;carousel slide&#34; data-bs-ride=&#34;carousel&#34;&gt;
+  &lt;div class=&#34;carousel-inner&#34;&gt;
+    &lt;div class=&#34;carousel-item active&#34;&gt;
+      &lt;img src=&#34;https://picsum.photos/800/300&#34; class=&#34;d-block w-100&#34; alt=&#34;Slide 1&#34;&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;carousel-item&#34;&gt;
+      &lt;img src=&#34;https://picsum.photos/800/301&#34; class=&#34;d-block w-100&#34; alt=&#34;Slide 2&#34;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class=&#34;carousel-control-prev&#34; type=&#34;button&#34; data-bs-target=&#34;#carouselExemplo&#34; data-bs-slide=&#34;prev&#34;&gt;
+    &lt;span class=&#34;carousel-control-prev-icon&#34;&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class=&#34;carousel-control-next&#34; type=&#34;button&#34; data-bs-target=&#34;#carouselExemplo&#34; data-bs-slide=&#34;next&#34;&gt;
+    &lt;span class=&#34;carousel-control-next-icon&#34;&gt;&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+<ul>
+<li><strong>Dropdown</strong></li>
+</ul>
+<pre><code>&lt;div class=&#34;dropdown&#34;&gt;
+  &lt;button class=&#34;btn btn-secondary dropdown-toggle&#34; type=&#34;button&#34; data-bs-toggle=&#34;dropdown&#34;&gt;Menu&lt;/button&gt;
+  &lt;ul class=&#34;dropdown-menu&#34;&gt;
+    &lt;li&gt;&lt;a class=&#34;dropdown-item&#34; href=&#34;#&#34;&gt;Ação 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class=&#34;dropdown-item&#34; href=&#34;#&#34;&gt;Ação 2&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+<ul>
+<li><strong>Toast</strong></li>
+</ul>
+<pre><code>&lt;button type=&#34;button&#34; class=&#34;btn btn-info&#34; onclick=&#34;new bootstrap.Toast(document.getElementById(&#39;meuToast&#39;)).show()&#34;&gt;Mostrar Toast&lt;/button&gt;
+&lt;div id=&#34;meuToast&#34; class=&#34;toast&#34; role=&#34;alert&#34; data-bs-delay=&#34;2000&#34;&gt;
+  &lt;div class=&#34;toast-header&#34;&gt;
+    &lt;strong class=&#34;me-auto&#34;&gt;Bootstrap&lt;/strong&gt;
+    &lt;button type=&#34;button&#34; class=&#34;btn-close&#34; data-bs-dismiss=&#34;toast&#34;&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;toast-body&#34;&gt;Mensagem exibida!&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
 
       </google-codelab-step>
@@ -343,18 +359,89 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Exercício guiado" duration="0">
-        <ol type="1" start="1">
-<li>Construa a estrutura base: container → row → 3 col.</li>
-<li>Faça o layout stack no mobile e 3 colunas no lg (.col-12 .col-lg-4).</li>
-<li>Adicione gy-4 para espaçamento vertical e align-items-stretch para igualar alturas.</li>
-<li>Insira um sidebar (coluna extra) visível apenas em lg+ (d-none d-lg-block col-lg-3) e ajuste o conteúdo (col-lg-9).</li>
-</ol>
+      <google-codelab-step label="Exercícios" duration="0">
+        <h2 is-upgraded><strong>1. Edite o código fornecido abaixo e altere o seguinte:</strong></h2>
+<ul>
+<li>Acrescentes imagens de produtos. <a href="https://getbootstrap.com/docs/5.3/content/images" target="_blank">Estilize as imagens</a> </li>
+<li>Criar uma página destino para cada botão comprar.</li>
+</ul>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;pt-br&#34;&gt;
+&lt;head&gt;
+  &lt;meta charset=&#34;UTF-8&#34;&gt;
+  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34;&gt;
+  &lt;title&gt;Mini-projeto Bootstrap&lt;/title&gt;
+  &lt;link href=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Navbar --&gt;
+  &lt;nav class=&#34;navbar navbar-expand-lg navbar-dark bg-dark&#34;&gt;
+    &lt;div class=&#34;container-fluid&#34;&gt;
+      &lt;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&gt;Minha Loja&lt;/a&gt;
+      &lt;div class=&#34;collapse navbar-collapse&#34;&gt;
+        &lt;ul class=&#34;navbar-nav me-auto&#34;&gt;
+          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link active&#34; href=&#34;#&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
+          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+          &lt;li class=&#34;nav-item&#34;&gt;&lt;a class=&#34;nav-link&#34; href=&#34;#&#34;&gt;Contato&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- Alerta --&gt;
+  &lt;div class=&#34;alert alert-info text-center m-0&#34; role=&#34;alert&#34;&gt;
+    Promoção válida até o final do mês!
+  &lt;/div&gt;
+
+  &lt;!-- Container de Cards --&gt;
+  &lt;div class=&#34;container mt-4&#34;&gt;
+    &lt;div class=&#34;row&#34;&gt;
+      &lt;div class=&#34;col-md-4&#34;&gt;
+        &lt;div class=&#34;card&#34;&gt;
+          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 1&#34;&gt;
+          &lt;div class=&#34;card-body&#34;&gt;
+            &lt;h5 class=&#34;card-title&#34;&gt;Produto 1&lt;/h5&gt;
+            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 1.&lt;/p&gt;
+            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;col-md-4&#34;&gt;
+        &lt;div class=&#34;card&#34;&gt;
+          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 2&#34;&gt;
+          &lt;div class=&#34;card-body&#34;&gt;
+            &lt;h5 class=&#34;card-title&#34;&gt;Produto 2&lt;/h5&gt;
+            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 2.&lt;/p&gt;
+            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;col-md-4&#34;&gt;
+        &lt;div class=&#34;card&#34;&gt;
+          &lt;img src=&#34;https://via.placeholder.com/300x200&#34; class=&#34;card-img-top&#34; alt=&#34;Produto 3&#34;&gt;
+          &lt;div class=&#34;card-body&#34;&gt;
+            &lt;h5 class=&#34;card-title&#34;&gt;Produto 3&lt;/h5&gt;
+            &lt;p class=&#34;card-text&#34;&gt;Descrição breve do produto 3.&lt;/p&gt;
+            &lt;a href=&#34;#&#34; class=&#34;btn btn-primary&#34;&gt;Comprar&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Rodapé --&gt;
+  &lt;footer class=&#34;bg-dark text-light text-center p-3 mt-4&#34;&gt;
+    &lt;p&gt;&amp;copy; 2025 Minha Loja - Todos os direitos reservados.&lt;/p&gt;
+  &lt;/footer&gt;
+
+  &lt;script src=&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js&#34;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Mini‑projeto: Loja Bootstrap (arquivo único HTML)" duration="0">
+      <google-codelab-step label="Mini‑projeto: Loja Bootstrap" duration="0">
         <p>Objetivo: fornecer um arquivo HTML completo para praticar Bootstrap em sala (navbar, hero, grid de cards, modal, formulário, toast e JS mínimo).</p>
 <pre><code>&lt;!doctype html&gt;
 &lt;html lang=&#34;pt-br&#34;&gt;
