@@ -305,7 +305,7 @@
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <p>.col divide o espaço restante igualmente entre as colunas.</p>
-<h2 is-upgraded><br>2) Larguras fixas e responsivas</h2>
+<h3 is-upgraded>2) <strong>Larguras</strong><strong> fixas e responsivas</strong></h3>
 <pre><code>&lt;div class=&#34;container&#34;&gt;
   &lt;div class=&#34;row&#34;&gt;
     &lt;div class=&#34;col-12 col-md-8&#34;&gt;Conteúdo principal&lt;/div&gt;
@@ -313,7 +313,7 @@
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <p>Em telas pequenas: stack (12/12). A partir de md: 8/12 + 4/12.<br></p>
-<h2 is-upgraded>3) Gutters (espaçamentos entre colunas)</h2>
+<h3 is-upgraded>3) <strong>Gutters</strong><strong> (espaçamentos entre colunas)</strong></h3>
 <p>Use g-* (ambos eixos), gx-* (horizontal) e gy-* (vertical).<br> Valores vão de 0 a 5.</p>
 <pre><code>&lt;div class=&#34;container&#34;&gt;
   &lt;div class=&#34;row g-3&#34;&gt;
@@ -323,46 +323,56 @@
     &lt;div class=&#34;col-6 col-lg-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;4&lt;/div&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h2 is-upgraded>4) Alinhamento vertical e horizontal</h2>
+<h3 is-upgraded><strong>4</strong><strong>) Alinhamento vertical e horizontal</strong></h3>
 <p>Na row: align-items-* (vertical), justify-content-* (horizontal). Em cada col: align-self-*.</p>
-<pre><code>&lt;div class=&#34;container&#34;&gt;
-  &lt;div class=&#34;row align-items-center justify-content-between&#34; style=&#34;min-height: 160px;&#34;&gt;
-    &lt;div class=&#34;col-4&#34;&gt;&lt;div class=&#34;bg-light p-3&#34;&gt;Esquerda&lt;/div&gt;&lt;/div&gt;
-    &lt;div class=&#34;col-4&#34;&gt;&lt;div class=&#34;bg-light p-3&#34;&gt;Centro&lt;/div&gt;&lt;/div&gt;
+<pre><code>&lt;div class=&#34;container border border-danger vh-100 border-3 d-flex&#34;&gt;
+  &lt;div  class=&#34;row align-items-center justify-content-between border border-2 border-info flex-fill&#34;&gt;
+        &lt;div class=&#34;col-4 align-self-end&#34;&gt;
+                &lt;div class=&#34;bg-light p-3 text-center&#34;&gt;Esquerda&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;col-4&#34;&gt;
+                &lt;div class=&#34;bg-light p-3 text-center&#34;&gt;Centro&lt;/div&gt;
+        &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h2 is-upgraded>5) Ordenação e offsets</h2>
+<h3 is-upgraded><strong>5</strong><strong>) Ordenação e offsets</strong></h3>
 <p>Reordene visualmente com order-* e crie recuos com offset-*.</p>
 <pre><code>&lt;div class=&#34;container&#34;&gt;
   &lt;div class=&#34;row&#34;&gt;
     &lt;div class=&#34;col-12 col-md-4 order-md-2&#34;&gt;Coluna 2 (aparece depois em md+)&lt;/div&gt;
-    &lt;div class=&#34;col-12 col-md-4 order-md-1&#34;&gt;Coluna 1&lt;/div&gt;
-    &lt;div class=&#34;col-12 col-md-4 offset-md-0&#34;&gt;Coluna 3&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
-<p>Dica: order-0, order-1, order-2... e variantes por breakpoint (order-md-1).<br>Para recuos: offset-md-2 desloca a coluna em 2 colunas à direita no md.</p>
-<h2 is-upgraded>6) Colunas automáticas e com conteúdo</h2>
-<p>.col-auto faz a coluna &#34;abraçar&#34; o conteúdo, enquanto as demais ocupam o restante.</p>
-<pre><code>&lt;div class=&#34;container&#34;&gt;
-  &lt;div class=&#34;row&#34;&gt;
-    &lt;div class=&#34;col-auto&#34;&gt;&lt;div class=&#34;bg-light p-2&#34;&gt;Label:&lt;/div&gt;&lt;/div&gt;
-    &lt;div class=&#34;col&#34;&gt;&lt;input class=&#34;form-control&#34; placeholder=&#34;campo amplo&#34;&gt;&lt;/div&gt;
+        &lt;div class=&#34;col-12 col-md-4 order-md-1&#34;&gt;Coluna 1&lt;/div&gt;
+        &lt;div class=&#34;col-12 col-md-4 order-md-0 offset-md-2&#34;&gt;Coluna 3&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h2 is-upgraded>7) Aninhamento (rows dentro de colunas)</h2>
-<pre><code>&lt;div class=&#34;container&#34;&gt;
-  &lt;div class=&#34;row&#34;&gt;
-    &lt;div class=&#34;col-12 col-lg-8&#34;&gt;
-      &lt;div class=&#34;row g-2&#34;&gt;
+<p>Dica: order-0, order-1, order-2... e variantes por breakpoint (order-md-1).</p>
+<p>Para recuos: offset-md-2 desloca a coluna em 2 colunas à direita no md.</p>
+<h3 is-upgraded><strong>6</strong><strong>) Colunas automáticas e com conteúdo</strong></h3>
+<p>.col-auto faz a coluna &#34;abraçar&#34; o conteúdo, enquanto as demais ocupam o restante.</p>
+<pre><code>&lt;div class=&#34;container-fluid border border-4 border-danger vh-100&#34;&gt;
+  &lt;div class=&#34;row border border-3 border-dark&#34;&gt;
+    &lt;div class=&#34;col-auto&#34;&gt;
+        &lt;div class=&#34;bg-light p-2&#34;&gt;Label:&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col&#34;&gt;
+      &lt;input class=&#34;form-control&#34; placeholder=&#34;campo amplo&#34; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<h3 is-upgraded><strong>7</strong>) <strong>Aninhamento</strong><strong> (rows dentro de colunas)</strong></h3>
+<pre><code>&lt;div class=&#34;container-fluid border border-4 border-danger vh-100&#34;&gt;
+  &lt;div class=&#34;row border border-3 border-dark m-1&#34;&gt;
+    &lt;div class=&#34;col border border-3 border-info m-1&#34;&gt;
+      &lt;div        class=&#34;row gx-3 border border-3 border-warning m-1&#34;&gt;
         &lt;div class=&#34;col-6&#34;&gt;&lt;div class=&#34;p-2 bg-light&#34;&gt;A1&lt;/div&gt;&lt;/div&gt;
         &lt;div class=&#34;col-6&#34;&gt;&lt;div class=&#34;p-2 bg-light&#34;&gt;A2&lt;/div&gt;&lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class=&#34;col-12 col-lg-4&#34;&gt;&lt;div class=&#34;p-2 bg-light&#34;&gt;B&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&#34;col p-0 border border-3 border-success m-1&#34;&gt;
+      &lt;div class=&#34;p-0 bg-secondary&#34;&gt;B&lt;/div&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h2 is-upgraded>8) Containers: fixo vs fluido</h2>
+<h3 is-upgraded><strong>8</strong><strong>) Containers: fixo vs fluido</strong></h3>
 <ul>
 <li>Fixo (<code>.container</code>): largura máxima muda por breakpoint (legível em telas grandes).</li>
 <li>Fluido (<code>.container-fluid</code>): sempre 100% (ótimo para apps que ocupam toda a largura).</li>
@@ -375,22 +385,47 @@
     &lt;div class=&#34;col-12 col-md-6 col-xxl-3&#34;&gt;&lt;div class=&#34;p-3 bg-light&#34;&gt;Card 4&lt;/div&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h2 is-upgraded>9) Padrões de layout comuns</h2>
-<p>Layout com sidebar dupla (mobile first):</p>
-<pre><code>&lt;div class=&#34;container&#34;&gt;
-  &lt;div class=&#34;row g-4&#34;&gt;
+<h3 is-upgraded><strong>9</strong><strong>) Padrões de layout comuns</strong></h3>
+<pre><code>&lt;div        class=&#34;container-fluid vh-100 border border-4 border-danger&#34;&gt;
+  &lt;!-- Layout com sidebar dupla (mobile first): --&gt;      
+  &lt;!-- 
+  &lt;div class=&#34;row border border-3 border-dark&#34;&gt;
     &lt;aside class=&#34;col-12 col-lg-3&#34;&gt;Esquerda&lt;/aside&gt;
-    &lt;main  class=&#34;col-12 col-lg-6&#34;&gt;Conteúdo&lt;/main&gt;
+    &lt;main class=&#34;col-12 col-lg-6&#34;&gt;Conteúdo&lt;/main&gt;
     &lt;aside class=&#34;col-12 col-lg-3&#34;&gt;Direita&lt;/aside&gt;
   &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-<p>Grade de produtos/cards responsiva:</p>
-<pre><code>&lt;div class=&#34;container&#34;&gt;
-  &lt;div class=&#34;row gy-4 gx-3&#34;&gt;
-    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
-    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
-    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
-    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;Card&lt;/div&gt;
+   --&gt;
+ 
+  &lt;!-- Grade de produtos/cards responsiva --&gt;      
+  &lt;div class=&#34;row border border-3 border-info g-3 mt-1 pb-3&#34;&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;
+      &lt;div class=&#34;card h-100&#34;&gt;
+        &lt;div class=&#34;card-body&#34;&gt;
+          &lt;h5 class=&#34;card-title&#34;&gt;Card&lt;/h5&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;
+      &lt;div class=&#34;card h-100&#34;&gt;
+        &lt;div class=&#34;card-body&#34;&gt;
+          &lt;h5 class=&#34;card-title&#34;&gt;Card&lt;/h5&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;
+      &lt;div class=&#34;card h-100&#34;&gt;
+        &lt;div class=&#34;card-body&#34;&gt;
+          &lt;h5 class=&#34;card-title&#34;&gt;Card&lt;/h5&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-6 col-md-4 col-lg-3&#34;&gt;
+      &lt;div class=&#34;card h-100&#34;&gt;
+        &lt;div class=&#34;card-body&#34;&gt;
+          &lt;h5 class=&#34;card-title&#34;&gt;Card&lt;/h5&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <h2 is-upgraded>Boas práticas</h2>
