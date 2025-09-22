@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2025-09-22T21:55:32Z",
+  "id": "rnexpo-firebase-emailsenha-login",
+  "duration": 125,
+  "title": "Codelab - Autenticação Firebase/Google - projeto Firebase aula-log-google",
+  "authors": "Edson Angoti Júnior",
+  "summary": "React native e firebase. Última atualização: 22/09/2025",
+  "source": "1qYy87Z7LG-_2Tqf_3NnX1X7ri7z-H-b94qFFo1wMEtw",
+  "theme": "mobile",
+  "status": [
+    "emconstrução"
+  ],
+  "category": [
+    "mobile"
+  ],
+  "tags": [
+    "mobile"
+  ],
+  "url": "rnexpo-firebase-emailsenha-login"
+}
