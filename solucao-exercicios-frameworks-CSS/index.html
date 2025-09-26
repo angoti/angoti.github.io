@@ -128,18 +128,18 @@
 &lt;/html&gt;</code></pre>
 <h2 is-upgraded>Solução</h2>
 <aside class="special"><p><strong><code><body class="d-flex flex-column min-vh-100"></code></strong></p>
-<p>O flex-column aplicado ao `&lt;body&gt;` tem um efeito fundamental na estrutura e layout da página. Quando você aplica `d-flex flex-column` ao body, você está:</p>
+<p>O flex-column aplicado ao &lt;body&gt; tem um efeito fundamental na estrutura e layout da página. Quando você aplica `d-flex flex-column` ao body, você está:</p>
 <p>1. Tornando o body um container flexbox (d-flex)</p>
 <p>2. Definindo a direção principal como vertical (flex-column)</p>
 <p>Layout Resultante</p>
-<p><strong><code><body class="d-flex flex-column min-vh-100"></code></strong></p>
-<p><strong><code>  <!-- Os elementos filhos se organizam verticalmente --></code></strong></p>
-<p><strong><code>  <nav>...</nav>     ← Topo</code></strong></p>
-<p><strong><code>  <main>...</main>   ← Meio (cresce para preencher espaço)</code></strong></p>
-<p><strong><code>  <footer>...</footer> ← Rodapé fixo no final</code></strong></p>
-<p><strong><code></body></code></strong></p>
+<p>&lt;body class=&#34;d-flex flex-column min-vh-100&#34;&gt;</p>
+<p>  &lt;!-- Os elementos filhos se organizam verticalmente --&gt;</p>
+<p>  &lt;nav&gt;...&lt;/nav&gt;     ← Topo</p>
+<p>  &lt;main&gt;...&lt;/main&gt;   ← Meio (cresce para preencher espaço)</p>
+<p>  &lt;footer&gt;...&lt;/footer&gt; ← Rodapé fixo no final</p>
+<p>&lt;/body&gt;</p>
 <p>Elementos-Chave que Trabalham Juntos</p>
-<p>1.<code>min-vh-100</code></p>
+<p>1.min-vh-100</p>
 <p>- Garante que o body ocupe pelo menos 100% da altura da viewport</p>
 <p>- Mesmo com pouco conteúdo, a página terá altura total da tela</p>
 <p> 2. flex-grow-1 no &lt;main&gt;</p>
