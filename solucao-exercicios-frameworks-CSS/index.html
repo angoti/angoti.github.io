@@ -127,22 +127,22 @@
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 <h2 is-upgraded>Solução</h2>
-<aside class="special"><p><code><body class="d-flex flex-column min-vh-100"></code></p>
-<p>O `flex-column` aplicado ao `&lt;body&gt;` tem um efeito fundamental na estrutura e layout da página. Quando você aplica `d-flex flex-column` ao body, você está:</p>
+<aside class="special"><p><strong><code><body class="d-flex flex-column min-vh-100"></code></strong></p>
+<p>O flex-column aplicado ao `&lt;body&gt;` tem um efeito fundamental na estrutura e layout da página. Quando você aplica `d-flex flex-column` ao body, você está:</p>
 <p>1. Tornando o body um container flexbox (d-flex)</p>
 <p>2. Definindo a direção principal como vertical (flex-column)</p>
 <p>Layout Resultante</p>
-<p><code><body class="d-flex flex-column min-vh-100"></code></p>
-<p><code>  <!-- Os elementos filhos se organizam verticalmente --></code></p>
-<p><code>  <nav>...</nav>     ← Topo</code></p>
-<p><code>  <main>...</main>   ← Meio (cresce para preencher espaço)</code></p>
-<p><code>  <footer>...</footer> ← Rodapé fixo no final</code></p>
-<p><code></body></code></p>
+<p><strong><code><body class="d-flex flex-column min-vh-100"></code></strong></p>
+<p><strong><code>  <!-- Os elementos filhos se organizam verticalmente --></code></strong></p>
+<p><strong><code>  <nav>...</nav>     ← Topo</code></strong></p>
+<p><strong><code>  <main>...</main>   ← Meio (cresce para preencher espaço)</code></strong></p>
+<p><strong><code>  <footer>...</footer> ← Rodapé fixo no final</code></strong></p>
+<p><strong><code></body></code></strong></p>
 <p>Elementos-Chave que Trabalham Juntos</p>
 <p>1.<code>min-vh-100</code></p>
 <p>- Garante que o body ocupe pelo menos 100% da altura da viewport</p>
 <p>- Mesmo com pouco conteúdo, a página terá altura total da tela</p>
-<p> 2. `flex-grow-1` no `&lt;main&gt;`</p>
+<p> 2. flex-grow-1 no &lt;main&gt;</p>
 <p>- O conteúdo principal cresce automaticamente para preencher o espaço disponível</p>
 <p>- Empurra o footer para o final da página</p>
 <p> 3. `mt-auto` no `&lt;footer&gt;`</p>
