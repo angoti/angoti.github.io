@@ -127,22 +127,19 @@
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 <h2 is-upgraded>Solução</h2>
-<aside class="special"><p><code><body</code> <code>class="d-flex flex-column min-vh-100"></code></p>
-<p>O `flex-column` aplicado ao `&lt;body&gt;` tem um efeito fundamental na estrutura e layout da página. Vou explicar como ele funciona:</p>
-<p>Quando você aplica `d-flex flex-column` ao body, você está:</p>
+<aside class="special"><p><code><body class="d-flex flex-column min-vh-100"></code></p>
+<p>O `flex-column` aplicado ao `&lt;body&gt;` tem um efeito fundamental na estrutura e layout da página. Quando você aplica `d-flex flex-column` ao body, você está:</p>
 <p>1. Tornando o body um container flexbox (d-flex)</p>
 <p>2. Definindo a direção principal como vertical (flex-column)</p>
 <p>Layout Resultante</p>
-<p>```html</p>
 <p><code><body class="d-flex flex-column min-vh-100"></code></p>
 <p><code>  <!-- Os elementos filhos se organizam verticalmente --></code></p>
 <p><code>  <nav>...</nav>     ← Topo</code></p>
 <p><code>  <main>...</main>   ← Meio (cresce para preencher espaço)</code></p>
 <p><code>  <footer>...</footer> ← Rodapé fixo no final</code></p>
 <p><code></body></code></p>
-<p>```</p>
 <p>Elementos-Chave que Trabalham Juntos</p>
-<p>1.`min-vh-100</p>
+<p>1.<code>min-vh-100</code></p>
 <p>- Garante que o body ocupe pelo menos 100% da altura da viewport</p>
 <p>- Mesmo com pouco conteúdo, a página terá altura total da tela</p>
 <p> 2. `flex-grow-1` no `&lt;main&gt;`</p>
@@ -152,25 +149,24 @@
 <p>- Aplica margem automática no topo</p>
 <p>- Em conjunto com flexbox, &#34;cola&#34; o footer na parte inferior</p>
 <p> Resultado Visual</p>
-<p>**Sem flex-column:**</p>
+<p>Sem flex-column:</p>
 <p>```</p>
 <p>[Navbar]</p>
 <p>[Main Content]</p>
 <p>[Footer] ← Pode ficar &#34;flutuando&#34; no meio da tela</p>
 <p>[Espaço vazio]</p>
 <p>```</p>
-<p>**Com flex-column:**</p>
+<p>Com flex-column:</p>
 <p>```</p>
 <p>[Navbar]</p>
 <p>[Main Content - expande conforme necessário]</p>
 <p>[Footer] ← Sempre no final da tela</p>
 <p>```</p>
 <p> Vantagens Práticas</p>
-<p>- **Footer sempre posicionado corretamente** (não flutua no meio da tela)</p>
-<p>- **Layout responsivo** que se adapta ao conteúdo</p>
-<p>- **Sem JavaScript necessário** para posicionamento do footer</p>
-<p>- **Funciona com qualquer quantidade de conteúdo**</p>
-<p>Esta é uma técnica moderna e elegante para criar layouts de página completa com header, conteúdo principal e footer fixo!</p>
+<p>- Footer sempre posicionado corretamente (não flutua no meio da tela)</p>
+<p>- Layout responsivo que se adapta ao conteúdo</p>
+<p>- Sem JavaScript necessário para posicionamento do footer</p>
+<p>- Funciona com qualquer quantidade de conteúdo</p>
 </aside>
 <h2 is-upgraded>2. Use o <a href="https://github.com/angoti/bootstrap" target="_blank">projeto</a> com o código inicial da página</h2>
 <ul>
@@ -399,7 +395,7 @@
           &lt;/div&gt;
           &lt;div class=&#34;col-lg-6 text-sm-start text-center&#34;&gt;
             &lt;div class=&#34;alert alert-info mb-0&#34; role=&#34;alert&#34;&gt;
-              Este é um mini‑projeto didático para praticar **Bootstrap 5** em sala.
+              Este é um mini‑projeto didático para praticar Bootstrap 5 em sala.
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
