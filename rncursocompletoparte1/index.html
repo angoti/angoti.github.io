@@ -2253,47 +2253,66 @@ const app = initializeApp(firebaseConfig);</code></pre>
 <p>No diretório backend/</p>
 <pre><code>npm init -y
 npm i express cors pdf-parse @xenova/transformers cosine-similarity</code></pre>
+<p>Edite o arquivo packge.json e altere o tipo de pacote para &#34;module&#34;: </p>
+<pre><code>{
+  &#34;name&#34;: &#34;backend&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;&#34;,
+  &#34;main&#34;: &#34;index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;test&#34;: &#34;echo \&#34;Error: no test specified\&#34; &amp;&amp; exit 1&#34;
+  },
+  &#34;keywords&#34;: [],
+  &#34;author&#34;: &#34;&#34;,
+  &#34;license&#34;: &#34;ISC&#34;,
+  &#34;type&#34;: &#34;module&#34;
+}</code></pre>
 <h3 is-upgraded><strong>Baixar o PDF oficial</strong></h3>
 <p>Escolha algum regulamento do IFTM, por exemplo ROD, e baixe o pdf.</p>
 <h3 is-upgraded><strong>Script de construção do conhecimento</strong></h3>
 <p>backend/scripts/build-knowledge.js:</p>
-<pre><code>import fs from &#39;fs&#39;;
-import pdf from &#39;pdf-parse&#39;;
-import { pipeline } from &#39;@xenova/transformers&#39;;
+<pre><code>import fs from &#34;fs&#34;;
+import { createRequire } from &#34;module&#34;;
+const require = createRequire(import.meta.url);
+const pdf = require(&#34;pdf-parse&#34;);
+import { pipeline } from &#34;@xenova/transformers&#34;;
 
-const PDF_PATH = &#39;./data/regulamento.pdf&#39;;
-const CHUNKS_PATH = &#39;./data/chunks.json&#39;;
+const PDF_PATH = &#34;./data/regulamento.pdf&#34;;
+const CHUNKS_PATH = &#34;./data/chunks.json&#34;;
 
 function chunkText(text, maxLen = 1200) {
-  const paras = text.replace(/\r/g, &#39;&#39;).split(/\n\s*\n+/);
-  const chunks = [];
-  let buf = &#39;&#39;;
-  for (const p of paras) {
-    const cand = buf ? `${buf}\n\n${p}` : p;
-    if (cand.length &gt; maxLen &amp;&amp; buf) {
-      chunks.push(buf.trim());
-      buf = p;
-    } else {
-      buf = cand;
-    }
-  }
-  if (buf.trim()) chunks.push(buf.trim());
-  return chunks.map((t, i) =&gt; ({ id: i + 1, text: t }));
+        const paras = text.replace(/\r/g, &#34;&#34;).split(/\n\s*\n+/);
+        const chunks = [];
+        let buf = &#34;&#34;;
+        for (const p of paras) {
+                const cand = buf ? `${buf}\n\n${p}` : p;
+                if (cand.length &gt; maxLen &amp;&amp; buf) {
+                        chunks.push(buf.trim());
+                        buf = p;
+                } else {
+                        buf = cand;
+                }
+        }
+        if (buf.trim()) chunks.push(buf.trim());
+        return chunks.map((t, i) =&gt; ({ id: i + 1, text: t }));
 }
 
 async function main() {
-  const raw = (await pdf(fs.readFileSync(PDF_PATH))).text.trim();
-  const extractor = await pipeline(&#39;feature-extraction&#39;, &#39;Xenova/all-MiniLM-L6-v2&#39;);
-  const chunks = chunkText(raw, 1200);
-  const withEmb = [];
-  for (const c of chunks) {
-    const emb = await extractor(c.text, { pooling: &#39;mean&#39;, normalize: true });
-    withEmb.push({ ...c, embedding: Array.from(emb.data) });
-  }
-  fs.writeFileSync(CHUNKS_PATH, JSON.stringify(withEmb, null, 2));
-  console.log(`OK: ${withEmb.length} chunks salvos em ${CHUNKS_PATH}`);
+        const raw = (await pdf(fs.readFileSync(PDF_PATH))).text.trim();
+        const extractor = await pipeline(&#34;feature-extraction&#34;, &#34;Xenova/all-MiniLM-L6-v2&#34;);
+        const chunks = chunkText(raw, 1200);
+        const withEmb = [];
+        for (const c of chunks) {
+                const emb = await extractor(c.text, { pooling: &#34;mean&#34;, normalize: true });
+                withEmb.push({ ...c, embedding: Array.from(emb.data) });
+        }
+        fs.writeFileSync(CHUNKS_PATH, JSON.stringify(withEmb, null, 2));
+        console.log(`OK: ${withEmb.length} chunks salvos em ${CHUNKS_PATH}`);
 }
-main().catch(e =&gt; { console.error(e); process.exit(1); });</code></pre>
+main().catch(e =&gt; {
+        console.error(e);
+        process.exit(1);
+});</code></pre>
 <p>Execute:</p>
 <pre><code>node scripts/build-knowledge.js</code></pre>
 <h3 is-upgraded><strong>API</strong></h3>
