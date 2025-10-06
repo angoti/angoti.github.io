@@ -2240,6 +2240,199 @@ const app = initializeApp(firebaseConfig);</code></pre>
 
       </google-codelab-step>
     
+      <google-codelab-step label="ChatBot com inteligência artificial" duration="0">
+        <h2 is-upgraded><strong>Objetivo</strong></h2>
+<p>Construir um app <strong>Expo/React Native</strong> (frontend) que pergunta ao backend <strong>Node.js</strong> sobre o regulamento e recebe respostas <strong>extrativas</strong> com <strong>fontes</strong> (trechos do próprio PDF). Tudo roda localmente com <strong>Transformers.js</strong> (Xenova), sem chaves de API.</p>
+<h2 is-upgraded><strong>1) Preparação</strong></h2>
+<ul>
+<li>Reúna a turma em grupos.</li>
+<li>Cada grupo cria a pasta do projeto: iftm-chatbot/ (com backend/ e app/).</li>
+</ul>
+<h2 is-upgraded><strong>2) Backend</strong></h2>
+<h3 is-upgraded><strong>Instalação</strong></h3>
+<p>No diretório backend/</p>
+<pre><code>npm init -y
+npm i express cors pdf-parse @xenova/transformers cosine-similarity</code></pre>
+<h3 is-upgraded><strong>Baixar o PDF oficial</strong></h3>
+<p>Escolha algum regulamento do IFTM, por exemplo ROD, e baixe o pdf.</p>
+<h3 is-upgraded><strong>2.4 Script de construção do conhecimento</strong></h3>
+<p>backend/scripts/build-knowledge.js:</p>
+<pre><code>import fs from &#39;fs&#39;;
+import pdf from &#39;pdf-parse&#39;;
+import { pipeline } from &#39;@xenova/transformers&#39;;
+
+const PDF_PATH = &#39;./data/regulamento.pdf&#39;;
+const CHUNKS_PATH = &#39;./data/chunks.json&#39;;
+
+function chunkText(text, maxLen = 1200) {
+  const paras = text.replace(/\r/g, &#39;&#39;).split(/\n\s*\n+/);
+  const chunks = [];
+  let buf = &#39;&#39;;
+  for (const p of paras) {
+    const cand = buf ? `${buf}\n\n${p}` : p;
+    if (cand.length &gt; maxLen &amp;&amp; buf) {
+      chunks.push(buf.trim());
+      buf = p;
+    } else {
+      buf = cand;
+    }
+  }
+  if (buf.trim()) chunks.push(buf.trim());
+  return chunks.map((t, i) =&gt; ({ id: i + 1, text: t }));
+}
+
+async function main() {
+  const raw = (await pdf(fs.readFileSync(PDF_PATH))).text.trim();
+  const extractor = await pipeline(&#39;feature-extraction&#39;, &#39;Xenova/all-MiniLM-L6-v2&#39;);
+  const chunks = chunkText(raw, 1200);
+  const withEmb = [];
+  for (const c of chunks) {
+    const emb = await extractor(c.text, { pooling: &#39;mean&#39;, normalize: true });
+    withEmb.push({ ...c, embedding: Array.from(emb.data) });
+  }
+  fs.writeFileSync(CHUNKS_PATH, JSON.stringify(withEmb, null, 2));
+  console.log(`OK: ${withEmb.length} chunks salvos em ${CHUNKS_PATH}`);
+}
+main().catch(e =&gt; { console.error(e); process.exit(1); });</code></pre>
+<p>Execute:</p>
+<pre><code>node scripts/build-knowledge.js</code></pre>
+<h3 is-upgraded>2.5 API <strong>/ask</strong></h3>
+<p>backend/server.js:</p>
+<pre><code>import express from &#39;express&#39;;
+import cors from &#39;cors&#39;;
+import fs from &#39;fs&#39;;
+import cosine from &#39;cosine-similarity&#39;;
+import { pipeline } from &#39;@xenova/transformers&#39;;
+
+const app = express();
+app.use(cors());
+app.use(express.json({ limit: &#39;1mb&#39; }));
+
+const CHUNKS = JSON.parse(fs.readFileSync(&#39;./data/chunks.json&#39;, &#39;utf-8&#39;));
+const PORT = 3000;
+
+const load = async () =&gt; ({
+  embedder: await pipeline(&#39;feature-extraction&#39;, &#39;Xenova/all-MiniLM-L6-v2&#39;),
+  qa: await pipeline(&#39;question-answering&#39;, &#39;Xenova/distilbert-base-uncased-distilled-squad&#39;),
+});
+const { embedder, qa } = await load();
+
+const topK = (qEmb, k = 3) =&gt;
+  CHUNKS.map(c =&gt; ({ ...c, score: cosine(qEmb, c.embedding) }))
+        .sort((a,b)=&gt;b.score-a.score)
+        .slice(0,k);
+
+app.post(&#39;/ask&#39;, async (req, res) =&gt; {
+  try {
+    const question = (req.body?.question || &#39;&#39;).trim();
+    if (question.length &lt; 3) return res.status(400).json({ error: &#39;Pergunta muito curta.&#39; });
+
+    const q = await embedder(question, { pooling: &#39;mean&#39;, normalize: true });
+    const qEmb = Array.from(q.data);
+    const cands = topK(qEmb, 3);
+
+    let best = { answer: &#39;&#39;, score: -Infinity, source: null };
+    for (const c of cands) {
+      const out = await qa({ question, context: c.text });
+      if (out.score &gt; best.score) best = { answer: out.answer, score: out.score, source: c.id };
+    }
+
+    res.json({
+      answer: best.answer || &#39;(sem resposta encontrada)&#39;,
+      sources: cands.map(c =&gt; ({ id: c.id, sim: c.score })),
+      score: best.score,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: &#39;Falha ao processar a pergunta.&#39; });
+  }
+});
+
+app.listen(PORT, () =&gt; console.log(`API em http://localhost:${PORT}`));</code></pre>
+<p>Suba o servidor:</p>
+<p>node server.js</p>
+<h2 is-upgraded><strong>3) Frontend Expo</strong></h2>
+<h3 is-upgraded><strong>3.1 Criar app</strong></h3>
+<p>cd ../app</p>
+<p>npx create-expo-app -t e escolha o template blank</p>
+<h3 is-upgraded><strong>3.2 App.js</strong></h3>
+<p>Troque BASE_URL pelo IP da máquina onde está o backend (emulador Android local: http://10.0.2.2:3000; Expo Go em celular: use o IP da máquina).</p>
+<pre><code>import { useState, useRef } from &#39;react&#39;;
+import { View, Text, TextInput, Pressable, FlatList, SafeAreaView, KeyboardAvoidingView, Platform, ActivityIndicator } from &#39;react-native&#39;;
+
+const BASE_URL = &#39;http://10.0.2.2:3000&#39;;
+
+export default function App() {
+  const [history, setHistory] = useState([]);
+  const [q, setQ] = useState(&#39;&#39;);
+  const [loading, setLoading] = useState(false);
+  const listRef = useRef(null);
+
+  async function ask() {
+    const question = q.trim();
+    if (!question) return;
+    setQ(&#39;&#39;);
+    setHistory(h =&gt; [...h, { role: &#39;user&#39;, text: question }]);
+    setLoading(true);
+    try {
+      const r = await fetch(`${BASE_URL}/ask`, { method:&#39;POST&#39;, headers:{&#39;Content-Type&#39;:&#39;application/json&#39;}, body: JSON.stringify({ question }) });
+      const data = await r.json();
+      const meta = data.sources?.map(s =&gt; `#${s.id} (sim=${s.sim.toFixed(2)})`).join(&#39;  &#39;);
+      setHistory(h =&gt; [...h, { role: &#39;bot&#39;, text: data.answer, meta }]);
+    } catch {
+      setHistory(h =&gt; [...h, { role: &#39;bot&#39;, text: &#39;Erro ao consultar o regulamento.&#39; }]);
+    } finally {
+      setLoading(false);
+      setTimeout(()=&gt;listRef.current?.scrollToEnd({animated:true}), 100);
+    }
+  }
+
+  const Bubble = ({ item }) =&gt; (
+    &lt;View style=&#123;&#123; alignSelf: item.role===&#39;user&#39;?&#39;flex-end&#39;:&#39;flex-start&#39;, maxWidth:&#39;90%&#39;, marginVertical:6 }}&gt;
+      &lt;View style=&#123;&#123; backgroundColor:item.role===&#39;user&#39;?&#39;#2563eb&#39;:&#39;#111827&#39;, padding:12, borderRadius:12 }}&gt;
+        &lt;Text style=&#123;&#123; color:&#39;white&#39;, fontSize:16 }}&gt;{item.text}&lt;/Text&gt;
+        {!!item.meta &amp;&amp; &lt;Text style=&#123;&#123; color:&#39;#9ca3af&#39;, marginTop:6, fontSize:12 }}&gt;{item.meta}&lt;/Text&gt;}
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+
+  return (
+    &lt;SafeAreaView style=&#123;&#123; flex:1, backgroundColor:&#39;#0b1220&#39; }}&gt;
+      &lt;KeyboardAvoidingView style=&#123;&#123; flex:1 }} behavior={Platform.OS===&#39;ios&#39;?&#39;padding&#39;:undefined}&gt;
+        &lt;FlatList ref={listRef} style=&#123;&#123; flex:1, padding:12 }} data={history} keyExtractor={(_,i)=&gt;String(i)} renderItem={Bubble} /&gt;
+        &lt;View style=&#123;&#123; flexDirection:&#39;row&#39;, padding:10, gap:8, borderTopWidth:1, borderTopColor:&#39;#1f2937&#39; }}&gt;
+          &lt;TextInput
+            style=&#123;&#123; flex:1, backgroundColor:&#39;#111827&#39;, color:&#39;white&#39;, padding:12, borderRadius:10 }}
+            placeholder=&#34;Pergunte algo do regulamento...&#34;
+            placeholderTextColor=&#34;#6b7280&#34;
+            value={q}
+            onChangeText={setQ}
+            onSubmitEditing={ask}
+            returnKeyType=&#34;send&#34;
+          /&gt;
+          &lt;Pressable onPress={ask} disabled={loading} style=&#123;&#123; backgroundColor:&#39;#22c55e&#39;, paddingHorizontal:16, borderRadius:10, justifyContent:&#39;center&#39; }}&gt;
+            {loading ? &lt;ActivityIndicator color=&#34;black&#34; /&gt; : &lt;Text style=&#123;&#123; color:&#39;black&#39;, fontWeight:&#39;700&#39; }}&gt;Enviar&lt;/Text&gt;}
+          &lt;/Pressable&gt;
+        &lt;/View&gt;
+      &lt;/KeyboardAvoidingView&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}</code></pre>
+<p>Rode:</p>
+<p>npm start</p>
+<h2 is-upgraded><strong>4) Roteiro de testes (perguntas úteis)</strong></h2>
+<p>Peçam aos grupos para testar perguntas como:</p>
+<ul>
+<li>&#34;Quando este regulamento passou a vigorar?&#34; (esperado: <strong>01/01/2024</strong>) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
+<li>&#34;Quais resoluções foram revogadas por este regulamento?&#34; (esperado: <strong>Res. 48/2020 e 296/2022</strong>) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
+<li>&#34;Onde fala sobre <strong>colação de grau</strong>?&#34; (esperado: seção <strong>TÍTULO X – DA COLAÇÃO DE GRAU</strong>, o bot deve mostrar trechos dessa parte) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
+<li>&#34;O documento está atualizado por alguma alteração posterior?&#34; (esperado: menção à <strong>Resolução IFTM/CONSUP nº 464, de 27/03/2025</strong>, conforme o cabeçalho do compilado) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
+</ul>
+<p>Dica: se a resposta vier curta ou vaga, oriente os alunos a reformular perguntando <strong>&#34;segundo o regulamento...&#34;</strong> e termos mais específicos.</p>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
