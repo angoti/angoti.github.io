@@ -2255,7 +2255,7 @@ const app = initializeApp(firebaseConfig);</code></pre>
 npm i express cors pdf-parse @xenova/transformers cosine-similarity</code></pre>
 <h3 is-upgraded><strong>Baixar o PDF oficial</strong></h3>
 <p>Escolha algum regulamento do IFTM, por exemplo ROD, e baixe o pdf.</p>
-<h3 is-upgraded><strong>2.4 Script de construção do conhecimento</strong></h3>
+<h3 is-upgraded><strong>Script de construção do conhecimento</strong></h3>
 <p>backend/scripts/build-knowledge.js:</p>
 <pre><code>import fs from &#39;fs&#39;;
 import pdf from &#39;pdf-parse&#39;;
@@ -2296,7 +2296,8 @@ async function main() {
 main().catch(e =&gt; { console.error(e); process.exit(1); });</code></pre>
 <p>Execute:</p>
 <pre><code>node scripts/build-knowledge.js</code></pre>
-<h3 is-upgraded>2.5 API <strong>/ask</strong></h3>
+<h3 is-upgraded><strong>API</strong></h3>
+<p>Endpoint /ask</p>
 <p>backend/server.js:</p>
 <pre><code>import express from &#39;express&#39;;
 import cors from &#39;cors&#39;;
@@ -2350,11 +2351,15 @@ app.post(&#39;/ask&#39;, async (req, res) =&gt; {
 
 app.listen(PORT, () =&gt; console.log(`API em http://localhost:${PORT}`));</code></pre>
 <p>Suba o servidor:</p>
-<p>node server.js</p>
+<pre><code>node server.js</code></pre>
+<p>Para testar o servidor:</p>
+<pre><code>curl -X POST http://localhost:3000/ask ^
+  -H &#34;Content-Type: application/json&#34; ^
+  -d &#34;{\&#34;question\&#34;:\&#34;Quando este regulamento passou a vigorar?\&#34;}&#34;</code></pre>
 <h2 is-upgraded><strong>3) Frontend Expo</strong></h2>
 <h3 is-upgraded><strong>3.1 Criar app</strong></h3>
-<p>cd ../app</p>
-<p>npx create-expo-app -t e escolha o template blank</p>
+<pre><code>execute este comando dentro da pasta /app
+npx create-expo-app -t e escolha o template blank</code></pre>
 <h3 is-upgraded><strong>3.2 App.js</strong></h3>
 <p>Troque BASE_URL pelo IP da máquina onde está o backend (emulador Android local: http://10.0.2.2:3000; Expo Go em celular: use o IP da máquina).</p>
 <pre><code>import { useState, useRef } from &#39;react&#39;;
