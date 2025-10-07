@@ -2280,37 +2280,111 @@ import { pipeline } from &#34;@xenova/transformers&#34;;
 const PDF_PATH = &#34;./data/regulamento.pdf&#34;;
 const CHUNKS_PATH = &#34;./data/chunks.json&#34;;
 
-function chunkText(text, maxLen = 1200) {
-        const paras = text.replace(/\r/g, &#34;&#34;).split(/\n\s*\n+/);
+/**
+ * Chunking com overlap - Melhora a qualidade da segmentação
+ * @param {string} text - Texto completo
+ * @param {number} maxLen - Tamanho máximo do chunk
+ * @param {number} overlap - Sobreposição entre chunks
+ */
+function chunkTextWithOverlap(text, maxLen = 500, overlap = 100) {
         const chunks = [];
-        let buf = &#34;&#34;;
-        for (const p of paras) {
-                const cand = buf ? `${buf}\n\n${p}` : p;
-                if (cand.length &gt; maxLen &amp;&amp; buf) {
-                        chunks.push(buf.trim());
-                        buf = p;
+        let start = 0;
+        let id = 1;
+
+        // Remove quebras de linha múltiplas e normaliza espaços
+        const normalized = text.replace(/\r/g, &#34;&#34;).replace(/\n\s*\n+/g, &#34;\n\n&#34;);
+
+        while (start &lt; normalized.length) {
+                const end = Math.min(start + maxLen, normalized.length);
+                let chunk = normalized.substring(start, end).trim();
+
+                // Se não estamos no final, tenta quebrar em uma sentença completa
+                if (end &lt; normalized.length) {
+                        const lastPeriod = chunk.lastIndexOf(&#34;.&#34;);
+                        const lastNewline = chunk.lastIndexOf(&#34;\n&#34;);
+                        const breakPoint = Math.max(lastPeriod, lastNewline);
+
+                        if (breakPoint &gt; maxLen * 0.7) {
+                                // Se encontrou um bom ponto de quebra
+                                chunk = chunk.substring(0, breakPoint + 1).trim();
+                                start += breakPoint + 1;
+                        } else {
+                                start += maxLen - overlap;
+                        }
                 } else {
-                        buf = cand;
+                        start = normalized.length; // Último chunk
+                }
+
+                if (chunk.length &gt; 50) {
+                        // Ignora chunks muito pequenos
+                        chunks.push({ id: id++, text: chunk });
                 }
         }
-        if (buf.trim()) chunks.push(buf.trim());
-        return chunks.map((t, i) =&gt; ({ id: i + 1, text: t }));
+
+        return chunks;
 }
 
 async function main() {
+        console.log(&#34;🚀 Iniciando construção da base de conhecimento (VERSÃO MELHORADA)...\n&#34;);
+
+        // 1. Extração do PDF
+        console.log(&#34;📄 Extraindo texto do PDF...&#34;);
         const raw = (await pdf(fs.readFileSync(PDF_PATH))).text.trim();
+        console.log(`   ✓ Extraídos ${raw.length} caracteres\n`);
+
+        // 2. Carregando modelo de embeddings
+        console.log(&#34;🤖 Carregando modelo de embeddings...&#34;);
         const extractor = await pipeline(&#34;feature-extraction&#34;, &#34;Xenova/all-MiniLM-L6-v2&#34;);
-        const chunks = chunkText(raw, 1200);
+        console.log(&#34;   ✓ Modelo carregado\n&#34;);
+
+        // 3. Chunking com overlap (melhorado)
+        console.log(&#34;✂️  Dividindo texto em chunks (com overlap)...&#34;);
+        const chunks = chunkTextWithOverlap(raw, 500, 100);
+        console.log(`   ✓ Gerados ${chunks.length} chunks`);
+        console.log(
+                `   ✓ Tamanho médio: ${Math.round(
+                        chunks.reduce((s, c) =&gt; s + c.text.length, 0) / chunks.length
+                )} caracteres\n`
+        );
+
+        // 4. Gerando embeddings
+        console.log(&#34;🧮 Gerando embeddings para cada chunk...&#34;);
         const withEmb = [];
-        for (const c of chunks) {
+        for (let i = 0; i &lt; chunks.length; i++) {
+                const c = chunks[i];
                 const emb = await extractor(c.text, { pooling: &#34;mean&#34;, normalize: true });
                 withEmb.push({ ...c, embedding: Array.from(emb.data) });
+
+                // Progress indicator
+                if ((i + 1) % 5 === 0 || i === chunks.length - 1) {
+                        console.log(`   Processados ${i + 1}/${chunks.length} chunks...`);
+                }
         }
+
+        // 5. Salvando resultado
+        console.log(&#34;\n💾 Salvando chunks.json...&#34;);
         fs.writeFileSync(CHUNKS_PATH, JSON.stringify(withEmb, null, 2));
-        console.log(`OK: ${withEmb.length} chunks salvos em ${CHUNKS_PATH}`);
+        console.log(`   ✓ Arquivo salvo: ${CHUNKS_PATH}\n`);
+
+        // 6. Estatísticas finais
+        console.log(&#34;📊 ESTATÍSTICAS:&#34;);
+        console.log(`   • Total de chunks: ${withEmb.length}`);
+        console.log(`   • Tamanho do arquivo: ${(fs.statSync(CHUNKS_PATH).size / 1024).toFixed(2)} KB`);
+        console.log(
+                `   • Tamanho mínimo do chunk: ${Math.min(...withEmb.map(c =&gt; c.text.length))} caracteres`
+        );
+        console.log(
+                `   • Tamanho máximo do chunk: ${Math.max(...withEmb.map(c =&gt; c.text.length))} caracteres`
+        );
+        console.log(
+                `   • Cobertura total: ${withEmb.reduce((s, c) =&gt; s + c.text.length, 0)} caracteres\n`
+        );
+
+        console.log(&#34;✅ Base de conhecimento construída com sucesso!&#34;);
 }
+
 main().catch(e =&gt; {
-        console.error(e);
+        console.error(&#34;❌ Erro:&#34;, e);
         process.exit(1);
 });</code></pre>
 <p>Execute:</p>
@@ -2331,51 +2405,143 @@ app.use(express.json({ limit: &#34;1mb&#34; }));
 const CHUNKS = JSON.parse(fs.readFileSync(&#34;./data/chunks.json&#34;, &#34;utf-8&#34;));
 const PORT = 3000;
 
-const load = async () =&gt; ({
-        embedder: await pipeline(&#34;feature-extraction&#34;, &#34;Xenova/all-MiniLM-L6-v2&#34;),
-        qa: await pipeline(&#34;question-answering&#34;, &#34;Xenova/distilbert-base-uncased-distilled-squad&#34;),
-});
-const { embedder, qa } = await load();
+console.log(`📚 Base de conhecimento carregada: ${CHUNKS.length} chunks`);
 
-const topK = (qEmb, k = 3) =&gt;
+// Carrega modelo de embeddings
+const load = async () =&gt; {
+        console.log(&#34;🤖 Carregando modelo de embeddings...&#34;);
+        const embedder = await pipeline(&#34;feature-extraction&#34;, &#34;Xenova/all-MiniLM-L6-v2&#34;);
+        console.log(&#34;✓ Modelo carregado com sucesso\n&#34;);
+        console.log(&#34;ℹ️  Nota: Usando busca semântica pura (sem modelo QA)&#34;);
+        console.log(&#34;   Retorna contexto relevante - funciona melhor para português!\n&#34;);
+        return embedder;
+};
+
+const embedder = await load();
+
+/**
+ * Busca os K chunks mais similares à query
+ */
+const topK = (qEmb, k = 5) =&gt;
         CHUNKS.map(c =&gt; ({ ...c, score: cosine(qEmb, c.embedding) }))
                 .sort((a, b) =&gt; b.score - a.score)
                 .slice(0, k);
 
+/**
+ * Endpoint principal de perguntas e respostas
+ */
 app.post(&#34;/ask&#34;, async (req, res) =&gt; {
-        console.log(&#34;Recebido pedido /ask&#34;);
+        const startTime = Date.now();
+        console.log(&#34;\n&#34; + &#34;=&#34;.repeat(60));
+        console.log(&#34;📥 Nova pergunta recebida&#34;);
+
         try {
                 const question = String(req.body?.question || &#34;&#34;).trim();
-                console.log(&#34;Pergunta:&#34;, question);
-                console.log(&#34;[debug] types -&gt; question:&#34;, typeof question);
-                if (question.length &lt; 3) return res.status(400).json({ error: &#34;Pergunta muito curta.&#34; });
+                console.log(`❓ Pergunta: &#34;${question}&#34;`);
 
-                // Ensure we always pass a plain string to the embedder
-                const q = await embedder(String(question), { pooling: &#34;mean&#34;, normalize: true });
-                const qEmb = Array.from(q.data);
-                const cands = topK(qEmb, 3);
-
-                let best = { answer: &#34;&#34;, score: -Infinity, source: null };
-                for (const c of cands) {
-                        // defensive: ensure context is a string (some sources could be non-string)
-                        console.log(&#34;[debug] types -&gt; context:&#34;, typeof c.text, &#34;id:&#34;, c.id);
-                        // The qa pipeline expects positional arguments (question, context), not an object
-                        const out = await qa(String(question), String(c.text));
-                        if (out.score &gt; best.score) best = { answer: out.answer, score: out.score, source: c.id };
+                if (question.length &lt; 3) {
+                        return res.status(400).json({ error: &#34;Pergunta muito curta (mínimo 3 caracteres).&#34; });
                 }
 
+                // 1. Gerar embedding da pergunta
+                console.log(&#34;🔍 Gerando embedding da pergunta...&#34;);
+                const q = await embedder(String(question), { pooling: &#34;mean&#34;, normalize: true });
+                const qEmb = Array.from(q.data);
+
+                // 2. Buscar chunks mais relevantes (aumentado para 5)
+                console.log(&#34;📊 Buscando chunks mais relevantes...&#34;);
+                const cands = topK(qEmb, 5);
+                console.log(`   Top 5 chunks encontrados:`);
+                cands.forEach((c, i) =&gt; {
+                        console.log(`   ${i + 1}. Chunk #${c.id} - Similaridade: ${(c.score * 100).toFixed(2)}%`);
+                });
+
+                // 3. Preparar resposta com contexto mais relevante
+                console.log(&#34;🎯 Preparando resposta com contexto relevante...&#34;);
+
+                // Pega o chunk mais relevante
+                const best = cands[0];
+
+                // Extrai um trecho relevante (primeiras 3 sentenças ou até 500 chars)
+                let answer = best.text;
+                const sentences = answer.split(/[.!?]\s+/);
+                if (sentences.length &gt; 3) {
+                        answer = sentences.slice(0, 3).join(&#34;. &#34;) + &#34;.&#34;;
+                }
+                if (answer.length &gt; 500) {
+                        answer = answer.substring(0, 500) + &#34;...&#34;;
+                }
+
+                console.log(`   Melhor chunk: #${best.id} (similaridade: ${(best.score * 100).toFixed(2)}%)`);
+                console.log(`   Resposta extraída: ${answer.substring(0, 80)}...`);
+
+                const elapsed = Date.now() - startTime;
+                console.log(`\n✅ Resposta gerada em ${elapsed}ms`);
+                console.log(`📈 Similaridade: ${(best.score * 100).toFixed(2)}%`);
+                console.log(&#34;=&#34;.repeat(60));
+
                 res.json({
-                        answer: best.answer || &#34;(sem resposta encontrada)&#34;,
-                        sources: cands.map(c =&gt; ({ id: c.id, sim: c.score })),
-                        score: best.score,
+                        answer: answer || &#34;(sem resposta encontrada)&#34;,
+                        confidence: parseFloat((best.score * 100).toFixed(2)),
+                        source: {
+                                chunkId: best.id,
+                                fullContext: best.text,
+                        },
+                        candidates: cands.map(c =&gt; ({
+                                id: c.id,
+                                similarity: parseFloat((c.score * 100).toFixed(2)),
+                                preview: c.text.substring(0, 100) + &#34;...&#34;,
+                        })),
+                        processingTime: elapsed,
+                        method: &#34;semantic-search-only&#34;,
                 });
         } catch (e) {
-                console.error(e);
-                res.status(500).json({ error: &#34;Falha ao processar a pergunta.&#34; });
+                console.error(&#34;❌ Erro ao processar pergunta:&#34;, e);
+                res.status(500).json({
+                        error: &#34;Falha ao processar a pergunta.&#34;,
+                        details: e.message,
+                });
         }
 });
 
-app.listen(PORT, () =&gt; console.log(`API em http://localhost:${PORT}`));</code></pre>
+/**
+ * Endpoint de health check
+ */
+app.get(&#34;/health&#34;, (req, res) =&gt; {
+        res.json({
+                status: &#34;ok&#34;,
+                chunks: CHUNKS.length,
+                models: [&#34;all-MiniLM-L6-v2&#34;],
+                method: &#34;semantic-search-only&#34;,
+                language: &#34;multilingual (embeddings)&#34;,
+                note: &#34;Retorna contexto relevante sem modelo QA (melhor para português)&#34;,
+        });
+});
+
+/**
+ * Endpoint para listar chunks disponíveis
+ */
+app.get(&#34;/chunks&#34;, (req, res) =&gt; {
+        res.json({
+                total: CHUNKS.length,
+                chunks: CHUNKS.map(c =&gt; ({
+                        id: c.id,
+                        preview: c.text.substring(0, 100) + &#34;...&#34;,
+                        length: c.text.length,
+                })),
+        });
+});
+
+app.listen(PORT, () =&gt; {
+        console.log(&#34;=&#34;.repeat(60));
+        console.log(`🚀 API em execução: http://localhost:${PORT}`);
+        console.log(`   📊 /ask (POST)    - Fazer perguntas`);
+        console.log(`   ❤️  /health (GET)  - Status do sistema`);
+        console.log(`   📚 /chunks (GET)  - Listar chunks`);
+        console.log(`\n   💡 Método: Busca semântica pura (sem QA model)`);
+        console.log(`   🌐 Funciona melhor para textos em português!`);
+        console.log(&#34;=&#34;.repeat(60) + &#34;\n&#34;);
+});</code></pre>
 <p>Suba o servidor:</p>
 <pre><code>node server.js</code></pre>
 <p>Para testar o servidor:</p>
