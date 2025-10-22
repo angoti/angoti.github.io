@@ -1,0 +1,698 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Codelab - Autenticação Firebase - email e senha</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="expo-firebase-login"
+                  title="Codelab - Autenticação Firebase - email e senha"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Introdução" duration="5">
+        <aside class="special"><p>Última atualização: 22/09/2025</p>
+</aside>
+<p>Neste tutorial iremos desenvolver um app usando React Native. Este aplicativo terá como principal funcionalidade a autenticação de usuários através de usuário e senha, utilizando o Firebase como nosso backend.</p>
+<p>O Firebase é uma plataforma de desenvolvimento de aplicativos que fornece uma variedade de serviços, incluindo um sistema de autenticação robusto. Ao usar o Firebase, podemos facilmente configurar e gerenciar a autenticação do usuário em nosso aplicativo.</p>
+<h3 is-upgraded><strong>O que você vai fazer </strong></h3>
+<ul>
+<li>Desenvolver um app com autenticação via Google </li>
+</ul>
+<h3 is-upgraded><strong>O que você vai aprender</strong></h3>
+<ul>
+<li>Usar o FireBase com o pacote <a href="https://rnfirebase.io/" target="_blank">React Native Firebase</a> </li>
+<li>Usar Stack Navigation com o pacote <a href="https://reactnavigation.org/" target="_blank">React Navigation</a></li>
+</ul>
+<h3 is-upgraded><strong>O que você precisa</strong></h3>
+<ul>
+<li>VSCode</li>
+<li>Uma conta Google</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configurando o Firebase" duration="30">
+        <h2 is-upgraded><strong>1) Criar o projeto no Firebase</strong></h2>
+<p>1.        Acesse <a href="http://console.firebase.google.com" target="_blank">console.firebase.google.com</a> e clique em &#34;Adicionar projeto&#34;.</p>
+<p>2.        Defina um nome (ex.: iftm-rn-aulas-2025).</p>
+<p>3.        Google Analytics: opcional para esta aula; pode deixar desativado.</p>
+<p>4.        Crie o projeto. Anote o Project ID (é único e usado em integrações).</p>
+<p>Dica: utilize projetos separados para sandbox (aulas/demos) e produção.</p>
+<h2 is-upgraded><strong>2) Registrar um App Web (SDK Web no Expo)</strong></h2>
+<p>5.        Em Visão geral do projeto, clique em &#34;Adicionar app&#34; → Web (&lt;/&gt;).</p>
+<p>6.        Informe um apelido (ex.: rn-expo-websdk).</p>
+<p>7.        Não é necessário habilitar Hosting neste momento.</p>
+<p>8.        Clique em Registrar app e copie o objeto firebaseConfig (apiKey, authDomain, etc.).</p>
+<h2 is-upgraded><strong>3) Habilitar o provedor de login E-mail/Senha</strong></h2>
+<p>9.        Abra Autenticação → Métodos de login.</p>
+<p>10.        Selecione E-mail/senha e ative.</p>
+<p>11.        Salve as alterações.</p>
+<p>Sem isso, createUserWithEmailAndPassword e signInWithEmailAndPassword falharão.</p>
+<h2 is-upgraded><strong>4) Ajustar Configurações da Autenticação (opcional recomendado)</strong></h2>
+<p>Templates de e-mail</p>
+<p>•        Personalize verificação e redefinição de senha (idioma, remetente, assinatura).</p>
+<p>•        Se usar URL de ação própria, configure Firebase Dynamic Links ou uma página sua.</p>
+<p>Usuários e Proteção</p>
+<p>•        Força de senha: mínimo 6 (para demo). Em produção, exija mais.</p>
+<p>•        Avalie MFA (TOTP/SMS) em produção.</p>
+<aside class="special"><p><strong><em>MFA </em></strong><em>(Autenticação Multifator) </em><strong><em>TOTP </em></strong><em>(Autenticação de Senha Única Baseada no Tempo) e </em><strong><em>SMS </em></strong><em>são métodos para adicionar uma camada extra de segurança ao login de contas, utilizando códigos de uso único. O TOTP gera esses códigos numa aplicação autenticadora (como Google Authenticator) em tempo real e sem depender de rede, oferecendo maior segurança e resistência a ataques como a troca de SIM. Por outro lado, o MFA por SMS envia os códigos via mensagem de texto, sendo mais conveniente pela ampla disponibilidade de telemóveis, mas menos seguro devido ao risco de interceptação de SMS e ataques de troca de SIM. </em></p>
+<p><strong><em>Como funciona:</em></strong></p>
+<p><strong><em>Fatores de autenticação</em></strong><em>: A MFA requer mais do que apenas uma senha. O sistema pede um segundo (ou mais) fator de verificação para confirmar a identidade do usuário.</em></p>
+<p><strong><em>Códigos TOTP (Time-Based One-Time Password)</em></strong><em>:</em></p>
+<ol type="1" start="1">
+<li><em>Um algoritmo secreto é usado para gerar códigos de 6 a 8 dígitos que mudam a cada 30 a 60 segundos. </em></li>
+<li><em>O usuário configura uma aplicação autenticadora (como Google Authenticator ou Authy) que possui a mesma chave secreta do servidor.</em></li>
+<li><em>Quando o usuário faz login, ele insere a senha junto com o código atual da aplicação autenticadora.</em></li>
+<li><em>A aplicação e o servidor verificam se os códigos coincidem para conceder o acesso.</em></li>
+</ol>
+<p><strong><em>MFA por SMS</em></strong><em>:</em></p>
+<ol type="1" start="1">
+<li><em>Um código de uso único é enviado para o telemóvel do usuário através de uma mensagem SMS.</em></li>
+<li><em>O usuário insere o código recebido juntamente com a senha para autenticar-se. </em></li>
+</ol>
+<p><strong><em>Segurança</em></strong></p>
+<p><em>O TOTP é considerado mais seguro porque não depende de redes de telefonia móvel, que podem ser vulneráveis a ataques de interceptação ou troca de SIM (SIM swapping). </em></p>
+<p><strong><em>Conveniência</em></strong></p>
+<p><em>O MFA por SMS é mais fácil de usar, pois a maioria dos usuários tem um telefone celular e não necessita de instalar aplicações adicionais para obter os códigos. </em></p>
+<p><strong><em>Aplicações</em></strong></p>
+<p><em>As aplicações que usam TOTP podem ser integradas com serviços de autenticação como Firebase, AWS Cognito e sistemas de gestão de identidade. </em></p>
+</aside>
+<p>Domínios autorizados</p>
+<p>•        Necessário para OAuth/links de ação personalizados.</p>
+<p>•        Para e-mail/senha, normalmente não bloqueia. Se usar página própria, adicione seu domínio.</p>
+<h2 is-upgraded><strong>5) (Opcional) Criar usuários de teste</strong></h2>
+<p>12.        Em Autenticação → Usuários, clique Adicionar usuário.</p>
+<p>13.        Crie aluno@teste.com com uma senha simples para acelerar a demo.</p>
+<h2 is-upgraded><strong>6) Entendendo a API Key</strong></h2>
+<p>•        A apiKey do Firebase não é segredo (identifica o projeto).</p>
+<p>•        A segurança real está nas regras (Auth/Firestore/Storage) e monitoramento.</p>
+<p>•        Em produção, monitore cotas, uso de APIs e configure alertas.</p>
+<h2 is-upgraded><strong>7) Onde recuperar o firebaseConfig depois</strong></h2>
+<p>14.        Configurações do projeto (ícone de engrenagem) → Geral → Seus apps → SDK setup and configuration.</p>
+<p>15.        Copie novamente o objeto firebaseConfig quando precisar.</p>
+<h2 is-upgraded><strong>8) Boas práticas de segurança (para comentar)</strong></h2>
+<p>•        Regras primeiro (Auth/Firestore/Storage).</p>
+<p>•        MFA e política de senhas fortes em produção.</p>
+<p>•        Auditoria e monitoramento de erros/quotas.</p>
+<p>•        Separar projetos (dev/qa/prod) e usar variáveis de ambiente (EAS).</p>
+<p>•        Verificar email antes de liberar áreas sensíveis (user.emailVerified).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Criação do App React Native" duration="30">
+        <p>Vamos criar uma aplicação React native. Primeiro abra um terminal e digite:: </p>
+<pre><code>npx create-expo-app -t</code></pre>
+<p>Escolha o template Blank e depois informe o nome do seu app</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Fluxo de login/logout" duration="40">
+        <p>Um fluxo de autenticação em um mobile app é um processo que permite ao usuário acessar recursos protegidos do aplicativo, como dados pessoais, configurações ou funcionalidades restritas. </p>
+<p>Para implementar um fluxo de autenticação em um app feito com React Native, é preciso usar bibliotecas específicas que facilitam a integração com serviços de autenticação externos, como Firebase, Auth0 ou AWS Amplify. Essas bibliotecas fornecem componentes e funções que permitem criar telas de login, cadastro, recuperação de senha e verificação de e-mail, além de gerenciar tokens, sessões e permissões de acesso. Alguns exemplos de bibliotecas que podem ser usadas para criar um fluxo de autenticação em um app React Native são: react-native-firebase, react-native-amplify e react-navigation.</p>
+<p><a href="https://www.figma.com/proto/7nO5K3GhHqSimjwF0ePwnM/Fluxo-de-autentica%C3%A7%C3%A3o?type=design&node-id=10-2&t=ASDKDF3BH9VCnPQL-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=10%3A2&mode=design" target="_blank">Fluxo de autenticação</a></p>
+<p>A renderização condicional é a técnica mais indicada para construir uma lógica que protege as telas do app com acesso restrito. Considere o código abaixo:</p>
+<pre><code>{isAuthenticated
+    ? (&lt;HomeScreen /&gt;)
+    : (&lt;LoginScreen /&gt;)
+}</code></pre>
+<p>Quando a variável `<code>isAuthenticated</code>` é verdadeira, o React Navigation exibe apenas a tela HomeScreen. Quando é falsa, exibe a tela LoginScreen. Isso impede a navegação para a tela protegidas quando o usuário não está logado, e para a tela de login quando está logado. Esse padrão é conhecido como <strong>Rotas protegidas</strong>.</p>
+<p>As telas que requerem login estão &#34;protegidas&#34; e não podem ser acessadas se o usuário não estiver logado. Quando o valor de `<code>isAuthenticated</code>` muda, o comportamento do React Navigation também muda. </p>
+<p>Quando usamos este padrão podemos implementar o fluxo de autenticação de forma simples, sem lógica adicional para garantir que a tela correta seja exibida.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Escrevendo código do app" duration="20">
+        <h2 is-upgraded><strong>Instalação da biblioteca do Firebase</strong></h2>
+<pre><code>npm install firebase</code></pre>
+<h2 is-upgraded><strong>Criar `src/services/firebase.js`:</strong></h2>
+<pre><code>import { initializeApp } from &#39;firebase/app&#39;;
+import { getAuth } from &#39;firebase/auth&#39;;
+import {
+        signOut,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+} from &#34;firebase/auth&#34;;
+
+
+const firebaseConfig = { /* colar config do Console */ };
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+
+export const registrar = async (email, senha) =&gt; {
+        try {
+                await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        senha
+                );
+                alert(&#34;Usuário registrado com sucesso!&#34;);
+        } catch (error) {
+                alert(&#34;Erro: &#34; + error.message);
+        }
+};
+
+export const login = async (email, senha) =&gt; {
+        try {
+                await signInWithEmailAndPassword(auth, email, senha);
+                alert(&#34;Login realizado!&#34;);
+        } catch (error) {
+                alert(&#34;Erro: &#34; + error.message);
+        }
+};
+
+export const logout = async () =&gt; {
+        await signOut(auth);
+};
+</code></pre>
+<h2 is-upgraded><strong>Navegação básica</strong></h2>
+<p>Vamos precisar de 3 telas: Login, Register e Home. Para navegação entre as telas vamos usar React Navigation (Stack)</p>
+<h3 is-upgraded><strong>Instalar navegação (em Expo):</strong></h3>
+<pre><code>npx expo install @react-navigation/native react-native-screens react-native-safe-area-context</code></pre>
+<pre><code>npm install @react-navigation/native-stack</code></pre>
+<h3 is-upgraded><strong>Estrutura típica Stack (Home, Login, Register)</strong></h3>
+<p>Tela src/screens LoginScreen.js</p>
+<pre><code>import { useState } from &#34;react&#34;;
+import {
+        Text,
+        TextInput,
+        Pressable,
+        StyleSheet,
+        Alert,
+        KeyboardAvoidingView,
+        Platform,
+} from &#34;react-native&#34;;
+import { signInWithEmailAndPassword } from &#34;firebase/auth&#34;;
+import { auth } from &#34;../services/firebase&#34;;
+import { useNavigation } from &#34;@react-navigation/native&#34;;
+
+export default function LoginScreen() {
+        const [email, setEmail] = useState(&#34;&#34;);
+        const [senha, setSenha] = useState(&#34;&#34;);
+        const [loading, setLoading] = useState(false);
+        const navigation = useNavigation();
+
+        async function handleLogin() {
+                if (!email || !senha)
+                        return Alert.alert(
+                                &#34;Atenção&#34;,
+                                &#34;Preencha e-mail e senha.&#34;
+                        );
+                try {
+                        setLoading(true);
+                        await signInWithEmailAndPassword(
+                                auth,
+                                email.trim(),
+                                senha
+                        );
+                        // A navegação acontecerá automaticamente via onAuthStateChanged
+                        console.log(&#34;Login bem-sucedido&#34;);
+                } catch (e) {
+                        Alert.alert(&#34;Erro ao entrar&#34;, traduzErroFirebase(e));
+                } finally {
+                        setLoading(false);
+                }
+        }
+
+        function traduzErroFirebase(e) {
+                const msg = String(e?.code || e?.message || e);
+                if (msg.includes(&#34;auth/invalid-email&#34;))
+                        return &#34;E-mail inválido.&#34;;
+                if (msg.includes(&#34;auth/user-not-found&#34;))
+                        return &#34;Usuário não encontrado.&#34;;
+                if (msg.includes(&#34;auth/wrong-password&#34;))
+                        return &#34;Senha incorreta.&#34;;
+                if (msg.includes(&#34;auth/too-many-requests&#34;))
+                        return &#34;Muitas tentativas. Tente novamente em instantes.&#34;;
+                return &#34;Não foi possível realizar o login.&#34;;
+        }
+
+        return (
+                &lt;KeyboardAvoidingView
+                        style={styles.container}
+                        behavior={
+                                Platform.OS === &#34;ios&#34; ? &#34;padding&#34; : &#34;height&#34;
+                        }&gt;
+                        &lt;Text style={styles.titulo}&gt;Entrar&lt;/Text&gt;
+
+                        &lt;TextInput
+                                style={styles.input}
+                                placeholder=&#34;E-mail&#34;
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType=&#34;email-address&#34;
+                                autoCapitalize=&#34;none&#34;
+                                autoCorrect={false}
+                                textContentType=&#34;username&#34;
+                        /&gt;
+
+                        &lt;TextInput
+                                style={styles.input}
+                                placeholder=&#34;Senha&#34;
+                                value={senha}
+                                onChangeText={setSenha}
+                                secureTextEntry
+                                autoCapitalize=&#34;none&#34;
+                                textContentType=&#34;password&#34;
+                        /&gt;
+
+                        &lt;Pressable
+                                style={[
+                                        styles.botao,
+                                        loading &amp;&amp; styles.botaoDisabled,
+                                ]}
+                                onPress={handleLogin}
+                                disabled={loading}&gt;
+                                &lt;Text style={styles.botaoTexto}&gt;
+                                        {loading ? &#34;Entrando...&#34; : &#34;Entrar&#34;}
+                                &lt;/Text&gt;
+                        &lt;/Pressable&gt;
+
+                        &lt;Pressable
+                                onPress={() =&gt; navigation.navigate(&#34;Register&#34;)}&gt;
+                                &lt;Text style={styles.link}&gt;
+                                        Não tem conta? Cadastre-se
+                                &lt;/Text&gt;
+                        &lt;/Pressable&gt;
+                &lt;/KeyboardAvoidingView&gt;
+        );
+}
+
+const styles = StyleSheet.create({
+        container: {
+                flex: 1,
+                padding: 24,
+                justifyContent: &#34;center&#34;,
+        },
+        titulo: {
+                fontSize: 28,
+                fontWeight: &#34;700&#34;,
+                marginBottom: 16,
+                textAlign: &#34;center&#34;,
+        },
+        input: {
+                borderWidth: 1,
+                borderColor: &#34;#ccc&#34;,
+                borderRadius: 12,
+                padding: 12,
+                fontSize: 16,
+                marginBottom: 12,
+        },
+        botao: {
+                backgroundColor: &#34;#1e40af&#34;,
+                paddingVertical: 14,
+                borderRadius: 12,
+                marginTop: 4,
+                marginBottom: 8,
+        },
+        botaoDisabled: { opacity: 0.7 },
+        botaoTexto: {
+                color: &#34;#fff&#34;,
+                fontWeight: &#34;700&#34;,
+                textAlign: &#34;center&#34;,
+                fontSize: 16,
+        },
+        link: {
+                color: &#34;#1e40af&#34;,
+                textAlign: &#34;center&#34;,
+                marginTop: 8,
+                textDecorationLine: &#34;underline&#34;,
+        },
+});</code></pre>
+<p>Tela src/screens/RegisterScreen.js</p>
+<pre><code>import { useState } from &#34;react&#34;;
+import {
+        View,
+        Text,
+        TextInput,
+        Pressable,
+        StyleSheet,
+        Alert,
+        KeyboardAvoidingView,
+        ScrollView,
+        Platform,
+} from &#34;react-native&#34;;
+import { createUserWithEmailAndPassword } from &#34;firebase/auth&#34;;
+import { auth } from &#34;../services/firebase&#34;;
+import { useNavigation } from &#34;@react-navigation/native&#34;;
+
+export default function RegisterScreen() {
+        const [email, setEmail] = useState(&#34;&#34;);
+        const [senha, setSenha] = useState(&#34;&#34;);
+        const [loading, setLoading] = useState(false);
+        const navigation = useNavigation();
+
+        async function handleRegister() {
+                if (!email || !senha)
+                        return Alert.alert(
+                                &#34;Atenção&#34;,
+                                &#34;Preencha e-mail e senha.&#34;
+                        );
+                if (senha.length &lt; 6)
+                        return Alert.alert(
+                                &#34;Atenção&#34;,
+                                &#34;A senha deve ter no mínimo 6 caracteres.&#34;
+                        );
+
+                try {
+                        setLoading(true);
+                        await createUserWithEmailAndPassword(
+                                auth,
+                                email.trim(),
+                                senha
+                        );
+                        Alert.alert(&#34;Sucesso&#34;, &#34;Usuário cadastrado!&#34;);
+                } catch (e) {
+                        Alert.alert(
+                                &#34;Erro ao cadastrar&#34;,
+                                traduzErroFirebase(e)
+                        );
+                } finally {
+                        setLoading(false);
+                }
+        }
+
+        function traduzErroFirebase(e) {
+                const msg = String(e?.code || e?.message || e);
+                if (msg.includes(&#34;auth/email-already-in-use&#34;))
+                        return &#34;E-mail já cadastrado.&#34;;
+                if (msg.includes(&#34;auth/invalid-email&#34;))
+                        return &#34;E-mail inválido.&#34;;
+                if (msg.includes(&#34;auth/weak-password&#34;))
+                        return &#34;Senha fraca (mínimo 6 caracteres).&#34;;
+                return &#34;Não foi possível concluir o cadastro.&#34;;
+        }
+
+        return (
+                &lt;KeyboardAvoidingView
+                        style={styles.keyboardContainer}
+                        behavior={
+                                Platform.OS === &#34;ios&#34; ? &#34;padding&#34; : &#34;height&#34;
+                        }&gt;
+                        &lt;ScrollView
+                                contentContainerStyle={styles.scrollContainer}
+                                keyboardShouldPersistTaps=&#34;handled&#34;&gt;
+                                &lt;View style={styles.container}&gt;
+                                        &lt;Text style={styles.titulo}&gt;Criar conta&lt;/Text&gt;
+
+                                        &lt;TextInput
+                                                style={styles.input}
+                                                placeholder=&#34;E-mail&#34;
+                                                value={email}
+                                                onChangeText={setEmail}
+                                                keyboardType=&#34;email-address&#34;
+                                                autoCapitalize=&#34;none&#34;
+                                                autoCorrect={false}
+                                                textContentType=&#34;username&#34;
+                                        /&gt;
+
+                                        &lt;TextInput
+                                                style={styles.input}
+                                                placeholder=&#34;Senha (mín. 6)&#34;
+                                                value={senha}
+                                                onChangeText={setSenha}
+                                                secureTextEntry
+                                                autoCapitalize=&#34;none&#34;
+                                                textContentType=&#34;newPassword&#34;
+                                        /&gt;
+
+                                        &lt;Pressable
+                                                style={[
+                                                        styles.botao,
+                                                        loading &amp;&amp; styles.botaoDisabled,
+                                                ]}
+                                                onPress={handleRegister}
+                                                disabled={loading}&gt;
+                                                &lt;Text style={styles.botaoTexto}&gt;
+                                                        {loading ? &#34;Cadastrando...&#34; : &#34;Cadastrar&#34;}
+                                                &lt;/Text&gt;
+                                        &lt;/Pressable&gt;
+
+                                        &lt;Pressable onPress={() =&gt; navigation.goBack()}&gt;
+                                                &lt;Text style={styles.link}&gt;
+                                                        Já tem conta? Entrar
+                                                &lt;/Text&gt;
+                                        &lt;/Pressable&gt;
+                                &lt;/View&gt;
+                        &lt;/ScrollView&gt;
+                &lt;/KeyboardAvoidingView&gt;
+        );
+}
+
+const styles = StyleSheet.create({
+        keyboardContainer: {
+                flex: 1,
+        },
+        scrollContainer: {
+                flexGrow: 1,
+        },
+        container: {
+                flex: 1,
+                padding: 24,
+                justifyContent: &#34;center&#34;,
+                minHeight: 400,
+        },
+        titulo: {
+                fontSize: 28,
+                fontWeight: &#34;700&#34;,
+                marginBottom: 16,
+                textAlign: &#34;center&#34;,
+        },
+        input: {
+                borderWidth: 1,
+                borderColor: &#34;#ccc&#34;,
+                borderRadius: 12,
+                padding: 12,
+                fontSize: 16,
+                marginBottom: 12,
+        },
+        botao: {
+                backgroundColor: &#34;#16a34a&#34;,
+                paddingVertical: 14,
+                borderRadius: 12,
+                marginTop: 4,
+                marginBottom: 8,
+        },
+        botaoDisabled: { opacity: 0.7 },
+        botaoTexto: {
+                color: &#34;#fff&#34;,
+                fontWeight: &#34;700&#34;,
+                textAlign: &#34;center&#34;,
+                fontSize: 16,
+        },
+        link: {
+                color: &#34;#1e40af&#34;,
+                textAlign: &#34;center&#34;,
+                marginTop: 8,
+                textDecorationLine: &#34;underline&#34;,
+        },
+});</code></pre>
+<p>Tela src/screens/HomeScreen.js</p>
+<pre><code>import { useState } from &#34;react&#34;;
+import {
+        View,
+        Text,
+        Pressable,
+        StyleSheet,
+        Alert,
+} from &#34;react-native&#34;;
+import { auth } from &#34;../services/firebase&#34;;
+import { signOut } from &#34;firebase/auth&#34;;
+
+export default function HomeScreen( ) {
+        const { email } = auth.currentUser || {};
+
+        async function handleLogout() {
+                try {
+                        await signOut(auth);
+                } catch (e) {
+                        Alert.alert(&#34;Erro&#34;, &#34;Não foi possível sair.&#34;);
+                }
+        }
+
+        return (
+                &lt;View style={styles.container}&gt;
+                        &lt;Text style={styles.titulo}&gt;Bem-vindo!&lt;/Text&gt;
+                        &lt;Text style={styles.subtitulo}&gt;
+                                Usuário autenticado:
+                        &lt;/Text&gt;
+                        &lt;Text style={styles.email}&gt;{email}&lt;/Text&gt;
+
+                        &lt;Pressable
+                                style={styles.botao}
+                                onPress={handleLogout}&gt;
+                                &lt;Text style={styles.botaoTexto}&gt;Logout&lt;/Text&gt;
+                        &lt;/Pressable&gt;
+                &lt;/View&gt;
+        );
+}
+
+const styles = StyleSheet.create({
+        container: {
+                flex: 1,
+                padding: 24,
+                justifyContent: &#34;center&#34;,
+                alignItems: &#34;center&#34;,
+        },
+        titulo: {
+                fontSize: 28,
+                fontWeight: &#34;800&#34;,
+                marginBottom: 8,
+        },
+        subtitulo: { fontSize: 16, opacity: 0.7 },
+        email: {
+                fontSize: 18,
+                marginTop: 4,
+                marginBottom: 24,
+                fontWeight: &#34;600&#34;,
+        },
+        botao: {
+                backgroundColor: &#34;#ef4444&#34;,
+                paddingVertical: 14,
+                paddingHorizontal: 28,
+                borderRadius: 12,
+        },
+        botaoTexto: {
+                color: &#34;#fff&#34;,
+                fontWeight: &#34;700&#34;,
+                fontSize: 16,
+        },
+});</code></pre>
+<p>Navegador src/navigators/MainStack.js</p>
+<pre><code>import { useEffect, useState } from &#34;react&#34;;
+import { ActivityIndicator, View } from &#34;react-native&#34;;
+import { createNativeStackNavigator } from &#34;@react-navigation/native-stack&#34;;
+import { onAuthStateChanged } from &#34;firebase/auth&#34;;
+
+import LoginScreen from &#34;../screens/LoginScreen&#34;;
+import RegisterScreen from &#34;../screens/RegisterScreen&#34;;
+import HomeScreen from &#34;../screens/HomeScreen&#34;;
+import { auth } from &#34;../services/firebase&#34;;
+
+const Stack = createNativeStackNavigator();
+
+export default function MainStack() {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() =&gt; {
+    const unsub = onAuthStateChanged(auth, u =&gt; {
+      setUser(u ?? null);
+      setInitializing(false);
+    });
+    return unsub;
+  }, []);
+
+  if (initializing) {
+    return (
+      &lt;View
+        style=&#123;&#123;
+          flex: 1,
+          justifyContent: &#34;center&#34;,
+          alignItems: &#34;center&#34;,
+        }}&gt;
+        &lt;ActivityIndicator size=&#34;large&#34; /&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  // Se houver usuário: só mostra Home; se não, mostra Login/Register
+  return (
+    &lt;Stack.Navigator
+      screenOptions=&#123;&#123;
+        headerTitleAlign: &#34;center&#34;,
+      }}&gt;
+      {user ? (
+        &lt;Stack.Screen
+          name=&#34;Home&#34;
+          component={HomeScreen}
+          options=&#123;&#123; title: &#34;Home&#34; }}
+        /&gt;
+      ) : (
+        &lt;&gt;
+          &lt;Stack.Screen
+            name=&#34;Login&#34;
+            component={LoginScreen}
+            options=&#123;&#123; title: &#34;Entrar&#34; }}
+          /&gt;
+          &lt;Stack.Screen
+            name=&#34;Register&#34;
+            component={RegisterScreen}
+            options=&#123;&#123; title: &#34;Cadastrar&#34; }}
+          /&gt;
+        &lt;/&gt;
+      )}
+    &lt;/Stack.Navigator&gt;
+  );
+}</code></pre>
+<p>App.js</p>
+<pre><code>import { NavigationContainer } from &#34;@react-navigation/native&#34;;
+import MainStack from &#39;./src/navigators/MainStack&#39;;
+
+export default function App() {
+        return (
+                &lt;NavigationContainer&gt;
+                        &lt;MainStack /&gt;
+                &lt;/NavigationContainer&gt;
+        );
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Experimentos" duration="0">
+        <p>Sugestões de alterações no código para aprender mais</p>
+<ul>
+<li>Reset de senha: <code>sendPasswordResetEmail(auth, email)</code></li>
+<li>Exibir/ocultar senha&gt; ícone de olho em TextInput </li>
+<li>Validação: e-mail válido e senha ≥ 6.</li>
+<li>Feedback: desabilitar botão enquanto autentica; mostrar `ActivityIndicator`.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Boas práticas e próximos passos" duration="0">
+        <ul>
+<li>Organização do código: `<code>src/screens</code>`, `<code>src/services</code>`, `<code>src/components</code>`.</li>
+<li>Acessibilidade: tamanho do toque</li>
+<li>Segurança: se usar Firestore/Storage, revisar <em>Rules</em></li>
+<li>Navegação avançada: Tabs/Drawer para áreas autenticadas</li>
+<li><em>AsyncStorage </em>para guardar usuario entre sessões</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
