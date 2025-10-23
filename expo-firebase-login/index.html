@@ -20,15 +20,16 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="expo-firebase-login"
                   title="Codelab - Autenticação Firebase - email e senha"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="Introdução" duration="5">
-        <aside class="special"><p>Última atualização: 22/09/2025</p>
+        <aside class="special"><p>Última atualização: 23/10/2025</p>
 </aside>
 <p>Neste tutorial iremos desenvolver um app usando React Native. Este aplicativo terá como principal funcionalidade a autenticação de usuários através de usuário e senha, utilizando o Firebase como nosso backend.</p>
 <p>O Firebase é uma plataforma de desenvolvimento de aplicativos que fornece uma variedade de serviços, incluindo um sistema de autenticação robusto. Ao usar o Firebase, podemos facilmente configurar e gerenciar a autenticação do usuário em nosso aplicativo.</p>
@@ -146,7 +147,13 @@
       <google-codelab-step label="Escrevendo código do app" duration="20">
         <h2 is-upgraded><strong>Instalação da biblioteca do Firebase</strong></h2>
 <pre><code>npm install firebase</code></pre>
-<h2 is-upgraded><strong>Criar `src/services/firebase.js`:</strong></h2>
+<h2 is-upgraded><strong>Instalar navegação (em Expo):</strong></h2>
+<pre><code>npx expo install @react-navigation/native react-native-screens react-native-safe-area-context</code></pre>
+<pre><code>npm install @react-navigation/native-stack</code></pre>
+<p>Precisamos criar algumas pastas para organizar o código. Veja a imagem abaixo</p>
+<p class="image-container"><img style="width: 352.50px" src="img/698dad04ac091047.png"></p>
+<p>Primeiro crie uma pasta com o nome <code>src</code> na raiz do projeto. Depois crie as pastas: <code>componentes</code>, <code>navigators</code>, <code>screens</code> e <code>services</code> dentro da pasta <code>src</code></p>
+<h2 is-upgraded>Arquivo<strong> `src/services/firebase.js`</strong></h2>
 <pre><code>import { initializeApp } from &#39;firebase/app&#39;;
 import { getAuth } from &#39;firebase/auth&#39;;
 import {
@@ -187,13 +194,7 @@ export const logout = async () =&gt; {
         await signOut(auth);
 };
 </code></pre>
-<h2 is-upgraded><strong>Navegação básica</strong></h2>
-<p>Vamos precisar de 3 telas: Login, Register e Home. Para navegação entre as telas vamos usar React Navigation (Stack)</p>
-<h3 is-upgraded><strong>Instalar navegação (em Expo):</strong></h3>
-<pre><code>npx expo install @react-navigation/native react-native-screens react-native-safe-area-context</code></pre>
-<pre><code>npm install @react-navigation/native-stack</code></pre>
-<h3 is-upgraded><strong>Estrutura típica Stack (Home, Login, Register)</strong></h3>
-<p>Tela src/screens LoginScreen.js</p>
+<h2 is-upgraded><strong>Arquivo src/screens LoginScreen.js</strong></h2>
 <pre><code>import { useState } from &#34;react&#34;;
 import {
         Text,
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
                 textDecorationLine: &#34;underline&#34;,
         },
 });</code></pre>
-<p>Tela src/screens/RegisterScreen.js</p>
+<h2 is-upgraded><strong>Arquivo src/screens/RegisterScreen.js</strong></h2>
 <pre><code>import { useState } from &#34;react&#34;;
 import {
         View,
@@ -509,7 +510,7 @@ const styles = StyleSheet.create({
                 textDecorationLine: &#34;underline&#34;,
         },
 });</code></pre>
-<p>Tela src/screens/HomeScreen.js</p>
+<h2 is-upgraded><strong>Arquivo src/screens/HomeScreen.js</strong></h2>
 <pre><code>import { useState } from &#34;react&#34;;
 import {
         View,
@@ -580,7 +581,7 @@ const styles = StyleSheet.create({
                 fontSize: 16,
         },
 });</code></pre>
-<p>Navegador src/navigators/MainStack.js</p>
+<p>Arquivo src/navigators/MainStack.js</p>
 <pre><code>import { useEffect, useState } from &#34;react&#34;;
 import { ActivityIndicator, View } from &#34;react-native&#34;;
 import { createNativeStackNavigator } from &#34;@react-navigation/native-stack&#34;;
@@ -647,7 +648,7 @@ export default function MainStack() {
     &lt;/Stack.Navigator&gt;
   );
 }</code></pre>
-<p>App.js</p>
+<h2 is-upgraded><strong>Arquivo App.js</strong></h2>
 <pre><code>import { NavigationContainer } from &#34;@react-navigation/native&#34;;
 import MainStack from &#39;./src/navigators/MainStack&#39;;
 
@@ -658,6 +659,12 @@ export default function App() {
                 &lt;/NavigationContainer&gt;
         );
 }</code></pre>
+<h2 is-upgraded><strong>Execução</strong></h2>
+<p>Para testar o app execute, dentro da pasta raiz do projeto, no terminal o comando </p>
+<pre><code>npm start</code></pre>
+<p>Se tudo estiver certo, aparecerá no terminal o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img/b2d2bda858475619.png"></p>
+<p>Pressione a tecla ‘a&#39; para abrir o app no dispositivo móvel, que pode ser o dispositivo real ou um emulador.</p>
 
 
       </google-codelab-step>
