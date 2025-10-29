@@ -29,14 +29,13 @@
     
       <google-codelab-step label="Introdução" duration="5">
         <h2 is-upgraded><img style="width: 688.00px" src="img\\8f9f9e336f14e00e.png"></h2>
-<p><code>Última atualização: 13/11/2024</code></p>
+<p><code>Última atualização: 29/10/2025</code></p>
 <h2 is-upgraded><strong>O que você vai fazer</strong></h2>
 <p>Preparar o ambiente de desenvolvimento de aplicações React Native em um sistema operacional Windows 10</p>
 <h2 is-upgraded><strong>Referências</strong></h2>
 <ul>
 <li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
 <li><a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html" target="_blank">Java SE Development Kit 17 latest JDK LTS</a></li>
-<li><a href="https://code.visualstudio.com/" target="_blank">Visual Studio</a></li>
 <li><a href="https://dev.to/andreisfedotov/how-to-install-android-emulator-without-installing-android-studio-3lce" target="_blank">Android Emulator</a></li>
 </ul>
 
@@ -56,55 +55,35 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Visual Studio e JavaScript extensions for VS Code" duration="15">
-        <p>Baixe o instalador do <a href="https://code.visualstudio.com/download" target="_blank">vscode</a> e depois instale as seguintes extensões: </p>
-<table>
-<tr><td colspan="1" rowspan="1"><p class="image-container"><img alt="Prettier - Code formatter" style="width: 99.54px" src="img\\a7b46d2484c340ed.png"></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode" target="_blank">Prettier - Code formatter</a></p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img alt="IntelliCode" style="width: 114.46px" src="img\\17029b689d5dc3db.png"></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode" target="_blank">IntelliCode</a></p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img alt="JavaScript (ES6) code snippets" style="width: 102.46px" src="img\\22cfb3a0e21f9351.png"></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets" target="_blank">JavaScript (ES6) code snippets</a></p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Babel JavaScript" style="width: 145.69px" src="img\\2b7cf961f47aeccc.png"></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel" target="_blank">Babel JavaScript</a></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p class="image-container"><img alt="Node.js Modules Intellisense" style="width: 118.80px" src="img\\80b4db26d4c74d1.png"></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=leizongmin.node-module-intellisense" target="_blank">Node.js Modules Intellisense</a></p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 100.20px" src="img\\7321b1be144ba053.png"></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank">ESLint</a></p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 107.54px" src="img\\d3210086887361e1.png"></p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode" target="_blank">SonarLint</a></p>
-</td><td colspan="1" rowspan="1"></td></tr>
-</table>
-
-
-      </google-codelab-step>
-    
       <google-codelab-step label="Instalar emulador Android sem instalar Android Studio" duration="0">
         <ol type="1" start="1">
 <li>Faça o download do <a href="https://developer.android.com/studio?hl=pt-br#somente-ferramentas-de-linha-de-comando" target="_blank">pacote de ferramentas de linha de comando</a> </li>
-<li>Mova a pasta cmdline-tools descompactado para a pasta <code>C:\Users\<nome de usuário>\AppData\Local\Android\Sdk.</code></li>
+<li>Mova a pasta cmdline-tools descompactado para a pasta <code>C:\Users\nome de usuário\AppData\Local\Android\Sdk.</code></li>
 <li>Defina a seguinte variável de ambiente (veja como fazer no passo 3 a seguir)</li>
 </ol>
-<p><code>ANDROID_SDK_ROOT="C:\Users\<nome de usuário>\AppData\Local\Android\Sdk"</code></p>
+<p><code>ANDROID_SDK_ROOT="C:\Users\nome de usuário\AppData\Local\Android\Sdk"</code></p>
 <ol type="1" start="4">
 <li>Adicione à variável de ambiente <code>PATH</code>, os seguintes caminhos:</li>
 </ol>
-<p><code>"C:\Users\<nome de usuário>\AppData\Local\Android\Sdk\cmdline-tools\latest\bin"</code></p>
-<p><code>"C:\Users\<nome de usuário>\AppData\Local\Android\Sdk\emulator"</code></p>
+<p><code>"C:\Users\nome de usuário\AppData\Local\Android\Sdk\cmdline-tools\latest\bin"</code></p>
+<p><code>"C:\Users\nome de usuário\AppData\Local\Android\Sdk\emulator"</code></p>
 <ol type="1" start="5">
 <li>Instalar a versão mais nova das cmdline-tools</li>
 </ol>
-<p>entre na pasta <code>C:\Users\<nome de usuário>\AppData\Local\Android\Sdk\cmdline-tools\bin</code> e execute o comando:</p>
-<p><code>sdkmanager --sdk_root=%ANDROID_SDK_ROOT% "cmdline-tools;latest"</code></p>
+<p>entre na pasta <code>C:\Users\nome de usuário\AppData\Local\Android\Sdk\cmdline-tools\bin</code> e execute o comando:</p>
+<pre><code>sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;cmdline-tools;latest&#34;</code></pre>
 <ol type="1" start="6">
-<li>Instale as plataformas, ferramentas de compilação e extras</li>
+<li>Instale as plataformas, ferramentas de compilação e extras. Execute um comando de cada vez.</li>
 </ol>
-<p><code>sdkmanager "platforms;android-33" "build-tools;33.0.2"</code></p>
-<p><code>sdkmanager "system-images;android-33;google_apis;x86_64"</code></p>
-<p><code>sdkmanager "extras;google;m2repository" "extras;android;m2repository"</code></p>
-<p><code>sdkmanager "platform-tools" "tools"</code></p>
-<p><code>sdkmanager --licenses</code></p>
+<pre><code>sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;platforms;android-33&#34; &#34;build-tools;33.0.2&#34;
+
+sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;system-images;android-33;google_apis;x86_64&#34;
+
+sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;extras;google;m2repository&#34; &#34;extras;android;m2repository&#34;
+
+sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;platform-tools&#34; &#34;tools&#34;
+
+sdkmanager --sdk_root=%ANDROID_SDK_ROOT% --licenses</code></pre>
 <ol type="1" start="7">
 <li>Configure a variável de ambiente ANDROID_HOME </li>
 </ol>
@@ -124,7 +103,7 @@
 <ol type="1" start="9">
 <li>Instale um Android Virtual Device AVD</li>
 </ol>
-<p><code>avdmanager create avd -n MeuAVD33 -k "system-images;android-33;google_apis_playstore;x86_64" -d "pixel_6"</code></p>
+<p><code>avdmanager create avd -n MeuAVD33 -k "system-images;android-33;google_apis;x86_64" -d "pixel_6"</code></p>
 
 
       </google-codelab-step>
