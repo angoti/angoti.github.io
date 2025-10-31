@@ -37,6 +37,7 @@
       <google-codelab-step label="Objeto de comando" duration="0">
         <p><strong><em>Command object</em></strong> é o nome que o Spring MVC dá aos objetos Java de apoio de formulário, isto é, aos objetos que representam os campos de um formulário e fornecem métodos getter e setter que serão usados ​​pelo framework para estabelecer e obter os valores inseridos pelo usuário no navegador.</p>
 <p>Thymeleaf requer que você especifique o objeto de comando usando um atributo <strong><code>th:object</code></strong> na tag <strong><code>form</code></strong>:</p>
+<p>Obs.: <strong><code>th:object</code></strong> pode ser usado em qualquer tag HTML que defina um grupo, por exemplo, <strong><code>table</code></strong> ou <strong><code>tr</code></strong></p>
 <pre>&lt;form action=&#34;/disciplina.acao&#34; method=&#34;post&#34; th:object=&#34;${disciplina}&#34;&gt;</pre>
 <p>O atributo <code>th:object="${disciplina}"</code> define o nome do objeto que será usado para os valores definidos com <code>th:value</code>.</p>
 <p>Vamos ver agora como adicionar uma entrada ao nosso formulário: </p>
