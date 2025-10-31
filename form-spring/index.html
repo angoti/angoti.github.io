@@ -34,8 +34,12 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Campos de entrada" duration="0">
-        <p>Vamos ver agora como adicionar uma entrada ao nosso formulário: </p>
+      <google-codelab-step label="Objeto de comando" duration="0">
+        <p><strong><em>Command object</em></strong> é o nome que o Spring MVC dá aos objetos Java de apoio de formulário, isto é, aos objetos que representam os campos de um formulário e fornecem métodos getter e setter que serão usados ​​pelo framework para estabelecer e obter os valores inseridos pelo usuário no navegador.</p>
+<p>Thymeleaf requer que você especifique o objeto de comando usando um atributo <strong><code>th:object</code></strong> na tag <strong><code>form</code></strong>:</p>
+<pre>&lt;form action=&#34;/disciplina.acao&#34; method=&#34;post&#34; th:object=&#34;${disciplina}&#34;&gt;</pre>
+<p>O atributo <code>th:object="${disciplina}"</code> define o nome do objeto que será usado para os valores definidos com <code>th:value</code>.</p>
+<p>Vamos ver agora como adicionar uma entrada ao nosso formulário: </p>
 <pre>&lt;input type=&#34;text&#34; th:field=&#34;*{professor}&#34;&gt;</pre>
 <p>Como você pode ver, estamos introduzindo um novo atributo aqui: <strong><code>th:field</code></strong>. Este atributo se comporta de maneira diferente dependendo se está anexado a uma tag &lt;input&gt;, &lt;select&gt; ou &lt;textarea&gt;. </p>
 <p>Na utilização com o campo &lt;input&gt;, o <code>th:field="*{professor}"</code> é o mesmo que:<code>id="professor" name="professor" th:value="*{professor}"</code>, ou seja, <code>th:field</code> gera três atributos <code>id, name e th:value</code>. A linha de código acima gera o código abaixo:</p>
