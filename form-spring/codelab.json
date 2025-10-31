@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2025-10-31T19:25:02Z",
+  "id": "form-spring",
+  "duration": 0,
+  "title": "CRUD - Spring Boot + Thymeleaf",
+  "authors": "Edson Angoti Júnior",
+  "summary": "Aula sobre formulários web com thymeleaf + Spring",
+  "source": "19dlcfDBPyD5-ODbFxyMuFmeDI4rzLmctBij9utUbWcE",
+  "theme": "web",
+  "status": [
+    "emconstrução"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "form-spring"
+}

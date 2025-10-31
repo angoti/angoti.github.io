@@ -1,0 +1,220 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>CRUD - Spring Boot &#43; Thymeleaf</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="form-spring"
+                  title="CRUD - Spring Boot &#43; Thymeleaf"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Criando um formulário HTML" duration="0">
+        <p class="image-container"><img style="width: 459.35px" src="img\\459d1314e0de18c2.png"></p>
+<p>Formulários são usados em aplicações Web para realizar entrada de dados em sistemas e existem diversos tipos de entrada de dados: <em>input</em>, <em>checkbox</em>, <em>radio button</em> e <em>list</em> selectors. Os formulários são exibidos para o usuário em navegadores Web e submetidos ao servidor que recebe e trata os dados fornecidos pelo usuário. Neste codelab mostraremos como um formulário contruído com atributos Thymeleaf é submetido a controladores Spring do lado do servidor.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Objeto de comando" duration="0">
+        <p><strong><em>Command object</em></strong> é o nome que o Spring MVC dá aos objetos Java de apoio de formulário, isto é, aos objetos que representam os campos de um formulário e fornecem métodos getter e setter que serão usados ​​pelo framework para estabelecer e obter os valores inseridos pelo usuário no navegador.</p>
+<p>Thymeleaf requer que você especifique o objeto de comando usando um atributo <strong><code>th:object</code></strong> na tag <strong><code><form></code></strong>:</p>
+<pre>&lt;form action=&#34;/disciplina.acao&#34; method=&#34;post&#34; th:object=&#34;${disciplina}&#34;&gt;</pre>
+<p>O atributo <code>th:object="${disciplina}"</code> define o nome do objeto que será usado para transportar os dados fornecidos pelo usuário para o servidor.</p>
+<p>A figura 1 ilustra o fluxo de processamento que começa no servidor preparando um objeto &#34;vazio&#34; para ser usado como objeto de comando e termina, depois da submissão do formulário, no servidor recebendo o objeto já &#34;preenchido&#34;<img style="width: 539.09px" src="img\\29f5efba6f62a44a.png"></p>
+<ol type="1" start="1">
+<li>Na classe controladora temos o método <strong><code>mostraFormulario(Model modelo)</code></strong> que cria um novo objeto do tipo <code>Disciplina</code> e o disponibiliza para a <em>view </em><code>form-disciplina</code> usando o método <code>addAtribute</code> do objeto <code>modelo.</code></li>
+<li>O formulário é exibido usando como objeto de comando o objeto disponibilizado (&#34;vazio&#34;) na etapa 1</li>
+<li>O objeto modelo (já &#34;preenchido&#34;) é recebido pelo método <strong><code>processaFormulario(Disciplina disciplina)</code></strong> do lado do servidor.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Campos de entrada (&lt;input&gt;)" duration="0">
+        <p>Vamos ver agora como adicionar uma entrada ao nosso formulário: </p>
+<pre>&lt;input type=&#34;text&#34; th:field=&#34;*{professor}&#34;&gt;</pre>
+<p>Como você pode ver, estamos introduzindo um novo atributo aqui: <strong><code>th:field</code></strong>. Este atributo se comporta de maneira diferente dependendo se está anexado a uma tag &lt;input&gt;, &lt;select&gt; ou &lt;textarea&gt;. </p>
+<p>Na utilização com o campo &lt;input&gt;, o <code>th:field="*{professor}"</code> é o mesmo que:<code>id="professor" name="professor" th:value="*{professor}"</code>, ou seja, <code>th:field</code> gera três atributos <code>id, name e th:value</code>. A linha de código acima gera o código abaixo:</p>
+<pre>&lt;input type=&#34;text&#34; id=&#34;professor&#34; name=&#34;professor&#34; th:value=&#34;*{professor}&#34;&gt;</pre>
+<p>onde <strong><code>th:value</code></strong> estabelece o valor do campo. </p>
+<h2 is-upgraded>Exemplo de utilização do atributo <strong><code>th:value</code></strong></h2>
+<p>Supondo que o objeto em questão tenha o seguinte valor: <strong><code>disciplina.professor</code></strong><code> = "Edson Angoti Júnior"</code>, então no atributo <code>th:value="*{professor}"</code> o thymeleaf busca o valor do atributo <strong><code>professor</code></strong> do objeto <strong><code>disciplina</code></strong> definido em <code>th:object="${disciplina}"</code>  na declaração do formulário.</p>
+<h2 is-upgraded><img style="width: 625.85px" src="img\\56035d893fa6d25a.png"></h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Campos checkbox/radio button" duration="0">
+        <p><strong><code>th:field</code></strong> também nos permite definir entradas do tipo checkbox ou radio button. Nestes campos de entrada o <strong><code>th:field</code></strong> tem um comportamento um pouco diferente. É comum ter muitos valores para estes campos e para cada valor temos que definir o atributo <strong><code>id</code></strong> com valor diferente. O atributo Thymeleaf <strong><code>th:field</code></strong> cria um valor diferente de id para cada campo, adicionando um numero inteiro sequencial ao nome do campo, começando com o valor 1. Vejamos um exemplo: </p>
+<pre>&lt;div th:each=&#34;p : ${#numbers.sequence(1,5)}&#34;&gt;
+   &lt;input type=&#34;radio&#34; th:field=&#34;*{periodo}&#34; th:value=&#34;${p}&#34;&gt;
+   &lt;label th:for=&#34;${#ids.prev(&#39;periodo&#39;)}&#34; th:text=&#34;${p}&#34;&gt;&lt;/label&gt;
+&lt;/div&gt;</pre>
+<p>Na primeira linha temos uma iteração <strong><code>th:each</code></strong> usando o <strong>objeto utilitário </strong><code>#numbers</code> que oferece um método para gerar uma sequencia de números. No exemplo teremos 5 repetições do código entre <strong><code><div th:each ... ></code></strong> e <strong><code></div></code></strong>. O objeto utilitário #ids oferece métodos para lidar com atributos de id que podem ser repetidos (por exemplo, como resultado de uma iteração).</p>
+<p>Dependendo se a tag <code><label></code> vem antes ou depois do elemento <code><input></code> correspondente, você deverá usar a função <strong><code>next(...)</code></strong> (<code><label></code> vai antes de <code><input></code>) ou a função <strong><code>prev(...)</code></strong> (<code><label></code> vai depois de <code><input></code>).</p>
+<p>O código HTML gerado fica assim:</p>
+<pre> &lt;input type=&#34;radio&#34; value=&#34;1&#34; id=&#34;periodo1&#34; name=&#34;periodo&#34;&gt;
+ &lt;label for=&#34;periodo1&#34;&gt;1&lt;/label&gt;
+
+ &lt;input type=&#34;radio&#34; value=&#34;2&#34; required id=&#34;periodo2&#34; name=&#34;periodo&#34;&gt;
+ &lt;label for=&#34;periodo2&#34;&gt;2&lt;/label&gt;
+ 
+ &lt;input type=&#34;radio&#34; value=&#34;3&#34; required id=&#34;periodo3&#34; name=&#34;periodo&#34;&gt;
+ &lt;label for=&#34;periodo3&#34;&gt;3&lt;/label&gt;
+ 
+ &lt;input type=&#34;radio&#34; value=&#34;4&#34; required id=&#34;periodo4&#34; name=&#34;periodo&#34;&gt;
+ &lt;label for=&#34;periodo4&#34;&gt;4&lt;/label&gt;
+ 
+ &lt;input type=&#34;radio&#34; value=&#34;5&#34; required id=&#34;periodo5&#34; name=&#34;periodo&#34;&gt;
+ &lt;label for=&#34;periodo5&#34;&gt;5&lt;/label&gt;</pre>
+<p>Para conhecer mais sobre objetos utilitários veja a <a href="https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#appendix-b-expression-utility-objects" target="_blank">documentação do Thymeleaf</a>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exibindo todos os registros de uma tabela" duration="0">
+        <p>Para a exibição de dados na <em>View</em> precisamos disponibilizar um <em>Model Attribute</em> através de um método mapeado no <em>controller</em>. Veja a seguir o exemplo do <em>controller.</em></p>
+<pre>@Controller
+public class DisciplinaControle {
+
+        @GetMapping(&#34;/disciplinas&#34;)
+        public String disciplinasTabela(Model modelo) {
+                DisciplinaDAO dao = new DisciplinaDAO();
+                List&lt;Disciplina&gt; lista = dao.todos();
+                modelo.addAttribute(&#34;lista&#34;, lista);
+                return &#34;disciplinas&#34;;
+        }
+}</pre>
+<p>A linha com <code>modelo.addAttribute("lista", lista);</code> disponibilza o objeto <code>lista</code> com o nome <strong>&#34;</strong><code>lista</code><strong>&#34;</strong> para a view. O código a seguir mostra com a <em>view </em>recupera o objeto e exibe os valores. Observe que o objeto  é uma coleção de objetos do tipo Disciplina, e o comando th:each cria uma repetição que gera linhas da tabela HTML.</p>
+<pre>&lt;tr th:each=&#34;disciplina:${lista}&#34; th:object=&#34;${disciplina}&#34;&gt;
+          &lt;td th:text=&#34;*{id}&#34;&gt;1&lt;/td&gt;
+          &lt;td th:text=&#34;*{nome}&#34;&gt;2&lt;/td&gt;
+          &lt;td th:text=&#34;*{professor}&#34;&gt;3&lt;/td&gt;
+          &lt;td th:text=&#34;*{periodo}&#34;&gt;4&lt;/td&gt;
+          &lt;td th:text=&#34;*{codigo}&#34;&gt;5&lt;/td&gt;
+&lt;/tr&gt;</pre>
+<p>A classe de domínio Disciplina possui os seguinte atributos:</p>
+<pre>public class Disciplina {
+        public Integer id, periodo;
+        public String nome, professor, codigo;</pre>
+<p>e o resultado final fica assim no browser:</p>
+<p class="image-container"><img style="width: 510.00px" src="img\\800032c65ed378ba.png"></p>
+<p>Em uma aplicação CRUD, temos as operações excluir e editar registros. Estas operações exigem a identificação do registro que será afetado pela execução da operação. Para esta identificação precisamos oferecer ao usuário links personalizados para cada linha da tabela onde basta clicar para indicar a intenção do usuário. No exemplo mostrado abaixo podemos ver o link gerado quando passamos o mouse em cima do ícone da lata de lixo. </p>
+<p class="image-container"><img style="width: 642.52px" src="img\\54428c4447e16347.png"></p>
+<p>A estrutura do link deverá ser:</p>
+<p class="image-container"><img style="width: 634.00px" src="img\\8ee79f7f02ac50d8.png"></p>
+<p>Para montar este link fazemos assim:</p>
+<p><code><a</code> <code>th:href="@{/excluir-disciplina(id=*{id})}"></code></p>
+<p>Usamos o atributo Thymeleaf <strong><code>th:href</code></strong> para construir o link exibido na figura acima. A expressão de URL de link <strong><code>@{/excluir-disciplina}</code></strong> gera o link</p>
+<p><code>/localhost:8080/excluir-disciplina</code></p>
+<p>Quando adicionamos um parâmetro da requisição <code>(id=*{id})</code>  o valor do id do registro é recuperado com a expressão de seleção de variável <code>*{id}</code> e o link fica assim:</p>
+<p><code>/localhost:8080/excluir-disciplina/id=2</code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Controladores" duration="0">
+        <p>Os controladores são classes Java que recebem a anotação @Controller, cuja função é coordenar o processamento de requisições HTTP. O Controlador (Controller) recebe a requisição, encaminha para objetos que implementam as regras do negócio (Model), e por fim encaminha a reposta para o cliente (View).</p>
+<pre>import org.springframework.stereotype.Controller;
+
+@Controller
+public class DisciplinaControlador { }</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mapeamento de requisições" duration="0">
+        <p>As requisições são na forma</p>
+<pre>http://servidor/comando?query_string</pre>
+<p>onde a palavra comando indica a intenção do usuário ao interagir com a página web da aplicação. Os parâmetros da requisição são enviados na query_string, que é uma lista de pares nome=valor separados por &amp;. Estes comandos são utilizados na anotação de mapeamento da requisição nos métodos da classe controladora. As anotações que estamos usando no curso (existem outras) são:</p>
+<ul>
+<li>@GetMapping</li>
+<li>@PostMapping</li>
+</ul>
+<p>Quando a requisição é enviada através da submissão de formulários (&lt;form&gt;) com o método POST, usaremos a anotação @PostMapping  e quando a requisição é enviada a partir de um link (&lt;a&gt;) usaremos a anotação @GetMapping..</p>
+<p>Exemplos de mapeamento:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Anotação</p>
+</td><td colspan="1" rowspan="1"><p>URL correspondente</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>@GetMapping("/listar")</code></p>
+</td><td colspan="1" rowspan="1"><p><strong><code><a href="http://servidor/listar"></code></strong></p>
+<p><strong><code>Listar todos</a></code></strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>@PostMapping("/cadastrar")</code></p>
+</td><td colspan="1" rowspan="1"><p><strong><code><form action="http://servidor/disciplina.acao" </code></strong></p>
+<p><strong><code>      method="POST"></code></strong></p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Disponibilizando objetos para a View" duration="0">
+        <p>Antes de encaminhar a resposta, o controlador que precisar disponibilizar objetos para a view deverá usar o método <strong><code>addAtribute</code></strong> da classe Model. O objeto do tipo Model deverá ser recebido pelo método mapeado como parâmetro. Exemplo:</p>
+<pre>@GetMapping(&#34;/disciplina.acao&#34;)
+public String mostraFormulario(Model modelo) {
+             modelo.addAttribute(&#34;disciplina&#34;, new Disciplina());
+             return &#34;form-disciplina&#34;;
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Recebendo parâmetros da requisição" duration="0">
+        <p>Para receber parâmetros da requisição devemos anotar com <strong><code>@RequestParam</code></strong> o parâmetro que o método mapeado receberá com o valor do parâmetro. Suponha a situação abaixo que mostra uma URL com um parâmetro com o nome id. A declaração do método da classe controladora ficaria como mostrado. A anotação <code>@RequestParam(value = "id", required = false) Integer</code> <code>cod</code> declara um parâmetro chamado <strong><code>cod</code></strong> do tipo <strong><code>Integer</code></strong> que receberá o valor inteiro 2 conforme a URL da requisição</p>
+<p class="image-container"><img style="width: 634.00px" src="img\\8ee79f7f02ac50d8.png"></p>
+<pre>@GetMapping(&#34;/excluir-disciplina&#34;)
+public String excluirDisciplina(
+   @RequestParam(name = &#34;id&#34;, required = true) Integer cod)
+{
+             DisciplinaDAO dao = new DisciplinaDAO();
+             dao.excluir(cod);
+             return &#34;redirect:/listar-disciplinas&#34;;
+}</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Recebendo objetos de formulários" duration="0">
+        <p>Quando um formulário é submetido com os dados preenchidos pelo usuário, o Spring &#34;preenche&#34; o <strong><em>command object</em></strong> e entrega para o controlador mapeado pelo atributo action da tag &lt;form&gt;. desta forma precisamos definir um atributo do tipo do objeto preenchido no método controlador que vai receber o formulário. Considere o formulário definido assim:</p>
+<pre>&lt;form action=&#34;/cadastra-disciplina&#34; 
+      method=&#34;post&#34; 
+      th:object=&#34;${disciplina}&#34;&gt;</pre>
+<p>Então o controlador que vai receber o objeto preenchido deverá ficar assim:</p>
+<pre>@PostMapping(&#34;/cadastra-disciplina&#34;)
+public String processaForm(Disciplina disciplina)</pre>
+<p>Observe o parâmetro do método processaForm que recebe um objeto do tipo Disclipina já preenchido com os dados fornecidos pelo usuário no formulário.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
