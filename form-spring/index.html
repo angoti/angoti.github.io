@@ -34,22 +34,6 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Objeto de comando" duration="0">
-        <p><strong><em>Command object</em></strong> é o nome que o Spring MVC dá aos objetos Java de apoio de formulário, isto é, aos objetos que representam os campos de um formulário e fornecem métodos getter e setter que serão usados ​​pelo framework para estabelecer e obter os valores inseridos pelo usuário no navegador.</p>
-<p>Thymeleaf requer que você especifique o objeto de comando usando um atributo <strong><code>th:object</code></strong> na tag <strong><code>form</code></strong>:</p>
-<pre>&lt;form action=&#34;/disciplina.acao&#34; method=&#34;post&#34; th:object=&#34;${disciplina}&#34;&gt;</pre>
-<p>O atributo <code>th:object="${disciplina}"</code> define o nome do objeto que será usado para transportar os dados fornecidos pelo usuário para o servidor.</p>
-<p>A figura 1 ilustra o fluxo de processamento que começa no servidor preparando um objeto &#34;vazio&#34; para ser usado como objeto de comando e termina, depois da submissão do formulário, no servidor recebendo o objeto já &#34;preenchido&#34;</p>
-<p class="image-container"><img style="width: 671.09px" src="img\\1c7b949db849d653.png"></p>
-<ol type="1" start="1">
-<li>Na classe controladora temos o método <strong><code>mostraFormulario(Model modelo)</code></strong> que cria um novo objeto do tipo <code>Disciplina</code> e o disponibiliza para a <em>view </em><code>form-disciplina</code> usando o método <code>addAtribute</code> do objeto <code>modelo.</code></li>
-<li>O formulário é exibido usando como objeto de comando o objeto disponibilizado (&#34;vazio&#34;) na etapa 1</li>
-<li>O objeto modelo (já &#34;preenchido&#34;) é recebido pelo método <strong><code>processaFormulario(Disciplina disciplina)</code></strong> do lado do servidor.</li>
-</ol>
-
-
-      </google-codelab-step>
-    
       <google-codelab-step label="Campos de entrada" duration="0">
         <p>Vamos ver agora como adicionar uma entrada ao nosso formulário: </p>
 <pre>&lt;input type=&#34;text&#34; th:field=&#34;*{professor}&#34;&gt;</pre>
