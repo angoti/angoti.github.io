@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="rncursocompletoparte1"
                   title="Curso React Native"
                   environment="web"
@@ -62,7 +63,7 @@
 </ul>
 <p>Embora o Expo Go seja um ambiente de desenvolvimento muito útil e prático, é importante observar que ele possui algumas limitações em relação ao desenvolvimento nativo tradicional do React Native. Dependendo dos requisitos específicos do aplicativo, pode ser necessário fazer uso do React Native CLI e configurar um ambiente de desenvolvimento nativo completo.</p>
 <p>No entanto, para muitos casos de uso, o Expo Go oferece uma solução rápida e eficiente para o desenvolvimento React Native, permitindo que os desenvolvedores testem, iterem e compartilhem aplicativos em tempo real diretamente em dispositivos móveis.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\ce0470e53aa28d75.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/ce0470e53aa28d75.png"></p>
 
 
       </google-codelab-step>
@@ -107,9 +108,7 @@
 <pre>{isLoggedIn ? &lt;WelcomeMessage /&gt; : &lt;LoginButton /&gt;}</pre>
 <h2 is-upgraded><strong>Ponto de entrada </strong></h2>
 <p>Todas as funcionalidades do aplicativo React Native devem ser incluídas em um único componente React, exportado como padrão (<code>export default</code>) do arquivo de ponto de entrada.</p>
-<pre>import * as React from &#39;react&#39;;
-
-const App = () =&gt; (
+<pre>const App = () =&gt; (
   // todas as funcionalidades do aplicativo são inseridas aqui
 );
 
@@ -454,29 +453,29 @@ const styles = StyleSheet.create({
 
 export default App;</pre>
 <p>Este código gera a tela:</p>
-<p class="image-container"><img style="width: 285.00px" src="img\\a65185f96f765000.png"></p>
+<p class="image-container"><img style="width: 285.00px" src="img/920e4a260b43f6c7.png"></p>
 <aside class="warning"><ol type="1" start="1">
 <li>Resolver os 24 exercícios sobre <a href="https://flexboxfroggy.com/" target="_blank">Flexbox </a></li>
 <li>Para os próximos exercícios use Flexbox e o exemplo abaixo para exibir quadrados na tela:</li>
 </ol>
 <table>
-<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 215.18px" src="img\\c856f20938b8a811.png"></p>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 215.18px" src="img/4d07c66c2f9c9def.png"></p>
 <p>2.1</p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 197.32px" src="img\\8dfe582f6a78da3e.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 197.32px" src="img/ea4a9edc5d9970ed.png"></p>
 <p>2.2</p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 194.09px" src="img\\1a3460506817d4d0.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 194.09px" src="img/b6ce27833cb1079b.png"></p>
 <p>2.3</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 194.00px" src="img\\409ca8bee5740b99.png"></p>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 194.00px" src="img/d0065bb8c6c82e1a.png"></p>
 <p>2.4</p>
-</td><td colspan="2" rowspan="1"><p class="image-container"><img style="width: 200.50px" src="img\\f0a9fc5e5cc2d7a.png"></p>
+</td><td colspan="2" rowspan="1"><p class="image-container"><img style="width: 200.50px" src="img/667a4d991dc198cc.png"></p>
 <p>2.5</p>
 </td></tr>
 </table>
 <ol type="1" start="3">
 <li>Construir um app que exibe uma tela conforme a imagem abaixo.</li>
 </ol>
-<p class="image-container"><img style="width: 252.00px" src="img\\6ffc3e03cfa74eeb.png"></p>
+<p class="image-container"><img style="width: 252.00px" src="img/5c4336eca3ff2355.png"></p>
 <p>- as imagens das placas estão nos links abaixo:</p>
 <ul>
 <li><a href="https://drive.google.com/file/d/1oBWOvPzrmciTgwtmSCjXtj7VTzHlbmwL/view?usp=drive_web&authuser=0" target="_blank">placa1</a></li>
@@ -1000,7 +999,7 @@ const styles = StyleSheet.create({
       <google-codelab-step label="Flatlist" duration="30">
         <h2 is-upgraded><strong>Introdução ao componente FlatList</strong></h2>
 <p>O FlatList é um componente do React Native que permite exibir listas de elementos de forma eficiente, independentemente do tamanho da lista. Ele é especialmente útil para listas longas e dinâmicas que podem ser renderizadas sob demanda, melhorando o desempenho e a experiência do usuário. Veja exemplo:</p>
-<p class="image-container"><img style="width: 426.00px" src="img\\e4cd5b8913a9f26b.gif"></p>
+<p class="image-container"><img style="width: 426.00px" src="img/e4cd5b8913a9f26b.gif"></p>
 <aside class="special"><p>Referência: <a href="https://reactnative.dev/docs/flatlist" target="_blank">FlatList · React Native</a></p>
 </aside>
 <h2 is-upgraded>Como usar o componente FlatList</h2>
@@ -1385,7 +1384,7 @@ export default ListaItens;</code></pre>
 </aside>
 <h2 is-upgraded><strong>Navigator Components</strong></h2>
 <p>Existem 3 navegadores principais que acompanham o React Navigation, que são adequados para projetos baseados em iOS e Android.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\405c5fc2961a1da5.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/c0a98f2e7775b51b.png"></p>
 <h2 is-upgraded><strong>Stack Navigator</strong></h2>
 <aside class="special"><p>Referência: <a href="https://reactnavigation.org/docs/stack-navigator" target="_blank">Stack Navigator</a></p>
 </aside>
@@ -1689,8 +1688,7 @@ export default App;</pre>
 <p>Dentro do diretório screens, crie três arquivos: FeedScreen.js, ExploreScreen.js e NotificationsScreen.js. Esses arquivos conterão o código das respectivas telas.</p>
 <p>Abra o arquivo App.js na raiz do projeto e substitua o conteúdo pelo seguinte código:</p>
 <p>Arquivo <code>App.js </code></p>
-<pre>import React from &#39;react&#39;;
-import { NavigationContainer } from &#39;@react-navigation/native&#39;;
+<pre>import { NavigationContainer } from &#39;@react-navigation/native&#39;;
 import { createBottomTabNavigator } from &#39;@react-navigation/bottom-tabs&#39;;
 import FeedScreen from &#39;./src/screens/FeedScreen&#39;;
 import ExploreScreen from &#39;./src/screens/ExploreScreen&#39;;
@@ -1769,8 +1767,7 @@ export default NotificationsScreen;</pre>
 <p>Neste exercício, você irá personalizar o cabeçalho de um navegador Stack em um aplicativo React Native.</p>
 <p>Crie um arquivo chamado HomeScreen.js no diretório src/screens. Este será o componente de tela inicial para o exemplo.</p>
 <p>Arquivo <code>src/screens/HomeScreen  </code></p>
-<pre>import React from &#39;react&#39;;
-import { View, Text } from &#39;react-native&#39;;
+<pre>import { View, Text } from &#39;react-native&#39;;
 
 const HomeScreen = () =&gt; {
   return (
@@ -2080,7 +2077,7 @@ export default App;</pre>
 <p>Neste código, importamos os componentes necessários do React Navigation, as telas e criamos os navegadores Stack e Drawer. O navegador Stack contém as telas Home e Details, enquanto o navegador Drawer contém o navegador Stack HomeStack e a tela Profile.</p>
 <h2 is-upgraded><strong>Exercicio 9</strong></h2>
 <p>Criar um app com o seguinte esquema de navegação</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\c62ee92a666fd373.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/2755253336876b78.png"></p>
 
 
       </google-codelab-step>
