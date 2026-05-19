@@ -20,15 +20,16 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="rnexpo-google-login"
                   title="Codelab - Autenticação Firebase/Google - projeto Firebase aula-log-google"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="Introdução" duration="5">
-        <aside class="special"><p>Última atualização: 09/11/2023</p>
+        <aside class="special"><p>Última atualização: 13/05/2026</p>
 </aside>
 <p>Neste tutorial iremos desenvolver um aplicativo usando React Native. Este aplicativo terá como principal funcionalidade a autenticação de usuários através do Login do Google, utilizando o Firebase como nosso backend.</p>
 <p>React Native é uma framework que nos permite desenvolver aplicativos nativos para Android e iOS usando JavaScript e React. É uma ótima escolha para desenvolvedores que desejam criar aplicativos móveis de alta qualidade com agilidade e eficiência.</p>
@@ -54,62 +55,57 @@
     
       <google-codelab-step label="Configurando o Firebase" duration="10">
         <p>O Firebase vai funcionar como back-end da aplicação. Vamos começar criando um projeto através do <a href="https://console.firebase.google.com/" target="_blank">console do Firebase</a>. </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\4b307fd6e94fa853.png"></p>
-<p>Insira um nome de projeto e pressione para continuar.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\6253aa488a949965.png"></p>
-<p>Agora você será perguntado se deseja habilitar o Google Analytics para seu projeto. Não habilite e continue.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\e1dbee0ce12f0343.png"></p>
-<p>Clique em <code>Criar Projeto</code>. Agora o Firebase alocará recursos para o projeto. </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\992f250b498cfaee.png"></p>
-<p>Quando terminar, pressione <code>Continuar</code> para prosseguir para o painel do projeto. Agora, vamos configurar a autenticação.</p>
+<p>Clique no botão <strong><code>Criar um novo projeto do Firebase</code></strong><code>.</code></p>
+<p class="image-container"><img style="width: 624.00px" src="img/3da2b18eca2215bb.png"></p>
+<p>Insira um nome de projeto e pressione <strong><code>Continuar</code></strong>.</p>
+<p class="image-container"><img style="width: 468.50px" src="img/8f3f773fa8ac4319.png"></p>
+<p>Na próxima tela, deixe ativado o Gemini no Firebase e clique em <strong><code>Continuar</code></strong>. Após você será perguntado se deseja habilitar o Google Analytics para seu projeto. Não habilite e clique em <strong><code>Criar projeto</code></strong>. Você terá que esperar alguns momentos enquanto seu projeto é preparado.</p>
+<p class="image-container"><img style="width: 624.00px" src="img/20bcca79f618f0e6.png"></p>
+<p>Quando terminar, pressione <strong><code>Continuar</code></strong> para prosseguir para o painel do projeto. Agora, vamos configurar a autenticação.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Ativando a autenticação" duration="10">
-        <p>Na barra de navegação lateral clique em <code>Criação/Autentication.</code></p>
-<p class="image-container"><img style="width: 255.00px" src="img\\d6c41ab4eb277486.png"></p>
-<p>e será apresentada a seguinte tela e você deverá clicar em <code>Vamos começar</code>.  Isso habilitará o módulo de autenticação:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\37f97bad6a89ddde.png"></p>
-<p>Vamos utilizar a autenticação do Google. Clique em <code>Google</code>: </p>
-<p class="image-container"><img style="width: 624.00px" src="img\\5bf779bfbb0a79a0.png"></p>
+        <p>Na barra de navegação lateral clique em <strong><code>Segurança</code></strong> e <strong><code>Autenticação</code></strong><code>:</code></p>
+<p class="image-container"><img style="width: 624.00px" src="img/a81c60185074aab3.png"></p>
+<p>e será apresentada a seguinte tela e você deverá clicar em <strong><code>Vamos começar</code></strong>.  Isso habilitará o módulo de autenticação:</p>
+<p class="image-container"><img style="width: 569.50px" src="img/569a76b3cf5994c0.png"></p>
+<p>Vamos utilizar a autenticação do Google. Clique em <strong><code>Google</code></strong>: </p>
+<p class="image-container"><img style="width: 624.00px" src="img/a22fb99fa51d8586.png"></p>
 <p>Depois, na tela abaixo ative o provedor de login Google e informe o nome do projeto e e-mail:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\66695b784e780626.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/d1badbd790d760a3.png"></p>
 <p>Salve para finalizar a configuração da autenticação do Google em seu projeto do Firebase.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Criando um app Android no Firebase" duration="10">
-        <p>Neste ponto vamos configurar o firebase para responder a um aplicativo Android. Clique no ícone de engrenagem na barra lateral e vá para as configurações do projeto. </p>
-<p class="image-container"><img style="width: 441.00px" src="img\\54dc6988930d57eb.png"></p>
+        <p>Neste ponto vamos configurar o firebase para responder a um aplicativo Android. Clique no ícone de engrenagem (⚙️ <strong><code>Configurações / Geral</code></strong>) na barra lateral e vá para as configurações do projeto. </p>
+<p class="image-container"><img style="width: 624.00px" src="img/b100fe8c4bbb93eb.png"></p>
 <p>Role a tela até aparecer o seguinte:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\719c796e4cccd7d1.png"></p>
-<p>Clique no segundo ícone, que representa uma aplicação Android. Forneça um nome de pacote para o aplicativo e clique em <code>Registrar app</code>.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\d00d27ac34775fb.png"></p>
-<p>Após você deverá fazer o download do arquivo de configuração:</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\4c3ec8eb70de4103.png"></p>
-<p>Ignore todas as próximas etapas.</p>
+<p class="image-container"><img style="width: 624.00px" src="img/df4136d752e6b11c.png"></p>
+<p>Clique no segundo ícone, que representa uma aplicação Android. Forneça um nome de pacote para o aplicativo e clique em <strong><code>Registrar app</code></strong>.</p>
+<p class="image-container"><img style="width: 624.00px" src="img/1c894ef8b55631c7.png"></p>
+<p>Após você deverá fazer o download do arquivo de configuração, clique em <img style="width: 196.21px" src="img/d81f46d277fb82d3.png"></p>
+<p>Após clique <strong><code>Avançar</code></strong> e depois em <strong><code>Continuar no console</code></strong>, ignorando todas as próximas etapas.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Criação do App React Native" duration="20">
         <p>Vamos criar uma aplicação React native. Primeiro abra um terminal e use os seguintes comandos: </p>
-<pre><code>npx create-expo-app nome-da-aplicação --template blank
-cd nome-da-aplicação
-code .</code></pre>
+<p class="image-container"><img style="width: 573.00px" src="img/ba1f493d78d82eae.png"></p>
+<p>Quando terminar a criação do projeto, vamos abri-lo com o IDE VSCode:</p>
+<p class="image-container"><img style="width: 583.00px" src="img/fc13f10e65f5de0a.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Instalando as bibliotecas" duration="20">
+      <google-codelab-step label="Instalando a biblioteca React Native Google Signin" duration="20">
         <aside class="special"><p>Referência: <a href="https://docs.expo.dev/guides/google-authentication/" target="_blank">Expo Google authentication</a></p>
 </aside>
-<p>Antes de instalar as bibliotecas necessárias ao projeto suspenda o servidor de desenvolvimento com CTRL + C.</p>
-<ul>
-<li>A biblioteca <a href="https://rnfirebase.io/auth/social-auth#google" target="_blank">React Native Google Signin</a> fornece um wrapper em torno da biblioteca oficial de login do Google, permitindo que você crie uma credencial e faça login no Firebase.</li>
-</ul>
+<p>A biblioteca <a href="https://rnfirebase.io/auth/social-auth#google" target="_blank">React Native Google Signin</a> fornece um wrapper em torno da biblioteca oficial de login do Google, permitindo que você crie uma credencial e faça login no Firebase.</p>
 <pre><code>npx expo install @react-native-google-signin/google-signin</code></pre>
 
 
@@ -119,22 +115,42 @@ code .</code></pre>
         <ol type="1" start="1">
 <li>O arquivo de configuração <a href="https://drive.google.com/file/d/1Swy1c1RTRQe1stdgkGGxxyfpWGkFlJ2a/view?usp=sharing" target="_blank"><code>google-services.json</code></a> que obtivemos no passo 4 deve ser copiado para a raiz de seu projeto.</li>
 </ol>
-<p class="image-container"><img style="width: 231.00px" src="img\\8940f81426200038.png"></p>
+<p class="image-container"><img style="width: 248.00px" src="img/2c062e008c1666d0.png"></p>
 <ol type="1" start="2">
-<li>Abra o arquivo <code>/app.json</code> e adicione o seguinte código:</li>
+<li>Abra o arquivo <code>/app.json</code> e substitua o conteúdo por este</li>
 </ol>
 <pre><code>{
   &#34;expo&#34;: {
-
-    ...
-
-    &#34;plugins&#34;: [&#34;@react-native-google-signin/google-signin&#34;],
-    &#34;android&#34;: {
-
-      ...
-
-      &#34;googleServicesFile&#34;: &#34;./google-services.json&#34;
+    &#34;name&#34;: &#34;aula-auth&#34;,
+    &#34;slug&#34;: &#34;aula-auth&#34;,
+    &#34;version&#34;: &#34;1.0.0&#34;,
+    &#34;orientation&#34;: &#34;portrait&#34;,
+    &#34;icon&#34;: &#34;./assets/icon.png&#34;,
+    &#34;userInterfaceStyle&#34;: &#34;light&#34;,
+    &#34;newArchEnabled&#34;: true,
+    &#34;splash&#34;: {
+      &#34;image&#34;: &#34;./assets/splash-icon.png&#34;,
+      &#34;resizeMode&#34;: &#34;contain&#34;,
+      &#34;backgroundColor&#34;: &#34;#ffffff&#34;
     },
+    &#34;ios&#34;: {
+      &#34;supportsTablet&#34;: true
+    },
+    &#34;android&#34;: {
+      &#34;googleServicesFile&#34;: &#34;./google-services.json&#34;,
+      &#34;package&#34;: &#34;br.edu.iftm&#34;,
+      &#34;adaptiveIcon&#34;: {
+        &#34;foregroundImage&#34;: &#34;./assets/adaptive-icon.png&#34;,
+        &#34;backgroundColor&#34;: &#34;#ffffff&#34;
+      },
+      &#34;edgeToEdgeEnabled&#34;: true
+    },
+    &#34;web&#34;: {
+      &#34;favicon&#34;: &#34;./assets/favicon.png&#34;
+    },
+    &#34;plugins&#34;: [
+      &#34;@react-native-google-signin/google-signin&#34;
+    ]
   }
 }</code></pre>
 <ol type="1" start="3">
@@ -142,33 +158,31 @@ code .</code></pre>
 </ol>
 <pre><code>npx expo prebuild</code></pre>
 <ol type="1" start="4">
-<li>Adicione a linha indicada abaixo no arquivo <code>/android/build.gradle</code>:</li>
+<li>Digite o comando e tecle <strong><code>enter</code></strong></li>
 </ol>
-<pre><code>buildscript {
-    ext {
-        buildToolsVersion = &#34;a.b.c&#34;
-        minSdkVersion = x
-        compileSdkVersion = y
-        targetSdkVersion = z
-        googlePlayServicesAuthVersion = &#34;20.7.0&#34; // &lt;--- 
-    }
-// ...
-
-}</code></pre>
+<pre><code>&gt; cd android </code></pre>
 <ol type="1" start="5">
-<li>Adicione as linhas abaixo no fim do arquivo <code>/android/gradle.properties</code></li>
+<li>Depois, dentro da pasta android, digite o comando</li>
 </ol>
-<pre><code># config para otimizar o build
-org.gradle.daemon=true
-org.gradle.configureondemand=true
-org.gradle.parallel=true
-org.gradle.caching=true</code></pre>
+<pre><code>&gt; gradlew signingReport</code></pre>
+<p>O resultado será parecido com o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img/13f5522746be6400.png"></p>
+<p>Copie o código destacado que é o certificado SHA-1 de seu app. </p>
+<ol type="1" start="6">
+<li>No site do Firebase, clique no ícone de engrenagem (⚙️ <strong><code>Configurações / Geral</code></strong>) na barra lateral e vá para as configurações do projeto. </li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img/b100fe8c4bbb93eb.png"></p>
+<p>Role a tela até aparecer o seguinte:</p>
+<p class="image-container"><img style="width: 624.00px" src="img/ca9118dc7b64f514.png"></p>
+<p>Clique em <code>Adicionar impressão digital</code> e cole o código SHA1 e depois clique em <code>Salvar</code></p>
+<p class="image-container"><img style="width: 624.00px" src="img/588244dc57b6cf04.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Execução do App" duration="20">
-        <p>Para executar o App temos que usar o seguinte comando:</p>
+        <p>Para executar o App, o comando tem que ser efetuado na pasta raiz do projeto. Verifique o prompt antes de usar o seguinte comando:</p>
+<p class="image-container"><img style="width: 236.00px" src="img/ce56f0aa65e28438.png"></p>
 <pre><code>npx expo run:android</code></pre>
 <p>Para limpar o cache:</p>
 <pre><code>npx expo run:android --no-build-cache</code></pre>
@@ -179,7 +193,7 @@ org.gradle.caching=true</code></pre>
       <google-codelab-step label="Fluxo de login/logout" duration="40">
         <p>Um fluxo de autenticação em um mobile app é um processo que permite ao usuário acessar recursos protegidos do aplicativo, como dados pessoais, configurações ou funcionalidades restritas. </p>
 <p>Para implementar um fluxo de autenticação em um app feito com React Native, é preciso usar bibliotecas específicas que facilitam a integração com serviços de autenticação externos, como Firebase, Auth0 ou AWS Amplify. Essas bibliotecas fornecem componentes e funções que permitem criar telas de login, cadastro, recuperação de senha e verificação de e-mail, além de gerenciar tokens, sessões e permissões de acesso. Alguns exemplos de bibliotecas que podem ser usadas para criar um fluxo de autenticação em um app React Native são: react-native-firebase, react-native-amplify e react-navigation.</p>
-<p class="image-container"><img style="width: 624.00px" src="img\\fd8a10e4866cf0eb.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/c72b3127692278fb.png"></p>
 <p><a href="https://www.figma.com/proto/7nO5K3GhHqSimjwF0ePwnM/Fluxo-de-autentica%C3%A7%C3%A3o?type=design&node-id=10-2&t=ASDKDF3BH9VCnPQL-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=10%3A2&mode=design" target="_blank">Fluxo de autenticação</a></p>
 <p>A renderização condicional é a técnica mais indicada para construir uma lógica que protege as telas do app com acesso restrito. Considere o código abaixo:</p>
 <pre><code>{isAuthenticated
@@ -220,7 +234,7 @@ export const onLogout = async () =&gt; {
 
 // valor obtido no arquivo google-services.json
 GoogleSignin.configure({
-  webClientId: &#34;438872457138-miq1lm1c3cue420bg81k8erkqd9o3cij.apps.googleusercontent.com&#34;,
+  webClientId: &#34;usar o valor obtido do arquivo google-services.json&#34;,
 });
 
 // Telas
@@ -300,7 +314,7 @@ const styles = StyleSheet.create({
 <li>3. O objeto user contém informações sobre o usuário que fez login, como nome de usuário, e-mail, foto de perfil, etc.</li>
 </ol>
 <p>Portanto, você pode usar esta função <code>onLogin</code> para iniciar o processo de login do Google e obter informações sobre o usuário que fez login. Por ser uma função assíncrona, você deve usar a palavra-chave `await` ao chamar `onLogin` ou usar a função dentro de uma cadeia de promessas com `.then()` e `.catch()`.</p>
-<p>Quando o usuário clica no botão <img style="width: 59.66px" src="img\\e7e8a2c38af468a5.png">é acionada a função em <code>onPress</code> que faz o seguinte:</p>
+<p>Quando o usuário clica no botão <img style="width: 59.66px" src="img/b0a9f662bddd711b.png">é acionada a função em <code>onPress</code> que faz o seguinte:</p>
 <ol type="1" start="1">
 <li>setIsSigninInProgress(true): Altera o estado da variável para indicar que o processo de login está em andamento e então a tela mostra um <code><ActivityIndicator /></code></li>
 <li>onLogin().then((user) =&gt; {...}): Aqui, a função onLogin() é chamada. Como onLogin() é uma função assíncrona que retorna uma promessa (objeto javascript do tipo Promise), <strong>.then()</strong> é usado para especificar o que deve acontecer quando a promessa for resolvida. A função dentro de then() recebe o valor resolvido da promessa (neste caso, um objeto de usuário) como seu argumento.</li>
