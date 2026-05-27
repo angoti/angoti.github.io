@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2025-10-29T11:50:12Z",
+  "updated": "2026-05-27T11:58:14Z",
   "id": "rn-ambiente-de-desenvolvimento",
-  "duration": 20,
+  "duration": 125,
   "title": "Codelab - Ambiente de desenvolvimento React Native",
   "authors": "Edson Angoti Júnior",
   "summary": "Preparação ambiente de desenvolvimento com vscode e expo com emulador android via linha de comando",
-  "source": "1M7MV-PTwcugXZtinp9RAIQg6PCBgl_xB5uYpZAumuIU",
+  "source": "1YId9gGdPtyPFCj9tpOhSjA6JQC8xOUIzlcteyq89ecM",
   "theme": "web",
   "status": [
     "emconstrução"

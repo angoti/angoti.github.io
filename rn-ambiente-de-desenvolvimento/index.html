@@ -20,90 +20,378 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="rn-ambiente-de-desenvolvimento"
                   title="Codelab - Ambiente de desenvolvimento React Native"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="Introdução" duration="5">
-        <h2 is-upgraded><img style="width: 688.00px" src="img\\8f9f9e336f14e00e.png"></h2>
-<p><code>Última atualização: 29/10/2025</code></p>
-<h2 is-upgraded><strong>O que você vai fazer</strong></h2>
-<p>Preparar o ambiente de desenvolvimento de aplicações React Native em um sistema operacional Windows 10</p>
-<h2 is-upgraded><strong>Referências</strong></h2>
+        <aside class="special"><p>Última atualização: 27/05/2026</p>
+</aside>
+<p>Este codelab descreve como preparar o ambiente de desenvolvimento para aplicações React Native em um sistema operacional Windows 10 ou Windows 11. Ao final, o computador terá instalados: Node.js, Java Development Kit (JDK) 21, o Android SDK via linha de comando e um Emulador Android (AVD). O Visual Studio Code (VS Code) e o Expo CLI são configurados na última seção.</p>
+<h2 is-upgraded><strong>Tempo estimado</strong></h2>
+<p>60 a 90 minutos, dependendo da velocidade de conexão e do computador.</p>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
 <ul>
-<li><a href="https://nodejs.org/" target="_blank">Node.js</a></li>
-<li><a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html" target="_blank">Java SE Development Kit 17 latest JDK LTS</a></li>
-<li><a href="https://dev.to/andreisfedotov/how-to-install-android-emulator-without-installing-android-studio-3lce" target="_blank">Android Emulator</a></li>
+<li>Instalar e verificar o Node.js (versão LTS)</li>
+<li>Instalar e verificar o JDK 21</li>
+<li>Baixar e configurar o Android SDK sem o Android Studio</li>
+<li>Configurar as variáveis de ambiente ANDROID_HOME e PATH</li>
+<li>Criar e inicializar um Android Virtual Device (AVD)</li>
+<li>Instalar o VS Code e o Expo CLI</li>
+<li>Criar e executar o primeiro projeto React Native</li>
 </ul>
+<h2 is-upgraded><strong>Referências</strong></h2>
+<p><strong>Node.js: </strong><a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a></p>
+<p><strong>JDK 21: </strong><a href="https://www.oracle.com/java/technologies/downloads/#java21" target="_blank">https://www.oracle.com/java/technologies/downloads/#java21</a></p>
+<p><strong>Android SDK (command-line tools): </strong><a href="https://developer.android.com/studio#command-line-tools-only" target="_blank">https://developer.android.com/studio#command-line-tools-only</a></p>
+<p><strong>React Native – Ambiente nativo: </strong><a href="https://reactnative.dev/docs/environment-setup" target="_blank">https://reactnative.dev/docs/environment-setup</a></p>
+<p><strong>Expo: </strong><a href="https://expo.dev/" target="_blank">https://expo.dev/</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pré-requisitos" duration="5">
+        <h2 is-upgraded><strong>2.1 Sistema operacional</strong></h2>
+<p>Windows 10 (64 bits, versão 1903 ou posterior) ou Windows 11.</p>
+<h2 is-upgraded><strong>2.2 Privilégios de administrador</strong></h2>
+<p>A configuração de variáveis de ambiente do sistema exige privilégios de administrador. Verifique com o suporte de TI se o computador tiver restrições.</p>
+<h2 is-upgraded><strong>2.3 Virtualização de hardware</strong></h2>
+<p>O emulador Android requer que a virtualização esteja habilitada na BIOS/UEFI do computador. Para verificar:</p>
+<ol type="1" start="1">
+<li>Pressione Ctrl + Shift + Esc para abrir o Gerenciador de Tarefas.</li>
+<li>Clique na aba Desempenho e, depois, em CPU.</li>
+<li>Confira se o campo Virtualização mostra Habilitado.</li>
+</ol>
+<p class="image-container"><img style="width: 601.70px" src="img/de134128cf7ba288.png"></p>
+<aside class="warning"><p><strong>⚠️ Virtualização desabilitada</strong></p>
+<p>Se o campo mostrar Desabilitado, é necessário acessar a BIOS/UEFI durante a inicialização do Windows e habilitar a opção Intel VT-x (processadores Intel) ou AMD-V (processadores AMD). O procedimento varia conforme o fabricante do equipamento.</p>
+</aside>
+<h2 is-upgraded><strong>2.4 Espaço em disco</strong></h2>
+<p>Reserve pelo menos 8 GB livres. O Android SDK com imagem de sistema ocupa entre 4 GB e 6 GB, e projetos Expo crescem à medida que pacotes são instalados.</p>
+<h2 is-upgraded><strong>2.5 Terminal recomendado</strong></h2>
+<p>Este codelab usa o Prompt de Comando (CMD) do Windows. Os comandos que envolvem variáveis de ambiente usam a sintaxe %VARIAVEL%, que funciona apenas no CMD. No PowerShell, a sintaxe é diferente ($env:VARIAVEL).</p>
+<aside class="special"><p><strong>💡 Como abrir o CMD</strong></p>
+<p>Pressione Win + R, digite cmd e pressione Enter. Para abrir como administrador, clique com o botão direito do mouse no ícone do Prompt de Comando e escolha Executar como administrador.</p>
+</aside>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Node.js" duration="10">
-        <p>Vamos usar a versão LTS (long-term support)  mais recente que é <code>v22.11.0</code>. Baixe o instalador direto do site <a href="https://nodejs.org/" target="_blank">site oficial</a>. Após a instalação, você poderá verificar a instalação com o comando:</p>
-<pre>node -v</pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Java Development Kit" duration="5">
-        <p>O JDK 21 é a versão mais recente de Suporte de Longo Prazo (LTS) da Plataforma Java SE. O JDK 21 receberá atualizações sob o NFTC, até setembro de 2026. Baixe o <a href="https://www.oracle.com/java/technologies/downloads/#java21" target="_blank">instalador</a> e instale o JDK para rodar o emulador Android.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Instalar emulador Android sem instalar Android Studio" duration="0">
-        <ol type="1" start="1">
-<li>Faça o download do <a href="https://developer.android.com/studio?hl=pt-br#somente-ferramentas-de-linha-de-comando" target="_blank">pacote de ferramentas de linha de comando</a> </li>
-<li>Mova a pasta cmdline-tools descompactado para a pasta <code>C:\Users\nome de usuário\AppData\Local\Android\Sdk.</code></li>
-<li>Defina a seguinte variável de ambiente (veja como fazer no passo 3 a seguir)</li>
+        <p>O React Native (e o Expo CLI) são distribuídos como pacotes npm. O Node.js fornece o ambiente de execução JavaScript e o gerenciador de pacotes npm, necessários para criar e executar projetos.</p>
+<h2 is-upgraded><strong>3.1 Download e instalação</strong></h2>
+<ol type="1" start="1">
+<li>Acesse https://nodejs.org/ e baixe o instalador da versão LTS (Long-Term Support). A página exibe automaticamente a versão recomendada para a plataforma atual.</li>
+<li>Execute o instalador. Mantenha todas as opções padrão marcadas.</li>
+<li>Ao final da instalação, clique em Finish.</li>
 </ol>
-<p><code>ANDROID_SDK_ROOT="C:\Users\nome de usuário\AppData\Local\Android\Sdk"</code></p>
+<h2 is-upgraded><strong>3.2 Verificação</strong></h2>
+<p>Feche e reabra o CMD (para recarregar as variáveis de ambiente). Depois, execute os dois comandos a seguir:</p>
+<p>Verificar versão do Node.js e do npm</p>
+<pre><code>node -v
+npm -v</code></pre>
+<p>A saída deve exibir dois números de versão, por exemplo:</p>
+<p><em>Exemplo de saída esperada</em></p>
+<pre><code>v22.11.0
+10.9.0</code></pre>
+<aside class="warning"><p><strong>❌ Comando não reconhecido</strong></p>
+<p>Se o CMD exibir &#39;node&#39; não é reconhecido como um comando interno ou externo, feche e reabra o CMD. Se o erro persistir, reinstale o Node.js garantindo que a opção Add to PATH esteja marcada no instalador.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Java Development Kit (JDK 21)" duration="15">
+        <p>O emulador Android e as ferramentas de compilação nativa do React Native dependem do Java. A versão recomendada é o JDK 21, que recebe suporte até setembro de 2026 no modelo de suporte de longo prazo (LTS) da Oracle.</p>
+<h2 is-upgraded><strong>4.1 Download e instalação</strong></h2>
+<ol type="1" start="1">
+<li>Acesse https://www.oracle.com/java/technologies/downloads/#java21 e baixe o instalador MSI para Windows x64.</li>
+<li>Execute o instalador com as opções padrão.</li>
+</ol>
+<h2 is-upgraded><strong>4.2 Verificação</strong></h2>
+<p><em>Verificar versão do Java</em></p>
+<p><code>java -version</code></p>
+<p><em>Exemplo de saída esperada</em></p>
+<pre><code>java version &#34;21.0.x&#34; ...
+Java(TM) SE Runtime Environment (build 21.0.x ...)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.x ...)</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Android SDK via linha de comando" duration="30">
+        <p>O Android Studio não é necessário para desenvolver com React Native. O SDK pode ser instalado de forma mais leve usando apenas as ferramentas de linha de comando (command-line tools).</p>
+<h2 is-upgraded><strong>📁 Estrutura de pastas que será criada</strong></h2>
+<pre>C:\Users\&lt;usuario&gt;\AppData\Local\Android\Sdk\   (raiz do SDK)    
+
+ Sdk\
+  ├ cmdline-tools\latest\   (ferramentas de linha de comando)
+  ├ platforms\              (plataformas Android)
+  ├ build-tools\            (ferramentas de compilação)    
+  ├ system-images\          (imagens para o emulador)
+  └ platform-tools\         (adb, fastboot)</pre>
+<aside class="special"><p><strong>💡 Como descobrir o seu nome de usuário</strong></p>
+<p>Execute echo %USERNAME% no CMD. Use exatamente o valor exibido nos caminhos a seguir. Se o nome tiver espaços (ex.: João Silva), coloque o caminho entre aspas sempre que usá-lo no CMD.</p>
+</aside>
+<h2 is-upgraded><strong>5.1 Baixar o pacote de ferramentas de linha de comando</strong></h2>
+<ol type="1" start="1">
+<li>Acesse <a href="https://developer.android.com/studio?hl=pt-br#somente-ferramentas-de-linha-de-comando" target="_blank">Fazer o download do Android Studio e das ferramentas de apps</a>.</li>
+<li>Na seção <code>Somente ferramentas de linha de comando</code>, baixe o arquivo ZIP para Windows.</li>
+</ol>
+<h2 is-upgraded><strong>5.2 Organizar os arquivos</strong></h2>
+<ol type="1" start="3">
+<li>Crie a pasta de destino, se ela ainda não existir:</li>
+</ol>
+<p><em>Criar estrutura de pastas</em></p>
+<pre><code>mkdir C:\Users\%USERNAME%\AppData\Local\Android\Sdk\cmdline-tools</code></pre>
 <ol type="1" start="4">
-<li>Adicione à variável de ambiente <code>PATH</code>, os seguintes caminhos:</li>
+<li>Extraia o ZIP baixado. Dentro dele haverá uma pasta chamada cmdline-tools.</li>
+<li>Renomeie essa pasta extraída para latest.</li>
+<li>Mova a pasta latest para dentro do caminho criado no passo 1, de modo que a estrutura fique assim:</li>
 </ol>
-<p><code>"C:\Users\nome de usuário\AppData\Local\Android\Sdk\cmdline-tools\latest\bin"</code></p>
-<p><code>"C:\Users\nome de usuário\AppData\Local\Android\Sdk\emulator"</code></p>
-<ol type="1" start="5">
-<li>Instalar a versão mais nova das cmdline-tools</li>
-</ol>
-<p>entre na pasta <code>C:\Users\nome de usuário\AppData\Local\Android\Sdk\cmdline-tools\bin</code> e execute o comando:</p>
-<pre><code>sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;cmdline-tools;latest&#34;</code></pre>
-<ol type="1" start="6">
-<li>Instale as plataformas, ferramentas de compilação e extras. Execute um comando de cada vez.</li>
-</ol>
-<pre><code>sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;platforms;android-33&#34; &#34;build-tools;33.0.2&#34;
-
-sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;system-images;android-33;google_apis;x86_64&#34;
-
-sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;extras;google;m2repository&#34; &#34;extras;android;m2repository&#34;
-
-sdkmanager --sdk_root=%ANDROID_SDK_ROOT% &#34;platform-tools&#34; &#34;tools&#34;
-
-sdkmanager --sdk_root=%ANDROID_SDK_ROOT% --licenses</code></pre>
+<p><em>Estrutura esperada após organização</em></p>
+<pre><code>C:\Users\&lt;usuario&gt;\AppData\Local\Android\Sdk\cmdline-tools\latest\</code></pre>
+<h2 is-upgraded><strong>5.3 Configurar a variável de ambiente ANDROID_HOME</strong></h2>
+<p>A variável ANDROID_HOME aponta para a raiz do Android SDK e é exigida pelas ferramentas do React Native.</p>
 <ol type="1" start="7">
-<li>Configure a variável de ambiente ANDROID_HOME </li>
+<li>Abra as Configurações do Windows e procure por Editar as variáveis de ambiente do sistema.</li>
+<li>Clique em Variáveis de Ambiente.</li>
+<li>Na seção Variáveis do sistema, clique em Novo e preencha:</li>
 </ol>
-<p>As ferramentas React Native exigem que algumas variáveis ​​de ambiente sejam configuradas para criar aplicativos com código nativo. Abra as configurações do windows e procure por &#34;variáveis de ambiente&#34;.  </p>
 <table>
-<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 345.00px" src="img\\1808e918c7c8666d.png"></p>
-</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 345.00px" src="img\\352155748b9414e4.png"></p>
+<tr><td colspan="1" rowspan="1"><p><strong>Campo</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Valor</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Nome da variável</p>
+</td><td colspan="1" rowspan="1"><p>ANDROID_HOME</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Valor da variável</p>
+</td><td colspan="1" rowspan="1"><p>C:\Users\&lt;usuario&gt;\AppData\Local\Android\Sdk</p>
 </td></tr>
 </table>
-<p>Clique em &#34;Variáveis de Ambiente&#34; e em &#34;Novo...&#34; (Variáveis do sistema) para criar uma nova variável de sistema ANDROID_HOME que aponta para o caminho para seu Android SDK:</p>
-<p class="image-container"><img style="width: 718.11px" src="img\\1b44c0c57962b744.png"></p>
-<p>O SDK é instalado, por padrão, no seguinte local: <code>C:\Users\nome_do_usuário\AppData\Local\Android\Sdk</code></p>
-<ol type="1" start="8">
-<li>Adicionar platform-tools ao Path</li>
+<ol type="1" start="10">
+<li>Clique em OK para salvar.</li>
 </ol>
-<p>Procure pela palavra Path na lista de variáveis do sistema e clique  no botão Editar... e na janela que aparecer clique no botão Novo. O caminho é <code>C:\Users\nome_do_usuário\AppData\Local\Android\Sdk\platform-tools.</code></p>
-<ol type="1" start="9">
-<li>Instale um Android Virtual Device AVD</li>
+<aside class="warning"><p><strong>⚠️ Atenção: ANDROID_SDK_ROOT foi depreciada</strong></p>
+<p>Versões anteriores deste codelab definiam ANDROID_SDK_ROOT. Essa variável foi depreciada pelo Google. Use apenas ANDROID_HOME.</p>
+</aside>
+<h2 is-upgraded><strong>5.4 Adicionar as ferramentas ao PATH</strong></h2>
+<p>Adicione os dois caminhos abaixo à variável de sistema PATH para que os comandos sdkmanager, avdmanager e adb fiquem disponíveis no CMD.</p>
+<ol type="1" start="11">
+<li>Na janela Variáveis de Ambiente, selecione a variável Path na seção Variáveis do sistema e clique em Editar.</li>
+<li>Clique em Novo e adicione cada caminho:</li>
 </ol>
-<p><code>avdmanager create avd -n MeuAVD33 -k "system-images;android-33;google_apis;x86_64" -d "pixel_6"</code></p>
+<p><em>Caminhos a adicionar no PATH</em></p>
+<p><code>%ANDROID_HOME%\cmdline-tools\latest\bin</code></p>
+<p><code>%ANDROID_HOME%\platform-tools</code></p>
+<ol type="1" start="13">
+<li>Clique em OK em todas as janelas abertas para salvar.</li>
+<li>Feche e reabra o CMD para que as alterações entrem em vigor.</li>
+</ol>
+<h2 is-upgraded><strong>5.5 Instalar os componentes do SDK</strong></h2>
+<p>Execute os comandos abaixo, um de cada vez, no CMD. O sdkmanager fará o download dos componentes necessários.</p>
+<h3 is-upgraded><strong>Plataforma e ferramentas de compilação (Android 14 – API 34)</strong></h3>
+<p><em>Instalar plataforma e build-tools</em></p>
+<p><code>sdkmanager "platforms;android-34" "build-tools;34.0.0"</code></p>
+<h3 is-upgraded><strong>Imagem de sistema para o emulador</strong></h3>
+<p><em>Instalar imagem de sistema</em></p>
+<p><code>sdkmanager "system-images;android-34;google_apis;x86_64"</code></p>
+<h3 is-upgraded><strong>Repositórios de suporte</strong></h3>
+<p><em>Instalar repositórios</em></p>
+<p><code>sdkmanager "extras;google;m2repository" "extras;android;m2repository"</code></p>
+<h3 is-upgraded><strong>Ferramentas de plataforma (adb, fastboot)</strong></h3>
+<p><em>Instalar platform-tools</em></p>
+<p><code>sdkmanager "platform-tools"</code></p>
+<h3 is-upgraded><strong>Aceitar licenças</strong></h3>
+<p><em>Aceitar licenças do Android SDK</em></p>
+<p><code>sdkmanager --licenses</code></p>
+<p>Digite y e pressione Enter para cada licença exibida.</p>
+<h2 is-upgraded><strong>5.6 Verificar os componentes instalados</strong></h2>
+<p><em>Listar componentes instalados</em></p>
+<p><code>sdkmanager --list_installed</code></p>
+<p>A saída deve listar platforms;android-34, build-tools;34.0.0, system-images;android-34;google_apis;x86_64 e platform-tools.</p>
+<aside class="special"><p><strong>💡 Por que API 34 (Android 14)?</strong></p>
+<p>A API 34 é o nível alvo recomendado pela documentação oficial do React Native e pelo Expo SDK 52 em 2025. Isso não impede que o aplicativo rode em dispositivos com Android mais antigo: o campo minSdkVersion controla a versão mínima suportada.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Android Virtual Device (AVD)" duration="10">
+        <p>Um AVD é um emulador de dispositivo Android que roda no computador. O React Native usa o AVD para exibir o aplicativo durante o desenvolvimento.</p>
+<h2 is-upgraded><strong>6.1 Criar o AVD</strong></h2>
+<p><em>Criar Android Virtual Device</em></p>
+<pre><code>avdmanager create avd -n MeuAVD34 -k &#34;system-images;android-34;google_apis;x86_64&#34; -d &#34;pixel_6&#34;</code></pre>
+<p>Os parâmetros usados são:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Parâmetro</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Descrição</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>-n MeuAVD34</p>
+</td><td colspan="1" rowspan="1"><p>Nome do AVD (pode ser qualquer nome)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>-k ...</p>
+</td><td colspan="1" rowspan="1"><p>Imagem de sistema instalada no passo 5.5</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>-d pixel_6</p>
+</td><td colspan="1" rowspan="1"><p>Perfil de hardware (Pixel 6)</p>
+</td></tr>
+</table>
+<p>Se o avdmanager perguntar se deseja criar um hardware profile personalizado, responda no.</p>
+<h2 is-upgraded><strong>6.2 Verificar o AVD criado</strong></h2>
+<p><em>Listar AVDs disponíveis</em></p>
+<p><code>avdmanager list avd</code></p>
+<p>A saída deve exibir MeuAVD34 na lista.</p>
+<h2 is-upgraded><strong>6.3 Inicializar o emulador</strong></h2>
+<p><em>Inicializar o emulador Android</em></p>
+<p><code>emulator -avd MeuAVD34</code></p>
+<p>Uma janela com o emulador Android deve abrir em alguns segundos. Se o emulador inicializar e exibir a tela inicial do Android, o ambiente está correto.</p>
+<aside class="warning"><p><strong>❌ Emulador não inicia</strong></p>
+<p>Verifique se a virtualização está habilitada (seção 2.3). Se o erro mencionar HAXM ou Hyper-V, consulte a documentação em https://developer.android.com/studio/run/emulator-acceleration.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Visual Studio Code (VS Code)" duration="15">
+        <p>O VS Code é o editor de código recomendado para este curso. É gratuito, leve e tem suporte nativo a JavaScript e TypeScript.</p>
+<h2 is-upgraded><strong>7.1 Download e instalação</strong></h2>
+<ol type="1" start="1">
+<li>Acesse https://code.visualstudio.com/ e baixe o instalador para Windows.</li>
+<li>Execute o instalador. Na etapa Tarefas Adicionais, marque a opção Adicionar ao PATH (disponibiliza o comando code no CMD).</li>
+<li>Conclua a instalação.</li>
+</ol>
+<h2 is-upgraded><strong>7.2 Extensões recomendadas</strong></h2>
+<p>Abra o VS Code, vá à aba Extensões (Ctrl + Shift + X) e instale:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Extensão</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Finalidade</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ES7+ React/Redux/React-Native snippets</p>
+</td><td colspan="1" rowspan="1"><p>Atalhos de código para React Native</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Prettier – Code formatter</p>
+</td><td colspan="1" rowspan="1"><p>Formatação automática de código</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ESLint</p>
+</td><td colspan="1" rowspan="1"><p>Análise estática de código JavaScript</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>GitLens</p>
+</td><td colspan="1" rowspan="1"><p>Integração avançada com Git</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>7.3 Verificação</strong></h2>
+<p><em>Verificar versão do VS Code</em></p>
+<p><code>code -v</code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Primeiro projeto" duration="15">
+        <h2 is-upgraded><strong>8.1 Criar o primeiro projeto</strong></h2>
+<ol type="1" start="1">
+<li>Escolha ou crie uma pasta para seus projetos, por exemplo C:\Projetos.</li>
+<li>Abra o CMD nessa pasta e execute:</li>
+</ol>
+<p><em>Criar projeto Expo</em></p>
+<pre><code>npx create-expo-app MeuPrimeiroProjeto --template blank
+cd MeuPrimeiroProjeto</code></pre>
+<h2 is-upgraded><strong>8.2 Executar no emulador</strong></h2>
+<p>Certifique-se de que o emulador está rodando (seção 6.3). Depois, execute:</p>
+<p><em>Iniciar o aplicativo no emulador Android</em></p>
+<p><code>npx expo start --android</code></p>
+<p>O Expo compilará o projeto e instalará o Expo Go no emulador automaticamente. Em seguida, o aplicativo será exibido no emulador.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resumo da verificação do ambiente" duration="5">
+        <p>Execute todos os comandos abaixo no CMD após concluir a configuração. Todos devem retornar versões ou informações sem erros.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Comando</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>O que verifica</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Saída esperada</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>node -v</p>
+</td><td colspan="1" rowspan="1"><p>Node.js instalado</p>
+</td><td colspan="1" rowspan="1"><p>v22.x.x ou superior</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>npm -v</p>
+</td><td colspan="1" rowspan="1"><p>npm instalado</p>
+</td><td colspan="1" rowspan="1"><p>10.x.x ou superior</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>java -version</p>
+</td><td colspan="1" rowspan="1"><p>JDK instalado</p>
+</td><td colspan="1" rowspan="1"><p>java version 21.x.x</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>sdkmanager --list_installed</p>
+</td><td colspan="1" rowspan="1"><p>Componentes do SDK</p>
+</td><td colspan="1" rowspan="1"><p>android-34, build-tools, platform-tools</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>avdmanager list avd</p>
+</td><td colspan="1" rowspan="1"><p>AVD criado</p>
+</td><td colspan="1" rowspan="1"><p>MeuAVD34 na lista</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>code -v</p>
+</td><td colspan="1" rowspan="1"><p>VS Code instalado</p>
+</td><td colspan="1" rowspan="1"><p>Número de versão</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Solução de problemas comuns" duration="15">
+        <table>
+<tr><td colspan="1" rowspan="1"><p><strong>Sintoma</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Causa provável</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Solução</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Emulador não executa</p>
+</td><td colspan="1" rowspan="1"><p>Configuração do AVD com problemas</p>
+</td><td colspan="1" rowspan="1"><p>Verifique o arquivo C:\Users\&lt;usuario&gt;\.android\avd\&lt;nome do AVD&gt;\config.ini e busque por Sdk. Se aparecer algo parecido com Sdk/Sdk remova o Sdk duplicado.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Emulador sem internet</p>
+</td><td colspan="1" rowspan="1"><p>Configuração do DNS do AVD</p>
+</td><td colspan="1" rowspan="1"><p>Execute o emulador com <code>emulator -avd MeuAVD34 -dns-server 8.8.8.8</code> </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Botões da lateral direita não funciona</p>
+</td><td colspan="1" rowspan="1"><p>Configuração do AVD com problemas</p>
+</td><td colspan="1" rowspan="1"><p>Verifique o arquivo C:\Users\&lt;usuario&gt;\.android\avd\&lt;nome do AVD&gt;\config.ini e busque por ‘hw.keyboard&#39;. Se aparecer ‘hw.keyboard=no&#39;, altere ‘no&#39; para ‘yes&#39;.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>node ou java não é reconhecido</p>
+</td><td colspan="1" rowspan="1"><p>PATH não atualizado</p>
+</td><td colspan="1" rowspan="1"><p>Feche e reabra o CMD</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>sdkmanager: acesso negado</p>
+</td><td colspan="1" rowspan="1"><p>CMD sem privilégios de admin</p>
+</td><td colspan="1" rowspan="1"><p>Execute o CMD como administrador</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Emulador não inicia (HAXM / Hyper-V)</p>
+</td><td colspan="1" rowspan="1"><p>Virtualização desabilitada ou conflito</p>
+</td><td colspan="1" rowspan="1"><p>Habilite VT-x/AMD-V na BIOS; veja a doc de aceleração</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>sdkmanager não reconhecido</p>
+</td><td colspan="1" rowspan="1"><p>PATH incorreto</p>
+</td><td colspan="1" rowspan="1"><p>Verifique se %ANDROID_HOME%\cmdline-tools\latest\bin está no PATH</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>emulator não reconhecido</p>
+</td><td colspan="1" rowspan="1"><p>platform-tools não está no PATH</p>
+</td><td colspan="1" rowspan="1"><p>Adicione %ANDROID_HOME%\emulator ao PATH</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Expo: sem dispositivo detectado</p>
+</td><td colspan="1" rowspan="1"><p>Emulador não está rodando</p>
+</td><td colspan="1" rowspan="1"><p>Execute emulator -avd MeuAVD34 antes de npx expo start</p>
+</td></tr>
+</table>
+<aside class="special"><p><strong>💡 Emulador não aparece no PATH</strong></p>
+<p>Além de %ANDROID_HOME%\platform-tools, adicione também %ANDROID_HOME%\emulator ao PATH para que o comando emulator fique acessível no CMD. Alguns tutoriais omitem esse caminho.</p>
+</aside>
+<p><em>Fim do Codelab – Ambiente de Desenvolvimento React Native</em></p>
 
 
       </google-codelab-step>
