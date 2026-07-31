@@ -29,7 +29,7 @@
                   feedback-link="">
     
       <google-codelab-step label="Introdução ao React Native" duration="5">
-        <aside class="special"><p>Última atualização: 25/03/2025</p>
+        <aside class="special"><p>Última atualização: 31/07/2026</p>
 </aside>
 <p>React Native é um framework que permite criar aplicativos Android e iOS. Você escreve seu código na linguagem de programação JavaScript e JSX. Ele foi desenvolvido pelo Facebook e foi lançado em março de 2015, durante a conferência F8 do Facebook. Foi nesse evento que o Facebook anunciou o React Native como um projeto de código aberto, permitindo que os desenvolvedores o utilizassem para criar aplicativos móveis multiplataforma. Desde então, o React Native tem passado por várias atualizações e continua a ser ativamente desenvolvido e mantido pela comunidade de código aberto e tem ganhado grande popularidade entre os desenvolvedores devido à sua abordagem inovadora e eficiente para o desenvolvimento multiplataforma.</p>
 <h2 is-upgraded><strong>Principais características do React Native</strong></h2>
@@ -149,7 +149,7 @@ import { Rext, ViewMapView } from &#39;react-native-maps&#39;;</pre>
 </td><td colspan="1" rowspan="1"><p>Fornece um contêiner de rolagem que pode hospedar vários componentes e exibições.</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><strong><code>Button</code></strong></p>
-</td><td colspan="1" rowspan="1"><p>-</p>
+</td><td colspan="1" rowspan="1"><p><code>button</code></p>
 </td><td colspan="1" rowspan="1"><p>Um componente de botão básico para lidar com toques. </p>
 </td></tr>
 </table>
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
 <p>Nesse exemplo, usamos o método <code>StyleSheet.create()</code> para criar um objeto de estilo chamado styles. Dentro deste objeto, definimos várias regras de estilo para os componentes.</p>
 <p>Usar o objeto <code>StyleSheet</code> é particularmente útil quando você precisa reutilizar estilos em vários componentes ou quando deseja manter a separação de preocupações entre a lógica e a aparência do aplicativo.</p>
 <h2 is-upgraded><strong>Estilização avançada</strong></h2>
-<p>O React Native oferece recursos avançados de estilização para atender a necessidades mais complexas de interface do usuário. Alguns desses recursos incluem:</p>
+<p>O React Native oferece recursos avançados de estilização para atender as necessidades mais complexas de interface do usuário. Alguns desses recursos incluem:</p>
 <ul>
 <li>Uso de flexbox: O flexbox é um modelo de layout poderoso que permite criar layouts flexíveis e responsivos. No React Native, você pode usar propriedades como <code>flexDirection</code>, <code>justifyContent</code> e <code>alignItems</code> para controlar o posicionamento e o dimensionamento dos componentes.</li>
 <li>Estilos condicionais: Você pode usar expressões JavaScript dentro de estilos embutidos ou folhas de estilo externas para aplicar estilos condicionalmente com base em determinadas condições. Isso permite que você altere a aparência do componente com base em estados ou dados específicos. Exemplo: <code>style={[styles.paragraph, props.isActive && styles.selected]}</code></li>
@@ -709,7 +709,7 @@ export default App;</pre>
 <p>Neste exemplo, além do componente <code>TextInput</code>, adicionamos o <code>Pressable</code> em vez do <code>Button</code>. O <code>Pressable</code> envolve um texto &#34;Enviar&#34; e, quando é pressionado, a função <strong>handleButtonPress </strong>é chamada. Observe a estilização do componente <code>Pressable</code>, que não é possível no componente <code>Button</code>.</p>
 <h2 is-upgraded><strong>Exercícios</strong></h2>
 <aside class="warning"><ol type="1" start="1">
-<li>Crie um aplicativo React Native com um &lt;TextInput&gt; e um &lt;Button&gt;. Ao pressionar o botão, exiba um alerta com o texto digitado pelo usuário.</li>
+<li>Crie um aplicativo React Native com um &lt;TextInput&gt; e um &lt;Button&gt;. Ao pressionar o botão, exibe um alerta com o texto digitado pelo usuário.</li>
 <li>Modifique o aplicativo anterior para adicionar validação, onde o usuário só pode enviar o texto se tiver mais de 5 caracteres.</li>
 <li>Adicione um novo componente &lt;Pressable&gt; ao aplicativo anterior, ao lado do &lt;Button&gt;, para exibir o texto digitado quando for pressionado.</li>
 <li>Crie um novo aplicativo onde o usuário possa digitar um nome em um &lt;TextInput&gt; e, ao pressionar um &lt;Button&gt;, o nome digitado seja exibido em um &lt;Text&gt; abaixo do campo de entrada.</li>
@@ -991,7 +991,7 @@ const styles = StyleSheet.create({
 <p>Nesta versão vamos adicionar uma lista de palavras para ser adivinhada pelo usuário.</p>
 <h2 is-upgraded><strong>Projeto Jogo da forca - V4</strong></h2>
 <p><a href="https://snack.expo.dev/@professor-angoti/forca-v4" target="_blank">Link Snack</a></p>
-<p>Na última versão do nosso projeto não vamos adicionar funcionalidades ao jogo. Nós vamos componentizar o código, ou seja, criar componentes de foram que o código fique melhor organizado.</p>
+<p>Na última versão do nosso projeto não vamos adicionar funcionalidades ao jogo. Nós vamos componentizar o código, ou seja, criar componentes para que o código fique melhor organizado.</p>
 
 
       </google-codelab-step>
@@ -1555,7 +1555,7 @@ export default function App() {
   );
 }</pre>
 <h2 is-upgraded><strong>Exercícios sobre navegação entre telas</strong></h2>
-<p>Nos tópicos seguintes temos tutorias com exercícios práticos para reforçar o aprendizado dos elementos utilizados para programar em React Native a navegação entre telas de apps.</p>
+<p>Nos tópicos seguintes temos tutoriais com exercícios práticos para reforçar o aprendizado dos elementos utilizados para programar em React Native a navegação entre telas de apps.</p>
 <h2 is-upgraded><strong>Exercício 1: Stack Navigation</strong></h2>
 <p>Crie um aplicativo React Native com uma navegação em pilha. O aplicativo deve ter duas telas: Home e Detalhes. Na tela Home, exiba um botão &#34;Ir para Detalhes&#34;. Quando o botão for clicado, o aplicativo deve navegar para a tela Detalhes. Na tela Detalhes, exiba um botão &#34;Voltar para Home&#34;. Ao clicar no botão, o aplicativo deve voltar para a tela Home.</p>
 <h3 is-upgraded><strong>Passo 1: Configuração da navegação em pilha</strong></h3>
@@ -1911,7 +1911,7 @@ const App = () =&gt; {
 
 export default App;</pre>
 <p>Neste código, importamos os componentes necessários do React Navigation e as telas. Em seguida, definimos um Drawer.Navigator dentro do NavigationContainer. Definimos as opções de cabeçalho personalizadas no screenOptions do Drawer.Navigator para serem aplicadas a todas as telas do navegador Drawer.</p>
-<h2 is-upgraded><strong>Exercício 7: Navegação aninhada com Stack Navigator dentro de um Tab Navigator</strong></h2>
+<h2 is-upgraded>Exercício 7: Navegação aninhada com Stack Navigator dentro de um Tab Navigator</h2>
 <p>Neste exercício, você irá criar uma navegação aninhada com um Stack Navigator dentro de um Tab Navigator em um aplicativo React Native.</p>
 <h3 is-upgraded><strong>Passo 1: Criando as telas</strong></h3>
 <p>Crie os seguintes arquivos para as telas dentro do diretório src/screens:</p>
@@ -2075,9 +2075,128 @@ const App = () =&gt; {
 
 export default App;</pre>
 <p>Neste código, importamos os componentes necessários do React Navigation, as telas e criamos os navegadores Stack e Drawer. O navegador Stack contém as telas Home e Details, enquanto o navegador Drawer contém o navegador Stack HomeStack e a tela Profile.</p>
-<h2 is-upgraded><strong>Exercicio 9</strong></h2>
+<h2 is-upgraded>Exercicio<strong> 9</strong></h2>
 <p>Criar um app com o seguinte esquema de navegação</p>
 <p class="image-container"><img style="width: 624.00px" src="img/2755253336876b78.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Gerenciamento de Estado" duration="60">
+        <h2 is-upgraded><strong>Introdução aos conceitos de gerenciamento de estado no React Native</strong></h2>
+<p>Gerenciamento de estado é um dos conceitos mais importantes no desenvolvimento de aplicativos React Native. O estado representa os dados que podem mudar ao longo do tempo e que afetam o que é exibido na tela.</p>
+<p>Existem diferentes níveis de estado em uma aplicação:</p>
+<ul>
+<li>Estado local: pertence a um único componente e não precisa ser compartilhado. Ex.: o texto digitado em um campo.</li>
+<li>Estado compartilhado: precisa ser acessado por vários componentes ao mesmo tempo. Ex.: dados do usuário logado.</li>
+<li>Estado global: disponível para toda a aplicação. Ex.: tema (claro/escuro), idioma, autenticação.</li>
+</ul>
+<p>Neste módulo, usaremos as seguintes ferramentas:</p>
+<ul>
+<li><code>useState</code>: para estado local</li>
+<li><code>useEffect</code>: para efeitos colaterais</li>
+<li><code>Context API</code>: para estado global sem bibliotecas externas</li>
+</ul>
+<h2 is-upgraded><strong>Uso do useState e useEffect hooks</strong></h2>
+<h3 is-upgraded><strong>useState</strong></h3>
+<p>O hook useState permite adicionar estado a componentes funcionais. Ele retorna um par: o valor atual do estado e uma função para atualizá-lo.</p>
+<pre>import { useState } from &#39;react&#39;;
+import { View, Text, Button } from &#39;react-native&#39;;
+const Contador = () =&gt; {
+  const [contador, setContador] = useState(0);
+  return (
+    &lt;View style=&#123;&#123; flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39; }}&gt;
+      &lt;Text style=&#123;&#123; fontSize: 32 }}&gt;{contador}&lt;/Text&gt;
+      &lt;Button title=&#34;Incrementar&#34; onPress={() =&gt; setContador(contador + 1)} /&gt;
+      &lt;Button title=&#34;Decrementar&#34; onPress={() =&gt; setContador(contador - 1)} /&gt;
+      &lt;Button title=&#34;Resetar&#34;    onPress={() =&gt; setContador(0)} /&gt;
+    &lt;/View&gt;
+  );
+};
+export default Contador;</pre>
+<h3 is-upgraded><strong>useEffect</strong></h3>
+<p>O hook useEffect permite executar efeitos colaterais em componentes funcionais, como buscar dados de uma API. O segundo argumento é um array de dependências: [] executa apenas uma vez; [valor] executa sempre que valor mudar; sem array executa após toda renderização.</p>
+<pre>import { useState, useEffect } from &#39;react&#39;;
+import { View, Text, FlatList, ActivityIndicator } from &#39;react-native&#39;;
+const ListaUsuarios = () =&gt; {
+  const [usuarios, setUsuarios] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  useEffect(() =&gt; {
+    fetch(&#39;https://jsonplaceholder.typicode.com/users&#39;)
+      .then(r =&gt; r.json())
+      .then(data =&gt; { setUsuarios(data); setCarregando(false); })
+      .catch(err =&gt; console.error(err));
+  }, []);
+  if (carregando)
+    return &lt;ActivityIndicator size=&#34;large&#34; style=&#123;&#123; flex: 1 }} /&gt;;
+  return (
+    &lt;FlatList
+      data={usuarios}
+      keyExtractor={item =&gt; item.id.toString()}
+      renderItem={({ item }) =&gt; (
+        &lt;Text style=&#123;&#123; padding: 10, fontSize: 16 }}&gt;
+          {item.name} - {item.email}
+        &lt;/Text&gt;
+      )}
+    /&gt;
+  );
+};
+export default ListaUsuarios;</pre>
+<h2 is-upgraded><strong>Implementação de estado global com a Context API</strong></h2>
+<p>A Context API é uma solução nativa do React para compartilhar dados entre componentes sem passar props manualmente em cada nível da árvore (prop drilling). É formada por: createContext() para criar o contexto, Context.Provider para fornecer o valor, e useContext() para consumir.</p>
+<h3 is-upgraded><strong>Exemplo: Tema global (claro/escuro)</strong></h3>
+<p>Arquivo src/context/TemaContext.js</p>
+<pre>import { createContext, useState, useContext } from &#39;react&#39;;
+const TemaContext = createContext();
+const TemaProvider = ({ children }) =&gt; {
+  const [temaEscuro, setTemaEscuro] = useState(false);
+  const alternarTema = () =&gt; setTemaEscuro(atual =&gt; !atual);
+  const tema = {
+    fundo: temaEscuro ? &#39;#121212&#39; : &#39;#ffffff&#39;,
+    texto: temaEscuro ? &#39;#ffffff&#39; : &#39;#000000&#39;,
+    temaEscuro, alternarTema,
+  };
+  return (
+    &lt;TemaContext.Provider value={tema}&gt;
+      {children}
+    &lt;/TemaContext.Provider&gt;
+  );
+};
+const useTema = () =&gt; useContext(TemaContext);
+export { TemaProvider, useTema };</pre>
+<p>Arquivo App.js</p>
+<pre>import { TemaProvider } from &#39;./src/context/TemaContext&#39;;
+import TelaInicial from &#39;./src/screens/TelaInicial&#39;;
+const App = () =&gt; (
+  &lt;TemaProvider&gt;
+    &lt;TelaInicial /&gt;
+  &lt;/TemaProvider&gt;
+);
+export default App;</pre>
+<p>Arquivo src/screens/TelaInicial.js</p>
+<pre>import { View, Text, Switch, StyleSheet } from &#39;react-native&#39;;
+import { useTema } from &#39;../context/TemaContext&#39;;
+const TelaInicial = () =&gt; {
+  const { fundo, texto, temaEscuro, alternarTema } = useTema();
+  return (
+    &lt;View style={[styles.container, { backgroundColor: fundo }]}&gt;
+      &lt;Text style={[styles.titulo, { color: texto }]}&gt;
+        Tema {temaEscuro ? &#39;Escuro&#39; : &#39;Claro&#39;}
+      &lt;/Text&gt;
+      &lt;Switch value={temaEscuro} onValueChange={alternarTema} /&gt;
+    &lt;/View&gt;
+  );
+};
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;, gap: 20 },
+  titulo: { fontSize: 24, fontWeight: &#39;bold&#39; },
+});
+export default TelaInicial;</pre>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<aside class="warning"><p>1. Crie um aplicativo com um contador que incrementa, decrementa e reseta. Use useState.</p>
+<p>2. Crie um componente que exibe a hora atual. Use useEffect com setInterval para atualizar o relógio a cada segundo. Não se esqueça de limpar o intervalo na função de retorno do useEffect.</p>
+<p>3. Implemente um carrinho de compras simples usando a Context API. O aplicativo deve ter: uma tela de produtos (lista com botão &#34;Adicionar&#34;), uma tela de carrinho (lista dos itens adicionados com botão &#34;Remover&#34;) e um badge no header mostrando o total de itens.</p>
+</aside>
 
 
       </google-codelab-step>
@@ -2090,8 +2209,8 @@ export default App;</pre>
 <ul>
 <li>   Já vem embutida no navegador e no React Native.</li>
 <li>   Permite realizar requisições `GET`, `POST`, `PUT`, `DELETE`, etc.</li>
-<li>   Exemplo simples (buscando dados de uma API pública):</li>
 </ul>
+<p>Exemplo simples (buscando dados de uma API pública):</p>
 <pre><code>import { useEffect, useState } from &#39;react&#39;;
 import { View, Text, StyleSheet } from &#39;react-native&#39;;
 
@@ -2118,7 +2237,8 @@ export default function App() {
      container: { marginTop: 40, padding: 10 },
      item: { marginBottom: 8, fontSize: 16 }
 });</code></pre>
-<h3 is-upgraded><strong>Separar a lógica de requisições em um arquivo utilitário</strong></h3>
+<p>Separar a lógica de requisições em um arquivo utilitário</p>
+<p>api.js</p>
 <pre><code>// Funções utilitárias para requisições HTTP usando Fetch API
 
 const BASE_URL = &#34;https://jsonplaceholder.typicode.com&#34;;
@@ -2151,7 +2271,7 @@ export async function postData(endpoint, data) {
     throw error;
   }
 }</code></pre>
-<h3 is-upgraded>App.js</h3>
+<p>App.js</p>
 <pre><code>import { useEffect, useState } from &#34;react&#34;;
 import { View, Text, StyleSheet } from &#34;react-native&#34;;
 import { getData } from &#34;./api&#34;; // importando função utilitária
@@ -2237,392 +2357,519 @@ const app = initializeApp(firebaseConfig);</code></pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="ChatBot com inteligência artificial" duration="0">
-        <h2 is-upgraded><strong>Objetivo</strong></h2>
-<p>Construir um app <strong>Expo/React Native</strong> (frontend) que pergunta ao backend <strong>Node.js</strong> sobre o regulamento e recebe respostas <strong>extrativas</strong> com <strong>fontes</strong> (trechos do próprio PDF). Tudo roda localmente com <strong>Transformers.js</strong> (Xenova), sem chaves de API.</p>
-<h2 is-upgraded><strong>1) Preparação</strong></h2>
-<ul>
-<li>Reúna a turma em grupos.</li>
-<li>Cada grupo cria a pasta do projeto: iftm-chatbot/ (com backend/ e app/).</li>
-</ul>
-<h2 is-upgraded><strong>2) Backend</strong></h2>
+      <google-codelab-step label="Persistência de Dados" duration="60">
+        <h2 is-upgraded><strong>Armazenamento de dados localmente com o AsyncStorage</strong></h2>
+<p>Em muitos aplicativos, é necessário salvar dados entre sessões como preferências do usuário, tokens de autenticação ou dados em cache. O AsyncStorage e a solução mais simples para isso no React Native: funciona como um par chave-valor, similar ao localStorage do navegador, mas de forma assíncrona.</p>
 <h3 is-upgraded><strong>Instalação</strong></h3>
-<p>No diretório backend/</p>
-<pre><code>npm init -y
-npm i express cors pdf-parse @xenova/transformers cosine-similarity</code></pre>
-<p>Edite o arquivo packge.json e altere o tipo de pacote para &#34;module&#34;: </p>
-<pre><code>{
-  &#34;name&#34;: &#34;backend&#34;,
-  &#34;version&#34;: &#34;1.0.0&#34;,
-  &#34;description&#34;: &#34;&#34;,
-  &#34;main&#34;: &#34;index.js&#34;,
-  &#34;scripts&#34;: {
-    &#34;test&#34;: &#34;echo \&#34;Error: no test specified\&#34; &amp;&amp; exit 1&#34;
-  },
-  &#34;keywords&#34;: [],
-  &#34;author&#34;: &#34;&#34;,
-  &#34;license&#34;: &#34;ISC&#34;,
-  &#34;type&#34;: &#34;module&#34;
-}</code></pre>
-<h3 is-upgraded><strong>Baixar o PDF oficial</strong></h3>
-<p>Escolha algum regulamento do IFTM, por exemplo ROD, e baixe o pdf.</p>
-<h3 is-upgraded><strong>Script de construção do conhecimento</strong></h3>
-<p>backend/scripts/build-knowledge.js:</p>
-<pre><code>import fs from &#34;fs&#34;;
-import { createRequire } from &#34;module&#34;;
-const require = createRequire(import.meta.url);
-const pdf = require(&#34;pdf-parse&#34;);
-import { pipeline } from &#34;@xenova/transformers&#34;;
-
-const PDF_PATH = &#34;./data/regulamento.pdf&#34;;
-const CHUNKS_PATH = &#34;./data/chunks.json&#34;;
-
-/**
- * Chunking com overlap - Melhora a qualidade da segmentação
- * @param {string} text - Texto completo
- * @param {number} maxLen - Tamanho máximo do chunk
- * @param {number} overlap - Sobreposição entre chunks
- */
-function chunkTextWithOverlap(text, maxLen = 500, overlap = 100) {
-        const chunks = [];
-        let start = 0;
-        let id = 1;
-
-        // Remove quebras de linha múltiplas e normaliza espaços
-        const normalized = text.replace(/\r/g, &#34;&#34;).replace(/\n\s*\n+/g, &#34;\n\n&#34;);
-
-        while (start &lt; normalized.length) {
-                const end = Math.min(start + maxLen, normalized.length);
-                let chunk = normalized.substring(start, end).trim();
-
-                // Se não estamos no final, tenta quebrar em uma sentença completa
-                if (end &lt; normalized.length) {
-                        const lastPeriod = chunk.lastIndexOf(&#34;.&#34;);
-                        const lastNewline = chunk.lastIndexOf(&#34;\n&#34;);
-                        const breakPoint = Math.max(lastPeriod, lastNewline);
-
-                        if (breakPoint &gt; maxLen * 0.7) {
-                                // Se encontrou um bom ponto de quebra
-                                chunk = chunk.substring(0, breakPoint + 1).trim();
-                                start += breakPoint + 1;
-                        } else {
-                                start += maxLen - overlap;
-                        }
-                } else {
-                        start = normalized.length; // Último chunk
-                }
-
-                if (chunk.length &gt; 50) {
-                        // Ignora chunks muito pequenos
-                        chunks.push({ id: id++, text: chunk });
-                }
-        }
-
-        return chunks;
-}
-
-async function main() {
-        console.log(&#34;🚀 Iniciando construção da base de conhecimento (VERSÃO MELHORADA)...\n&#34;);
-
-        // 1. Extração do PDF
-        console.log(&#34;📄 Extraindo texto do PDF...&#34;);
-        const raw = (await pdf(fs.readFileSync(PDF_PATH))).text.trim();
-        console.log(`   ✓ Extraídos ${raw.length} caracteres\n`);
-
-        // 2. Carregando modelo de embeddings
-        console.log(&#34;🤖 Carregando modelo de embeddings...&#34;);
-        const extractor = await pipeline(&#34;feature-extraction&#34;, &#34;Xenova/all-MiniLM-L6-v2&#34;);
-        console.log(&#34;   ✓ Modelo carregado\n&#34;);
-
-        // 3. Chunking com overlap (melhorado)
-        console.log(&#34;✂️  Dividindo texto em chunks (com overlap)...&#34;);
-        const chunks = chunkTextWithOverlap(raw, 500, 100);
-        console.log(`   ✓ Gerados ${chunks.length} chunks`);
-        console.log(
-                `   ✓ Tamanho médio: ${Math.round(
-                        chunks.reduce((s, c) =&gt; s + c.text.length, 0) / chunks.length
-                )} caracteres\n`
-        );
-
-        // 4. Gerando embeddings
-        console.log(&#34;🧮 Gerando embeddings para cada chunk...&#34;);
-        const withEmb = [];
-        for (let i = 0; i &lt; chunks.length; i++) {
-                const c = chunks[i];
-                const emb = await extractor(c.text, { pooling: &#34;mean&#34;, normalize: true });
-                withEmb.push({ ...c, embedding: Array.from(emb.data) });
-
-                // Progress indicator
-                if ((i + 1) % 5 === 0 || i === chunks.length - 1) {
-                        console.log(`   Processados ${i + 1}/${chunks.length} chunks...`);
-                }
-        }
-
-        // 5. Salvando resultado
-        console.log(&#34;\n💾 Salvando chunks.json...&#34;);
-        fs.writeFileSync(CHUNKS_PATH, JSON.stringify(withEmb, null, 2));
-        console.log(`   ✓ Arquivo salvo: ${CHUNKS_PATH}\n`);
-
-        // 6. Estatísticas finais
-        console.log(&#34;📊 ESTATÍSTICAS:&#34;);
-        console.log(`   • Total de chunks: ${withEmb.length}`);
-        console.log(`   • Tamanho do arquivo: ${(fs.statSync(CHUNKS_PATH).size / 1024).toFixed(2)} KB`);
-        console.log(
-                `   • Tamanho mínimo do chunk: ${Math.min(...withEmb.map(c =&gt; c.text.length))} caracteres`
-        );
-        console.log(
-                `   • Tamanho máximo do chunk: ${Math.max(...withEmb.map(c =&gt; c.text.length))} caracteres`
-        );
-        console.log(
-                `   • Cobertura total: ${withEmb.reduce((s, c) =&gt; s + c.text.length, 0)} caracteres\n`
-        );
-
-        console.log(&#34;✅ Base de conhecimento construída com sucesso!&#34;);
-}
-
-main().catch(e =&gt; {
-        console.error(&#34;❌ Erro:&#34;, e);
-        process.exit(1);
-});</code></pre>
-<p>Execute:</p>
-<pre><code>node scripts/build-knowledge.js</code></pre>
-<h3 is-upgraded><strong>API</strong></h3>
-<p>Endpoint /ask</p>
-<p>backend/server.js:</p>
-<pre><code>import express from &#34;express&#34;;
-import cors from &#34;cors&#34;;
-import fs from &#34;fs&#34;;
-import cosine from &#34;cosine-similarity&#34;;
-import { pipeline } from &#34;@xenova/transformers&#34;;
-
-const app = express();
-app.use(cors());
-app.use(express.json({ limit: &#34;1mb&#34; }));
-
-const CHUNKS = JSON.parse(fs.readFileSync(&#34;./data/chunks.json&#34;, &#34;utf-8&#34;));
-const PORT = 3000;
-
-console.log(`📚 Base de conhecimento carregada: ${CHUNKS.length} chunks`);
-
-// Carrega modelo de embeddings
-const load = async () =&gt; {
-        console.log(&#34;🤖 Carregando modelo de embeddings...&#34;);
-        const embedder = await pipeline(&#34;feature-extraction&#34;, &#34;Xenova/all-MiniLM-L6-v2&#34;);
-        console.log(&#34;✓ Modelo carregado com sucesso\n&#34;);
-        console.log(&#34;ℹ️  Nota: Usando busca semântica pura (sem modelo QA)&#34;);
-        console.log(&#34;   Retorna contexto relevante - funciona melhor para português!\n&#34;);
-        return embedder;
-};
-
-const embedder = await load();
-
-/**
- * Busca os K chunks mais similares à query
- */
-const topK = (qEmb, k = 5) =&gt;
-        CHUNKS.map(c =&gt; ({ ...c, score: cosine(qEmb, c.embedding) }))
-                .sort((a, b) =&gt; b.score - a.score)
-                .slice(0, k);
-
-/**
- * Endpoint principal de perguntas e respostas
- */
-app.post(&#34;/ask&#34;, async (req, res) =&gt; {
-        const startTime = Date.now();
-        console.log(&#34;\n&#34; + &#34;=&#34;.repeat(60));
-        console.log(&#34;📥 Nova pergunta recebida&#34;);
-
-        try {
-                const question = String(req.body?.question || &#34;&#34;).trim();
-                console.log(`❓ Pergunta: &#34;${question}&#34;`);
-
-                if (question.length &lt; 3) {
-                        return res.status(400).json({ error: &#34;Pergunta muito curta (mínimo 3 caracteres).&#34; });
-                }
-
-                // 1. Gerar embedding da pergunta
-                console.log(&#34;🔍 Gerando embedding da pergunta...&#34;);
-                const q = await embedder(String(question), { pooling: &#34;mean&#34;, normalize: true });
-                const qEmb = Array.from(q.data);
-
-                // 2. Buscar chunks mais relevantes (aumentado para 5)
-                console.log(&#34;📊 Buscando chunks mais relevantes...&#34;);
-                const cands = topK(qEmb, 5);
-                console.log(`   Top 5 chunks encontrados:`);
-                cands.forEach((c, i) =&gt; {
-                        console.log(`   ${i + 1}. Chunk #${c.id} - Similaridade: ${(c.score * 100).toFixed(2)}%`);
-                });
-
-                // 3. Preparar resposta com contexto mais relevante
-                console.log(&#34;🎯 Preparando resposta com contexto relevante...&#34;);
-
-                // Pega o chunk mais relevante
-                const best = cands[0];
-
-                // Extrai um trecho relevante (primeiras 3 sentenças ou até 500 chars)
-                let answer = best.text;
-                const sentences = answer.split(/[.!?]\s+/);
-                if (sentences.length &gt; 3) {
-                        answer = sentences.slice(0, 3).join(&#34;. &#34;) + &#34;.&#34;;
-                }
-                if (answer.length &gt; 500) {
-                        answer = answer.substring(0, 500) + &#34;...&#34;;
-                }
-
-                console.log(`   Melhor chunk: #${best.id} (similaridade: ${(best.score * 100).toFixed(2)}%)`);
-                console.log(`   Resposta extraída: ${answer.substring(0, 80)}...`);
-
-                const elapsed = Date.now() - startTime;
-                console.log(`\n✅ Resposta gerada em ${elapsed}ms`);
-                console.log(`📈 Similaridade: ${(best.score * 100).toFixed(2)}%`);
-                console.log(&#34;=&#34;.repeat(60));
-
-                res.json({
-                        answer: answer || &#34;(sem resposta encontrada)&#34;,
-                        confidence: parseFloat((best.score * 100).toFixed(2)),
-                        source: {
-                                chunkId: best.id,
-                                fullContext: best.text,
-                        },
-                        candidates: cands.map(c =&gt; ({
-                                id: c.id,
-                                similarity: parseFloat((c.score * 100).toFixed(2)),
-                                preview: c.text.substring(0, 100) + &#34;...&#34;,
-                        })),
-                        processingTime: elapsed,
-                        method: &#34;semantic-search-only&#34;,
-                });
-        } catch (e) {
-                console.error(&#34;❌ Erro ao processar pergunta:&#34;, e);
-                res.status(500).json({
-                        error: &#34;Falha ao processar a pergunta.&#34;,
-                        details: e.message,
-                });
-        }
-});
-
-/**
- * Endpoint de health check
- */
-app.get(&#34;/health&#34;, (req, res) =&gt; {
-        res.json({
-                status: &#34;ok&#34;,
-                chunks: CHUNKS.length,
-                models: [&#34;all-MiniLM-L6-v2&#34;],
-                method: &#34;semantic-search-only&#34;,
-                language: &#34;multilingual (embeddings)&#34;,
-                note: &#34;Retorna contexto relevante sem modelo QA (melhor para português)&#34;,
-        });
-});
-
-/**
- * Endpoint para listar chunks disponíveis
- */
-app.get(&#34;/chunks&#34;, (req, res) =&gt; {
-        res.json({
-                total: CHUNKS.length,
-                chunks: CHUNKS.map(c =&gt; ({
-                        id: c.id,
-                        preview: c.text.substring(0, 100) + &#34;...&#34;,
-                        length: c.text.length,
-                })),
-        });
-});
-
-app.listen(PORT, () =&gt; {
-        console.log(&#34;=&#34;.repeat(60));
-        console.log(`🚀 API em execução: http://localhost:${PORT}`);
-        console.log(`   📊 /ask (POST)    - Fazer perguntas`);
-        console.log(`   ❤️  /health (GET)  - Status do sistema`);
-        console.log(`   📚 /chunks (GET)  - Listar chunks`);
-        console.log(`\n   💡 Método: Busca semântica pura (sem QA model)`);
-        console.log(`   🌐 Funciona melhor para textos em português!`);
-        console.log(&#34;=&#34;.repeat(60) + &#34;\n&#34;);
-});</code></pre>
-<p>Suba o servidor:</p>
-<pre><code>node server.js</code></pre>
-<p>Para testar o servidor:</p>
-<pre><code>curl -X POST http://localhost:3000/ask ^
-  -H &#34;Content-Type: application/json&#34; ^
-  -d &#34;{\&#34;question\&#34;:\&#34;Quando este regulamento passou a vigorar?\&#34;}&#34;</code></pre>
-<h2 is-upgraded><strong>3) Frontend Expo</strong></h2>
-<h3 is-upgraded><strong>3.1 Criar app</strong></h3>
-<pre><code>execute este comando dentro da pasta /app
-npx create-expo-app -t e escolha o template blank</code></pre>
-<h3 is-upgraded><strong>3.2 App.js</strong></h3>
-<p>Troque BASE_URL pelo IP da máquina onde está o backend (emulador Android local: http://10.0.2.2:3000; Expo Go em celular: use o IP da máquina).</p>
-<pre><code>import { useState, useRef } from &#39;react&#39;;
-import { View, Text, TextInput, Pressable, FlatList, SafeAreaView, KeyboardAvoidingView, Platform, ActivityIndicator } from &#39;react-native&#39;;
-
-const BASE_URL = &#39;http://10.0.2.2:3000&#39;;
-
-export default function App() {
-  const [history, setHistory] = useState([]);
-  const [q, setQ] = useState(&#39;&#39;);
-  const [loading, setLoading] = useState(false);
-  const listRef = useRef(null);
-
-  async function ask() {
-    const question = q.trim();
-    if (!question) return;
-    setQ(&#39;&#39;);
-    setHistory(h =&gt; [...h, { role: &#39;user&#39;, text: question }]);
-    setLoading(true);
-    try {
-      const r = await fetch(`${BASE_URL}/ask`, { method:&#39;POST&#39;, headers:{&#39;Content-Type&#39;:&#39;application/json&#39;}, body: JSON.stringify({ question }) });
-      const data = await r.json();
-      const meta = data.sources?.map(s =&gt; `#${s.id} (sim=${s.sim.toFixed(2)})`).join(&#39;  &#39;);
-      setHistory(h =&gt; [...h, { role: &#39;bot&#39;, text: data.answer, meta }]);
-    } catch {
-      setHistory(h =&gt; [...h, { role: &#39;bot&#39;, text: &#39;Erro ao consultar o regulamento.&#39; }]);
-    } finally {
-      setLoading(false);
-      setTimeout(()=&gt;listRef.current?.scrollToEnd({animated:true}), 100);
-    }
-  }
-
-  const Bubble = ({ item }) =&gt; (
-    &lt;View style=&#123;&#123; alignSelf: item.role===&#39;user&#39;?&#39;flex-end&#39;:&#39;flex-start&#39;, maxWidth:&#39;90%&#39;, marginVertical:6 }}&gt;
-      &lt;View style=&#123;&#123; backgroundColor:item.role===&#39;user&#39;?&#39;#2563eb&#39;:&#39;#111827&#39;, padding:12, borderRadius:12 }}&gt;
-        &lt;Text style=&#123;&#123; color:&#39;white&#39;, fontSize:16 }}&gt;{item.text}&lt;/Text&gt;
-        {!!item.meta &amp;&amp; &lt;Text style=&#123;&#123; color:&#39;#9ca3af&#39;, marginTop:6, fontSize:12 }}&gt;{item.meta}&lt;/Text&gt;}
-      &lt;/View&gt;
+<pre>npx expo install @react-native-async-storage/async-storage</pre>
+<h3 is-upgraded><strong>Operações básicas</strong></h3>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>import AsyncStorage from '@react-native-async-storage/async-storage';</code></p>
+<p><code>// Salvar um valor</code></p>
+<p><code>await AsyncStorage.setItem('chave', 'valor');</code></p>
+<p><code>// Ler um valor</code></p>
+<p><code>const valor = await AsyncStorage.getItem('chave');</code></p>
+<p><code>// Remover um valor</code></p>
+<p><code>await AsyncStorage.removeItem('chave');</code></p>
+<p><code>// Limpar tudo</code></p>
+<p><code>await AsyncStorage.clear();</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Atenção: o AsyncStorage armazena apenas strings. Para salvar objetos, use JSON.stringify() ao salvar e JSON.parse() ao ler.</strong></p>
+</td></tr>
+</table>
+<h3 is-upgraded><strong>Exemplo: salvando preferências do usuário</strong></h3>
+<pre>import { useState, useEffect } from &#39;react&#39;;
+import { View, Text, Switch, StyleSheet } from &#39;react-native&#39;;
+import AsyncStorage from &#39;@react-native-async-storage/async-storage&#39;;
+const App = () =&gt; {
+  const [notificacoes, setNotificacoes] = useState(false);
+  useEffect(() =&gt; {
+    const carregar = async () =&gt; {
+      const val = await AsyncStorage.getItem(&#39;@notificacoes&#39;);
+      if (val !== null) setNotificacoes(JSON.parse(val));
+    };
+    carregar();
+  }, []);
+  const alternar = async (novo) =&gt; {
+    setNotificacoes(novo);
+    await AsyncStorage.setItem(&#39;@notificacoes&#39;, JSON.stringify(novo));
+  };
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.label}&gt;Receber notificacoes&lt;/Text&gt;
+      &lt;Switch value={notificacoes} onValueChange={alternar} /&gt;
     &lt;/View&gt;
   );
-
+};
+const styles = StyleSheet.create({
+  container: { flex: 1, flexDirection: &#39;row&#39;, alignItems: &#39;center&#39;,
+    justifyContent: &#39;space-between&#39;, padding: 20, marginTop: 60 },
+  label: { fontSize: 18 },
+});
+export default App;</pre>
+<h3 is-upgraded><strong>Exemplo: lista de tarefas persistente</strong></h3>
+<pre>import { useState, useEffect } from &#39;react&#39;;
+import { View, Text, TextInput, Pressable,
+         FlatList, StyleSheet, Alert } from &#39;react-native&#39;;
+import AsyncStorage from &#39;@react-native-async-storage/async-storage&#39;;
+const CHAVE = &#39;@tarefas&#39;;
+const App = () =&gt; {
+  const [tarefas, setTarefas] = useState([]);
+  const [novaTarefa, setNovaTarefa] = useState(&#39;&#39;);
+  useEffect(() =&gt; {
+    AsyncStorage.getItem(CHAVE).then(d =&gt; { if (d) setTarefas(JSON.parse(d)); });
+  }, []);
+  const salvar = async (lista) =&gt; {
+    setTarefas(lista);
+    await AsyncStorage.setItem(CHAVE, JSON.stringify(lista));
+  };
+  const adicionar = () =&gt; {
+    if (!novaTarefa.trim()) return;
+    salvar([...tarefas, { id: Date.now().toString(), texto: novaTarefa }]);
+    setNovaTarefa(&#39;&#39;);
+  };
+  const remover = (id) =&gt; Alert.alert(&#39;Remover&#39;, &#39;Confirma?&#39;, [
+    { text: &#39;Cancelar&#39; },
+    { text: &#39;Remover&#39;, onPress: () =&gt; salvar(tarefas.filter(t =&gt; t.id !== id)) },
+  ]);
   return (
-    &lt;SafeAreaView style=&#123;&#123; flex:1, backgroundColor:&#39;#0b1220&#39; }}&gt;
-      &lt;KeyboardAvoidingView style=&#123;&#123; flex:1 }} behavior={Platform.OS===&#39;ios&#39;?&#39;padding&#39;:undefined}&gt;
-        &lt;FlatList ref={listRef} style=&#123;&#123; flex:1, padding:12 }} data={history} keyExtractor={(_,i)=&gt;String(i)} renderItem={Bubble} /&gt;
-        &lt;View style=&#123;&#123; flexDirection:&#39;row&#39;, padding:10, gap:8, borderTopWidth:1, borderTopColor:&#39;#1f2937&#39; }}&gt;
-          &lt;TextInput
-            style=&#123;&#123; flex:1, backgroundColor:&#39;#111827&#39;, color:&#39;white&#39;, padding:12, borderRadius:10 }}
-            placeholder=&#34;Pergunte algo do regulamento...&#34;
-            placeholderTextColor=&#34;#6b7280&#34;
-            value={q}
-            onChangeText={setQ}
-            onSubmitEditing={ask}
-            returnKeyType=&#34;send&#34;
-          /&gt;
-          &lt;Pressable onPress={ask} disabled={loading} style=&#123;&#123; backgroundColor:&#39;#22c55e&#39;, paddingHorizontal:16, borderRadius:10, justifyContent:&#39;center&#39; }}&gt;
-            {loading ? &lt;ActivityIndicator color=&#34;black&#34; /&gt; : &lt;Text style=&#123;&#123; color:&#39;black&#39;, fontWeight:&#39;700&#39; }}&gt;Enviar&lt;/Text&gt;}
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.titulo}&gt;Minhas Tarefas&lt;/Text&gt;
+      &lt;View style={styles.entrada}&gt;
+        &lt;TextInput style={styles.input} placeholder=&#34;Nova tarefa...&#34;
+          value={novaTarefa} onChangeText={setNovaTarefa} /&gt;
+        &lt;Pressable style={styles.botao} onPress={adicionar}&gt;
+          &lt;Text style={styles.botaoTexto}&gt;+&lt;/Text&gt;
+        &lt;/Pressable&gt;
+      &lt;/View&gt;
+      &lt;FlatList data={tarefas} keyExtractor={i =&gt; i.id}
+        renderItem={({ item }) =&gt; (
+          &lt;Pressable onLongPress={() =&gt; remover(item.id)}&gt;
+            &lt;Text style={styles.tarefa}&gt;{item.texto}&lt;/Text&gt;
           &lt;/Pressable&gt;
-        &lt;/View&gt;
-      &lt;/KeyboardAvoidingView&gt;
-    &lt;/SafeAreaView&gt;
+        )}
+        ListEmptyComponent={&lt;Text style={styles.vazio}&gt;Nenhuma tarefa ainda.&lt;/Text&gt;}
+      /&gt;
+    &lt;/View&gt;
   );
-}</code></pre>
-<p>Rode:</p>
-<p>npm start</p>
-<h2 is-upgraded><strong>4) Roteiro de testes (perguntas úteis)</strong></h2>
-<p>Peçam aos grupos para testar perguntas como:</p>
+};
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 20, marginTop: 50 },
+  titulo: { fontSize: 28, fontWeight: &#39;bold&#39;, marginBottom: 20 },
+  entrada: { flexDirection: &#39;row&#39;, gap: 10, marginBottom: 20 },
+  input: { flex: 1, borderWidth: 1, borderColor: &#39;#ccc&#39;, borderRadius: 8, padding: 10, fontSize: 16 },
+  botao: { backgroundColor: &#39;#4CAF50&#39;, borderRadius: 8, paddingHorizontal: 20, justifyContent: &#39;center&#39; },
+  botaoTexto: { color: &#39;#fff&#39;, fontSize: 24, fontWeight: &#39;bold&#39; },
+  tarefa: { padding: 15, fontSize: 16, borderBottomWidth: 1, borderColor: &#39;#eee&#39; },
+  vazio: { textAlign: &#39;center&#39;, color: &#39;#999&#39;, marginTop: 40, fontSize: 16 },
+});
+export default App;</pre>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<aside class="warning"><p>1. Crie um aplicativo que salva o nome do usuário com AsyncStorage. Na primeira abertura, exibe um campo de texto para digitar o nome. Nas próximas, exibe &#34;Bem-vindo(a), [nome]!&#34; diretamente.</p>
+<p>2. Modifique o exemplo da lista de tarefas para que o usuário possa marcar uma tarefa como concluída (ao tocar, o texto aparece riscado). O estado de conclusão também deve ser persistido.</p>
+<p>3. Implemente um histórico de pesquisas. Sempre que o usuário digitar algo e pressionar &#34;Buscar&#34;, o termo é salvo no AsyncStorage. Exiba os últimos 5 termos pesquisados abaixo do campo de busca.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Acesso a Recursos do Dispositivo" duration="60">
+        <h2 is-upgraded><strong>Utilização de recursos nativos do dispositivo</strong></h2>
+<p>O React Native com Expo fornece acesso facilitado a recursos nativos do dispositivo, como câmera, localização (GPS) e sensores, por meio de APIs específicas. Neste módulo, veremos como utilizar os principais recursos.</p>
+<h2 is-upgraded><strong>Câmera</strong></h2>
+<h3 is-upgraded><strong>Instalação</strong></h3>
+<pre>npx expo install expo-camera</pre>
+<h3 is-upgraded><strong>Permissões</strong></h3>
+<p>O acesso à câmera requer permissão explícita do usuário. A API useCameraPermissions() simplifica esse processo.</p>
+<h3 is-upgraded><strong>Exemplo: tirar foto</strong></h3>
+<pre>import { useState, useRef } from &#39;react&#39;;
+import { View, Text, Pressable, Image, StyleSheet } from &#39;react-native&#39;;
+import { CameraView, useCameraPermissions } from &#39;expo-camera&#39;;
+const App = () =&gt; {
+  const [permissao, solicitarPermissao] = useCameraPermissions();
+  const [foto, setFoto] = useState(null);
+  const cameraRef = useRef(null);
+  if (!permissao) return &lt;View /&gt;;
+  if (!permissao.granted) return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.mensagem}&gt;Precisamos de acesso a camera.&lt;/Text&gt;
+      &lt;Pressable style={styles.botao} onPress={solicitarPermissao}&gt;
+        &lt;Text style={styles.botaoTexto}&gt;Permitir&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+  const tirarFoto = async () =&gt; {
+    if (cameraRef.current) {
+      const resultado = await cameraRef.current.takePictureAsync();
+      setFoto(resultado.uri);
+    }
+  };
+  if (foto) return (
+    &lt;View style={styles.container}&gt;
+      &lt;Image source=&#123;&#123; uri: foto }} style={styles.foto} /&gt;
+      &lt;Pressable style={styles.botao} onPress={() =&gt; setFoto(null)}&gt;
+        &lt;Text style={styles.botaoTexto}&gt;Tirar outra foto&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;CameraView style={styles.camera} ref={cameraRef} /&gt;
+      &lt;Pressable style={styles.botao} onPress={tirarFoto}&gt;
+        &lt;Text style={styles.botaoTexto}&gt;Tirar Foto&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+};
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;, gap: 20 },
+  camera: { width: &#39;100%&#39;, height: 400 },
+  foto: { width: &#39;100%&#39;, height: 400 },
+  mensagem: { fontSize: 16, textAlign: &#39;center&#39;, padding: 20 },
+  botao: { backgroundColor: &#39;#2196F3&#39;, padding: 15, borderRadius: 10,
+           minWidth: 200, alignItems: &#39;center&#39; },
+  botaoTexto: { color: &#39;#fff&#39;, fontSize: 18, fontWeight: &#39;bold&#39; },
+});
+export default App;</pre>
+<h2 is-upgraded><strong>GPS (Localização)</strong></h2>
+<h3 is-upgraded><strong>Instalação</strong></h3>
+<pre>npx expo install expo-location</pre>
+<h3 is-upgraded><strong>Exemplo: obter localização atual</strong></h3>
+<pre>import { useState } from &#39;react&#39;;
+import { View, Text, Pressable, StyleSheet } from &#39;react-native&#39;;
+import * as Location from &#39;expo-location&#39;;
+const App = () =&gt; {
+  const [localizacao, setLocalizacao] = useState(null);
+  const [erro, setErro] = useState(null);
+  const obterLocalizacao = async () =&gt; {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== &#39;granted&#39;) { setErro(&#39;Permissao negada.&#39;); return; }
+    const pos = await Location.getCurrentPositionAsync({});
+    setLocalizacao(pos.coords);
+  };
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.titulo}&gt;Minha Localizacao&lt;/Text&gt;
+      {localizacao &amp;&amp; (
+        &lt;View style={styles.card}&gt;
+          &lt;Text&gt;Latitude: {localizacao.latitude.toFixed(6)}&lt;/Text&gt;
+          &lt;Text&gt;Longitude: {localizacao.longitude.toFixed(6)}&lt;/Text&gt;
+          &lt;Text&gt;Precisao: {localizacao.accuracy?.toFixed(0)} metros&lt;/Text&gt;
+        &lt;/View&gt;
+      )}
+      {erro &amp;&amp; &lt;Text style={styles.erro}&gt;{erro}&lt;/Text&gt;}
+      &lt;Pressable style={styles.botao} onPress={obterLocalizacao}&gt;
+        &lt;Text style={styles.botaoTexto}&gt;Obter Localizacao&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+};
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;, gap: 20, padding: 20 },
+  titulo: { fontSize: 24, fontWeight: &#39;bold&#39; },
+  card: { backgroundColor: &#39;#f0f0f0&#39;, borderRadius: 10, padding: 20, width: &#39;100%&#39;, gap: 8 },
+  erro: { color: &#39;red&#39;, fontSize: 16 },
+  botao: { backgroundColor: &#39;#4CAF50&#39;, padding: 15, borderRadius: 10,
+           minWidth: 220, alignItems: &#39;center&#39; },
+  botaoTexto: { color: &#39;#fff&#39;, fontSize: 18, fontWeight: &#39;bold&#39; },
+});
+export default App;</pre>
+<h2 is-upgraded><strong>Sensor de Movimento (Acelerômetro)</strong></h2>
+<h3 is-upgraded><strong>Instalação</strong></h3>
+<pre>npx expo install expo-sensors</pre>
+<h3 is-upgraded><strong>Exemplo: detectar movimento</strong></h3>
+<pre>import { useState, useEffect } from &#39;react&#39;;
+import { View, Text, StyleSheet } from &#39;react-native&#39;;
+import { Accelerometer } from &#39;expo-sensors&#39;;
+const App = () =&gt; {
+  const [dados, setDados] = useState({ x: 0, y: 0, z: 0 });
+  useEffect(() =&gt; {
+    Accelerometer.setUpdateInterval(200);
+    const sub = Accelerometer.addListener(setDados);
+    return () =&gt; sub.remove();
+  }, []);
+  const r = (n) =&gt; Math.round(n * 100) / 100;
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.titulo}&gt;Acelerometro&lt;/Text&gt;
+      &lt;Text style={styles.valor}&gt;X: {r(dados.x)}&lt;/Text&gt;
+      &lt;Text style={styles.valor}&gt;Y: {r(dados.y)}&lt;/Text&gt;
+      &lt;Text style={styles.valor}&gt;Z: {r(dados.z)}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: &#39;center&#39;, justifyContent: &#39;center&#39;, gap: 10 },
+  titulo: { fontSize: 24, fontWeight: &#39;bold&#39;, marginBottom: 20 },
+  valor: { fontSize: 20 },
+});
+export default App;</pre>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<aside class="warning"><p>1. Crie um aplicativo que acessa a câmera, permite tirar uma foto e salva a URI da foto com AsyncStorage, exibindo-a sempre que o aplicativo for aberto novamente.</p>
+<p>2. Crie um aplicativo que rastreia a localização do usuário em tempo real usando Location.watchPositionAsync. Exiba as coordenadas atualizando conforme o usuário se move.</p>
+<p>3. Usando o acelerômetro, crie um aplicativo que detecta quando o dispositivo é sacudido (valores X, Y ou Z ultrapassam um limite definido) e exibe uma mensagem de alerta na tela.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Testes e Depuração" duration="45">
+        <h2 is-upgraded><strong>Introdução às práticas de teste no React Native</strong></h2>
+<p>Testar um aplicativo é essencial para garantir que ele funcione corretamente e continue funcionando à medida que novas funcionalidades são adicionadas. No React Native, existem três tipos principais de testes:</p>
 <ul>
-<li>&#34;Quando este regulamento passou a vigorar?&#34; (esperado: <strong>01/01/2024</strong>) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
-<li>&#34;Quais resoluções foram revogadas por este regulamento?&#34; (esperado: <strong>Res. 48/2020 e 296/2022</strong>) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
-<li>&#34;Onde fala sobre <strong>colação de grau</strong>?&#34; (esperado: seção <strong>TÍTULO X – DA COLAÇÃO DE GRAU</strong>, o bot deve mostrar trechos dessa parte) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
-<li>&#34;O documento está atualizado por alguma alteração posterior?&#34; (esperado: menção à <strong>Resolução IFTM/CONSUP nº 464, de 27/03/2025</strong>, conforme o cabeçalho do compilado) (<a href="https://iftm.edu.br/conselho-superior/resolucoes/20231011/resolucao-iftm-n-354-2023/?utm_source=chatgpt.com" target="_blank">IFTM</a>)<br></li>
+<li>Testes unitários: testam funções isoladas, sem renderizar componentes</li>
+<li>Testes de componente: verificam se um componente renderiza e se comporta corretamente</li>
+<li>Testes end-to-end (E2E): simulam a interação real do usuário com o aplicativo</li>
 </ul>
-<p>Dica: se a resposta vier curta ou vaga, oriente os alunos a reformular perguntando <strong>&#34;segundo o regulamento...&#34;</strong> e termos mais específicos.</p>
+<p>Neste módulo, falaremos nos dois primeiros tipos, utilizando Jest (já incluído no Expo) em conjunto com a React Native Testing Library.</p>
+<h2 is-upgraded><strong>Instalação da React Native Testing Library</strong></h2>
+<pre>npx expo install @testing-library/react-native</pre>
+<h2 is-upgraded><strong>Testes unitários com Jest</strong></h2>
+<p>Testes unitários verificam o comportamento de funções JavaScript puras, sem envolver componentes.</p>
+<p>Arquivo src/utils/calculos.js</p>
+<pre>const calcularTotal = (itens) =&gt;
+  itens.reduce((soma, item) =&gt; soma + item.preco * item.quantidade, 0);
+const formatarMoeda = (valor) =&gt;
+  `R$ ${valor.toFixed(2).replace(&#39;.&#39;, &#39;,&#39;)}`;
+export { calcularTotal, formatarMoeda };</pre>
+<p>Arquivo src/utils/calculos.test.js</p>
+<pre>import { calcularTotal, formatarMoeda } from &#39;./calculos&#39;;
+describe(&#39;calcularTotal&#39;, () =&gt; {
+  it(&#39;retorna 0 para lista vazia&#39;, () =&gt; {
+    expect(calcularTotal([])).toBe(0);
+  });
+  it(&#39;calcula o total corretamente&#39;, () =&gt; {
+    const itens = [{ preco: 10, quantidade: 2 }, { preco: 5, quantidade: 3 }];
+    expect(calcularTotal(itens)).toBe(35);
+  });
+});
+describe(&#39;formatarMoeda&#39;, () =&gt; {
+  it(&#39;formata valor em reais&#39;, () =&gt; {
+    expect(formatarMoeda(35)).toBe(&#39;R$ 35,00&#39;);
+    expect(formatarMoeda(9.9)).toBe(&#39;R$ 9,90&#39;);
+  });
+});</pre>
+<p>Para executar os testes:</p>
+<pre>npx jest</pre>
+<h2 is-upgraded><strong>Testes de componente com React Native Testing Library</strong></h2>
+<p>Arquivo src/components/BotaoContador.js</p>
+<pre>import { useState } from &#39;react&#39;;
+import { View, Text, Pressable } from &#39;react-native&#39;;
+const BotaoContador = ({ inicial = 0 }) =&gt; {
+  const [conta, setConta] = useState(inicial);
+  return (
+    &lt;View&gt;
+      &lt;Text testID=&#34;valor&#34;&gt;{conta}&lt;/Text&gt;
+      &lt;Pressable testID=&#34;incrementar&#34; onPress={() =&gt; setConta(c =&gt; c + 1)}&gt;
+        &lt;Text&gt;+&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+};
+export default BotaoContador;</pre>
+<p>Arquivo src/components/BotaoContador.test.js</p>
+<pre>import { render, fireEvent } from &#39;@testing-library/react-native&#39;;
+import BotaoContador from &#39;./BotaoContador&#39;;
+describe(&#39;BotaoContador&#39;, () =&gt; {
+  it(&#39;exibe o valor inicial&#39;, () =&gt; {
+    const { getByTestId } = render(&lt;BotaoContador inicial={5} /&gt;);
+    expect(getByTestId(&#39;valor&#39;).props.children).toBe(5);
+  });
+  it(&#39;incrementa ao pressionar o botão&#39;, () =&gt; {
+    const { getByTestId } = render(&lt;BotaoContador /&gt;);
+    fireEvent.press(getByTestId(&#39;incrementar&#39;));
+    fireEvent.press(getByTestId(&#39;incrementar&#39;));
+    expect(getByTestId(&#39;valor&#39;).props.children).toBe(2);
+  });
+});</pre>
+<h2 is-upgraded>Uso de ferramentas de depuração</h2>
+<h3 is-upgraded><strong>console.log</strong></h3>
+<p>A forma mais simples de depurar. Os logs aparecem no terminal onde o Expo está rodando.</p>
+<pre>useEffect(() =&gt; {
+  console.log(&#39;Estado atualizado:&#39;, meuEstado);
+}, [meuEstado]);</pre>
+<h3 is-upgraded><strong>Menu do Desenvolvedor Expo</strong></h3>
+<p>Acesse sacudindo o dispositivo ou pressionando m no terminal:</p>
+<ul>
+<li>Open JS Debugger: abre o depurador JavaScript no navegador</li>
+<li>Toggle Performance Monitor: exibe FPS e uso de memória em tempo real</li>
+<li>Inspect Element: inspeciona a árvore de componentes</li>
+</ul>
+<h3 is-upgraded><strong>Dicas de depuração</strong></h3>
+<ul>
+<li>Use console.warn() para avisos (fundo amarelo no app)</li>
+<li>Use console.error() para erros (fundo vermelho no app)</li>
+<li>Use JSON.stringify(objeto, null, 2) para inspecionar objetos complexos</li>
+<li>Use debugger; para pausar a execução quando o depurador estiver ativo</li>
+</ul>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<aside class="warning"><p>1. Escreva testes unitários para uma função validarEmail(email) que retorna true se o e-mail for válido e false caso contrário.</p>
+<p>2. Crie um componente InputComValidacao que exibe uma mensagem de erro abaixo do campo quando o texto estiver vazio. Escreva testes que verifiquem: (a) a mensagem não aparece inicialmente, (b) a mensagem aparece após o usuário apagar o texto.</p>
+<p>3. Use o Performance Monitor do Expo para identificar se algum componente está causando renderizações desnecessárias. Teste com uma lista de 100 itens usando FlatList versus ScrollView e compare o FPS.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Otimização e Desempenho" duration="45">
+        <h2 is-upgraded><strong>Dicas e boas práticas para otimização de desempenho em aplicativos React Native</strong></h2>
+<p>O desempenho de um aplicativo móvel é crítico para a experiência do usuário. Aplicativos lentos ou travados geram abandono. Neste módulo, veremos as principais técnicas de otimização no React Native.</p>
+<h2 is-upgraded><strong>Estratégias de renderização condicional e memorização de componentes</strong></h2>
+<h3 is-upgraded><strong>O problema das re-renderizações desnecessárias</strong></h3>
+<p>No React, sempre que o estado ou as props de um componente mudam, ele é renderizado novamente — e todos os seus filhos também. Isso pode causar lentidão quando a árvore de componentes é grande.</p>
+<h3 is-upgraded><strong>React.memo</strong></h3>
+<p>O React.memo é um HOC (Higher-Order Component) que memoriza o resultado de um componente funcional. Ele só re-renderiza o componente se suas props mudarem.</p>
+<pre>import { memo } from &#39;react&#39;;
+import { View, Text } from &#39;react-native&#39;;
+const ItemLista = memo(({ titulo, preco }) =&gt; {
+  console.log(&#39;Renderizando:&#39;, titulo);
+  return (
+    &lt;View style=&#123;&#123; padding: 10 }}&gt;
+      &lt;Text&gt;{titulo} - R$ {preco}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+});
+export default ItemLista;</pre>
+<p>Sem memo, toda vez que o componente pai re-renderizar, ItemLista também re-renderizara, mesmo que título e preço não tenham mudado.</p>
+<h3 is-upgraded>useCallback</h3>
+<p>O useCallback memoriza uma função para que ela não seja recriada a cada renderização. É importante quando a função é passada como prop para componentes memorizados com React.memo.</p>
+<pre>import { useState, useCallback } from &#39;react&#39;;
+import { View, FlatList, Pressable, Text } from &#39;react-native&#39;;
+const App = () =&gt; {
+  const [itens] = useState([&#39;Produto A&#39;, &#39;Produto B&#39;, &#39;Produto C&#39;]);
+  const [selecionado, setSelecionado] = useState(null);
+  // Sem useCallback: nova função criada a cada render
+  // Com useCallback: função memorizada
+  const handlePress = useCallback((nome) =&gt; {
+    setSelecionado(nome);
+  }, []);
+  return (
+    &lt;View style=&#123;&#123; flex: 1, padding: 20, marginTop: 50 }}&gt;
+      &lt;Text&gt;Selecionado: {selecionado || &#39;nenhum&#39;}&lt;/Text&gt;
+      &lt;FlatList data={itens} keyExtractor={item =&gt; item}
+        renderItem={({ item }) =&gt; (
+          &lt;Pressable onPress={() =&gt; handlePress(item)}&gt;
+            &lt;Text style=&#123;&#123; padding: 15, fontSize: 18 }}&gt;{item}&lt;/Text&gt;
+          &lt;/Pressable&gt;
+        )}
+      /&gt;
+    &lt;/View&gt;
+  );
+};
+export default App;</pre>
+<h3 is-upgraded>useMemo</h3>
+<p>O useMemo memoriza o resultado de um cálculo para evitar reprocessamentos desnecessários.</p>
+<pre>import { useState, useMemo } from &#39;react&#39;;
+import { View, Text, TextInput } from &#39;react-native&#39;;
+const PRODUTOS = Array.from({ length: 1000 }, (_, i) =&gt; ({
+  id: i, nome: `Produto ${i + 1}`, preco: Math.random() * 100,
+}));
+const App = () =&gt; {
+  const [busca, setBusca] = useState(&#39;&#39;);
+  const [ordenar, setOrdenar] = useState(false);
+  // Só executa quando &#39;busca&#39; ou &#39;ordenar&#39; mudarem
+  const filtrados = useMemo(() =&gt; {
+    const resultado = PRODUTOS.filter(p =&gt;
+      p.nome.toLowerCase().includes(busca.toLowerCase())
+    );
+    return ordenar ? [...resultado].sort((a, b) =&gt; a.preco - b.preco) : resultado;
+  }, [busca, ordenar]);
+  return (
+    &lt;View style=&#123;&#123; flex: 1, padding: 20, marginTop: 50 }}&gt;
+      &lt;TextInput placeholder=&#34;Buscar produto...&#34; value={busca}
+        onChangeText={setBusca}
+        style=&#123;&#123; borderWidth: 1, padding: 10, marginBottom: 10 }} /&gt;
+      &lt;Text&gt;{filtrados.length} produto(s) encontrado(s)&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+};
+export default App;</pre>
+<h2 is-upgraded><strong>Boas práticas com FlatList</strong></h2>
+<p>O componente FlatList já é otimizado para listas longas. Algumas propriedades adicionais ampliam ainda mais o desempenho:</p>
+<pre>&lt;FlatList
+  data={dados}
+  keyExtractor={item =&gt; item.id.toString()}
+  renderItem={renderItem}
+  // Estima o tamanho dos itens evitando cálculo dinâmico
+  getItemLayout={(data, index) =&gt; ({
+    length: 80, offset: 80 * index, index,
+  })}
+  windowSize={5}           // itens pré-carregados fora da tela
+  removeClippedSubviews={true}  // remove componentes fora da janela
+  maxToRenderPerBatch={10} // máximo de itens por lote
+  extraData={selecionado}  // avisa o FlatList quando atualizar
+/&gt;</pre>
+<h2 is-upgraded><strong>Analise de desempenho e uso de ferramentas para identificar gargalos</strong></h2>
+<h3 is-upgraded><strong>Performance Monitor (Expo)</strong></h3>
+<p>Acesse pelo menu de desenvolvedor (sacuda o dispositivo ou pressione m no terminal):</p>
+<ul>
+<li>JS FPS: frames por segundo do JavaScript. Ideal: 60 FPS. Quedas indicam processamento pesado no JS thread.</li>
+<li>UI FPS: frames por segundo da interface nativa. Quedas indicam animações lentas.</li>
+<li>RAM: uso de memória. Crescimento contínuo pode indicar vazamento de memória.</li>
+</ul>
+<h3 is-upgraded><strong>Checklist de otimização</strong></h3>
+<p>Antes de publicar seu aplicativo, verifique:</p>
+<ul>
+<li>Componentes que renderizam com frequência estão envoltos em React.memo?</li>
+<li>Funções passadas como props usam useCallback?</li>
+<li>Cálculos pesados usam useMemo?</li>
+<li>Imagens tem tamanho adequado e formato otimizado (WebP)?</li>
+<li>Listas longas usam FlatList em vez de ScrollView?</li>
+<li>O aplicativo roda com pelo menos 60 FPS nas interações principais?</li>
+</ul>
+<h3 is-upgraded><strong>Exemplo comparativo: com e sem React.memo</strong></h3>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>import { useState, useCallback, memo } from 'react';</code></p>
+<p><code>import { View, FlatList, Text, Pressable, StyleSheet } from 'react-native';</code></p>
+<p><code>// SEM memo: re-renderiza sempre que o pai muda</code></p>
+<p><code>const ItemSemMemo = ({ nome, onPress }) => {</code></p>
+<p><code>  console.log('SEM memo:', nome);</code></p>
+<p><code>  return <Pressable onPress={() => onPress(nome)} style={styles.item}><Text>{nome}</Text></Pressable>;</code></p>
+<p><code>};</code></p>
+<p><code>// COM memo: so re-renderiza se props mudarem</code></p>
+<p><code>const ItemComMemo = memo(({ nome, onPress }) => {</code></p>
+<p><code>  console.log('COM memo:', nome);</code></p>
+<p><code>  return <Pressable onPress={() => onPress(nome)} style={styles.item}><Text>{nome}</Text></Pressable>;</code></p>
+<p><code>});</code></p>
+<p><code>const ITENS = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon'];</code></p>
+<p><code>const App = () => {</code></p>
+<p><code>  const [contador, setContador] = useState(0);</code></p>
+<p><code>  const [selecionado, setSelecionado] = useState('');</code></p>
+<p><code>  const handlePress = useCallback((nome) => setSelecionado(nome), []);</code></p>
+<p><code>  return (</code></p>
+<p><code>    <View style={styles.container}></code></p>
+<p><code>      <Text>Contador: {contador} | Selecionado: {selecionado || '-'}</Text></code></p>
+<p><code>      <Pressable style={styles.botao} onPress={() => setContador(c => c + 1)}></code></p>
+<p><code>        <Text style={styles.botaoTexto}>Incrementar (observar console)</Text></code></p>
+<p><code>      </Pressable></code></p>
+<p><code>      <Text style={styles.secao}>Sem memo:</Text></code></p>
+<p><code>      <FlatList data={ITENS} keyExtractor={i => i}</code></p>
+<p><code>        renderItem={({ item }) => <ItemSemMemo nome={item} onPress={handlePress} />}</code></p>
+<p><code>      /></code></p>
+<p><code>      <Text style={styles.secao}>Com memo:</Text></code></p>
+<p><code>      <FlatList data={ITENS} keyExtractor={i => i}</code></p>
+<p><code>renderItem={({ item }) => <ItemComMemo nome={item} onPress={handlePress} />}</code></p>
+<p><code>      /></code></p>
+<p><code>    </View></code></p>
+<p><code>  );</code></p>
+<p><code>};</code></p>
+<p><code>const styles = StyleSheet.create({</code></p>
+<p><code>  container: { flex: 1, padding: 15, marginTop: 50 },</code></p>
+<p><code>  botao: { backgroundColor: '#2196F3', padding: 12, borderRadius: 8, marginVertical: 10 },</code></p>
+<p><code>botaoTexto: { color: '#fff', textAlign: 'center', fontWeight: 'bold' },</code></p>
+<p><code>  secao: { fontSize: 18, fontWeight: 'bold', marginVertical: 8 },</code></p>
+<p><code>  item: { padding: 12, borderBottomWidth: 1, borderColor: '#eee' },</code></p>
+<p><code>});</code></p>
+<p><code>export default App;</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Observe no console: ao pressionar &#34;Incrementar&#34;, os itens sem memo re-renderizam a cada clique. Os itens com memo não re-renderizam, pois suas props nao mudaram.</strong></p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Exercícios</strong></h2>
+<aside class="warning"><p>1. Crie uma lista de 500 itens com FlatList. Adicione um botão que muda o estado do componente pai. Use React.memo no componente de item e verifique no console que ele não re-renderiza desnecessariamente.</p>
+<p>2. Implemente uma tela de busca com 1000 itens. Use useMemo para filtrar os itens conforme o usuário digita. Teste o desempenho com e sem useMemo observando o FPS no Performance Monitor.</p>
+<p>3. Pesquise e experimente o uso de InteractionManager.runAfterInteractions() para adiar tarefas pesadas até que animações e interações terminem. Crie um exemplo prático onde uma lista longa é carregada após uma animação de transição de tela.</p>
+</aside>
 
 
       </google-codelab-step>

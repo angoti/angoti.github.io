@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2026-03-11T21:19:40Z",
+  "updated": "2026-07-31T20:25:30Z",
   "id": "rncursocompletoparte1",
-  "duration": 505,
+  "duration": 775,
   "title": "Curso React Native",
   "authors": "Edson Angoti Júnior",
-  "summary": "Demostração do uso",
+  "summary": "Demonstração do uso",
   "source": "17V0ueFIKhRPvJLr2_OirrZkp9xgmWwgwSlvx3alFFBM",
   "theme": "reactnative",
   "status": [
@@ -18,7 +18,6 @@
     "reactnative"
   ],
   "tags": [
-    "construção",
     "web"
   ],
   "url": "rncursocompletoparte1"
