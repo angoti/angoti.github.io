@@ -385,7 +385,7 @@ export const onLogout = async () =&gt; {
 };
 
 GoogleSignin.configure({
-  webClientId: &#34;676797397237-pjipptjgb1nuaomvcm6rd6dpt19jl06n.apps.googleusercontent.com&#34;,
+  webClientId: &#34;usar o valor obtido do arquivo google-services.json&#34;,
 });
 
 // Telas
@@ -427,7 +427,6 @@ const App = () =&gt; {
   const [user, setUser] = useState(false);
   return &lt;View style={styles.container}&gt;{user ? &lt;HomeScreen user={user} login={setUser} /&gt; : &lt;LoginScreen login={setUser} /&gt;}&lt;/View&gt;;
 };
-
 export default App;
 
 const styles = StyleSheet.create({
