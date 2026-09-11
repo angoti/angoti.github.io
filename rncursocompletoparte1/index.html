@@ -29,7 +29,7 @@
                   feedback-link="">
     
       <google-codelab-step label="Introdução ao React Native" duration="5">
-        <aside class="special"><p>Última atualização: 31/07/2026</p>
+        <aside class="special"><p>Última atualização: 25/03/2025</p>
 </aside>
 <p>React Native é um framework que permite criar aplicativos Android e iOS. Você escreve seu código na linguagem de programação JavaScript e JSX. Ele foi desenvolvido pelo Facebook e foi lançado em março de 2015, durante a conferência F8 do Facebook. Foi nesse evento que o Facebook anunciou o React Native como um projeto de código aberto, permitindo que os desenvolvedores o utilizassem para criar aplicativos móveis multiplataforma. Desde então, o React Native tem passado por várias atualizações e continua a ser ativamente desenvolvido e mantido pela comunidade de código aberto e tem ganhado grande popularidade entre os desenvolvedores devido à sua abordagem inovadora e eficiente para o desenvolvimento multiplataforma.</p>
 <h2 is-upgraded><strong>Principais características do React Native</strong></h2>
@@ -63,7 +63,7 @@
 </ul>
 <p>Embora o Expo Go seja um ambiente de desenvolvimento muito útil e prático, é importante observar que ele possui algumas limitações em relação ao desenvolvimento nativo tradicional do React Native. Dependendo dos requisitos específicos do aplicativo, pode ser necessário fazer uso do React Native CLI e configurar um ambiente de desenvolvimento nativo completo.</p>
 <p>No entanto, para muitos casos de uso, o Expo Go oferece uma solução rápida e eficiente para o desenvolvimento React Native, permitindo que os desenvolvedores testem, iterem e compartilhem aplicativos em tempo real diretamente em dispositivos móveis.</p>
-<p class="image-container"><img style="width: 624.00px" src="img/ce0470e53aa28d75.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/79bf3369d3a7de4b.png"></p>
 
 
       </google-codelab-step>
@@ -715,283 +715,6 @@ export default App;</pre>
 <li>Crie um novo aplicativo onde o usuário possa digitar um nome em um &lt;TextInput&gt; e, ao pressionar um &lt;Button&gt;, o nome digitado seja exibido em um &lt;Text&gt; abaixo do campo de entrada.</li>
 </ol>
 </aside>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Projeto Jogo da forca" duration="40">
-        <h2 is-upgraded><strong>Introdução</strong></h2>
-<p>Ao fim deste projeto teremos o famoso jogo da forca completamente desenvolvido. O projeto será realizado em quatro etapas, e vamos aprender conceitos importantes para a programação de aplicativos em React Native.</p>
-<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
-<ul>
-<li>Versão 1: Lógica para manipular exibição de imagens diferentes.</li>
-<li>Versão 2: Renderização condicional. Implementação da lógica do jogo para adivinhar uma letra usando &lt;TextInput&gt;.</li>
-<li>Versão 3: Implementação da lógica do jogo para adivinhar uma palavra sorteada usando &lt;TextInput&gt;.</li>
-<li>Versão 4: Componentização e exibição de teclado.</li>
-</ul>
-<h2 is-upgraded><strong>Projeto Jogo da forca - V1</strong></h2>
-<p><a href="https://snack.expo.dev/@professor-angoti/forca-v1" target="_blank">Link Snack</a></p>
-<pre>import { View, Pressable, Image, StyleSheet, Text } from &#39;react-native&#39;;
-import { useState } from &#39;react&#39;;
-
-function App() {
-  const forca1 = require(&#39;./assets/forca.png&#39;);
-  const forca2 = require(&#39;./assets/cabeca.png&#39;);
-  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
-  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
-  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
-  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
-  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
-
-  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
-
-  const [situacao, setSituacao] = useState(0);
-
-  function onPress() {
-    if (situacao == 6) {
-      setSituacao(0);
-    } else {
-      setSituacao(situacao + 1);
-    }
-  }
-
-  return (
-    &lt;View style={styles.container}&gt;
-      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
-      &lt;Pressable style={styles.botao} onPress={onPress}&gt;
-        &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
-      &lt;/Pressable&gt;
-    &lt;/View&gt;
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: &#39;center&#39;,
-    justifyContent: &#39;center&#39;,
-  },
-  imagem: {
-    width: &#39;50%&#39;,
-    height: &#39;50%&#39;,
-    borderWidth: 1,
-    marginBottom: 20,
-  },
-  botao: {
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: &#39;black&#39;,
-  },
-  texto: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: &#39;bold&#39;,
-    letterSpacing: 0.25,
-    color: &#39;white&#39;,
-  },
-});
-
-export default App;</pre>
-<h2 is-upgraded><strong>Projeto Jogo da forca - V2</strong></h2>
-<p><a href="https://snack.expo.dev/@professor-angoti/forca-v2" target="_blank">Link Snack</a></p>
-<p>Em 10/07/2024, eu solicitei ao ChatGPT que explicasse o seguinte código: </p>
-<pre>import {
-  View,
-  Pressable,
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-} from &#39;react-native&#39;;
-import { useState } from &#39;react&#39;;
-
-function App() {
-  const forca1 = require(&#39;./assets/forca.png&#39;);
-  const forca2 = require(&#39;./assets/cabeca.png&#39;);
-  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
-  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
-  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
-  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
-  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
-
-  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
-  const letra = &#39;S&#39;;
-
-  const [situacao, setSituacao] = useState(0);
-  const [palpite, onChangePalpite] = useState(&#39;&#39;);
-  const [mensagem, setMensagem] = useState(&#39;&#39;);
-  const [fimDeJogo, setFimDeJogo] = useState(false);
-
-  function validarPalpite() {
-    console.log(&#39;---------&gt; &#39;, palpite.toUpperCase());
-    if (letra.toUpperCase() === palpite.toUpperCase()) {
-      setMensagem(&#39;acertou&#39;);
-      setFimDeJogo(true);
-      setSituacao(0);
-    } else if (situacao &lt; 6) {
-      setSituacao(situacao + 1);
-      onChangePalpite(&#39;&#39;);
-    } else {
-      setFimDeJogo(true);
-      setMensagem(&#39;perdeu&#39;);
-    }
-  }
-
-  function novo() {
-    setMensagem(&#39;&#39;);
-    setSituacao(0);
-    setFimDeJogo(false);
-    onChangePalpite(&#39;&#39;);
-  }
-
-  return (
-    &lt;View style={styles.container}&gt;
-      &lt;Text style={styles.mensagem}&gt;{mensagem}&lt;/Text&gt;
-      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
-      &lt;TextInput
-        style={styles.input}
-        maxLength={1}
-        onChangeText={onChangePalpite}
-        value={palpite}
-        autoCapitalize=&#34;characters&#34;
-      /&gt;
-      {!fimDeJogo &amp;&amp; (
-        &lt;Pressable style={styles.botao} onPress={validarPalpite}&gt;
-          &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
-        &lt;/Pressable&gt;
-      )}
-      {fimDeJogo &amp;&amp; (
-        &lt;Pressable style={styles.botao} onPress={novo}&gt;
-          &lt;Text style={styles.texto}&gt;Novo jogo&lt;/Text&gt;
-        &lt;/Pressable&gt;
-      )}
-    &lt;/View&gt;
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: &#39;center&#39;,
-    justifyContent: &#39;center&#39;,
-  },
-  imagem: {
-    width: &#39;50%&#39;,
-    height: &#39;50%&#39;,
-    // borderWidth: 1,
-    resizeMode: &#39;contain&#39;,
-  },
-  botao: {
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: &#39;black&#39;,
-    margin: 12,
-    width: &#39;50%&#39;,
-  },
-  texto: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: &#39;bold&#39;,
-    letterSpacing: 0.25,
-    color: &#39;white&#39;,
-    alignSelf: &#39;center&#39;,
-  },
-  input: {
-    height: 40,
-    width: 40,
-    margin: 12,
-    borderWidth: 1,
-    textAlign: &#39;center&#39;,
-    fontSize: 20,
-  },
-  mensagem: {
-    fontSize: 50,
-    margin: 12,
-    color: &#39;red&#39;,
-  },
-});
-
-export default App;</pre>
-<p>E aqui está o resultado:</p>
-<aside class="special"><p>Este código React Native implementa um jogo de &#34;Forca&#34; básico, onde o jogador tenta adivinhar uma letra e, dependendo do seu palpite, o estado do jogo é atualizado.</p>
-<p>Aqui está um resumo detalhado de como o jogo funciona:</p>
-<h2 is-upgraded><strong>Estrutura do Código</strong></h2>
-<p>1. <strong>Importação de Componentes</strong></p>
-<p>    - Componentes do React Native como <code>View</code>, <code>Pressable</code>, <code>Image</code>, <code>StyleSheet</code>, <code>Text</code>, e <code>TextInput</code> são importados.</p>
-<p>    - O hook <code>useState</code> do React é usado para gerenciar o estado.</p>
-<p>2. <strong>Imagens</strong></p>
-<p>    - Sete imagens são importadas, representando as diferentes fases do boneco da forca.</p>
-<p>3. <strong>Constantes e Estados</strong></p>
-<p>    - <code>lista</code>: Uma lista contendo as imagens importadas.</p>
-<p>    - <code>letra</code>: A letra correta que o jogador deve adivinhar (neste caso, &#39;S&#39;).</p>
-<p>    - Três estados são definidos:</p>
-<p>      - <code>situacao</code>: Para rastrear o estado atual do boneco da forca.</p>
-<p>      - <code>palpite</code>: Para armazenar o palpite do jogador.</p>
-<p>      - <code>mensagem</code>: Para exibir uma mensagem de acerto ou erro.</p>
-<p>      - <code>fimDeJogo</code>: Para indicar se o jogo terminou.</p>
-<p>4. <strong>Funções</strong></p>
-<p>    - <code>validarPalpite</code>: Valida o palpite do jogador. Se o palpite estiver correto, o jogador vence; caso contrário, o boneco da forca é atualizado. Se o boneco atingir a última imagem, o jogador perde.</p>
-<p>    - <code>novo</code>: Reinicia o jogo, resetando todos os estados.</p>
-<p>5. <strong>Renderização</strong></p>
-<p>    - O componente <code>View</code> principal contém o layout do jogo.</p>
-<p>    - O componente <code>Text</code> exibe a mensagem de acerto ou erro.</p>
-<p>    - O componente <code>Image</code> exibe a imagem correspondente ao estado atual do jogo.</p>
-<p>    - O componente <code>TextInput</code> permite que o jogador insira uma letra.</p>
-<p>    - Os componentes <code>Pressable</code> são usados para os botões de tentativa e novo jogo.</p>
-<h2 is-upgraded><strong>Estilo</strong></h2>
-<p>Os estilos são definidos no objeto <code>styles</code> usando <code>StyleSheet.create</code> para configurar a aparência dos componentes, incluindo layout, cores, tamanhos e alinhamento.</p>
-<h2 is-upgraded><strong>Funcionamento do Jogo</strong></h2>
-<p>- O jogador insere uma letra no <code>TextInput</code> e pressiona o botão &#34;<code>Tentativa</code>&#34;.</p>
-<p>- A função <code>validarPalpite</code> é chamada para verificar se a letra está correta.</p>
-<p>  - Se correta, a mensagem &#34;acertou&#34; é exibida e o jogo termina.</p>
-<p>  - Se incorreta e o jogador ainda tiver tentativas, o estado do boneco da forca é atualizado.</p>
-<p>  - Se todas as tentativas forem usadas, a mensagem &#34;perdeu&#34; é exibida e o jogo termina.</p>
-<p>- O botão &#34;<code>Novo jogo</code>&#34; reinicia o jogo.</p>
-<p>Esse código oferece uma implementação simples e funcional do jogo da forca, fácil de entender e estender para adicionar mais funcionalidades, como adivinhar palavras completas ou alterar a letra correta dinamicamente.</p>
-</aside>
-<h2 is-upgraded><strong>Renderização condicional</strong></h2>
-<aside class="special"><p>Referência: https://react.dev/learn/conditional-rendering</p>
-</aside>
-<p>A renderização condicional é um recurso que permite exibir ou ocultar componentes. Com o uso do operador condicional ternário (veja a <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators#operador_condicional_tern%C3%A1rio" target="_blank">documentação</a>) podemos construir o seguinte código que exibirá uma mensagem específica conforme o valor da variável <code>isLoggedIn</code></p>
-<pre>import { Text, View, StyleSheet } from &#39;react-native&#39;;
-
-export default function App() {
-  const isLoggedIn = false;
-  return (
-    &lt;View style={styles.container}&gt;
-      {isLoggedIn ? (
-        &lt;Text style={styles.paragraph}&gt;Bem-vindo de volta!&lt;/Text&gt;
-      ) : (
-        &lt;Text style={styles.paragraph}&gt;Por favor, faça o login.&lt;/Text&gt;
-      )}
-    &lt;/View&gt;
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: &#39;center&#39;,
-    backgroundColor: &#39;#ecf0f1&#39;,
-    padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: &#39;bold&#39;,
-    textAlign: &#39;center&#39;,
-  },
-});</pre>
-<h2 is-upgraded><strong>Projeto Jogo da forca - V3</strong></h2>
-<p><a href="https://snack.expo.dev/@professor-angoti/forca-v3" target="_blank">Link Snack</a></p>
-<p>Nesta versão vamos adicionar uma lista de palavras para ser adivinhada pelo usuário.</p>
-<h2 is-upgraded><strong>Projeto Jogo da forca - V4</strong></h2>
-<p><a href="https://snack.expo.dev/@professor-angoti/forca-v4" target="_blank">Link Snack</a></p>
-<p>Na última versão do nosso projeto não vamos adicionar funcionalidades ao jogo. Nós vamos componentizar o código, ou seja, criar componentes para que o código fique melhor organizado.</p>
 
 
       </google-codelab-step>
@@ -2085,18 +1808,85 @@ export default App;</pre>
       <google-codelab-step label="Gerenciamento de Estado" duration="60">
         <h2 is-upgraded><strong>Introdução aos conceitos de gerenciamento de estado no React Native</strong></h2>
 <p>Gerenciamento de estado é um dos conceitos mais importantes no desenvolvimento de aplicativos React Native. O estado representa os dados que podem mudar ao longo do tempo e que afetam o que é exibido na tela.</p>
-<p>Existem diferentes níveis de estado em uma aplicação:</p>
+<h3 is-upgraded><strong>Objetivos de aprendizagem</strong></h3>
+<p>Ao final do encontro, o aluno será capaz de:</p>
 <ul>
-<li>Estado local: pertence a um único componente e não precisa ser compartilhado. Ex.: o texto digitado em um campo.</li>
-<li>Estado compartilhado: precisa ser acessado por vários componentes ao mesmo tempo. Ex.: dados do usuário logado.</li>
-<li>Estado global: disponível para toda a aplicação. Ex.: tema (claro/escuro), idioma, autenticação.</li>
+<li>Classificar um dado da aplicação em uma das cinco categorias de estado (local, elevado, global de cliente, de servidor, persistido) e justificar a escolha;</li>
+<li>Substituir useState por useReducer quando a transição de estado envolver várias variáveis correlacionadas;</li>
+<li>Identificar e eliminar estado derivado e estado duplicado;</li>
+<li>Implementar um provedor com Context API para dados de escopo global e reconhecer seu custo de re-renderização;</li>
+<li>Implementar uma store com Zustand e comparar as três abordagens (Context, Zustand, Redux Toolkit);</li>
+<li>Distinguir estado de servidor de estado de cliente e justificar o uso de uma biblioteca de cache de dados remotos.</li>
 </ul>
-<p>Neste módulo, usaremos as seguintes ferramentas:</p>
-<ul>
-<li><code>useState</code>: para estado local</li>
-<li><code>useEffect</code>: para efeitos colaterais</li>
-<li><code>Context API</code>: para estado global sem bibliotecas externas</li>
-</ul>
+<h2 is-upgraded><strong>O</strong> app que perde o carrinho</h2>
+<p>Exemplo que mostra um carrinho de compras ingênuo, com o estado dentro da tela de produtos:</p>
+<pre><code>export default function Produtos({ navigation }) {
+  const [carrinho, setCarrinho] = useState([]);
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text&gt;Itens no carrinho: {carrinho.length}&lt;/Text&gt;
+      &lt;Button title=&#34;Adicionar café&#34; 
+              onPress={() =&gt; setCarrinho([...carrinho, &#39;café&#39;])} /&gt;
+      &lt;Button title=&#34;Ir ao perfil&#34; 
+              onPress={() =&gt; navigation.navigate(&#39;Perfil&#39;)} /&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+<p>Experiência: Execute o app e adicione três itens, vá ao perfil, volte — e conte o que aconteceu. </p>
+<p>Questões:</p>
+<ol type="1" start="1">
+<li>Quem precisa deste dado? (só esta tela? a tela vizinha? o app todo?)</li>
+<li>Por quanto tempo ele precisa existir? (enquanto a tela vive? enquanto o app roda? para sempre?)</li>
+<li>De onde ele vem? (o usuário digitou? o servidor mandou?)</li>
+</ol>
+<p>Estado mal colocado não dá erro de sintaxe — dá bug de comportamento. Por isso ele é difícil de aprender e caro de consertar.</p>
+<h2 is-upgraded>As cinco moradas do estado</h2>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Categoria</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>O que é</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Ferramenta</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Exemplo no CampusApp</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Local</strong></p>
+</td><td colspan="1" rowspan="1"><p>só um componente usa</p>
+</td><td colspan="1" rowspan="1"><p>useState, useReducer</p>
+</td><td colspan="1" rowspan="1"><p>texto sendo digitado, modal aberto</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Elevado</strong></p>
+</td><td colspan="1" rowspan="1"><p>dois irmãos precisam</p>
+</td><td colspan="1" rowspan="1"><p>estado no pai + props</p>
+</td><td colspan="1" rowspan="1"><p>filtro que controla uma lista</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Global de cliente</strong></p>
+</td><td colspan="1" rowspan="1"><p>várias telas distantes</p>
+</td><td colspan="1" rowspan="1"><p>Context, Zustand, Redux</p>
+</td><td colspan="1" rowspan="1"><p>usuário autenticado, tema, carrinho</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>De servidor</strong></p>
+</td><td colspan="1" rowspan="1"><p>veio de uma API, é cópia</p>
+</td><td colspan="1" rowspan="1"><p>TanStack Query, SWR</p>
+</td><td colspan="1" rowspan="1"><p>lista de eventos do campus</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>Persistido</strong></p>
+</td><td colspan="1" rowspan="1"><p>sobrevive ao fechar o app</p>
+</td><td colspan="1" rowspan="1"><p>AsyncStorage, SecureStore, SQLite</p>
+</td><td colspan="1" rowspan="1"><p>token, rascunho, preferências</p>
+</td></tr>
+</table>
+<h2 is-upgraded><strong>Anti-padrão 1 Estado Derivado</strong></h2>
+<pre><code>// ERRADO: total é derivado de itens, mas foi guardado como estado
+
+const [itens, setItens] = useState([]);
+const [total, setTotal] = useState(0);
+useEffect(() =&gt; {
+  setTotal(itens.reduce((soma, i) =&gt; soma + i.preco, 0));
+}, [itens]);
+
+// CERTO: derive na renderização
+const [itens, setItens] = useState([]);
+const total = itens.reduce((soma, i) =&gt; soma + i.preco, 0);</code></pre>
+<h2 is-upgraded><strong>Anti-padrão 2 Estado Duplicado</strong></h2>
+<p>Guardar usuarioSelecionado (o objeto inteiro) em vez de usuarioSelecionadoId cria duas fontes de verdade: se a lista atualizar, a cópia envelhece. </p>
 <h2 is-upgraded><strong>Uso do useState e useEffect hooks</strong></h2>
 <h3 is-upgraded><strong>useState</strong></h3>
 <p>O hook useState permite adicionar estado a componentes funcionais. Ele retorna um par: o valor atual do estado e uma função para atualizá-lo.</p>
@@ -2142,6 +1932,54 @@ const ListaUsuarios = () =&gt; {
   );
 };
 export default ListaUsuarios;</pre>
+<h3 is-upgraded><strong>useReducer</strong></h3>
+<p>Um formulário de inscrição em evento com quatro useState (carregando, erro, dados, enviado). Pergunte: quantas combinações desses quatro valores são possíveis? E quantas fazem sentido? Dezesseis contra quatro. As doze restantes são bugs esperando acontecer.</p>
+<p><code>useReducer</code> resolve isso ao trocar &#34;quatro variáveis independentes&#34; por &#34;um estado e transições nomeadas&#34;.</p>
+<pre><code>import { useReducer } from &#39;react&#39;;
+
+const estadoInicial = { status: &#39;ocioso&#39;, dados: null, erro: null };
+
+function redutor(estado, acao) {
+  switch (acao.tipo) {
+    case &#39;CARREGANDO&#39;:
+      return { status: &#39;carregando&#39;, dados: null, erro: null };
+    case &#39;SUCESSO&#39;:
+      return { status: &#39;sucesso&#39;, dados: acao.dados, erro: null };
+    case &#39;FALHA&#39;:
+      return { status: &#39;falha&#39;, dados: null, erro: acao.erro };
+    default:
+      return estado;
+  }
+}
+
+export default function Eventos() {
+  const [estado, despachar] = useReducer(redutor, estadoInicial);
+  async function carregar() {
+    despachar({ tipo: &#39;CARREGANDO&#39; });
+    try {
+      const resposta = await fetch(&#39;https://api.exemplo.br/eventos&#39;);
+      const dados = await resposta.json();
+      despachar({ tipo: &#39;SUCESSO&#39;, dados });
+    } catch (erro) {
+      despachar({ tipo: &#39;FALHA&#39;, erro: erro.message });
+    }
+  }
+  console.log(&#39;estado atual:&#39;, estado.status);
+  if (estado.status === &#39;carregando&#39;) return &lt;ActivityIndicator /&gt;;
+  if (estado.status === &#39;falha&#39;) return &lt;Text&gt;Erro: {estado.erro}&lt;/Text&gt;;
+
+  // ...
+
+}</code></pre>
+<ul>
+<li>A função <code>redutor</code> é uma função pura: mesmos argumentos, mesmo resultado, sem fetch e sem Date.now() dentro. É isso que o torna trivial de testar.</li>
+<li><code>redutor</code>  retorna um novo objeto; nunca faz estado.status = &#39;sucesso&#39;. É a imutabilidade do ciclo de renderização.</li>
+<li>Os estados impossíveis desapareceram: status só assume quatro valores.</li>
+<li>despachar (dispatch) tem identidade estável entre renderizações, ou seja, pode ser passado a componentes filhos sem provocar re-renderização, ao contrário de funções recriadas no corpo do componente.</li>
+</ul>
+<h2 is-upgraded><strong>Exercício</strong></h2>
+<aside class="special"><p>Escreva um componente de login com useState para ‘email&#39;, ‘senha&#39;, ‘carregando&#39; e ‘mensagemErro&#39;. Converter para um único useReducer com as ações ‘EDITAR_CAMPO&#39;, ‘ENVIAR&#39;, ‘SUCESSO&#39; e ‘FALHA&#39;.</p>
+</aside>
 <h2 is-upgraded><strong>Implementação de estado global com a Context API</strong></h2>
 <p>A Context API é uma solução nativa do React para compartilhar dados entre componentes sem passar props manualmente em cada nível da árvore (prop drilling). É formada por: createContext() para criar o contexto, Context.Provider para fornecer o valor, e useContext() para consumir.</p>
 <h3 is-upgraded><strong>Exemplo: Tema global (claro/escuro)</strong></h3>
@@ -2192,6 +2030,109 @@ const styles = StyleSheet.create({
   titulo: { fontSize: 24, fontWeight: &#39;bold&#39; },
 });
 export default TelaInicial;</pre>
+<h3 is-upgraded><strong>Exemplo: autenticação</strong></h3>
+<pre>// contextos/AutenticacaoContexto.js
+
+import { createContext, useContext, useMemo, useState } from &#39;react&#39;;
+
+const AutenticacaoContexto = createContext(null);
+
+export function AutenticacaoProvedor({ children }) {
+  const [usuario, setUsuario] = useState(null);</pre>
+<pre><code> </code></pre>
+<pre> const entrar = (dadosUsuario) =&gt; setUsuario(dadosUsuario);
+  const sair = () =&gt; setUsuario(null);
+  const valor = useMemo(() =&gt; ({ usuario, entrar, sair }), [usuario]);
+  return (
+    &lt;AutenticacaoContexto.Provider value={valor}&gt;
+      {children}
+    &lt;/AutenticacaoContexto.Provider&gt;
+  );
+}
+
+export function useAutenticacao() {
+  const contexto = useContext(AutenticacaoContexto);
+  if (contexto === null) {
+    throw new Error(&#39;useAutenticacao precisa estar dentro de AutenticacaoProvedor&#39;);
+  }
+  return contexto;
+}
+
+// App.js
+export default function App() {
+  return (
+    &lt;AutenticacaoProvedor&gt;
+      &lt;NavigationContainer&gt;{/* ... */}&lt;/NavigationContainer&gt;
+    &lt;/AutenticacaoProvedor&gt;
+  );
+}
+
+// qualquer tela, em qualquer profundidade
+const { usuario, sair } = useAutenticacao();</pre>
+<ul>
+<li>Exportar um hook próprio (useAutenticacao), não o contexto. Assim a tela nunca precisa importar useContext nem o objeto do contexto, e o throw transforma &#34;esqueci o provedor&#34; — que apareceria como undefined em algum lugar distante — em uma mensagem clara na hora certa.</li>
+<li>useMemo no value. Sem ele, cada renderização do provedor cria um objeto novo e todos os consumidores re-renderizam, mesmo que usuario não tenha mudado.</li>
+<li>O preço. Quando o valor do contexto muda, todo componente que consome aquele contexto re-renderiza, não há seleção parcial. Por isso: um contexto por preocupação (autenticação, tema, carrinho), nunca um contexto único com o estado inteiro do app.</li>
+</ul>
+<h2 is-upgraded>E<strong>stado de servidor ≠ Estado de cliente</strong></h2>
+<p>Pergunta: <em>quando você faz fetch e guarda o resultado num useState, o que você tem na mão?</em> Não é estado — é <strong>cache de um dado que pertence ao servidor</strong>. E cache traz problemas que useState não resolve sozinho: quando revalidar, o que mostrar enquanto carrega, o que fazer se duas telas pedirem o mesmo dado, o que exibir sem rede.</p>
+<pre><code>// o padrão manual, que a turma já escreveu dezenas de vezes
+const [dados, setDados] = useState(null);
+const [carregando, setCarregando] = useState(true);
+const [erro, setErro] = useState(null);
+useEffect(() =&gt; {
+  let cancelado = false;
+  fetch(url)
+    .then((r) =&gt; r.json())
+    .then((json) =&gt; { if (!cancelado) { setDados(json); setCarregando(false); } })
+    .catch((e) =&gt; { if (!cancelado) { setErro(e); setCarregando(false); } });
+  return () =&gt; { cancelado = true; };
+}, [url]);</code></pre>
+<p>Observe a variável cancelado: sem ela, uma resposta que chega depois de a tela ser desmontada tenta atualizar um componente que não existe mais e navegar rápido entre telas passa a produzir avisos e, às vezes, dados trocados.</p>
+<h2 is-upgraded><strong>Árvore de decisão </strong></h2>
+<p>O dado precisa sobreviver ao fechar o app?</p>
+<p>├── <strong>sim</strong>  → persistir (encontro 2) + escolher onde ele vive enquanto o app roda</p>
+<p>└── <strong>não</strong></p>
+<p>    ├── <strong>veio de uma API?</strong> → estado de servidor (cache: useQuery ou padrão manual)</p>
+<p>    └── <strong>é do cliente?</strong></p>
+<p>        ├── <strong>só um componente usa          </strong>→ useState / useReducer</p>
+<p>        ├── <strong>dois irmãos usam              </strong>→ elevar ao pai</p>
+<p>        └── <strong>telas distantes usam        </strong>→ Context (poucos valores) ou Zustand (fatias)</p>
+<h2 is-upgraded><strong>Erros comuns</strong></h2>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Erro</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Sintoma</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Correção</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Estado derivado guardado</p>
+</td><td colspan="1" rowspan="1"><p>valor desatualizado por um quadro; renderização dupla</p>
+</td><td colspan="1" rowspan="1"><p>calcular na renderização; useMemo só se for caro</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Mutação direta do estado</p>
+</td><td colspan="1" rowspan="1"><p>tela não atualiza</p>
+</td><td colspan="1" rowspan="1"><p>criar novo objeto/vetor (<em>spread</em>)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>value do Provider sem useMemo</p>
+</td><td colspan="1" rowspan="1"><p>app inteiro re-renderiza</p>
+</td><td colspan="1" rowspan="1"><p>memorizar o objeto do contexto</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Um contexto para tudo</p>
+</td><td colspan="1" rowspan="1"><p>re-renderização geral a cada mudança</p>
+</td><td colspan="1" rowspan="1"><p>um contexto por preocupação</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Objeto inteiro no estado em vez do id</p>
+</td><td colspan="1" rowspan="1"><p>duas fontes de verdade</p>
+</td><td colspan="1" rowspan="1"><p>guardar o id, buscar o resto</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>useEffect para sincronizar dois estados</p>
+</td><td colspan="1" rowspan="1"><p>laços de atualização</p>
+</td><td colspan="1" rowspan="1"><p>repensar quem é a fonte de verdade</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Requisição sem cancelamento</p>
+</td><td colspan="1" rowspan="1"><p>aviso ao desmontar; dados trocados</p>
+</td><td colspan="1" rowspan="1"><p><em>flag</em> de cancelamento, AbortController ou useQuery</p>
+</td></tr>
+</table>
 <h2 is-upgraded><strong>Exercícios</strong></h2>
 <aside class="warning"><p>1. Crie um aplicativo com um contador que incrementa, decrementa e reseta. Use useState.</p>
 <p>2. Crie um componente que exibe a hora atual. Use useEffect com setInterval para atualizar o relógio a cada segundo. Não se esqueça de limpar o intervalo na função de retorno do useEffect.</p>
@@ -2870,6 +2811,283 @@ export default App;</pre>
 <p>2. Implemente uma tela de busca com 1000 itens. Use useMemo para filtrar os itens conforme o usuário digita. Teste o desempenho com e sem useMemo observando o FPS no Performance Monitor.</p>
 <p>3. Pesquise e experimente o uso de InteractionManager.runAfterInteractions() para adiar tarefas pesadas até que animações e interações terminem. Crie um exemplo prático onde uma lista longa é carregada após uma animação de transição de tela.</p>
 </aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projeto Jogo da forca" duration="40">
+        <h2 is-upgraded><strong>Introdução</strong></h2>
+<p>Ao fim deste projeto teremos o famoso jogo da forca completamente desenvolvido. O projeto será realizado em quatro etapas, e vamos aprender conceitos importantes para a programação de aplicativos em React Native.</p>
+<h2 is-upgraded><strong>O que você vai aprender</strong></h2>
+<ul>
+<li>Versão 1: Lógica para manipular exibição de imagens diferentes.</li>
+<li>Versão 2: Renderização condicional. Implementação da lógica do jogo para adivinhar uma letra usando &lt;TextInput&gt;.</li>
+<li>Versão 3: Implementação da lógica do jogo para adivinhar uma palavra sorteada usando &lt;TextInput&gt;.</li>
+<li>Versão 4: Componentização e exibição de teclado.</li>
+</ul>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V1</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v1" target="_blank">Link Snack</a></p>
+<pre>import { View, Pressable, Image, StyleSheet, Text } from &#39;react-native&#39;;
+import { useState } from &#39;react&#39;;
+
+function App() {
+  const forca1 = require(&#39;./assets/forca.png&#39;);
+  const forca2 = require(&#39;./assets/cabeca.png&#39;);
+  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
+  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
+  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
+  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
+  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
+
+  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
+
+  const [situacao, setSituacao] = useState(0);
+
+  function onPress() {
+    if (situacao == 6) {
+      setSituacao(0);
+    } else {
+      setSituacao(situacao + 1);
+    }
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
+      &lt;Pressable style={styles.botao} onPress={onPress}&gt;
+        &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: &#39;center&#39;,
+    justifyContent: &#39;center&#39;,
+  },
+  imagem: {
+    width: &#39;50%&#39;,
+    height: &#39;50%&#39;,
+    borderWidth: 1,
+    marginBottom: 20,
+  },
+  botao: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: &#39;black&#39;,
+  },
+  texto: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: &#39;bold&#39;,
+    letterSpacing: 0.25,
+    color: &#39;white&#39;,
+  },
+});
+
+export default App;</pre>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V2</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v2" target="_blank">Link Snack</a></p>
+<p>Em 10/07/2024, eu solicitei ao ChatGPT que explicasse o seguinte código: </p>
+<pre>import {
+  View,
+  Pressable,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+} from &#39;react-native&#39;;
+import { useState } from &#39;react&#39;;
+
+function App() {
+  const forca1 = require(&#39;./assets/forca.png&#39;);
+  const forca2 = require(&#39;./assets/cabeca.png&#39;);
+  const forca3 = require(&#39;./assets/cabecacorpo.png&#39;);
+  const forca4 = require(&#39;./assets/cabecacorpoumbraco.png&#39;);
+  const forca5 = require(&#39;./assets/cabecacorpodoisbracos.png&#39;);
+  const forca6 = require(&#39;./assets/cabecacorpodoisbracosumaperna.png&#39;);
+  const forca7 = require(&#39;./assets/cabecacorpodoisbracosduaspernas.png&#39;);
+
+  const lista = [forca1, forca2, forca3, forca4, forca5, forca6, forca7];
+  const letra = &#39;S&#39;;
+
+  const [situacao, setSituacao] = useState(0);
+  const [palpite, onChangePalpite] = useState(&#39;&#39;);
+  const [mensagem, setMensagem] = useState(&#39;&#39;);
+  const [fimDeJogo, setFimDeJogo] = useState(false);
+
+  function validarPalpite() {
+    console.log(&#39;---------&gt; &#39;, palpite.toUpperCase());
+    if (letra.toUpperCase() === palpite.toUpperCase()) {
+      setMensagem(&#39;acertou&#39;);
+      setFimDeJogo(true);
+      setSituacao(0);
+    } else if (situacao &lt; 6) {
+      setSituacao(situacao + 1);
+      onChangePalpite(&#39;&#39;);
+    } else {
+      setFimDeJogo(true);
+      setMensagem(&#39;perdeu&#39;);
+    }
+  }
+
+  function novo() {
+    setMensagem(&#39;&#39;);
+    setSituacao(0);
+    setFimDeJogo(false);
+    onChangePalpite(&#39;&#39;);
+  }
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.mensagem}&gt;{mensagem}&lt;/Text&gt;
+      &lt;Image style={styles.imagem} source={lista[situacao]} /&gt;
+      &lt;TextInput
+        style={styles.input}
+        maxLength={1}
+        onChangeText={onChangePalpite}
+        value={palpite}
+        autoCapitalize=&#34;characters&#34;
+      /&gt;
+      {!fimDeJogo &amp;&amp; (
+        &lt;Pressable style={styles.botao} onPress={validarPalpite}&gt;
+          &lt;Text style={styles.texto}&gt;Tentativa&lt;/Text&gt;
+        &lt;/Pressable&gt;
+      )}
+      {fimDeJogo &amp;&amp; (
+        &lt;Pressable style={styles.botao} onPress={novo}&gt;
+          &lt;Text style={styles.texto}&gt;Novo jogo&lt;/Text&gt;
+        &lt;/Pressable&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: &#39;center&#39;,
+    justifyContent: &#39;center&#39;,
+  },
+  imagem: {
+    width: &#39;50%&#39;,
+    height: &#39;50%&#39;,
+    // borderWidth: 1,
+    resizeMode: &#39;contain&#39;,
+  },
+  botao: {
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: &#39;black&#39;,
+    margin: 12,
+    width: &#39;50%&#39;,
+  },
+  texto: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: &#39;bold&#39;,
+    letterSpacing: 0.25,
+    color: &#39;white&#39;,
+    alignSelf: &#39;center&#39;,
+  },
+  input: {
+    height: 40,
+    width: 40,
+    margin: 12,
+    borderWidth: 1,
+    textAlign: &#39;center&#39;,
+    fontSize: 20,
+  },
+  mensagem: {
+    fontSize: 50,
+    margin: 12,
+    color: &#39;red&#39;,
+  },
+});
+
+export default App;</pre>
+<p>E aqui está o resultado:</p>
+<aside class="special"><p>Este código React Native implementa um jogo de &#34;Forca&#34; básico, onde o jogador tenta adivinhar uma letra e, dependendo do seu palpite, o estado do jogo é atualizado.</p>
+<p>Aqui está um resumo detalhado de como o jogo funciona:</p>
+<h2 is-upgraded><strong>Estrutura do Código</strong></h2>
+<p>1. <strong>Importação de Componentes</strong></p>
+<p>    - Componentes do React Native como <code>View</code>, <code>Pressable</code>, <code>Image</code>, <code>StyleSheet</code>, <code>Text</code>, e <code>TextInput</code> são importados.</p>
+<p>    - O hook <code>useState</code> do React é usado para gerenciar o estado.</p>
+<p>2. <strong>Imagens</strong></p>
+<p>    - Sete imagens são importadas, representando as diferentes fases do boneco da forca.</p>
+<p>3. <strong>Constantes e Estados</strong></p>
+<p>    - <code>lista</code>: Uma lista contendo as imagens importadas.</p>
+<p>    - <code>letra</code>: A letra correta que o jogador deve adivinhar (neste caso, &#39;S&#39;).</p>
+<p>    - Três estados são definidos:</p>
+<p>      - <code>situacao</code>: Para rastrear o estado atual do boneco da forca.</p>
+<p>      - <code>palpite</code>: Para armazenar o palpite do jogador.</p>
+<p>      - <code>mensagem</code>: Para exibir uma mensagem de acerto ou erro.</p>
+<p>      - <code>fimDeJogo</code>: Para indicar se o jogo terminou.</p>
+<p>4. <strong>Funções</strong></p>
+<p>    - <code>validarPalpite</code>: Valida o palpite do jogador. Se o palpite estiver correto, o jogador vence; caso contrário, o boneco da forca é atualizado. Se o boneco atingir a última imagem, o jogador perde.</p>
+<p>    - <code>novo</code>: Reinicia o jogo, resetando todos os estados.</p>
+<p>5. <strong>Renderização</strong></p>
+<p>    - O componente <code>View</code> principal contém o layout do jogo.</p>
+<p>    - O componente <code>Text</code> exibe a mensagem de acerto ou erro.</p>
+<p>    - O componente <code>Image</code> exibe a imagem correspondente ao estado atual do jogo.</p>
+<p>    - O componente <code>TextInput</code> permite que o jogador insira uma letra.</p>
+<p>    - Os componentes <code>Pressable</code> são usados para os botões de tentativa e novo jogo.</p>
+<h2 is-upgraded><strong>Estilo</strong></h2>
+<p>Os estilos são definidos no objeto <code>styles</code> usando <code>StyleSheet.create</code> para configurar a aparência dos componentes, incluindo layout, cores, tamanhos e alinhamento.</p>
+<h2 is-upgraded><strong>Funcionamento do Jogo</strong></h2>
+<p>- O jogador insere uma letra no <code>TextInput</code> e pressiona o botão &#34;<code>Tentativa</code>&#34;.</p>
+<p>- A função <code>validarPalpite</code> é chamada para verificar se a letra está correta.</p>
+<p>  - Se correta, a mensagem &#34;acertou&#34; é exibida e o jogo termina.</p>
+<p>  - Se incorreta e o jogador ainda tiver tentativas, o estado do boneco da forca é atualizado.</p>
+<p>  - Se todas as tentativas forem usadas, a mensagem &#34;perdeu&#34; é exibida e o jogo termina.</p>
+<p>- O botão &#34;<code>Novo jogo</code>&#34; reinicia o jogo.</p>
+<p>Esse código oferece uma implementação simples e funcional do jogo da forca, fácil de entender e estender para adicionar mais funcionalidades, como adivinhar palavras completas ou alterar a letra correta dinamicamente.</p>
+</aside>
+<h2 is-upgraded><strong>Renderização condicional</strong></h2>
+<aside class="special"><p>Referência: https://react.dev/learn/conditional-rendering</p>
+</aside>
+<p>A renderização condicional é um recurso que permite exibir ou ocultar componentes. Com o uso do operador condicional ternário (veja a <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators#operador_condicional_tern%C3%A1rio" target="_blank">documentação</a>) podemos construir o seguinte código que exibirá uma mensagem específica conforme o valor da variável <code>isLoggedIn</code></p>
+<pre>import { Text, View, StyleSheet } from &#39;react-native&#39;;
+
+export default function App() {
+  const isLoggedIn = false;
+  return (
+    &lt;View style={styles.container}&gt;
+      {isLoggedIn ? (
+        &lt;Text style={styles.paragraph}&gt;Bem-vindo de volta!&lt;/Text&gt;
+      ) : (
+        &lt;Text style={styles.paragraph}&gt;Por favor, faça o login.&lt;/Text&gt;
+      )}
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: &#39;center&#39;,
+    backgroundColor: &#39;#ecf0f1&#39;,
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: &#39;bold&#39;,
+    textAlign: &#39;center&#39;,
+  },
+});</pre>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V3</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v3" target="_blank">Link Snack</a></p>
+<p>Nesta versão vamos adicionar uma lista de palavras para ser adivinhada pelo usuário.</p>
+<h2 is-upgraded><strong>Projeto Jogo da forca - V4</strong></h2>
+<p><a href="https://snack.expo.dev/@professor-angoti/forca-v4" target="_blank">Link Snack</a></p>
+<p>Na última versão do nosso projeto não vamos adicionar funcionalidades ao jogo. Nós vamos componentizar o código, ou seja, criar componentes para que o código fique melhor organizado.</p>
 
 
       </google-codelab-step>
