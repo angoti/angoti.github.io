@@ -9,7 +9,7 @@
   <title>Curso React Native</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="./codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -1819,20 +1819,12 @@ export default App;</pre>
 <li>Distinguir estado de servidor de estado de cliente e justificar o uso de uma biblioteca de cache de dados remotos.</li>
 </ul>
 <h2 is-upgraded><strong>O</strong> app que perde o carrinho</h2>
-<p>Exemplo que mostra um carrinho de compras ingênuo, com o estado dentro da tela de produtos:</p>
-<pre><code>export default function Produtos({ navigation }) {
-  const [carrinho, setCarrinho] = useState([]);
-  return (
-    &lt;View style={styles.container}&gt;
-      &lt;Text&gt;Itens no carrinho: {carrinho.length}&lt;/Text&gt;
-      &lt;Button title=&#34;Adicionar café&#34; 
-              onPress={() =&gt; setCarrinho([...carrinho, &#39;café&#39;])} /&gt;
-      &lt;Button title=&#34;Ir ao perfil&#34; 
-              onPress={() =&gt; navigation.navigate(&#39;Perfil&#39;)} /&gt;
-    &lt;/View&gt;
-  );
-}</code></pre>
-<p>Experiência: Execute o app e adicione três itens, vá ao perfil, volte — e conte o que aconteceu. </p>
+<p>Exemplo que mostra um carrinho de compras ingênuo, com o estado dentro da tela de produtos. Faça a experiência: execute o <a href="https://snack.expo.dev/@professor-angoti/carrinho-que-esquece" target="_blank">app</a> e adicione um produto, volte para a tela de produtos e adicione outro item e verifique o que aconteceu. </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 180.08px" src="img/6ccb6ab91e1ad915.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 170.78px" src="img/bf6341e5ff57659a.png"></p>
+</td></tr>
+</table>
 <p>Questões:</p>
 <ol type="1" start="1">
 <li>Quem precisa deste dado? (só esta tela? a tela vizinha? o app todo?)</li>
@@ -1978,7 +1970,7 @@ export default function Eventos() {
 <li>despachar (dispatch) tem identidade estável entre renderizações, ou seja, pode ser passado a componentes filhos sem provocar re-renderização, ao contrário de funções recriadas no corpo do componente.</li>
 </ul>
 <h2 is-upgraded><strong>Exercício</strong></h2>
-<aside class="special"><p>Escreva um componente de login com useState para ‘email&#39;, ‘senha&#39;, ‘carregando&#39; e ‘mensagemErro&#39;. Converter para um único useReducer com as ações ‘EDITAR_CAMPO&#39;, ‘ENVIAR&#39;, ‘SUCESSO&#39; e ‘FALHA&#39;.</p>
+<aside class="special"><p>Escreva um componente de login que no lugar de usar useState para ‘email&#39;, ‘senha&#39;, ‘carregando&#39; e ‘mensagemErro&#39;, usa um único useReducer com as ações ‘EDITAR_CAMPO&#39;, ‘ENVIAR&#39;, ‘SUCESSO&#39; e ‘FALHA&#39;.</p>
 </aside>
 <h2 is-upgraded><strong>Implementação de estado global com a Context API</strong></h2>
 <p>A Context API é uma solução nativa do React para compartilhar dados entre componentes sem passar props manualmente em cada nível da árvore (prop drilling). É formada por: createContext() para criar o contexto, Context.Provider para fornecer o valor, e useContext() para consumir.</p>
@@ -2074,24 +2066,9 @@ const { usuario, sair } = useAutenticacao();</pre>
 <li>useMemo no value. Sem ele, cada renderização do provedor cria um objeto novo e todos os consumidores re-renderizam, mesmo que usuario não tenha mudado.</li>
 <li>O preço. Quando o valor do contexto muda, todo componente que consome aquele contexto re-renderiza, não há seleção parcial. Por isso: um contexto por preocupação (autenticação, tema, carrinho), nunca um contexto único com o estado inteiro do app.</li>
 </ul>
-<h2 is-upgraded>E<strong>stado de servidor ≠ Estado de cliente</strong></h2>
-<p>Pergunta: <em>quando você faz fetch e guarda o resultado num useState, o que você tem na mão?</em> Não é estado — é <strong>cache de um dado que pertence ao servidor</strong>. E cache traz problemas que useState não resolve sozinho: quando revalidar, o que mostrar enquanto carrega, o que fazer se duas telas pedirem o mesmo dado, o que exibir sem rede.</p>
-<pre><code>// o padrão manual, que a turma já escreveu dezenas de vezes
-const [dados, setDados] = useState(null);
-const [carregando, setCarregando] = useState(true);
-const [erro, setErro] = useState(null);
-useEffect(() =&gt; {
-  let cancelado = false;
-  fetch(url)
-    .then((r) =&gt; r.json())
-    .then((json) =&gt; { if (!cancelado) { setDados(json); setCarregando(false); } })
-    .catch((e) =&gt; { if (!cancelado) { setErro(e); setCarregando(false); } });
-  return () =&gt; { cancelado = true; };
-}, [url]);</code></pre>
-<p>Observe a variável cancelado: sem ela, uma resposta que chega depois de a tela ser desmontada tenta atualizar um componente que não existe mais e navegar rápido entre telas passa a produzir avisos e, às vezes, dados trocados.</p>
 <h2 is-upgraded><strong>Árvore de decisão </strong></h2>
 <p>O dado precisa sobreviver ao fechar o app?</p>
-<p>├── <strong>sim</strong>  → persistir (encontro 2) + escolher onde ele vive enquanto o app roda</p>
+<p>├── <strong>sim</strong>  → persistir + escolher onde ele vive enquanto o app roda</p>
 <p>└── <strong>não</strong></p>
 <p>    ├── <strong>veio de uma API?</strong> → estado de servidor (cache: useQuery ou padrão manual)</p>
 <p>    └── <strong>é do cliente?</strong></p>
@@ -3094,10 +3071,10 @@ const styles = StyleSheet.create({
     
   </google-codelab>
 
-  <script src="./native-shim.js"></script>
-  <script src="./custom-elements.min.js"></script>
-  <script src="./prettify.js"></script>
-  <script src="./codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
